@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Forum&family=Poppins:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --nbs-accent: #0E7C5A;
+  --ifm-color-primary: #0E7C5A;
+  --ifm-color-primary-dark: #0c6f50;
+  --ifm-color-primary-darker: #0b684b;
+  --ifm-color-primary-darkest: #09563e;
+  --ifm-color-primary-light: #10896370;
+  --ifm-color-primary-light: #10a674;
+  --ifm-color-primary-lighter: #12b47e;
+  --ifm-color-primary-lightest: #1fd196;
+  --ifm-background-color: #FCFBF7;
+  --ifm-font-family-base: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --ifm-heading-font-family: 'Forum', Georgia, serif;
+  --ifm-heading-font-weight: 400;
+  --ifm-footer-background-color: #221F1B;
+  --ifm-footer-color: #D9D3C4;
+  --ifm-footer-link-color: #D9D3C4;
+  --ifm-footer-title-color: #FCFBF7;
+}
+
+/* No pagination controls at the bottom of doc pages */
+.pagination-nav {
+  display: none !important;
+}
+
+/* Highlight the active sidebar item with the accent color */
+.menu__link--active {
+  background: #E4F3EC !important;
+  color: #0E7C5A !important;
+  font-weight: 600;
+}
+
+.navbar__link--active {
+  color: #0E7C5A !important;
+}
