@@ -5,7 +5,7 @@ import {themes as prismThemes} from 'prism-react-renderer';
 const config = {
   title: 'Notes by Sara',
   tagline: 'A personal finance notebook, made public',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/favicon.png',
 
   future: {
     v4: true,
@@ -15,7 +15,7 @@ const config = {
   baseUrl: '/',
 
   // TODO: replace with your GitHub username and repo name before deploying
-  organizationName: 'your-github-username',
+  organizationName: 'Notesbysara',
   projectName: 'notes-by-sara',
 
   onBrokenLinks: 'warn',

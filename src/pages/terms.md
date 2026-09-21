@@ -26,8 +26,10 @@ intended for individual, personal use only and may not be shared.
 ## 3. Content Ownership
 
 All notes and materials on this site remain the intellectual property
-of Notes by Sara. You may not copy, redistribute, republish, or resell
-any content from this site without prior written permission.
+of Notes by Sara. Notes are provided for viewing and personal study
+only, not for redistribution. You may not copy, redistribute,
+republish, or resell any content from this site without prior written
+permission.
 
 ## 4. No Guarantees
 

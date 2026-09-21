@@ -9,8 +9,6 @@ pagination_prev: null
 
 # Time Value of Money
 
-> **View only.** This note is for reading and studying, not for redistribution.
-
 ## Why a rupee today is worth more than a rupee tomorrow
 
 Money available now can be invested to earn a return, so its <dfn>present value</dfn>

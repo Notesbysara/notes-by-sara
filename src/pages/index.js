@@ -33,7 +33,7 @@ function HomepageHeader() {
     <header className={styles.heroBanner}>
       <p className={styles.heroEyebrow}>Hi, I'm Sara</p>
       <Heading as="h1" className={styles.heroTitle}>
-        A finance education, one honest note at a time
+        A finance education, one note at a time
       </Heading>
       <p className={styles.heroSubtitle}>
         I've spent the last few years teaching myself finance, valuation, and
