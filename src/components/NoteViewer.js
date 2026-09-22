@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Layout from '@theme/Layout';
-import { useParams } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import { useAuth } from '../contexts/AuthContext';
 import { supabase } from '../lib/supabaseClient';
 
-export default function NoteViewer() {
-  const { subject, slug } = useParams();
+export default function NoteViewer({ subject, slug }) {
   const { user, loading: authLoading } = useAuth();
   const [note, setNote] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -18,8 +16,8 @@ export default function NoteViewer() {
     supabase
       .from('notes')
       .select('title, description, content')
-      .eq('subject', decodeURIComponent(subject))
-      .eq('slug', decodeURIComponent(slug))
+      .eq('subject', subject)
+      .eq('slug', slug)
       .single()
       .then(({ data, error }) => {
         if (!mounted) return;

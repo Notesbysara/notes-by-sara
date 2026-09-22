@@ -5,13 +5,8 @@ module.exports = function notesRoutesPlugin() {
       const { addRoute } = actions;
       addRoute({
         path: '/notes',
-        component: '@site/src/components/NotesIndex',
-        exact: true,
-      });
-      addRoute({
-        path: '/notes/:subject/:slug',
-        component: '@site/src/components/NoteViewer',
-        exact: true,
+        component: '@site/src/components/NotesRouter',
+        exact: false,
       });
     },
   };
