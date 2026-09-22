@@ -13,6 +13,7 @@ const config = {
 
   url: 'https://notesbysara.org',
   baseUrl: '/',
+  trailingSlash: false,
 
   // TODO: replace with your GitHub username and repo name before deploying
   organizationName: 'Notesbysara',
@@ -25,16 +26,14 @@ const config = {
     locales: ['en'],
   },
 
+  plugins: ['./plugins/notes-routes'],
+
   presets: [
     [
       'classic',
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
-        docs: {
-          routeBasePath: 'docs',
-          sidebarPath: './sidebars.js',
-          editUrl: undefined,
-        },
+        docs: false,
         blog: false,
         theme: {
           customCss: './src/css/custom.css',
@@ -55,16 +54,11 @@ const config = {
       navbar: {
         title: 'Notes by Sara',
         items: [
-          {
-            type: 'docSidebar',
-            sidebarId: 'notesSidebar',
-            position: 'left',
-            label: 'Subjects',
-          },
+          {to: '/notes', label: 'Subjects', position: 'left'},
           {to: '/about', label: 'About', position: 'left'},
           {href: 'mailto:support@notesbysara.org', label: 'Contact', position: 'left'},
           {
-            href: 'https://notesbysara.org/login',
+            to: '/login',
             label: 'Log in',
             position: 'right',
           },
@@ -77,7 +71,7 @@ const config = {
             title: 'Site',
             items: [
               {label: 'About', to: '/about'},
-              {label: 'Subjects', to: '/docs/corporate-finance/time-value-of-money'},
+              {label: 'Subjects', to: '/notes'},
             ],
           },
           {

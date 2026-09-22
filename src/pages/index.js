@@ -41,7 +41,7 @@ function HomepageHeader() {
         anyone studying the same things.
       </p>
       <div className={styles.heroButtons}>
-        <Link className="button button--lg" to="/docs/corporate-finance/time-value-of-money" style={{background: 'var(--nbs-accent)', color: '#FCFBF7', border: 'none', fontWeight: 600}}>
+        <Link className="button button--lg" to="/notes/corporate-finance/time-value-of-money" style={{background: 'var(--nbs-accent)', color: '#FCFBF7', border: 'none', fontWeight: 600}}>
           Start with Corporate Finance
         </Link>
         <Link className="button button--lg button--outline" to="/about" style={{color: '#221F1B', borderColor: '#221F1B', borderWidth: '2px'}}>
@@ -77,7 +77,7 @@ function Subjects() {
       <div className="container">
         <Heading as="h2" className={styles.sectionTitle}>Browse the notebook</Heading>
         <div className={styles.subjectGrid}>
-          <Link to="/docs/corporate-finance/time-value-of-money" className={styles.subjectCardLive}>
+          <Link to="/notes/corporate-finance/time-value-of-money" className={styles.subjectCardLive}>
             <div className={styles.subjectLabel}>Corporate Finance</div>
             <div className={styles.subjectBlurbLive}>Time value of money</div>
           </Link>
