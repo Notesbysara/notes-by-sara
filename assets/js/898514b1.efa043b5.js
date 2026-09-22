@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunknotes_by_sara=self.webpackChunknotes_by_sara||[]).push([["528"],{9187(a){a.exports=JSON.parse('{"tags":[{"label":"corporate-finance","permalink":"/docs/tags/corporate-finance","count":1},{"label":"valuation","permalink":"/docs/tags/valuation","count":1},{"label":"discounting","permalink":"/docs/tags/discounting","count":1}]}')}}]);
