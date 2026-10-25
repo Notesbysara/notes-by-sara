@@ -40,7 +40,7 @@ export default function LoginPage() {
     setMessage(null);
     const { error } = await supabase.auth.signInWithOAuth({
       provider,
-      options: { redirectTo: `${window.location.origin}/notes/corporate-finance/time-value-of-money` },
+      options: { redirectTo: `${window.location.origin}/notes` },
     });
     if (error) setMessage({ type: 'error', text: error.message });
   };
@@ -58,7 +58,7 @@ export default function LoginPage() {
     if (error) {
       setMessage({ type: 'error', text: error.message });
     } else {
-      history.push('/notes/corporate-finance/time-value-of-money');
+      history.push('/notes');
     }
   };
 

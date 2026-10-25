@@ -41,7 +41,7 @@ export default function SignupPage() {
     setMessage(null);
     const { error } = await supabase.auth.signInWithOAuth({
       provider,
-      options: { redirectTo: `${window.location.origin}/notes/corporate-finance/time-value-of-money` },
+      options: { redirectTo: `${window.location.origin}/notes` },
     });
     if (error) setMessage({ type: 'error', text: error.message });
   };

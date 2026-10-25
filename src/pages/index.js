@@ -1,68 +1,122 @@
 import Link from '@docusaurus/Link';
 import Layout from '@theme/Layout';
+import Head from '@docusaurus/Head';
 import Heading from '@theme/Heading';
 import styles from './index.module.css';
 
-const steps = [
-  {n: 1, title: 'Pick a subject', body: "Browse by topic, or search for exactly the concept you're stuck on."},
-  {n: 2, title: 'Read the note', body: 'Written plainly, with worked examples, so it actually sticks before an exam.'},
-  {n: 3, title: 'Come back as it grows', body: 'This is a running notebook. New notes and subjects get added as I write them.'},
+const pillars = [
+  {
+    title: 'A complete path, in order',
+    body: '19 stages and more than 470 topics, arranged so every concept builds on the one before it. You always know what to learn next.',
+  },
+  {
+    title: 'Intuition before formulas',
+    body: 'Each note explains the idea in plain words first, then the formula, with every term defined.',
+  },
+  {
+    title: 'Worked examples throughout',
+    body: 'Real numbers, every step shown, so you can follow the method and repeat it in an exam.',
+  },
+  {
+    title: 'One consistent system',
+    body: 'The same structure, notation and level of detail across every subject, from financial math to quantitative finance.',
+  },
+];
+
+const stages = [
+  {n: 1, name: 'Foundations', live: true},
+  {n: 2, name: 'Personal Finance'},
+  {n: 3, name: 'Financial Statement Analysis'},
+  {n: 4, name: 'Corporate Finance'},
+  {n: 5, name: 'Valuation'},
+  {n: 6, name: 'Investments & Portfolio Theory'},
+  {n: 7, name: 'Equity Markets'},
+  {n: 8, name: 'Fixed Income'},
+  {n: 9, name: 'Derivatives'},
+  {n: 10, name: 'Banking & Institutions'},
+  {n: 11, name: 'Risk Management'},
+  {n: 12, name: 'Quantitative Finance'},
 ];
 
 const faqs = [
   {
     q: 'What is Notes by Sara?',
-    a: "A personal, continuously-updated notebook of finance notes, written by Sara as she studies corporate finance, valuation, and markets. It's free to read and open to anyone studying the same subjects.",
+    a: 'Notes by Sara is a free, structured set of finance notes. It covers finance in 19 stages, from the time value of money and accounting basics to valuation, derivatives, risk and quantitative finance.',
+  },
+  {
+    q: 'Who are the notes for?',
+    a: 'University students, people preparing for finance exams, and anyone who wants to understand how finance works. No finance background is needed to start at Stage 1.',
+  },
+  {
+    q: 'How is this different from asking an AI chatbot?',
+    a: 'A chatbot answers the question you think to ask. Notes by Sara gives you the full path: what to learn, in what order, explained the same way every time, with worked examples you can check.',
+  },
+  {
+    q: 'Are the notes free?',
+    a: 'Yes. Every note on the site is free to read, with no account needed.',
   },
   {
     q: 'Is this financial advice?',
-    a: 'No. Everything here is for learning purposes only and should not be treated as financial, investment, or professional advice.',
+    a: 'No. All content is for education only and is not financial, investment or professional advice.',
   },
   {
-    q: 'How often are new notes added?',
-    a: "There's no fixed schedule. New notes and subjects go up as Sara writes them, alongside her own studying.",
+    q: 'How often are new notes published?',
+    a: 'Notes are published stage by stage. Stage 1 is open now, and later stages follow in order.',
   },
   {
     q: 'Can I suggest a topic?',
-    a: 'Yes. Reach out at support@notesbysara.org with anything you\'d like to see covered.',
+    a: 'Yes. Email support@notesbysara.org with the concept you would like explained.',
   },
 ];
 
-function HomepageHeader() {
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: {'@type': 'Answer', text: f.a},
+  })),
+};
+
+function Hero() {
   return (
     <header className={styles.heroBanner}>
-      <p className={styles.heroEyebrow}>Hi, I'm Sara</p>
+      <p className={styles.heroEyebrow}>Structured finance notes</p>
       <Heading as="h1" className={styles.heroTitle}>
-        A finance education, one note at a time
+        Finance, <span className={styles.heroAccent}>explained in order</span>
       </Heading>
       <p className={styles.heroSubtitle}>
-        I've spent the last few years teaching myself finance, valuation, and
-        markets. This is that notebook, kept up as I keep learning, open for
-        anyone studying the same things.
+        Clear, structured notes that take you from the time value of money to
+        valuation, markets and quantitative finance, with a worked example in
+        every lesson.
       </p>
       <div className={styles.heroButtons}>
-        <Link className="button button--lg" to="/notes/corporate-finance/time-value-of-money" style={{background: 'var(--nbs-accent)', color: '#FCFBF7', border: 'none', fontWeight: 600}}>
-          Start with Corporate Finance
+        <Link className={`button button--lg ${styles.primaryButton}`} to="/notes/foundations/time-value-of-money">
+          Start with Stage 1
         </Link>
-        <Link className="button button--lg button--outline" to="/about" style={{color: '#221F1B', borderColor: '#221F1B', borderWidth: '2px'}}>
-          Why this exists
+        <Link className={`button button--lg button--outline ${styles.secondaryButton}`} to="/notes">
+          See the learning path
         </Link>
       </div>
+      <p className={styles.heroNote}>Free to read. No account needed.</p>
     </header>
   );
 }
 
-function HowItWorks() {
+function Pillars() {
   return (
     <section className={styles.section}>
       <div className="container">
-        <Heading as="h2" className={styles.sectionTitle}>How this notebook works</Heading>
-        <div className={styles.stepsGrid}>
-          {steps.map((s) => (
-            <div key={s.n} className={styles.stepCard}>
-              <div className={styles.stepNumber}>{s.n}</div>
-              <div className={styles.stepTitle}>{s.title}</div>
-              <div className={styles.stepBody}>{s.body}</div>
+        <Heading as="h2" className={styles.sectionTitle}>Why learn with Notes by Sara</Heading>
+        <p className={styles.sectionLead}>
+          AI tools answer single questions. Notes by Sara teaches finance in order.
+        </p>
+        <div className={styles.pillarGrid}>
+          {pillars.map((p) => (
+            <div key={p.title} className={styles.stepCard}>
+              <div className={styles.stepTitle}>{p.title}</div>
+              <div className={styles.stepBody}>{p.body}</div>
             </div>
           ))}
         </div>
@@ -71,21 +125,54 @@ function HowItWorks() {
   );
 }
 
-function Subjects() {
+function LearningPath() {
+  return (
+    <section className={`${styles.section} ${styles.sectionTinted}`}>
+      <div className="container">
+        <Heading as="h2" className={styles.sectionTitle}>The learning path</Heading>
+        <p className={styles.sectionLead}>
+          Start at the foundations and work forward. Each stage opens as its notes are published.
+        </p>
+        <div className={styles.stageGrid}>
+          {stages.map((s) =>
+            s.live ? (
+              <Link key={s.n} to="/notes/foundations/time-value-of-money" className={styles.stageLive}>
+                <span className={styles.stageNumber}>Stage {s.n}</span>
+                <span className={styles.stageName}>{s.name}</span>
+                <span className={styles.stageStatus}>Open now</span>
+              </Link>
+            ) : (
+              <div key={s.n} className={styles.stageSoon}>
+                <span className={styles.stageNumber}>Stage {s.n}</span>
+                <span className={styles.stageName}>{s.name}</span>
+                <span className={styles.stageStatusSoon}>Coming soon</span>
+              </div>
+            ),
+          )}
+        </div>
+        <div className={styles.centerLink}>
+          <Link to="/notes">View all 19 stages</Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function StartHere() {
   return (
     <section className={styles.section}>
       <div className="container">
-        <Heading as="h2" className={styles.sectionTitle}>Browse the notebook</Heading>
-        <div className={styles.subjectGrid}>
-          <Link to="/notes/corporate-finance/time-value-of-money" className={styles.subjectCardLive}>
-            <div className={styles.subjectLabel}>Corporate Finance</div>
-            <div className={styles.subjectBlurbLive}>Time value of money</div>
-          </Link>
-          <div className={styles.subjectCardSoon}>
-            <div className={styles.subjectLabel}>More subjects</div>
-            <div className={styles.subjectBlurbSoon}>Coming as I write them</div>
-          </div>
-        </div>
+        <Heading as="h2" className={styles.sectionTitle}>Start here</Heading>
+        <Link to="/notes/foundations/time-value-of-money" className={styles.featureCard}>
+          <span className={styles.featureEyebrow}>Stage 1 · Foundations</span>
+          <span className={styles.featureTitle}>Time value of money</span>
+          <span className={styles.featureBody}>
+            Why money today is worth more than money tomorrow, how to discount a
+            future cash flow, and how annuities are valued. The idea every other
+            topic in finance is built on.
+          </span>
+          <span className={styles.featureCta}>Read the note →</span>
+        </Link>
       </div>
     </section>
   );
@@ -112,12 +199,16 @@ function FAQ() {
 export default function Home() {
   return (
     <Layout
-      title="Notes by Sara"
-      description="A personal, continuously-updated finance notebook covering corporate finance, valuation, and markets, explained clearly.">
-      <HomepageHeader />
+      title="Learn Finance From Scratch: Structured Finance Notes"
+      description="Free, structured finance notes in 19 stages, from the time value of money to valuation, markets and quantitative finance, with worked examples in every lesson.">
+      <Head>
+        <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
+      </Head>
+      <Hero />
       <main>
-        <HowItWorks />
-        <Subjects />
+        <Pillars />
+        <LearningPath />
+        <StartHere />
         <FAQ />
       </main>
     </Layout>
