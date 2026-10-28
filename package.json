@@ -11,12 +11,15 @@
     "clear": "docusaurus clear",
     "serve": "docusaurus serve",
     "write-translations": "docusaurus write-translations",
-    "write-heading-ids": "docusaurus write-heading-ids"
+    "write-heading-ids": "docusaurus write-heading-ids",
+    "validate:dictionary": "node scripts/validate-dictionary.js"
   },
   "dependencies": {
     "@docusaurus/core": "3.10.2",
     "@docusaurus/faster": "3.10.2",
     "@docusaurus/preset-classic": "3.10.2",
+    "@fontsource/forum": "^5.3.0",
+    "@fontsource/poppins": "^5.3.0",
     "@mdx-js/react": "^3.0.0",
     "@supabase/supabase-js": "^2.45.0",
     "clsx": "^2.0.0",

@@ -20,9 +20,8 @@ advice.
 
 ## 2. Accounts
 
-Notes on this site are free to read without an account. If you
-create an account, it is intended for individual, personal use only
-and may not be shared.
+You must create an account to view notes on this site. Accounts are
+intended for individual, personal use only and may not be shared.
 
 ## 3. Content Ownership
 

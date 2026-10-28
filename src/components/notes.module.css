@@ -1,0 +1,142 @@
+.wrapper {
+  display: flex;
+}
+
+.sidebar {
+  width: 260px;
+  flex-shrink: 0;
+  padding: 2.5rem 1.5rem 2rem 3rem;
+  border-right: 1px solid #EAE4D6;
+}
+
+.sidebarLabel {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #8A8378;
+  text-transform: uppercase;
+  margin-bottom: 1.1rem;
+}
+
+.subjectGroup {
+  margin-bottom: 1.4rem;
+}
+
+.subjectTitle {
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 0.4rem 0;
+}
+
+.noteLink {
+  display: block;
+  font-size: 0.85rem;
+  padding: 0.5rem 0.7rem;
+  border-radius: 8px;
+  margin-left: 0.4rem;
+  color: #4A453D;
+  text-decoration: none;
+}
+
+.noteLink:hover {
+  background: #F1EEE6;
+  color: #221F1B;
+  text-decoration: none;
+}
+
+.noteLinkActive {
+  background: #E4F3EC;
+  color: #0E7C5A !important;
+  font-weight: 600;
+}
+
+.main {
+  flex-grow: 1;
+  padding: 3rem 4rem;
+  max-width: 860px;
+  box-sizing: border-box;
+}
+
+.pageTitle {
+  font-family: 'Forum', Georgia, serif;
+  font-weight: 400;
+  font-size: 2rem;
+  margin: 0 0 1.75rem;
+}
+
+.cardGrid {
+  display: grid;
+  gap: 1rem;
+}
+
+.card {
+  display: block;
+  background: #FFFFFF;
+  border: 1px solid #EAE4D6;
+  border-radius: 14px;
+  padding: 1.3rem 1.5rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.card:hover {
+  border-color: #0E7C5A;
+  text-decoration: none;
+  color: inherit;
+}
+
+.cardTitle {
+  font-family: 'Forum', Georgia, serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+
+.cardDescription {
+  font-size: 0.85rem;
+  color: #8A8378;
+}
+
+.subjectSectionTitle {
+  font-family: 'Forum', Georgia, serif;
+  font-weight: 400;
+  font-size: 1.15rem;
+  margin: 1.75rem 0 0.75rem;
+}
+
+.subjectSectionTitle:first-child {
+  margin-top: 0;
+}
+
+.article h1 {
+  font-family: 'Forum', Georgia, serif;
+  font-weight: 400;
+}
+
+.article h2 {
+  font-family: 'Forum', Georgia, serif;
+  font-weight: 400;
+  font-size: 1.3rem;
+  margin-top: 2rem;
+}
+
+.article p,
+.article li {
+  font-size: 0.95rem;
+  line-height: 1.85;
+  color: #33302A;
+}
+
+.article blockquote {
+  border-left: 3px solid #0E7C5A;
+  margin: 1.25rem 0;
+  padding: 0.5rem 0 0.5rem 1.25rem;
+  color: #4A453D;
+  background: #FAF8F3;
+  border-radius: 0 8px 8px 0;
+}
+
+.stateText {
+  color: #8A8378;
+  font-size: 0.9rem;
+}

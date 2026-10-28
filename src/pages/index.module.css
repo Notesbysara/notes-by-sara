@@ -1,19 +1,19 @@
 .heroBanner {
   background: #FCFBF7;
-  color: #1F2A26;
+  color: #221F1B;
   padding: 6rem 2rem 4.5rem;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1.1rem;
-  border-bottom: 1px solid #E6E1D5;
+  border-bottom: 1px solid #EAE4D6;
 }
 
 .heroEyebrow {
   color: var(--nbs-accent);
   font-size: 0.85rem;
-  font-weight: 500;
+  font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   margin: 0;
@@ -22,14 +22,13 @@
 .heroTitle {
   font-family: 'Forum', Georgia, serif;
   font-weight: 400;
-  font-size: 3.25rem;
-  line-height: 1.15;
+  font-size: 3rem;
   max-width: 780px;
   margin: 0;
 }
 
 .heroSubtitle {
-  color: #5E6863;
+  color: #5C564C;
   max-width: 560px;
   font-size: 1.05rem;
   line-height: 1.65;
@@ -64,7 +63,7 @@
 
 .stepCard {
   background: var(--ifm-background-surface-color, #fff);
-  border: 1px solid #E6E1D5;
+  border: 1px solid #EAE4D6;
   border-radius: 16px;
   padding: 1.75rem;
 }
@@ -73,7 +72,7 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: #EAF4EF;
+  background: #E4F3EC;
   color: var(--nbs-accent);
   display: flex;
   align-items: center;
@@ -84,30 +83,78 @@
 }
 
 .stepTitle {
-  font-weight: 500;
+  font-weight: 700;
   font-size: 1.05rem;
   margin-bottom: 0.5rem;
 }
 
 .stepBody {
   font-size: 0.9rem;
-  color: #7A847F;
+  color: #8A8378;
   line-height: 1.6;
+}
+
+.subjectGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+@media (max-width: 900px) {
+  .stepsGrid, .subjectGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.subjectCardLive {
+  display: block;
+  background: var(--nbs-accent);
+  border-radius: 16px;
+  padding: 1.75rem;
+  color: #FCFBF7 !important;
+  text-decoration: none;
+}
+
+.subjectCardLive:hover {
+  text-decoration: none;
+  opacity: 0.92;
+}
+
+.subjectCardSoon {
+  background: #F1EEE6;
+  border-radius: 16px;
+  padding: 1.75rem;
+  color: #B0A996;
+}
+
+.subjectLabel {
+  font-weight: 700;
+  font-size: 1.15rem;
+  margin-bottom: 0.35rem;
+}
+
+.subjectBlurbLive {
+  font-size: 0.85rem;
+  opacity: 0.85;
+}
+
+.subjectBlurbSoon {
+  font-size: 0.85rem;
 }
 
 .faqList {
   max-width: 760px;
   margin: 0 auto;
-  border-top: 1px solid #E6E1D5;
+  border-top: 1px solid #EAE4D6;
 }
 
 .faqItem {
-  border-bottom: 1px solid #E6E1D5;
+  border-bottom: 1px solid #EAE4D6;
   padding: 1.1rem 0;
 }
 
 .faqQuestion {
-  font-weight: 500;
+  font-weight: 600;
   font-size: 1rem;
   cursor: pointer;
   list-style: none;
@@ -119,148 +166,7 @@
 
 .faqAnswer {
   font-size: 0.92rem;
-  color: #5E6863;
+  color: #5C564C;
   line-height: 1.7;
   margin: 0.75rem 0 0;
 }
-
-/* ── Buttons ─────────────────────────────── */
-.primaryButton {
-  background: var(--nbs-accent);
-  color: #FCFBF7 !important;
-  border: none;
-  font-weight: 500;
-}
-.primaryButton:hover { background: #0b684b; }
-.secondaryButton {
-  color: var(--nbs-accent) !important;
-  border: 1.5px solid var(--nbs-accent) !important;
-  background: transparent;
-  font-weight: 500;
-}
-.secondaryButton:hover { background: #EAF4EF; }
-.heroNote {
-  margin: 0;
-  font-size: 0.85rem;
-  color: #7A847F;
-}
-
-/* ── Section helpers ─────────────────────── */
-.sectionTinted {
-  background: #F4F7F4;
-  border-top: 1px solid #E6E1D5;
-  border-bottom: 1px solid #E6E1D5;
-}
-.sectionLead {
-  text-align: center;
-  color: #5E6863;
-  max-width: 620px;
-  margin: -0.75rem auto 2rem;
-  line-height: 1.65;
-}
-.centerLink {
-  text-align: center;
-  margin-top: 1.75rem;
-  font-weight: 500;
-}
-
-/* ── Why cards ───────────────────────────── */
-.pillarGrid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.25rem;
-}
-
-/* ── Learning path grid ──────────────────── */
-.stageGrid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0.9rem;
-}
-.stageLive, .stageSoon {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-  border-radius: 12px;
-  padding: 1.1rem 1.2rem;
-}
-.stageLive {
-  background: var(--nbs-accent);
-  color: #FCFBF7 !important;
-  text-decoration: none !important;
-}
-.stageLive:hover { opacity: 0.92; }
-.stageSoon {
-  background: #FCFBF7;
-  border: 1px solid #E6E1D5;
-}
-.stageNumber {
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  opacity: 0.75;
-}
-.stageName {
-  font-weight: 500;
-  font-size: 0.98rem;
-  line-height: 1.35;
-}
-.stageStatus, .stageStatusSoon {
-  font-size: 0.78rem;
-  margin-top: 0.2rem;
-}
-.stageStatusSoon { color: #7A847F; }
-
-/* ── Featured note ───────────────────────── */
-.featureCard {
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-  max-width: 760px;
-  margin: 0 auto;
-  padding: 2rem 2.25rem;
-  background: #fff;
-  border: 1px solid #E6E1D5;
-  border-left: 4px solid var(--nbs-accent);
-  border-radius: 16px;
-  color: #1F2A26 !important;
-  text-decoration: none !important;
-  transition: box-shadow 0.15s ease;
-}
-.featureCard:hover { box-shadow: 0 6px 24px rgba(34, 31, 27, 0.08); }
-.featureEyebrow {
-  color: var(--nbs-accent);
-  font-size: 0.78rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-.featureTitle {
-  font-family: 'Forum', Georgia, serif;
-  font-size: 1.8rem;
-}
-.featureBody {
-  color: #5E6863;
-  line-height: 1.7;
-}
-.featureCta {
-  color: var(--nbs-accent);
-  font-weight: 500;
-}
-
-@media (max-width: 996px) {
-  .pillarGrid, .stageGrid { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 600px) {
-  .heroBanner { padding: 4rem 1rem 3rem; }
-  .heroTitle { font-size: 2.3rem; }
-  .pillarGrid { grid-template-columns: 1fr; }
-  .stageGrid { grid-template-columns: 1fr 1fr; gap: 0.6rem; }
-  .featureCard { padding: 1.5rem; }
-}
-
-/* Colour carries the emphasis instead of bold */
-.heroAccent { color: var(--nbs-accent); }
-.stepTitle { color: var(--nbs-accent); }
-.featureCard { background: #fff; }

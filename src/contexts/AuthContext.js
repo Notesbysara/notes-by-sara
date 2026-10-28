@@ -1,5 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { supabase } from '../lib/supabaseClient';
+// The Supabase client is loaded after the page appears (dynamic import), so it
+// does not slow down first paint on public pages like the dictionary.
+const loadSupabase = () => import('../lib/supabaseClient').then((m) => m.supabase);
 
 const AuthContext = createContext({ user: null, loading: true, signOut: () => {} });
 
@@ -9,25 +11,32 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     let mounted = true;
+    let unsubscribe = () => {};
 
-    supabase.auth.getSession().then(({ data }) => {
+    loadSupabase().then((supabase) => {
       if (!mounted) return;
-      setUser(data.session?.user ?? null);
-      setLoading(false);
-    });
 
-    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
-      setLoading(false);
+      supabase.auth.getSession().then(({ data }) => {
+        if (!mounted) return;
+        setUser(data.session?.user ?? null);
+        setLoading(false);
+      });
+
+      const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
+        setUser(session?.user ?? null);
+        setLoading(false);
+      });
+      unsubscribe = () => listener.subscription.unsubscribe();
     });
 
     return () => {
       mounted = false;
-      listener.subscription.unsubscribe();
+      unsubscribe();
     };
   }, []);
 
   const signOut = async () => {
+    const supabase = await loadSupabase();
     await supabase.auth.signOut();
   };
 
