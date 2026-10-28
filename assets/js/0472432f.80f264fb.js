@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunknotes_by_sara=self.webpackChunknotes_by_sara||[]).push([["98320"],{20801(e){e.exports=JSON.parse('{"name":"dictionary-plugin","id":"default"}')}}]);

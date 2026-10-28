@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunknotes_by_sara=self.webpackChunknotes_by_sara||[]).push([["35229"],{5067(e){e.exports=JSON.parse('{"name":"notes-routes-plugin","id":"default"}')}}]);
