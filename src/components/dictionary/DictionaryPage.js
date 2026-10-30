@@ -13,7 +13,7 @@ import {useSavedTerms} from '../../lib/savedTerms';
 const PAGE_SIZE = 30;
 const LEVELS = ['All', 'Beginner', 'Intermediate', 'Advanced'];
 const LETTERS = ['#', ...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')];
-const INTRO = 'Clear, plain-English explanations of 1,500 finance terms.';
+const introFor = (count) => `Clear, plain-English explanations of ${count.toLocaleString('en-US')} finance terms.`;
 
 function readUrl() {
   const p = new URLSearchParams(window.location.search);
@@ -29,6 +29,7 @@ function readUrl() {
 
 export default function DictionaryPage({terms}) {
   const {siteConfig} = useDocusaurusContext();
+  const INTRO = introFor(terms.length);
   const history = useHistory();
   const searchRef = useRef(null);
   const ready = useRef(false);
@@ -146,7 +147,7 @@ export default function DictionaryPage({terms}) {
   return (
     <Layout
       title="Financial Dictionary"
-      description="Clear, plain-English explanations of 1,500 finance terms, from NPV and P/E ratio to share buybacks and working capital.">
+      description={`${INTRO.replace(/\.$/, '')}, from NPV and P/E ratio to share buybacks and working capital.`}>
       <Head>
         <meta property="og:type" content="website" />
         <script type="application/ld+json">{JSON.stringify(jsonLd).replace(/</g, '\\u003c')}</script>
