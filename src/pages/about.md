@@ -1,33 +1,35 @@
 ---
 title: About Notes by Sara
-description: Notes by Sara is a structured, free set of finance notes written by Sara, who works in quantitative finance. Learn why it exists and how the notes are written.
+description: "Why I built Notes by Sara: organised finance notes for beginners that show the working behind every answer, written from a student's point of view."
 ---
 
-# About Notes by Sara
+# Hi, I am Sara
 
-Notes by Sara is a structured set of finance notes, written to make finance clear enough to understand and remember.
+I built this site because I needed it.
 
-## Why it exists
+I grew up learning the way exams reward: memorise it, repeat it, move on. It got me through tests. It did not help when I had to use an idea in real life, because I had memorised the answer without ever understanding the working behind it.
 
-Finance is usually learned in pieces: a textbook chapter here, a lecture there, a search result when something doesn't make sense. Those pieces rarely fit together, and they're rarely explained the same way twice.
+Memorising is not the problem. Memorising without understanding is. An idea that connects to nothing you already know fades fast, and your brain is right to drop it. After years of cramming, I felt tired and forgetful, in a field where I want to be sharp.
 
-Notes by Sara puts finance in one place, in order. The site follows a single path of 19 stages, from the time value of money and accounting basics to valuation, fixed income, derivatives, risk and quantitative finance. Each stage builds on the one before it.
+AI made it harder for me. I kept asking it for basic answers, so I held less in my head and had less to think with. AI is not the enemy, but I needed to build the understanding first.
 
-## How the notes are written
+Reading was never the hard part. What matters comes after: understanding it, remembering it, using it, and following through. That is what these notes are for.
 
-Every note follows the same approach:
+## What I wanted
 
-- **The idea first.** What the concept means and why it matters, in plain words.
-- **Then the formula.** Every term defined, nothing assumed.
-- **Then a worked example.** Real numbers, each step shown.
-- **Then the common mistakes.** What students most often get wrong in exams.
+Organised notes for someone just starting out in finance, showing the working behind every answer. I write them from the point of view of the student I was and I am still adding to them.
 
-## About Sara
+## How it works
 
-I work in quantitative finance. I started these notes because the clearest way to understand a concept is to explain it well enough for someone else to follow. Notes by Sara is that explanation, written down and organised for anyone learning the same material.
+One path of 9 different subjects, from the time value of money to derivatives. Each topic builds on the one before. Every note follows the same four steps:
+
+* **The idea first.** What it means and why it matters, in plain words.
+* **Then the formula.** Every term defined, nothing assumed.
+* **Then a worked example.** Real numbers, each step shown.
+* **Then the common mistakes.** What students most often get wrong in exams.
 
 ## Corrections and requests
 
-Accuracy matters. If you find a mistake, or want a topic explained, email [support@notesbysara.org](mailto:support@notesbysara.org).
+I am one person, so mistakes will happen. I would rather be told than stay quietly wrong. If you find an error, or want a topic explained, email [support@notesbysara.org](mailto:support@notesbysara.org).
 
-*Everything on this site is for education only and is not financial, investment or professional advice.*
+Everything on this site is for education only and is not financial, investment or professional advice.

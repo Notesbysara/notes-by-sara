@@ -6,8 +6,8 @@ import styles from './index.module.css';
 
 const pillars = [
   {
-    title: 'A complete path, in order',
-    body: '19 stages and more than 470 topics, arranged so every concept builds on the one before it. You always know what to learn next.',
+    title: 'One path, in order',
+    body: 'Nine subjects, arranged so every concept builds on the one before it. You always know what to learn next.',
   },
   {
     title: 'Intuition before formulas',
@@ -19,33 +19,30 @@ const pillars = [
   },
   {
     title: 'One consistent system',
-    body: 'The same structure, notation and level of detail across every subject, from financial math to quantitative finance.',
+    body: 'The same structure, notation and level of detail across every subject, from financial math to derivatives.',
   },
 ];
 
-const stages = [
-  {n: 1, name: 'Foundations', live: true},
-  {n: 2, name: 'Personal Finance'},
-  {n: 3, name: 'Financial Statement Analysis'},
-  {n: 4, name: 'Corporate Finance'},
-  {n: 5, name: 'Valuation'},
-  {n: 6, name: 'Investments & Portfolio Theory'},
-  {n: 7, name: 'Equity Markets'},
-  {n: 8, name: 'Fixed Income'},
-  {n: 9, name: 'Derivatives'},
-  {n: 10, name: 'Banking & Institutions'},
-  {n: 11, name: 'Risk Management'},
-  {n: 12, name: 'Quantitative Finance'},
+const subjects = [
+  {name: 'Foundations', live: true},
+  {name: 'Personal Finance'},
+  {name: 'Financial Statement Analysis'},
+  {name: 'Corporate Finance'},
+  {name: 'Valuation'},
+  {name: 'Investments & Portfolio Theory'},
+  {name: 'Equity Markets'},
+  {name: 'Fixed Income'},
+  {name: 'Derivatives'},
 ];
 
 const faqs = [
   {
     q: 'What is Notes by Sara?',
-    a: 'Notes by Sara is a free, structured set of finance notes. It covers finance in 19 stages, from the time value of money and accounting basics to valuation, derivatives, risk and quantitative finance.',
+    a: 'Notes by Sara is a free, structured set of finance notes. It covers finance in nine subjects, from the time value of money and accounting basics to valuation, fixed income and derivatives.',
   },
   {
     q: 'Who are the notes for?',
-    a: 'University students, people preparing for finance exams, and anyone who wants to understand how finance works. No finance background is needed to start at Stage 1.',
+    a: 'University students, people preparing for finance exams, and anyone who wants to understand how finance works. No finance background is needed to start with Foundations.',
   },
   {
     q: 'How is this different from asking an AI chatbot?',
@@ -61,7 +58,7 @@ const faqs = [
   },
   {
     q: 'How often are new notes published?',
-    a: 'Notes are published stage by stage. Stage 1 is open now, and later stages follow in order.',
+    a: 'Notes are published subject by subject. Foundations is open now, and the other subjects follow in order.',
   },
   {
     q: 'Can I suggest a topic?',
@@ -88,12 +85,12 @@ function Hero() {
       </Heading>
       <p className={styles.heroSubtitle}>
         Clear, structured notes that take you from the time value of money to
-        valuation, markets and quantitative finance, with a worked example in
+        valuation, markets and derivatives, with a worked example in
         every lesson.
       </p>
       <div className={styles.heroButtons}>
         <Link className={`button button--lg ${styles.primaryButton}`} to="/notes/foundations/time-value-of-money">
-          Start with Stage 1
+          Start with Foundations
         </Link>
         <Link className={`button button--lg button--outline ${styles.secondaryButton}`} to="/notes">
           See the learning path
@@ -131,19 +128,17 @@ function LearningPath() {
       <div className="container">
         <Heading as="h2" className={styles.sectionTitle}>The learning path</Heading>
         <p className={styles.sectionLead}>
-          Start at the foundations and work forward. Each stage opens as its notes are published.
+          Start at the foundations and work forward. Each subject opens as its notes are published.
         </p>
         <div className={styles.stageGrid}>
-          {stages.map((s) =>
+          {subjects.map((s) =>
             s.live ? (
-              <Link key={s.n} to="/notes/foundations/time-value-of-money" className={styles.stageLive}>
-                <span className={styles.stageNumber}>Stage {s.n}</span>
+              <Link key={s.name} to="/notes/foundations/time-value-of-money" className={styles.stageLive}>
                 <span className={styles.stageName}>{s.name}</span>
                 <span className={styles.stageStatus}>Open now</span>
               </Link>
             ) : (
-              <div key={s.n} className={styles.stageSoon}>
-                <span className={styles.stageNumber}>Stage {s.n}</span>
+              <div key={s.name} className={styles.stageSoon}>
                 <span className={styles.stageName}>{s.name}</span>
                 <span className={styles.stageStatusSoon}>Coming soon</span>
               </div>
@@ -151,7 +146,7 @@ function LearningPath() {
           )}
         </div>
         <div className={styles.centerLink}>
-          <Link to="/notes">View all 19 stages</Link>
+          <Link to="/notes">See the learning path</Link>
         </div>
       </div>
     </section>
@@ -164,7 +159,7 @@ function StartHere() {
       <div className="container">
         <Heading as="h2" className={styles.sectionTitle}>Start here</Heading>
         <Link to="/notes/foundations/time-value-of-money" className={styles.featureCard}>
-          <span className={styles.featureEyebrow}>Stage 1 · Foundations</span>
+          <span className={styles.featureEyebrow}>Foundations</span>
           <span className={styles.featureTitle}>Time value of money</span>
           <span className={styles.featureBody}>
             Why money today is worth more than money tomorrow, how to discount a
@@ -200,7 +195,7 @@ export default function Home() {
   return (
     <Layout
       title="Learn Finance From Scratch: Structured Finance Notes"
-      description="Free, structured finance notes in 19 stages, from the time value of money to valuation, markets and quantitative finance, with worked examples in every lesson.">
+      description="Free, structured finance notes in nine subjects, from the time value of money to valuation, markets and derivatives, with worked examples in every lesson.">
       <Head>
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Head>
