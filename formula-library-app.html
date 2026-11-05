@@ -1,4 +1,6 @@
-<title>Foundations Formula Database</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Formula Library</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Forum&family=Poppins:wght@400;500;600&display=swap">
 <style>
@@ -48,20 +50,51 @@ td:first-child{font-weight:600;white-space:nowrap}
 .note b{color:var(--fg)}
 .note ul{margin:6px 0 0;padding-left:20px}
 mjx-container,math{font-size:1.05em}
+body{padding-block:0 60px;padding-inline:0}
+.layout{display:flex;align-items:flex-start;max-width:1240px;margin:0 auto}
+.side{width:290px;flex:none;position:sticky;top:0;height:100vh;overflow-y:auto;padding:22px 14px 28px 16px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:2px}
+.side .lbl{font-size:11px;letter-spacing:.1em;font-weight:600;color:var(--mut);padding:0 12px 8px}
+.side button{all:unset;box-sizing:border-box;width:100%;display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 12px;border-radius:8px;cursor:pointer;font-size:14px;line-height:1.35;color:var(--fg)}
+.side button:hover{background:var(--accbg)}
+.side button:focus-visible{outline:2px solid var(--acc);outline-offset:-2px}
+.side button b{font-weight:400;font-size:12px;color:var(--mut);flex:none}
+.side .g{font-weight:600;margin-top:4px}
+.side .s{padding-left:28px;font-size:13.5px}
+.side button[aria-pressed=true]{background:var(--acc);color:var(--bg)}
+.side button[aria-pressed=true] b{color:var(--bg);opacity:.85}
+.side .sidetoggle{display:none}
+main.wrap{flex:1;min-width:0;max-width:820px;margin:0 auto;padding:24px 24px 0}
+.bar{position:static;padding:0}
+@media (max-width:820px){
+ .layout{flex-direction:column;align-items:stretch}
+ .side{position:static;width:100%;height:auto;max-height:none;border-right:0;border-bottom:1px solid var(--line);padding:12px 16px}
+ .side .sidetoggle{display:flex;border:1px solid var(--line);background:var(--card)}
+ .side nav{display:none;flex-direction:column;gap:2px;margin-top:8px}
+ .side.show nav{display:flex}
+ main.wrap{padding:20px 16px 0}
+}
+@media (min-width:821px){.side nav{display:flex;flex-direction:column;gap:2px}}
 </style>
-<div class="wrap">
- <div>
-  <h1>Foundations formula database</h1>
- </div>
- <div class="bar">
-  <input type="search" id="q" placeholder="Search by name, nickname, or what you want to find" aria-label="Search formulas">
-  <div class="chips" id="schips"></div>
-  <div class="chips" id="chips"></div>
-  <div class="count" id="count"></div>
- </div>
- <div id="list" style="display:flex;flex-direction:column;gap:12px"></div>
- <div class="note" id="note"></div>
- <p class="foot" id="unc"></p>
+<div class="layout">
+ <aside class="side" id="side">
+  <button class="sidetoggle" id="sidetoggle" aria-expanded="false"><span>Browse subjects</span><b>&#9662;</b></button>
+  <nav id="nav" aria-label="Subjects"></nav>
+ </aside>
+ <main class="wrap">
+  <div>
+   <h1>Formula Library</h1>
+   <p class="sub" id="lead"></p>
+  </div>
+  <div class="bar">
+   <input type="search" id="q" placeholder="Search by name, nickname, or what you want to find" aria-label="Search formulas">
+   <div class="chips" id="lchips"></div>
+   <div class="chips" id="chips"></div>
+   <div class="count" id="count"></div>
+  </div>
+  <div id="list" style="display:flex;flex-direction:column;gap:12px"></div>
+  <div class="note" id="note"></div>
+  <p class="foot" id="unc"></p>
+ </main>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
 <script>
@@ -70,13 +103,35 @@ const F=DATA.formulas, bySlug={}; F.forEach(f=>bySlug[f.slug]=f);
 const $=id=>document.getElementById(id);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 function tex(l,fallback){try{return window.katex?katex.renderToString(l,{output:'mathml',throwOnError:false,displayMode:false}):esc(fallback)}catch(e){return esc(fallback)}}
-const subjects=['All',...DATA.subjects];
-let subj='All', sec='All', open=new Set();
+const GROUPS=[['Foundations',['Finance Foundations']],['Companies and valuation',['Corporate Finance','Valuation','Financial Statement Analysis','Accounting Mastery & Financial Modeling']],['Markets and instruments',['Investments & Portfolio Theory','Equity Markets','Fixed Income','Derivatives']],['Risk and quantitative methods',['Risk Management','Quantitative Finance','Data, Statistics & Computational Skills','Decision-Making, Risk & Model Limitations']],['Money, banks and the economy',['Economics for Finance','Banking & Financial Institutions','International Finance','Monetary Economics & the Financial System']],['Personal finance',['Personal Finance','Personal Financial Planning']],['Modern finance and practice',['Behavioral Finance','Alternative Investments','Fintech & Digital Finance','Regulation, Ethics & ESG','Practical Skills & Capstone','Advanced Investment Practice']]];
+const cnt={}; F.forEach(f=>cnt[f.subject]=(cnt[f.subject]||0)+1);
+const known=new Set(GROUPS.flatMap(g=>g[1]));
+const extra=Object.keys(cnt).filter(s=>!known.has(s)); if(extra.length) GROUPS.push(['Other',extra]);
+const GS=GROUPS.map(([n,l])=>({n,l:l.filter(s=>cnt[s]),c:l.reduce((a,s)=>a+(cnt[s]||0),0)})).filter(g=>g.l.length);
+let grp=null, subj='All', sec='All', lvl='All', open=new Set(), openG=new Set();
+const inScope=f=>subj!=='All'?f.subject===subj:(grp?GS.find(g=>g.n===grp).l.includes(f.subject):true);
 const secs=()=>subj==='All'?[]:['All',...new Set(F.filter(f=>f.subject===subj).map(f=>f.section))];
+$('lead').textContent=F.length+' formulas. Each has a worked example and a step-by-step calculator.';
 $('note').innerHTML='<b>How each entry is built</b> (your five parts)<ul><li>1. Name and the formula, typeset</li><li>2. What every symbol means, in plain English</li><li>3. When to use it</li><li>4. A worked example with each step</li><li>5. A calculator that shows its working. Its inputs, steps and results are already in the data file. This page shows a preview of the calculator, not the live one.</li></ul><p style="margin:10px 0 0">Extra fields I added so the site and your notes can use them later: ID, section, topic (taken from your curriculum workbook), level, search nicknames, a "finds / needs" line for the future finder, and related formulas. The "Notes link" field is blank for you to fill when you match the notes.</p>';
+
+function nav(){
+ let h='<div class="lbl">SUBJECTS</div><button data-k="all" aria-pressed="'+(!grp&&subj==='All')+'"><span>All formulas</span><b>'+F.length+'</b></button>';
+ GS.forEach(g=>{const o=openG.has(g.n);
+  h+=`<button class="g" data-g="${esc(g.n)}" aria-expanded="${o}" aria-pressed="${grp===g.n&&subj==='All'}"><span>${o?'&#9662;':'&#9656;'} ${esc(g.n)}</span><b>${g.c}</b></button>`;
+  if(o) g.l.forEach(s=>{h+=`<button class="s" data-s="${esc(s)}" aria-pressed="${subj===s}"><span>${esc(s)}</span><b>${cnt[s]}</b></button>`});
+ });
+ $('nav').innerHTML=h;
+ $('nav').querySelector('[data-k]').onclick=()=>{grp=null;subj='All';sec='All';nav();chips();render();closeSide()};
+ $('nav').querySelectorAll('[data-g]').forEach(b=>b.onclick=()=>{const g=b.dataset.g;
+  if(grp===g&&subj==='All'&&openG.has(g)){openG.delete(g)}else{openG.add(g);grp=g;subj='All';sec='All'}
+  nav();chips();render()});
+ $('nav').querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{subj=b.dataset.s;grp=GS.find(g=>g.l.includes(subj)).n;openG.add(grp);sec='All';nav();chips();render();closeSide()});
+}
+function closeSide(){$('side').classList.remove('show');$('sidetoggle').setAttribute('aria-expanded','false')}
+$('sidetoggle').onclick=()=>{const s=$('side').classList.toggle('show');$('sidetoggle').setAttribute('aria-expanded',s)};
 function chips(){
- $('schips').innerHTML=subjects.map(s=>`<button class="chip" aria-pressed="${s===subj}" data-s="${esc(s)}">${esc(s)}</button>`).join('');
- $('schips').querySelectorAll('button').forEach(b=>b.onclick=()=>{subj=b.dataset.s;sec='All';chips();render()});
+ $('lchips').innerHTML=['All','Beginner','Intermediate'].map(s=>`<button class="chip" aria-pressed="${s===lvl}" data-s="${s}">${s==='All'?'All levels':s}</button>`).join('');
+ $('lchips').querySelectorAll('button').forEach(b=>b.onclick=()=>{lvl=b.dataset.s;chips();render()});
  $('chips').innerHTML=secs().map(s=>`<button class="chip" aria-pressed="${s===sec}" data-s="${esc(s)}">${esc(s)}</button>`).join('');
  $('chips').querySelectorAll('button').forEach(b=>b.onclick=()=>{sec=b.dataset.s;chips();render()}) }
 function card(f){
@@ -97,15 +152,15 @@ function card(f){
 }
 function render(){
  const q=$('q').value.trim().toLowerCase();
- const L=F.filter(f=>(subj==='All'||f.subject===subj)&&(sec==='All'||f.section===sec)&&(!q||[f.name,f.subject,f.topic,f.section,f.finder.finds,f.finder.needs,...f.aliases].join(' ').toLowerCase().includes(q)));
+ const L=F.filter(f=>inScope(f)&&(sec==='All'||f.section===sec)&&(lvl==='All'||f.level===lvl)&&(!q||[f.name,f.subject,f.topic,f.section,f.finder.finds,f.finder.needs,...f.aliases].join(' ').toLowerCase().includes(q)));
  $('count').textContent=L.length+' of '+F.length+' shown';
  $('list').innerHTML=L.length?L.map(card).join(''):'<p class="sub">Nothing matches. Try a shorter word.</p>';
  $('list').querySelectorAll('.item>button').forEach(b=>b.onclick=()=>{const s=b.dataset.s;open.has(s)?open.delete(s):open.add(s);render()});
- $('list').querySelectorAll('[data-go]').forEach(a=>a.onclick=()=>{subj='All';sec='All';$('q').value='';chips();open.add(a.dataset.go);render();const e=$('f-'+a.dataset.go);e&&e.scrollIntoView({block:'start'})});
+ $('list').querySelectorAll('[data-go]').forEach(a=>a.onclick=()=>{grp=null;subj='All';sec='All';lvl='All';$('q').value='';nav();chips();open.add(a.dataset.go);render();const e=$('f-'+a.dataset.go);e&&e.scrollIntoView({block:'start'})});
 }
-$('q').oninput=()=>render(); chips();
+$('q').oninput=()=>render(); nav(); chips();
 function foot(){
- const U=DATA.topics_without_formula.filter(u=>subj==='All'||u.subject===subj);
+ const U=DATA.topics_without_formula.filter(u=>subj!=='All'?u.subject===subj:(grp?GS.find(g=>g.n===grp).l.includes(u.subject):true));
  const by={}; U.forEach(u=>(by[u.subject]=by[u.subject]||[]).push(u.topic));
  $('unc').innerHTML='<b>Footnote: topics with no formula ('+U.length+').</b> These are concepts, not calculations. Tell me if you want a formula added for any of them.'+Object.keys(by).map(k=>'<br><b>'+esc(k)+':</b> '+by[k].map(esc).join('; ')+'.').join('');
 }
