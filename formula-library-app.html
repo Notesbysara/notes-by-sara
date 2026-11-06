@@ -4,9 +4,9 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Forum&family=Poppins:wght@400;500;600&display=swap">
 <style>
-:root{--bg:#F4F7F4;--card:#FFFFFF;--fg:#1F2A26;--mut:#44524C;--line:#DDE5E0;--acc:#0A5C43;--accbg:#E3F1EA;--gold:#F2C35B;--warn:#8A5A00}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#101815;--card:#18221E;--fg:#E8EFEB;--mut:#A9B8B0;--line:#2B3A34;--acc:#5FC9A0;--accbg:#1E3329;--gold:#F2C35B;--warn:#F2C35B;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#101815;--card:#18221E;--fg:#E8EFEB;--mut:#A9B8B0;--line:#2B3A34;--acc:#5FC9A0;--accbg:#1E3329;--gold:#F2C35B;--warn:#F2C35B;color-scheme:dark}
+:root{--bg:#FFFFFF;--card:#FFFFFF;--tint:#F4F7F5;--hero:#0E7C5A;--fg:#17231E;--mut:#44524C;--line:#DDE5E0;--acc:#0E7C5A;--accbg:#E3F1EA;--gold:#F2C35B;--warn:#8A5A00}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#101815;--card:#18221E;--tint:#18221E;--hero:#0A5C43;--fg:#E8EFEB;--mut:#A9B8B0;--line:#2B3A34;--acc:#5FC9A0;--accbg:#1E3329;--gold:#F2C35B;--warn:#F2C35B;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#101815;--card:#18221E;--tint:#18221E;--hero:#0A5C43;--fg:#E8EFEB;--mut:#A9B8B0;--line:#2B3A34;--acc:#5FC9A0;--accbg:#1E3329;--gold:#F2C35B;--warn:#F2C35B;color-scheme:dark}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--fg);font-family:'Poppins',system-ui,sans-serif;font-size:15px;line-height:1.6;padding-inline:max(16px,env(safe-area-inset-left,0px)) max(16px,env(safe-area-inset-right,0px));padding-block:24px 60px}
 .wrap{max-width:900px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
@@ -95,19 +95,32 @@ main.wrap{flex:1;min-width:0;max-width:820px;margin:0 auto;padding:24px 24px 0}
 .cr{font:inherit;font-size:13px;padding:8px 14px;border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:6px;cursor:pointer}
 .cr:hover{background:var(--accbg)}
 .body>div{min-width:0}.ex code{overflow-wrap:anywhere}.body .meta span{min-width:0;overflow-wrap:anywhere}
+.hero{background:var(--hero);color:#fff;padding:44px max(16px,env(safe-area-inset-left,0px)) 40px}
+.heroin{max-width:900px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+.hero h1{color:#fff;font-size:48px}
+.hero .rule{width:64px;height:3px;background:var(--gold)}
+.hero .sub{color:#EEFAF5;font-size:18px}
+.hero input[type=search]{height:56px;border:0;border-radius:10px;font-size:16px;margin-top:10px;background:#fff;color:#17231E}
+.hero input[type=search]::placeholder{color:#4F625A}
+.hero input[type=search]:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.item,.note{background:var(--tint)}
+.side{border-right:0}
+.chip b{font-weight:400;opacity:.8;margin-left:6px}
+@media (max-width:600px){.hero{padding:28px 16px}.hero h1{font-size:36px}.hero .sub{font-size:16px}}
 </style>
+<header class="hero"><div class="heroin">
+ <h1>Formula Library</h1>
+ <div class="rule"></div>
+ <p class="sub" id="lead"></p>
+ <input type="search" id="q" placeholder="Search by name, nickname, or what you want to find" aria-label="Search formulas">
+</div></header>
 <div class="layout">
  <aside class="side" id="side">
   <button class="sidetoggle" id="sidetoggle" aria-expanded="false"><span>Browse subjects</span><b>&#9662;</b></button>
   <nav id="nav" aria-label="Subjects"></nav>
  </aside>
  <main class="wrap">
-  <div>
-   <h1>Formula Library</h1>
-   <p class="sub" id="lead"></p>
-  </div>
   <div class="bar">
-   <input type="search" id="q" placeholder="Search by name, nickname, or what you want to find" aria-label="Search formulas">
    <div class="chips" id="lchips"></div>
    <div class="chips" id="chips"></div>
    <div class="count" id="count"></div>
@@ -277,7 +290,7 @@ let grp=null, subj='All', sec='All', lvl='All', open=new Set(), openG=new Set();
 const inScope=f=>subj!=='All'?f.subject===subj:(grp?GS.find(g=>g.n===grp).l.includes(f.subject):true);
 const secs=()=>subj==='All'?[]:['All',...new Set(F.filter(f=>f.subject===subj).map(f=>f.section))];
 $('lead').textContent=F.length+' formulas. Each has a worked example and a step-by-step calculator.';
-$('note').innerHTML='<b>How each entry is built</b> (your five parts)<ul><li>1. Name and the formula, typeset</li><li>2. What every symbol means, in plain English</li><li>3. When to use it</li><li>4. A worked example with each step</li><li>5. A live calculator that shows its working. Change any number and the steps and answer update.</li></ul><p style="margin:10px 0 0">Extra fields I added so the site and your notes can use them later: ID, section, topic (taken from your curriculum workbook), level, search nicknames, a "finds / needs" line for the future finder, and related formulas. The "Notes link" field is blank for you to fill when you match the notes.</p>';
+$('note').innerHTML='<b>How each entry is built</b><ul><li>1. The name and the formula</li><li>2. What every symbol means, in plain English</li><li>3. When to use it</li><li>4. A worked example, with each step shown</li><li>5. A live calculator that shows its working. Change any number and the steps and the answer update.</li></ul>';
 
 function nav(){
  let h='<div class="lbl">SUBJECTS</div><button data-k="all" aria-pressed="'+(!grp&&subj==='All')+'"><span>All formulas</span><b>'+F.length+'</b></button>';
@@ -295,7 +308,7 @@ function nav(){
 function closeSide(){$('side').classList.remove('show');$('sidetoggle').setAttribute('aria-expanded','false')}
 $('sidetoggle').onclick=()=>{const s=$('side').classList.toggle('show');$('sidetoggle').setAttribute('aria-expanded',s)};
 function chips(){
- $('lchips').innerHTML=['All','Beginner','Intermediate'].map(s=>`<button class="chip" aria-pressed="${s===lvl}" data-s="${s}">${s==='All'?'All levels':s}</button>`).join('');
+ $('lchips').innerHTML=['All','Beginner','Intermediate'].map(s=>`<button class="chip" aria-pressed="${s===lvl}" data-s="${s}">${s==='All'?'All levels':s}<b>${s==='All'?F.length:F.filter(f=>f.level===s).length}</b></button>`).join('');
  $('lchips').querySelectorAll('button').forEach(b=>b.onclick=()=>{lvl=b.dataset.s;chips();render()});
  $('chips').innerHTML=secs().map(s=>`<button class="chip" aria-pressed="${s===sec}" data-s="${esc(s)}">${esc(s)}</button>`).join('');
  $('chips').querySelectorAll('button').forEach(b=>b.onclick=()=>{sec=b.dataset.s;chips();render()}) }
