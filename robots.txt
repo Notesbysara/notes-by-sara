@@ -1,8 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /login
-Disallow: /signup
-Disallow: /forgot-password
-Disallow: /reset-password
 
 Sitemap: https://notesbysara.org/sitemap.xml
