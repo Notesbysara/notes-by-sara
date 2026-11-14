@@ -1,0 +1,410 @@
+.page {
+  font-family: 'Poppins', system-ui, sans-serif;
+  color: #17231e;
+  margin-bottom: 48px;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(14, 124, 90, 0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(14, 124, 90, 0); }
+}
+@keyframes draw {
+  0% { stroke-dashoffset: 100; opacity: 1; }
+  70%, 92% { stroke-dashoffset: 0; opacity: 1; }
+  100% { stroke-dashoffset: 0; opacity: 0; }
+}
+@keyframes node {
+  0%, 4% { fill: #cfdad4; transform: scale(0.8); }
+  10%, 88% { fill: #0e7c5a; transform: scale(1); }
+  100% { fill: #cfdad4; transform: scale(0.8); }
+}
+@keyframes bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+/* ---------- hero ---------- */
+.hero {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px 56px;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 32px 0 20px;
+}
+.heroText {
+  flex: 1 1 440px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  animation: fadeUp 0.6s ease-out both;
+}
+.eyebrow {
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #0e7c5a;
+  font-weight: 500;
+}
+.h1 {
+  margin: 0;
+  font-family: 'Forum', serif;
+  font-weight: 400;
+  font-size: 56px;
+  line-height: 1.05;
+  text-wrap: balance;
+  color: #17231e;
+}
+.lead {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.65;
+  color: #3d4d46;
+  max-width: 640px;
+}
+.lead a { color: #0e7c5a; font-weight: 500; }
+
+.art {
+  flex: 0 1 400px;
+  min-width: 0;
+  background: #ffffff;
+  border: 1px solid #dde6e1;
+  border-radius: 18px;
+  padding: 18px 18px 12px;
+  box-shadow: 0 18px 40px rgba(14, 60, 44, 0.1);
+  animation: bob 5s ease-in-out infinite;
+}
+.artSvg {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #f4f7f5;
+  border-radius: 12px;
+  font-family: 'Poppins', system-ui, sans-serif;
+}
+.artCaption {
+  padding: 10px 4px 2px;
+  font-size: 13px;
+  color: #4f625a;
+  font-weight: 500;
+  text-align: center;
+}
+.route {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: draw 9s ease-in-out infinite;
+}
+.nd {
+  fill: #cfdad4;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: node 9s ease-out infinite;
+}
+
+/* ---------- goals ---------- */
+.goals {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 8px 0 12px;
+}
+.goalsTitle { font-size: 15px; font-weight: 500; }
+.chips { display: flex; flex-wrap: wrap; gap: 12px; }
+.chip, .chipOn {
+  min-height: 46px;
+  padding: 0 20px;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+}
+.chip { background: #ffffff; color: #17231e; border: 1.5px solid #cfdad4; }
+.chip:hover { border-color: #0e7c5a; }
+.chipOn { background: #0e7c5a; color: #ffffff; border: 1.5px solid #0e7c5a; }
+.advice {
+  min-height: 52px;
+  padding: 14px 18px;
+  background: #e3f1ea;
+  border-radius: 12px;
+  font-size: 15px;
+  line-height: 1.55;
+  color: #0a5b42;
+  max-width: 760px;
+  box-sizing: border-box;
+}
+.advice a { color: #0a5b42; font-weight: 600; text-decoration: underline; }
+
+/* ---------- body ---------- */
+.body {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  align-items: flex-start;
+  padding-top: 28px;
+}
+.side {
+  flex: 1 1 280px;
+  max-width: 340px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.progress {
+  background: #ffffff;
+  border: 1px solid #dde6e1;
+  border-radius: 16px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: 0 10px 24px rgba(14, 60, 44, 0.07);
+}
+.kicker {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #4f625a;
+  font-weight: 500;
+}
+.bigRow { display: flex; align-items: baseline; gap: 8px; }
+.big { font-family: 'Forum', serif; font-size: 48px; line-height: 1; color: #0a5b42; }
+.bigLabel { font-size: 15px; color: #3d4d46; }
+.bar { height: 8px; background: #dde6e1; border-radius: 4px; overflow: hidden; }
+.barFill { height: 8px; background: #0e7c5a; border-radius: 4px; transition: width 0.4s ease; }
+.small { font-size: 13px; color: #4f625a; line-height: 1.5; }
+
+.next {
+  background: #0e7c5a;
+  color: #ffffff;
+  border-radius: 16px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  animation: glow 2.4s ease-in-out infinite;
+}
+.nextKicker {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #d6f0e5;
+  font-weight: 500;
+}
+.nextTitle { font-family: 'Forum', serif; font-size: 30px; line-height: 1.15; }
+.nextText { font-size: 14px; line-height: 1.5; color: #e6f6ef; }
+.nextCta {
+  margin-top: 6px;
+  padding: 12px 18px;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #0a5b42;
+  font-size: 15px;
+  font-weight: 500;
+  text-align: center;
+  text-decoration: none;
+}
+.nextCta:hover { color: #0a5b42; text-decoration: none; }
+
+/* ---------- stepper ---------- */
+.stepper {
+  flex: 999 1 520px;
+  min-width: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 0 0 0 44px;
+  margin: 0;
+  list-style: none;
+}
+.stepper::before {
+  content: '';
+  position: absolute;
+  left: 11px;
+  top: 22px;
+  bottom: 22px;
+  width: 2px;
+  background: #cfdad4;
+}
+.stage { position: relative; margin: 0; }
+.dot, .dotLive {
+  position: absolute;
+  left: -44px;
+  top: 18px;
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  border: 3px solid var(--ifm-background-color, #ffffff);
+}
+.dot { background: #cfdad4; color: #33443d; }
+.dotLive { background: #0e7c5a; color: #ffffff; }
+.card, .cardLive {
+  background: #ffffff;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid #dde6e1;
+}
+.cardLive { border-color: #0e7c5a; }
+.cardHead {
+  all: unset;
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 22px;
+  cursor: pointer;
+  min-height: 44px;
+}
+.cardHead:focus-visible { outline: 3px solid #0e7c5a; outline-offset: -3px; }
+.headText { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.subjectName { font-family: 'Forum', serif; font-size: 26px; line-height: 1.15; color: #17231e; }
+.status { font-size: 13px; color: #4f625a; }
+.statusLive { font-size: 13px; color: #0a5b42; }
+.toggle { font-size: 14px; font-weight: 500; color: #0e7c5a; flex-shrink: 0; }
+.panel {
+  padding: 16px 22px 22px;
+  border-top: 1px solid #e3e9e6;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.panel[hidden] { display: none; }
+.panelLabel {
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #4f625a;
+  font-weight: 500;
+}
+.pills { display: flex; flex-wrap: wrap; gap: 8px; }
+.pill {
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: #f4f7f5;
+  border: 1px solid #dde6e1;
+  font-size: 13px;
+  color: #3d4d46;
+}
+.noteRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  padding: 14px 16px;
+  border: 1px solid #dde6e1;
+  border-radius: 12px;
+  background: #ffffff;
+}
+.check, .checkOn {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 700;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 0;
+}
+.check { background: #ffffff; color: #0e7c5a; border: 2px solid #9fb3aa; }
+.checkOn { background: #0e7c5a; color: #ffffff; border: 2px solid #0e7c5a; }
+.noteText { flex: 1 1 200px; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.noteTitle { font-size: 16px; font-weight: 500; }
+.readBtn {
+  padding: 10px 18px;
+  border-radius: 10px;
+  background: #0e7c5a;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+}
+.readBtn:hover { color: #ffffff; text-decoration: none; background: #0a5b42; }
+.soon { font-size: 14px; line-height: 1.55; color: #4f625a; }
+
+/* ---------- how each note works ---------- */
+.how {
+  margin-top: 56px;
+  padding-top: 32px;
+  border-top: 1px solid #dde6e1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.h2 { margin: 0; font-family: 'Forum', serif; font-weight: 400; font-size: 34px; color: #17231e; }
+.steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+}
+.step {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 16px 18px;
+  background: #f4f7f5;
+  border: 1px solid #dde6e1;
+  border-radius: 12px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #3d4d46;
+}
+.stepNum {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 13px;
+  background: #0e7c5a;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.suggest { margin: 0; font-size: 15px; color: #3d4d46; }
+
+/* ---------- reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .heroText, .art, .next { animation: none; }
+  .route { animation: none; stroke-dashoffset: 0; }
+  .nd { animation: none; fill: #0e7c5a; }
+  .mk { display: none; }
+}
+
+/* ---------- phone ---------- */
+@media (max-width: 600px) {
+  .hero { padding-top: 16px; gap: 20px; }
+  .h1 { font-size: 40px; }
+  .lead { font-size: 16px; }
+  .art { flex: 1 1 100%; max-width: 280px; padding: 10px 10px 6px; }
+  .chip, .chipOn { width: 100%; justify-content: flex-start; text-align: left; border-radius: 12px; padding: 0 18px; }
+  .chips { flex-direction: column; gap: 10px; }
+  .side { max-width: none; flex-basis: 100%; }
+  .stepper { padding-left: 38px; flex-basis: 100%; }
+  .dot, .dotLive { left: -38px; }
+  .subjectName { font-size: 23px; }
+  .cardHead { padding: 16px 18px; }
+  .panel { padding: 14px 18px 18px; }
+  .noteRow { flex-direction: column; align-items: stretch; }
+  .noteText { flex: 0 0 auto; }
+  .readBtn { text-align: center; }
+}

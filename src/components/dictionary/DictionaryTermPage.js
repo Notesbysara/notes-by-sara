@@ -7,6 +7,7 @@ import styles from './dictionary.module.css';
 import {BookmarkIcon, ShareIcon} from './Icons';
 import useShare from './useShare';
 import {useSavedTerms} from '../../lib/savedTerms';
+import SignupCard from '../signup/SignupCard';
 
 /** About 155 characters, cut at a word boundary. */
 function metaDescription(text) {
@@ -97,6 +98,8 @@ export default function DictionaryTermPage({entry}) {
             <p className={styles.cta}>
               For worked examples and full lessons, visit <Link to="/">notesbysara.org</Link>.
             </p>
+
+            <SignupCard />
           </article>
 
           <nav className={styles.prevNext} aria-label="Previous and next term">

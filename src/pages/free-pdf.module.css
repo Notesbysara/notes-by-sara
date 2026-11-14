@@ -1,0 +1,123 @@
+.page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 3.5rem;
+  box-sizing: border-box;
+}
+
+.page *,
+.page *::before,
+.page *::after {
+  box-sizing: border-box;
+}
+
+.hero {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+}
+
+.bookHolder {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+.text {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.kicker {
+  margin: 0 0 0.4rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #0e7c5a;
+}
+
+.title {
+  margin: 0;
+  font-family: 'Forum', Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  line-height: 1.1;
+  color: #1f2a26;
+}
+
+.list {
+  margin: 1rem 0 0;
+  padding-left: 1.3rem;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #44524c;
+}
+
+.how {
+  margin-top: 3rem;
+}
+
+.howTitle {
+  margin: 0 0 1rem;
+  font-family: 'Forum', Georgia, serif;
+  font-weight: 400;
+  font-size: 1.9rem;
+  color: #1f2a26;
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.step {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+  padding: 1.2rem 1.3rem;
+  background: #ffffff;
+  border: 1px solid #dde5e0;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #44524c;
+}
+
+.step b {
+  color: #1f2a26;
+  font-weight: 600;
+}
+
+.stepNum {
+  flex: 0 0 2.1rem;
+  height: 2.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #0e7c5a;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+@media (max-width: 960px) {
+  .hero {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+  /* the book is drawn 480 wide; shrink it on narrow screens */
+  .bookHolder > div {
+    --s: 0.62 !important;
+  }
+
+  .steps {
+    grid-template-columns: 1fr;
+  }
+}

@@ -3,7 +3,7 @@ import {themes as prismThemes} from 'prism-react-renderer';
 
 const SITE_URL = 'https://notesbysara.org';
 const SITE_DESCRIPTION =
-  'Structured finance notes that take you from the time value of money to valuation, markets and derivatives, with clear explanations and worked examples.';
+  'Structured finance notes that take you from working with financial data to valuation, markets and derivatives, with clear explanations and worked examples.';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -70,12 +70,12 @@ const config = {
         },
         blog: false,
         theme: {
-          customCss: './src/css/custom.css',
+          customCss: ['./src/css/custom.css', './src/css/notes.css'],
         },
         sitemap: {
           changefreq: 'weekly',
           priority: 0.5,
-          ignorePatterns: ['/login', '/signup', '/forgot-password', '/reset-password'],
+          ignorePatterns: ['/notes/foundations/time-value-of-money'],
           filename: 'sitemap.xml',
         },
       }),
@@ -91,7 +91,7 @@ const config = {
         {
           name: 'keywords',
           content:
-            'finance notes, learn finance, time value of money, corporate finance, valuation, financial math, finance for students',
+            'finance notes, learn finance, financial data analysis, financial analysis for beginners, corporate finance, valuation, finance for students',
         },
         {name: 'author', content: 'Sara'},
         {name: 'twitter:card', content: 'summary_large_image'},
@@ -114,10 +114,11 @@ const config = {
         },
         items: [
           {to: '/notes', label: 'Learning path', position: 'left', activeBaseRegex: '^/notes/?$'},
-          {to: '/notes/foundations/time-value-of-money', label: 'Notes', position: 'left', activeBaseRegex: '^/notes/.+'},
+          {to: '/notes-library', label: 'Notes', position: 'left', activeBaseRegex: '^/(notes-library|notes/.+)'},
           {to: '/dictionary', label: 'Dictionary', position: 'left'},
+          {to: '/formula-library',  label: 'Formulas',  position: 'left',},
           {to: '/about', label: 'About', position: 'left'},
-          {href: 'mailto:support@notesbysara.org', label: 'Contact', position: 'right'},
+          {to: '/contact', label: 'Contact', position: 'right'},
         ],
       },
       footer: {
@@ -127,15 +128,17 @@ const config = {
             title: 'Learn',
             items: [
               {label: 'Learning path', to: '/notes'},
-              {label: 'Notes', to: '/notes/foundations/time-value-of-money'},
+              {label: 'Notes', to: '/notes-library'},
               {label: 'Financial Dictionary', to: '/dictionary'},
+              {label: 'Formulas', to: '/formula-library',},
             ],
           },
           {
             title: 'Notes by Sara',
             items: [
               {label: 'About', to: '/about'},
-              {label: 'Contact', href: 'mailto:support@notesbysara.org'},
+              {label: 'Contact', to: '/contact'},
+              {label: 'YouTube', href: 'https://www.youtube.com/@notes-by-sara'},
             ],
           },
           {
@@ -146,7 +149,7 @@ const config = {
             ],
           },
         ],
-        copyright: `© ${new Date().getFullYear()} Notes by Sara. Educational content only, not financial advice.`,
+        copyright: `© ${new Date().getFullYear()} Notes by Sara. Educational content only, not financial advice.<br/><small>Accounts aren't available yet, so your reading progress isn't saved. Saved dictionary terms stay in this browser only.</small>`,
       },
       prism: {
         theme: prismThemes.github,

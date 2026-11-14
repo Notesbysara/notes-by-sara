@@ -12,6 +12,19 @@ import {useSavedTerms} from '../../lib/savedTerms';
 
 const PAGE_SIZE = 30;
 const LEVELS = ['All', 'Beginner', 'Intermediate', 'Advanced'];
+const GROUPS = [
+  {name: 'Foundations', subjects: ['Finance Foundations']},
+  {name: 'Companies and valuation', subjects: ['Corporate Finance', 'Valuation', 'Financial Statement Analysis']},
+  {name: 'Markets and instruments', subjects: ['Investments & Portfolio Theory', 'Equity Markets', 'Fixed Income', 'Derivatives']},
+  {name: 'Risk and quantitative methods', subjects: ['Risk Management', 'Quantitative Finance']},
+  {name: 'Money, banks and the economy', subjects: ['Economics for Finance', 'Banking & Financial Institutions', 'International Finance']},
+  {name: 'Personal finance', subjects: ['Personal Finance']},
+  {name: 'Modern finance and practice', subjects: ['Behavioral Finance', 'Alternative Investments', 'Fintech & Digital Finance', 'Regulation, Ethics & ESG']},
+];
+const SUBJECT_GROUP = {};
+GROUPS.forEach((g) => g.subjects.forEach((x) => {
+  SUBJECT_GROUP[x] = g.name;
+}));
 const LETTERS = ['#', ...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')];
 const introFor = (count) => `Clear, plain-English explanations of ${count.toLocaleString('en-US')} finance terms.`;
 
@@ -23,6 +36,7 @@ function readUrl() {
     q: p.get('q') || '',
     level: LEVELS.includes(level) ? level : 'All',
     letter: LETTERS.includes(letter) ? letter : '',
+    topic: p.get('topic') || '',
     savedOnly: p.get('saved') === '1',
   };
 }
@@ -37,8 +51,11 @@ export default function DictionaryPage({terms}) {
   const [q, setQ] = useState('');
   const [level, setLevel] = useState('All');
   const [letter, setLetter] = useState('');
+  const [topic, setTopic] = useState('');
+  const [openGroup, setOpenGroup] = useState('');
   const [savedOnly, setSavedOnly] = useState(false);
   const [visible, setVisible] = useState(PAGE_SIZE);
+  const [filtersOpen, setFiltersOpen] = useState(false);
 
   const {saved, toggle} = useSavedTerms();
   const {share, notice} = useShare();
@@ -50,6 +67,8 @@ export default function DictionaryPage({terms}) {
     setQ(s.q);
     setLevel(s.level);
     setLetter(s.letter);
+    setTopic(s.topic);
+    setOpenGroup(SUBJECT_GROUP[s.topic] || (GROUPS.some((g) => g.name === s.topic) ? s.topic : ''));
     setSavedOnly(s.savedOnly);
     ready.current = true;
   }, []);
@@ -61,13 +80,14 @@ export default function DictionaryPage({terms}) {
     if (q.trim()) p.set('q', q.trim());
     if (level !== 'All') p.set('level', level);
     if (letter) p.set('letter', letter);
+    if (topic) p.set('topic', topic);
     if (savedOnly) p.set('saved', '1');
     const qs = p.toString();
     const next = `${window.location.pathname}${qs ? `?${qs}` : ''}${window.location.hash}`;
     if (next !== `${window.location.pathname}${window.location.search}${window.location.hash}`) {
       window.history.replaceState(window.history.state, '', next);
     }
-  }, [q, level, letter, savedOnly]);
+  }, [q, level, letter, topic, savedOnly]);
 
   // Press "/" anywhere to jump to the search box.
   useEffect(() => {
@@ -86,21 +106,40 @@ export default function DictionaryPage({terms}) {
   // Start again at the first page whenever the search or a filter changes.
   useEffect(() => {
     setVisible(PAGE_SIZE);
-  }, [q, level, letter, savedOnly]);
+  }, [q, level, letter, topic, savedOnly]);
 
   const savedSet = useMemo(() => new Set(saved), [saved]);
 
-  // Everything except the letter filter, so the letter bar can grey out empty letters.
-  const beforeLetter = useMemo(() => {
+  // The search and the Saved filter. Level and letter are applied on top of this.
+  const base = useMemo(() => {
     const positions = searchPositions(index, q);
-    const base = positions || terms.map((_, i) => i);
-    return base.filter((i) => {
-      const t = terms[i];
-      if (level !== 'All' && t.difficulty !== level) return false;
-      if (savedOnly && !savedSet.has(t.id)) return false;
-      return true;
+    const all = positions || terms.map((_, i) => i);
+    return savedOnly ? all.filter((i) => savedSet.has(terms[i].id)) : all;
+  }, [index, terms, q, savedOnly, savedSet]);
+
+  const inTopic = useCallback(
+    (t) => !topic || t.section === topic || SUBJECT_GROUP[t.section] === topic,
+    [topic],
+  );
+
+  // How many terms each section and group has with the current search (topic itself not applied).
+  const topicCounts = useMemo(() => {
+    const c = {};
+    base.forEach((i) => {
+      const sec = terms[i].section;
+      c[sec] = (c[sec] || 0) + 1;
+      const g = SUBJECT_GROUP[sec];
+      if (g) c[g] = (c[g] || 0) + 1;
     });
-  }, [index, terms, q, level, savedOnly, savedSet]);
+    return c;
+  }, [base, terms]);
+
+  // Everything except the letter filter, so the letter grid can grey out empty letters.
+  const beforeLetter = useMemo(
+    () =>
+      base.filter((i) => inTopic(terms[i]) && (level === 'All' || terms[i].difficulty === level)),
+    [base, terms, level, inTopic],
+  );
 
   const results = useMemo(
     () => (letter ? beforeLetter.filter((i) => terms[i].letter === letter) : beforeLetter),
@@ -112,6 +151,21 @@ export default function DictionaryPage({terms}) {
     beforeLetter.forEach((i) => s.add(terms[i].letter));
     return s;
   }, [beforeLetter, terms]);
+
+  // How many terms each difficulty would show with the current search and letter.
+  const levelCounts = useMemo(() => {
+    const c = {All: 0};
+    LEVELS.forEach((l) => {
+      c[l] = 0;
+    });
+    base.forEach((i) => {
+      if (letter && terms[i].letter !== letter) return;
+      if (!inTopic(terms[i])) return;
+      c.All += 1;
+      if (c[terms[i].difficulty] !== undefined) c[terms[i].difficulty] += 1;
+    });
+    return c;
+  }, [base, terms, letter, inTopic]);
 
   const shown = results.slice(0, visible);
 
@@ -128,10 +182,11 @@ export default function DictionaryPage({terms}) {
     setQ('');
     setLevel('All');
     setLetter('');
+    setTopic('');
     setSavedOnly(false);
   }, []);
 
-  const filtered = q.trim() || level !== 'All' || letter || savedOnly;
+  const filtered = q.trim() || level !== 'All' || letter || topic || savedOnly;
 
   const pageUrl = `${siteConfig.url}/dictionary`;
   const jsonLd = {
@@ -187,31 +242,102 @@ export default function DictionaryPage({terms}) {
           </div>
         </header>
 
-        <div className={styles.column}>
-          <div className={styles.controls}>
-            <div className={styles.controlRow}>
-              <div className={styles.levels} role="group" aria-label="Filter by difficulty">
-                {LEVELS.map((l) => (
-                  <button
-                    key={l}
-                    type="button"
-                    className={level === l ? styles.pillActive : styles.pill}
-                    aria-pressed={level === l}
-                    onClick={() => setLevel(l)}>
-                    {l}
-                  </button>
-                ))}
+        <div className={styles.layout}>
+          <aside className={styles.side} aria-label="Filters">
+            <button
+              type="button"
+              className={styles.sideToggle}
+              aria-expanded={filtersOpen}
+              onClick={() => setFiltersOpen((v) => !v)}>
+              <span>Filters{filtered ? ' (on)' : ''}</span>
+              <span aria-hidden="true">{filtersOpen ? '\u25B4' : '\u25BE'}</span>
+            </button>
+
+            <div className={filtersOpen ? `${styles.sideBody} ${styles.sideOpen}` : styles.sideBody}>
+              <h2 className={styles.sideHead}>Topics</h2>
+              <div role="group" aria-label="Filter by topic" className={styles.sideList}>
+                <button
+                  type="button"
+                  className={!topic ? styles.sideItemOn : styles.sideItem}
+                  aria-pressed={!topic}
+                  onClick={() => setTopic('')}>
+                  <span>All topics</span>
+                  <b>{base.length.toLocaleString('en-US')}</b>
+                </button>
+                {GROUPS.map((g) => {
+                  const open = openGroup === g.name;
+                  const groupOn = topic === g.name;
+                  return (
+                    <div key={g.name}>
+                      <button
+                        type="button"
+                        className={groupOn ? styles.sideItemOn : styles.groupBtn}
+                        aria-expanded={open}
+                        onClick={() => {
+                          setOpenGroup(open && !groupOn ? '' : g.name);
+                          setTopic(g.name);
+                        }}>
+                        <span>
+                          <span aria-hidden="true">{open ? '\u25BE ' : '\u25B8 '}</span>
+                          {g.name}
+                        </span>
+                        <b>{(topicCounts[g.name] || 0).toLocaleString('en-US')}</b>
+                      </button>
+                      {open && g.subjects.length > 1 && (
+                        <div className={styles.subList}>
+                          {g.subjects.map((sub) => (
+                            <button
+                              key={sub}
+                              type="button"
+                              className={topic === sub ? styles.sideItemOn : styles.subItem}
+                              aria-pressed={topic === sub}
+                              onClick={() => setTopic(sub)}>
+                              <span>{sub}</span>
+                              <b>{(topicCounts[sub] || 0).toLocaleString('en-US')}</b>
+                            </button>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
-              <button
-                type="button"
-                className={savedOnly ? styles.pillActive : styles.pill}
-                aria-pressed={savedOnly}
-                onClick={() => setSavedOnly((v) => !v)}>
-                Saved ({saved.length})
-              </button>
+
+              <h2 className={styles.sideHead}>Saved</h2>
+              <div className={styles.sideList}>
+                <button
+                  type="button"
+                  className={savedOnly ? styles.sideItemOn : styles.sideItem}
+                  aria-pressed={savedOnly}
+                  onClick={() => setSavedOnly((v) => !v)}>
+                  <span>Saved terms</span>
+                  <b>{saved.length}</b>
+                </button>
+              </div>
+
+              {filtered && (
+                <button type="button" className={styles.clear} onClick={clearAll}>
+                  Clear search and filters
+                </button>
+              )}
+            </div>
+          </aside>
+
+          <div className={styles.mainCol}>
+            <div role="group" aria-label="Filter by difficulty" className={styles.pillRow}>
+              {LEVELS.map((l) => (
+                <button
+                  key={l}
+                  type="button"
+                  className={level === l ? styles.pillOn : styles.pill}
+                  aria-pressed={level === l}
+                  onClick={() => setLevel(l)}>
+                  {l === 'All' ? 'All levels' : l} <span>{levelCounts[l].toLocaleString('en-US')}</span>
+                </button>
+              ))}
             </div>
 
-            <nav className={styles.letters} aria-label="Filter by first letter">
+            <nav className={styles.letterBar} aria-label="Filter by first letter">
               {LETTERS.map((l) => {
                 const has = lettersWithTerms.has(l);
                 const active = letter === l;
@@ -230,50 +356,43 @@ export default function DictionaryPage({terms}) {
               })}
             </nav>
 
-            <div className={styles.countRow}>
-              <p id="dictionary-count" className={styles.count} aria-live="polite">
-                Showing {results.length.toLocaleString('en-US')} {results.length === 1 ? 'term' : 'terms'}
-              </p>
-              {filtered && (
-                <button type="button" className={styles.clear} onClick={clearAll}>
-                  Clear search and filters
-                </button>
+            <p id="dictionary-count" className={styles.countLine} aria-live="polite">
+              Showing {results.length.toLocaleString('en-US')} {results.length === 1 ? 'term' : 'terms'}{topic ? ` in ${topic}` : ''}
+            </p>
+
+            <section aria-label="Dictionary terms">
+              {shown.map((i) => (
+                <DictionaryCard
+                  key={terms[i].id}
+                  entry={terms[i]}
+                  isSaved={savedSet.has(terms[i].id)}
+                  onToggleSave={toggle}
+                  onShare={share}
+                />
+              ))}
+
+              {results.length === 0 && (
+                <div className={styles.empty}>
+                  <p>
+                    {savedOnly && saved.length === 0
+                      ? 'You have not saved any terms yet. Use the bookmark icon on a term to save it here.'
+                      : 'No terms match that search. Try a shorter word or another spelling, or clear the filters.'}
+                  </p>
+                </div>
               )}
-            </div>
+
+              {results.length > shown.length && (
+                <div className={styles.more}>
+                  <button type="button" className={styles.moreBtn} onClick={() => setVisible((v) => v + PAGE_SIZE)}>
+                    Show more terms
+                  </button>
+                  <p className={styles.moreHint}>
+                    {shown.length.toLocaleString('en-US')} of {results.length.toLocaleString('en-US')} on screen
+                  </p>
+                </div>
+              )}
+            </section>
           </div>
-
-          <section aria-label="Dictionary terms">
-            {shown.map((i) => (
-              <DictionaryCard
-                key={terms[i].id}
-                entry={terms[i]}
-                isSaved={savedSet.has(terms[i].id)}
-                onToggleSave={toggle}
-                onShare={share}
-              />
-            ))}
-
-            {results.length === 0 && (
-              <div className={styles.empty}>
-                <p>
-                  {savedOnly && saved.length === 0
-                    ? 'You have not saved any terms yet. Use the bookmark icon on a term to save it here.'
-                    : 'No terms match that search. Try a shorter word or another spelling, or clear the filters.'}
-                </p>
-              </div>
-            )}
-
-            {results.length > shown.length && (
-              <div className={styles.more}>
-                <button type="button" className={styles.moreBtn} onClick={() => setVisible((v) => v + PAGE_SIZE)}>
-                  Show more terms
-                </button>
-                <p className={styles.moreHint}>
-                  {shown.length.toLocaleString('en-US')} of {results.length.toLocaleString('en-US')} on screen
-                </p>
-              </div>
-            )}
-          </section>
         </div>
       </div>
 

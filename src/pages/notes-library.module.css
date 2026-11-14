@@ -1,0 +1,157 @@
+.page {
+  font-family: 'Poppins', system-ui, sans-serif;
+  color: #17231e;
+  background: #fbfaf5;
+  padding-bottom: 72px;
+}
+.hero { background: #0e7c5a; color: #ffffff; padding: 48px 24px 44px; }
+.heroInner {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.heroKicker {
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #d6f0e5;
+  font-weight: 500;
+}
+.heroTitle {
+  margin: 0;
+  font-family: 'Forum', serif;
+  font-weight: 400;
+  font-size: 52px;
+  line-height: 1.08;
+  color: #ffffff;
+}
+.heroLead { margin: 0; font-size: 17px; line-height: 1.6; color: #e6f6ef; max-width: 620px; }
+.heroLead a { color: #ffffff; font-weight: 600; text-decoration: underline; }
+.search {
+  width: 100%;
+  max-width: 560px;
+  height: 52px;
+  padding: 0 18px;
+  border-radius: 12px;
+  border: none;
+  font-family: inherit;
+  font-size: 16px;
+  color: #17231e;
+  background: #ffffff;
+  box-sizing: border-box;
+  margin-top: 6px;
+}
+.search:focus-visible { outline: 3px solid #d6f0e5; outline-offset: 2px; }
+
+.layout {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 40px 24px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  align-items: flex-start;
+  box-sizing: border-box;
+}
+.side { flex: 0 0 240px; display: flex; flex-direction: column; gap: 6px; }
+.sideTitle {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #4f625a;
+  font-weight: 500;
+  padding: 0 12px 8px;
+}
+.subj, .subjOn {
+  all: unset;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  min-height: 44px;
+  color: #33443d;
+}
+.subj:hover { background: #f0f4f2; }
+.subjOn { background: #e3f1ea; color: #0a5b42; font-weight: 600; }
+.subj:focus-visible, .subjOn:focus-visible { outline: 3px solid #0e7c5a; outline-offset: -3px; }
+.count {
+  font-size: 12.5px;
+  padding: 2px 9px;
+  border-radius: 999px;
+  background: #0e7c5a;
+  color: #ffffff;
+}
+
+.main { flex: 1 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 20px; }
+.result { font-size: 14px; color: #4f625a; }
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 26px 28px;
+  background: #ffffff;
+  border: 1px solid #dde6e1;
+  border-left: 4px solid #0e7c5a;
+  border-radius: 16px;
+}
+.cardTop { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.cardSubject {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #0e7c5a;
+  font-weight: 500;
+}
+.cardMeta { font-size: 13px; color: #4f625a; }
+.cardTitle { margin: 0; font-family: 'Forum', serif; font-weight: 400; font-size: 32px; line-height: 1.15; color: #17231e; }
+.cardBlurb { margin: 0; font-size: 15.5px; line-height: 1.6; color: #3d4d46; max-width: 640px; }
+.cardActions { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; padding-top: 6px; }
+.read {
+  padding: 11px 22px;
+  border-radius: 10px;
+  background: #0e7c5a;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+}
+.read:hover { background: #0a5b42; color: #ffffff; text-decoration: none; }
+.step { font-size: 14px; color: #0a5b42; font-weight: 500; }
+.step a { color: #0a5b42; text-decoration: underline; }
+.empty {
+  padding: 26px 28px;
+  background: #ffffff;
+  border: 1px dashed #cfdad4;
+  border-radius: 16px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #3d4d46;
+}
+.soonBlock { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
+.soonBlock .sideTitle { padding: 0; }
+.pills { display: flex; flex-wrap: wrap; gap: 10px; }
+.pill {
+  padding: 9px 16px;
+  border-radius: 999px;
+  background: #f4f7f5;
+  border: 1px solid #dde6e1;
+  font-size: 14px;
+  color: #4f625a;
+}
+.small { font-size: 13.5px; color: #4f625a; line-height: 1.55; }
+
+@media (max-width: 760px) {
+  .hero { padding: 36px 16px 32px; }
+  .heroTitle { font-size: 40px; }
+  .layout { padding: 28px 16px 0; gap: 24px; }
+  .side { flex-basis: 100%; }
+  .card { padding: 22px 20px; }
+  .cardTitle { font-size: 28px; }
+}

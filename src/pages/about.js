@@ -1,0 +1,124 @@
+import React from 'react';
+import Layout from '@theme/Layout';
+import Link from '@docusaurus/Link';
+import styles from './about.module.css';
+
+// Update these two numbers when you add terms or formulas.
+const DICTIONARY_TERMS = '1,725';
+const FORMULAS = '522';
+
+const TILES = [
+  {
+    kicker: 'Start here',
+    name: 'Notes',
+    text: 'The step-by-step lessons, in order, from the idea to the worked example.',
+    cta: 'Open the notes',
+    to: '/notes',
+  },
+  {
+    kicker: `${DICTIONARY_TERMS} terms`,
+    name: 'Financial Dictionary',
+    text: 'Plain-English explanations, searchable, with a level on every term.',
+    cta: 'Open the dictionary',
+    to: '/dictionary',
+  },
+  {
+    kicker: `${FORMULAS} formulas`,
+    name: 'Formulas and Calculators',
+    text: 'Each formula has a worked example and a calculator that shows its steps.',
+    cta: 'Open the library',
+    to: '/formula-library',
+  },
+];
+
+const STEPS = [
+  { n: '1', title: 'A clear definition', text: 'Every key term defined in a highlighted box, nothing assumed.' },
+  { n: '2', title: 'The idea in plain words', text: 'With an everyday example and a tip.' },
+  { n: '3', title: 'One worked example', text: 'Followed through every step, with charts where they help.' },
+  { n: '4', title: 'What it looks like at work', text: 'Including how to explain it to your manager.' },
+];
+
+export default function About() {
+  return (
+    <Layout
+      title="About"
+      description="Finance notes for people just starting out. Every answer comes with its working."
+    >
+      <main className={styles.page}>
+        <section className={styles.hero}>
+          <div className={styles.heroInner}>
+            <div className={styles.eyebrow}>About</div>
+            <h1 className={styles.headline}>
+              Finance notes that show the working behind every answer.
+            </h1>
+            <div className={styles.rule} />
+            <p className={styles.lead}>
+              Notes for people who are just starting out in finance. Every answer comes with its
+              working, so you can see why it is right and not only what it is.
+            </p>
+            <p className={styles.me}>I am Sara. I built these notes because I needed them.</p>
+            <p className={styles.me}>
+              <a href="https://www.youtube.com/@notes-by-sara" target="_blank" rel="noopener noreferrer" style={{color: '#E3C26F', textDecoration: 'underline', textUnderlineOffset: '3px'}}>
+                Watch the lessons on YouTube ↗
+              </a>
+            </p>
+          </div>
+        </section>
+
+        <section className={styles.tilesWrap}>
+          <div className={styles.tiles}>
+            {TILES.map((t) => (
+              <Link key={t.name} to={t.to} className={styles.tile}>
+                <div className={styles.kicker}>{t.kicker}</div>
+                <div className={styles.tileName}>{t.name}</div>
+                <div className={styles.tileText}>{t.text}</div>
+                <div className={styles.cta}>{t.cta}</div>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        <section className={styles.how}>
+          <div className={styles.narrow}>
+            <div className={styles.kickerDark}>How it works</div>
+            <h2 className={styles.h2}>One path, and every note follows the same pattern.</h2>
+            <p className={styles.howLead}>
+              Each topic builds on the one before it, so you are never asked to use something you
+              have not met yet.
+            </p>
+            <div className={styles.steps}>
+              {STEPS.map((s) => (
+                <div key={s.n} className={styles.step}>
+                  <div className={styles.num}>{s.n}</div>
+                  <div className={styles.stepBody}>
+                    <div className={styles.stepTitle}>{s.title}</div>
+                    <div className={styles.stepText}>{s.text}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className={styles.corrWrap}>
+          <div className={styles.corr}>
+            <div className={styles.corrMain}>
+              <div className={styles.corrTitle}>Corrections and requests</div>
+              <p className={styles.corrText}>
+                I am one person, so mistakes will happen. If you find one, or want a topic
+                explained, send me a message.
+              </p>
+              <Link className={styles.mail} to="/contact">
+                Send me a message
+              </Link>
+            </div>
+            <p className={styles.legal}>
+              Everything on this site is for education only. It is not financial, investment or
+              professional advice.
+            </p>
+          </div>
+        </section>
+      </main>
+    </Layout>
+  );
+}

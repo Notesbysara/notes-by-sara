@@ -1,0 +1,130 @@
+/* Notes by Sara: topic note styles. Everything is scoped to .nbs-note so it can't affect other pages. */
+.nbs-note{
+  --bg:#FCFBF7; --surface:#FFFFFF; --cream:#F4F1E8; --ink:#1F2A26; --muted:#5A6862; --line:#E6E1D5;
+  --green:#0E7C5A; --green-text:#0B6A4C; --pale:#EAF4EF; --gold-text:#8A6A12; --coral:#B4452F;
+  --display:'Forum', Georgia, 'Times New Roman', serif;
+  --body:'Poppins', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+.nbs-note{font-family:var(--body);color:var(--ink);font-size:17px;line-height:1.75;display:flex;flex-direction:column;gap:40px}
+.nbs-note .nbs-head{display:flex;flex-direction:column;gap:12px}
+.nbs-note h1{font-family:var(--display);font-weight:400;font-size:clamp(2.2rem,6vw,3rem);line-height:1.15;margin:0}
+.nbs-note h2{font-family:var(--display);font-weight:400;font-size:1.8rem;line-height:1.15;margin:0 0 -24px}
+.nbs-note .nbs-sec{display:flex;flex-direction:column;gap:16px}
+.nbs-note p{margin:0}
+.nbs-note table{display:table}
+.nbs-note .tw table{width:100%}
+.nbs-note h1,.nbs-note h2,.nbs-note h3{font-family:var(--display);font-weight:400;line-height:1.15;margin:0;text-wrap:balance}
+.nbs-note h1{font-size:clamp(2.2rem,6vw,3rem)}
+.nbs-note h2{font-size:1.8rem}
+.nbs-note h3{font-size:1.4rem}
+.nbs-note p{margin:0}
+.nbs-note section{display:flex;flex-direction:column;gap:16px}
+.nbs-note .eyebrow{font-size:.75rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--gold-text)}
+.nbs-note .lead{font-size:1.1rem;color:var(--muted)}
+.nbs-note .steps{display:flex;flex-direction:column;gap:14px}
+.nbs-note .step{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px 22px;display:flex;flex-direction:column;gap:10px}
+.nbs-note .step-head{display:flex;gap:14px;align-items:center}
+.nbs-note .n{flex:none;width:36px;height:36px;border-radius:50%;background:var(--pale);color:var(--green-text);display:grid;place-items:center;font-family:var(--display);font-size:1.3rem}
+.nbs-note .step .eg{font-size:.95rem;color:var(--muted)}
+.nbs-note .step .eg b,.nbs-note .step .tip b{color:var(--ink);font-weight:600}
+.nbs-note .step .tip{font-size:.95rem;border-left:3px solid var(--green);padding-left:12px}
+.nbs-note .box{background:var(--cream);border-radius:14px;padding:20px 22px;display:flex;flex-direction:column;gap:10px}
+.nbs-note .nums{display:flex;gap:32px;flex-wrap:wrap}
+.nbs-note .nums div{display:flex;flex-direction:column}
+.nbs-note .nums .v{font-family:var(--display);font-size:2.4rem;line-height:1.1;font-variant-numeric:tabular-nums}
+.nbs-note .up{color:var(--green-text)}
+.nbs-note .down{color:var(--coral)}
+.nbs-note .nums .l{font-size:.85rem;color:var(--muted)}
+.nbs-note .walk{display:flex;flex-direction:column;gap:18px}
+.nbs-note .walk .wrow{display:flex;flex-direction:column;gap:6px}
+.nbs-note .walk .label{font-size:.8rem;font-weight:600;color:var(--green-text)}
+.nbs-note .tw{overflow-x:auto}
+.nbs-note table{border-collapse:collapse;width:100%;font-size:.95rem;font-variant-numeric:tabular-nums}
+.nbs-note td{padding:9px 4px;border-bottom:1px solid var(--line)}
+.nbs-note td.r{text-align:right;white-space:nowrap}
+.nbs-note tr.total td{font-weight:600;border-bottom:none}
+.nbs-note .neg{color:var(--coral)}
+.nbs-note .pos{color:var(--green-text)}
+.nbs-note .decision{background:var(--pale);border-radius:14px;padding:18px 22px;display:flex;flex-direction:column;gap:8px}
+.nbs-note .decision .big{font-family:var(--display);font-size:1.35rem;line-height:1.35}
+.nbs-note dl{margin:0;display:flex;flex-direction:column;gap:12px}
+.nbs-note dt{font-weight:600}
+.nbs-note dd{margin:0;color:var(--muted)}
+.nbs-note .remember{background:var(--pale);border-radius:14px;padding:20px 22px;display:flex;flex-direction:column;gap:8px}
+.nbs-note .remember ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px}
+.nbs-note .next{border-top:1px solid var(--line);padding-top:18px;font-size:.95rem;color:var(--muted)}
+.nbs-note .next b{color:var(--green-text);font-weight:500}
+.nbs-note .small{font-size:.82rem;color:var(--muted)}
+.nbs-note .work{display:flex;flex-direction:column;gap:10px}
+.nbs-note .work ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+.nbs-note .msg{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 22px;display:flex;flex-direction:column;gap:10px}
+.nbs-note .msg .body{font-size:.98rem}
+.nbs-note .go{display:flex;flex-direction:column;gap:10px}
+.nbs-note .go a{color:var(--green-text);font-weight:500}
+.nbs-note .types{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media (max-width:560px){
+.nbs-note .types{grid-template-columns:1fr}
+}
+.nbs-note .types div{background:var(--cream);border-radius:10px;padding:12px 14px;font-size:.92rem;min-width:0}
+.nbs-note .types b{display:block}
+.nbs-note th{font-size:.75rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:left;padding:8px 4px;border-bottom:1px solid var(--line)}
+.nbs-note td{vertical-align:top}
+.nbs-note .mean{display:flex;flex-direction:column;gap:6px}
+.nbs-note .mean div{display:flex;justify-content:space-between;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:.95rem}
+.nbs-note .mean b{font-family:var(--display);font-weight:400;font-size:1.3rem}
+.nbs-note .def{background:var(--cream);border-left:4px solid var(--gold-text);border-radius:0 10px 10px 0;padding:12px 16px;font-size:.95rem;line-height:1.65;display:flex;flex-direction:column;gap:6px}
+.nbs-note .def b{font-weight:600}
+.nbs-note .small-t{max-width:440px}
+.nbs-note .viz{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;overflow-x:auto}
+.nbs-note .viz svg{display:block;width:100%;height:auto;min-width:420px}
+.nbs-note .viz svg text{font-family:var(--body)}
+.nbs-note .mini{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:10px}
+.nbs-note .mini table{font-size:.85rem}
+.nbs-note .typechip{display:inline-block;font-size:.68rem;font-weight:600;letter-spacing:.04em;padding:1px 8px;border-radius:999px;background:var(--pale);color:var(--green-text);margin-top:4px}
+.nbs-note .arrow{text-align:center;color:var(--gold-text);font-weight:600;font-size:.9rem}
+.nbs-note .year{display:grid;grid-template-columns:repeat(13,minmax(0,1fr));gap:2px;font-size:.66rem;text-align:center}
+.nbs-note .year div{padding:6px 0;border-radius:4px;background:var(--cream);color:var(--muted)}
+.nbs-note .year .on{background:var(--green);color:var(--bg);font-weight:600}
+.nbs-note .year .cal{background:var(--pale);color:var(--green-text);font-weight:600}
+.nbs-note .yl{font-size:.8rem;color:var(--muted);margin-top:4px}
+.nbs-note .bars{display:flex;flex-direction:column;gap:6px}
+.nbs-note .tree{display:flex;flex-direction:column;align-items:center;gap:10px}
+.nbs-note .tree .node{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:.92rem;text-align:center;min-width:0}
+.nbs-note .tree .root{background:var(--pale);border-color:var(--green);font-weight:600}
+.nbs-note .tree .lvl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;width:100%}
+.nbs-note .tree .leaves{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;width:100%}
+@media (max-width:620px){
+.nbs-note .tree .leaves{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+.nbs-note .tree .leaf{font-size:.85rem;text-align:left}
+.nbs-note .tree .leaf .d{display:block;color:var(--gold-text);font-size:.75rem;margin-top:4px}
+.nbs-note .tree .hot{border-color:var(--gold-text);border-width:2px}
+.nbs-note .down-arrow{color:var(--muted);font-size:.9rem;line-height:1}
+.nbs-note .bad{color:var(--coral)}
+.nbs-note .flag{background:var(--cream)}
+.nbs-note .vs td:first-child{color:var(--muted)}
+/* Dictionary words */
+.nbs-term{position:relative;display:inline}
+.nbs-term a{color:var(--green-text);text-decoration:underline dotted;text-underline-offset:3px}
+.nbs-term a:hover{text-decoration-style:solid}
+.nbs-pop{position:absolute;left:0;top:calc(100% + 8px);z-index:20;width:min(300px,80vw);background:#fff;color:#1F2A26;border:1px solid #E6E1D5;border-radius:12px;padding:12px 14px;box-shadow:0 10px 30px rgba(7,47,35,.18);font-size:.85rem;line-height:1.55;display:flex;flex-direction:column;gap:6px;font-weight:400;font-style:normal}
+.nbs-pop b{font-family:'Forum',Georgia,serif;font-weight:400;font-size:1.15rem}
+.nbs-pop span{color:#0B6A4C;font-size:.78rem;font-weight:500}
+
+/* Sidebar: course heading and coming-soon topics */
+.nbs-course { margin: 0.6rem 0 0.2rem; padding: 0 0.75rem; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #8A6A12; }
+.nbs-soon { display: flex; gap: 0.4rem; align-items: baseline; padding: 0.35rem 0.75rem; font-size: 0.85rem; color: #9AA59F; }
+.nbs-soon em { margin-left: auto; font-style: normal; font-size: 0.7rem; white-space: nowrap; }
+
+/* Phones: the bottom bar replaces "On this page" and the Previous/Next cards on course topics */
+@media (max-width: 996px) {
+  .theme-doc-toc-mobile { display: none; }
+  .pagination-nav { display: none; }
+}
+
+/* Keep wide tables inside the column on phones */
+.nbs-note .walk .wrow, .nbs-note .step, .nbs-note .nbs-sec, .nbs-note .mini > * { min-width: 0; }
+.nbs-note .tw { max-width: 100%; }
+.nbs-note div, .nbs-note .viz { min-width: 0; }
+
+.theme-doc-markdown .nbs-note h2 { margin: 12px 0 -20px; }
