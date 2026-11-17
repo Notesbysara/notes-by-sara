@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunknotes_by_sara=self.webpackChunknotes_by_sara||[]).push([["69359"],{11750(s){s.exports=JSON.parse('{"name":"formulas-plugin","id":"default"}')}}]);
