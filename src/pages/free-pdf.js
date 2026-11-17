@@ -1,58 +1,23 @@
 import React from 'react';
-import Layout from '@theme/Layout';
 import Head from '@docusaurus/Head';
-import BookArt from '../components/signup/BookArt';
-import SignupForm from '../components/signup/SignupForm';
-import {PDF_TITLE} from '../components/signup/config';
-import styles from './free-pdf.module.css';
+import Layout from '@theme/Layout';
+import Link from '@docusaurus/Link';
+import {Redirect} from '@docusaurus/router';
 
-const STEPS = [
-  ['Enter your email.', 'Tick the box to agree.'],
-  ['Download the PDF.', 'The button appears on this page straight away.'],
-  ['Check your inbox.', 'A copy of the link is sent to your email too.'],
-];
-
-export default function FreePdf() {
+// The Dictionary PDF page moved to /dictionary-free-pdf. Old links land here and are sent on.
+export default function Moved() {
   return (
-    <Layout
-      title={`Free ${PDF_TITLE} (PDF)`}
-      description="Free PDF of key finance terms in plain English, each with a difficulty level. Works on your phone or printed out.">
+    <Layout title="Free Financial Dictionary Quick Reference" noFooter>
       <Head>
-        <meta property="og:type" content="website" />
+        <meta httpEquiv="refresh" content="0; url=/dictionary-free-pdf" />
+        <link rel="canonical" href="https://notesbysara.org/dictionary-free-pdf" />
       </Head>
-      <div className={styles.page}>
-        <section className={styles.hero}>
-          <div className={styles.bookHolder}>
-            <BookArt scale={0.95} />
-          </div>
-          <div className={styles.text}>
-            <p className={styles.kicker}>Free {PDF_TITLE}</p>
-            <h1 className={styles.title}>Keep the key finance terms in your pocket</h1>
-            <ul className={styles.list}>
-              <li>A plain-English meaning for every term</li>
-              <li>A difficulty level so you know where to start</li>
-              <li>Works on your phone or printed out</li>
-            </ul>
-            <SignupForm idPrefix="page" />
-          </div>
-        </section>
-
-        <section className={styles.how} aria-labelledby="how-title">
-          <h2 id="how-title" className={styles.howTitle}>
-            How it works
-          </h2>
-          <ol className={styles.steps}>
-            {STEPS.map((s, i) => (
-              <li key={s[0]} className={styles.step}>
-                <span className={styles.stepNum}>{i + 1}</span>
-                <span>
-                  <b>{s[0]}</b> {s[1]}
-                </span>
-              </li>
-            ))}
-          </ol>
-        </section>
-      </div>
+      <Redirect to="/dictionary-free-pdf" />
+      <main style={{padding: '48px 16px', textAlign: 'center'}}>
+        <p>
+          This page has moved to <Link to="/dictionary-free-pdf">the free Dictionary PDF page</Link>.
+        </p>
+      </main>
     </Layout>
   );
 }

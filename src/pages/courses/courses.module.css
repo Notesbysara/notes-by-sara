@@ -1,0 +1,23 @@
+.page { background: #FFFDF8; color: #17231e; font-family: 'Poppins', system-ui, sans-serif; padding: 56px 0 80px; }
+.inner { max-width: 960px; margin: 0 auto; padding: 0 24px; box-sizing: border-box; }
+.kicker { margin: 0 0 8px; font-size: 12px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #8A6A12; }
+.title { font-family: 'Forum', Georgia, serif; font-weight: 400; font-size: clamp(2.4rem, 6vw, 3.4rem); line-height: 1.05; margin: 0 0 12px; color: #06352A; }
+.lead { margin: 0 0 28px; font-size: 18px; line-height: 1.6; color: #3d4d46; max-width: 62ch; }
+.list { display: flex; flex-direction: column; gap: 16px; }
+.card { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px 28px; background: #ffffff; border: 1px solid #E9E1CF; border-top: 3px solid #E3C26F; border-radius: 16px; padding: 24px 26px; }
+.cardText { flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 8px; }
+.badge { align-self: flex-start; font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 999px; background: #EEF4EF; color: #0B4F3C; }
+.cardTitle { font-family: 'Forum', Georgia, serif; font-weight: 400; font-size: 32px; margin: 0; }
+.cardTitle a { color: #06352A; text-decoration: none; }
+.cardTitle a:hover { color: #0B4F3C; text-decoration: underline; text-decoration-color: #E3C26F; text-underline-offset: 5px; }
+.cardBlurb { margin: 0; font-size: 16px; line-height: 1.6; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tags span { background: #F7F2E7; border-radius: 999px; padding: 4px 12px; font-size: 13px; }
+.tags b { font-weight: 600; color: #06352A; }
+.btn { flex: none; display: inline-block; padding: 13px 22px; border-radius: 10px; background: #0B4F3C; color: #ffffff; font-weight: 500; font-size: 15px; text-decoration: none; box-shadow: inset 0 0 0 1px #E3C26F; }
+.btn:hover { color: #ffffff; text-decoration: none; background: #06352A; }
+@media (max-width: 600px) {
+  .page { padding: 40px 0 56px; }
+  .inner { padding: 0 16px; }
+  .btn { width: 100%; text-align: center; }
+}

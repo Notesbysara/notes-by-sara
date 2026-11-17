@@ -1,0 +1,91 @@
+/* Formula Library: the parts the Dictionary styles don't already cover. */
+.fx {
+  margin: 4px 0 0; font-family: Consolas, 'Courier New', monospace; font-size: 0.86rem; color: #06352A;
+  background: #FFFDF8; border: 1px solid #E9E1CF; border-radius: 8px; padding: 7px 10px; overflow-x: auto; white-space: nowrap;
+}
+.openLink { font-weight: 500; font-size: 0.92rem; color: #0B4F3C; text-decoration: none; }
+.openLink:hover { color: #06352A; text-decoration: underline; text-decoration-color: #E3C26F; text-underline-offset: 4px; }
+.related { margin: -4px 0 12px; font-size: 0.85rem; color: #8A6A12; }
+
+.block { margin-top: 1.8rem; }
+.h2 { font-family: 'Forum', Georgia, serif; font-weight: 400; font-size: 1.6rem; color: #06352A; margin: 0 0 0.7rem; }
+.formula { background: #FBF4DF; border-radius: 12px; padding: 18px 20px; overflow-x: auto; text-align: center; font-size: 1.25rem; color: #06352A; }
+.formula :global(.katex) { font-size: 1.15em; }
+.formula math { font-size: 1.25rem; }
+.alt { margin-top: 8px; }
+.plain { margin: 10px 0 0; font-family: Consolas, 'Courier New', monospace; font-size: 0.8rem; color: #5A6862; text-align: center; }
+.tw { overflow-x: auto; }
+.table { width: 100%; border-collapse: collapse; font-size: 0.92rem; display: table; }
+.table th { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #5A6862; text-align: left; padding: 8px 10px; border: 0; border-bottom: 1.5px solid #0B4F3C; background: transparent; }
+.table td { padding: 8px 10px; border: 0; border-bottom: 1px solid #E9E1CF; vertical-align: top; background: transparent; }
+.table tr { background: transparent !important; border: 0; }
+.sym { font-family: Consolas, 'Courier New', monospace; color: #06352A; white-space: nowrap; }
+.example { background: #ffffff; border: 1px solid #E9E1CF; border-left: 4px solid #E3C26F; border-radius: 12px; padding: 14px 18px; font-size: 0.95rem; }
+.example ol { margin: 8px 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; }
+.example code { display: block; margin-top: 2px; font-size: 0.82rem; background: #F7F2E7; border: 0; }
+.val { display: block; }
+.answer { margin: 6px 0 0; font-weight: 500; color: #06352A; }
+.noCalc { color: #5A6862; }
+.relList { display: flex; flex-wrap: wrap; gap: 8px; }
+.rel { background: #ffffff; border: 1px solid #E9E1CF; border-radius: 999px; padding: 6px 14px; font-size: 0.88rem; color: #0B4F3C; text-decoration: none; transition: border-color 0.2s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.rel:hover { border-color: #0B4F3C; color: #06352A; text-decoration: none; }
+
+.calc { background: #ffffff; border: 1px solid #E9E1CF; border-top: 3px solid #E3C26F; border-radius: 14px; padding: 18px; display: flex; flex-direction: column; gap: 14px; }
+.calcInputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 12px; }
+.calcLabel { display: flex; flex-direction: column; gap: 4px; font-size: 0.86rem; font-weight: 500; color: #17231e; min-width: 0; }
+.calcLabel em { font-style: normal; font-weight: 400; color: #5A6862; }
+.calcLabel input { border: 1px solid #E9E1CF; border-radius: 8px; padding: 9px 11px; font: inherit; font-weight: 400; background: #FFFDF8; color: #17231e; width: 100%; box-sizing: border-box; }
+.calcLabel input:focus { outline: none; border-color: #0B4F3C; box-shadow: 0 0 0 3px rgba(227, 194, 111, 0.45); }
+.calcLabel small { font-weight: 400; color: #5A6862; font-size: 0.78rem; }
+.calcWarn { margin: 0; background: #FBEAE6; color: #8A2E1C; border-radius: 10px; padding: 10px 14px; font-size: 0.9rem; }
+.calcSteps { width: 100%; border-collapse: collapse; font-size: 0.9rem; display: table; }
+.calcSteps th { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #5A6862; text-align: left; padding: 7px 10px; border: 0; border-bottom: 1.5px solid #0B4F3C; background: transparent; }
+.calcSteps td { padding: 7px 10px; border: 0; border-bottom: 1px solid #E9E1CF; background: transparent; }
+.calcSteps td:last-child { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.calcSteps tr { background: transparent !important; border: 0; }
+.calcResult td { background: #EEF4EF !important; font-weight: 600; color: #06352A; }
+.calcReset { align-self: flex-start; background: none; border: 1.5px solid #0B4F3C; color: #0B4F3C; border-radius: 999px; padding: 7px 16px; font: inherit; font-size: 0.86rem; font-weight: 500; cursor: pointer; }
+.calcReset:hover { background: #F7F2E7; }
+
+/* ---------- The list: clean rows, no boxes ---------- */
+.rows { display: flex; flex-direction: column; margin-top: -4px; }
+.row {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: center; gap: 14px;
+  padding: 14px 6px; border-bottom: 1px solid #E9E1CF; color: #17231e; text-decoration: none;
+  transition: background-color 0.2s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.row:hover { background: #F7F2E7; color: #17231e; text-decoration: none; }
+.row:hover .rowName { color: #0B4F3C; }
+.row:focus-visible { outline: 2px solid #E3C26F; outline-offset: 2px; border-radius: 6px; }
+.rowText { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.rowName { font-family: 'Forum', Georgia, serif; font-size: 1.3rem; line-height: 1.2; color: #06352A; }
+.rowFinds { font-size: 0.9rem; color: #5A6862; }
+.rowLevel { font-size: 0.72rem; font-weight: 600; border: 1.5px solid #0B4F3C; color: #0B4F3C; border-radius: 999px; padding: 1px 9px; white-space: nowrap; }
+.rowGo { color: #0B4F3C; font-size: 1.1rem; }
+@media (max-width: 560px) {
+  .row { grid-template-columns: minmax(0, 1fr) auto; gap: 10px; padding: 12px 2px; }
+  .rowLevel { display: none; }
+  .rowName { font-size: 1.15rem; }
+}
+
+/* Formula cards: the math inside "Show formula" */
+.cardMath {
+  display: block;
+  margin: 0.2rem 0 0.9rem;
+  overflow: hidden;
+  font-size: 1.1rem;
+  color: #1f2a26;
+}
+.cardMath math {
+  margin: 0;
+}
+.cardMathText {
+  font-family: 'KaTeX_Main', 'Times New Roman', serif;
+  font-size: 1.05rem !important;
+}
+.cardLink {
+  margin-bottom: 0.2rem !important;
+}
+.cardLink a {
+  font-weight: 600;
+}

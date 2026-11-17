@@ -9,5 +9,12 @@ export const PDF_PATH = '/downloads/Notes_by_Sara_Financial_Dictionary_Quick_Ref
 
 export const PDF_TITLE = 'Financial Dictionary Quick Reference';
 
+// The free Financial Formulas Cheat Sheet (file is in static/downloads).
+export const FORMULA_PDF_PATH = '/downloads/Notes_by_Sara_Financial_Formulas_Cheat_Sheet.pdf';
+export const FORMULA_PDF_TITLE = 'Financial Formulas Cheat Sheet';
+// MailerLite form for Formula Cheat Sheet sign-ups. Leave empty until the form exists:
+// the page then offers a plain download. Paste the form's long number here to switch on sign-up and the email.
+export const ML_FORM_FORMULAS = '204409944038967244';
+
 // Pop-up rules (see the roadmap).
 export const HIDE_DAYS = 30; // hidden this many days after closing or signing up

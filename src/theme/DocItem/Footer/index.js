@@ -6,7 +6,7 @@ import NoteExtras from '@site/src/components/notes/NoteExtras';
 // Adds the side note and the phone bottom bar to course topics only.
 export default function FooterWrapper(props) {
   const {metadata, frontMatter} = useDoc();
-  const isTopic = metadata.permalink.startsWith('/notes/foundations/') && !frontMatter.unlisted;
+  const isTopic = metadata.permalink.startsWith('/courses/financial-data-to-insight/') && !frontMatter.unlisted;
   return (
     <>
       <Footer {...props} />

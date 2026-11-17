@@ -128,3 +128,98 @@
 .nbs-note div, .nbs-note .viz { min-width: 0; }
 
 .theme-doc-markdown .nbs-note h2 { margin: 12px 0 -20px; }
+
+/* Design B (colour-coded lessons), 2026-11-17 */
+.nbs-note{--deep:#072F23;--gold:#E3C26F;--gold-soft:#FBF3DC;--blue:#2F5D8A;--blue-soft:#E8F0F8;--on-deep:#FCFBF7;--on-deep-muted:#CFE5DC}
+.nbs-note .banner{background:var(--deep);color:var(--on-deep);border-radius:20px;padding:30px 28px;display:flex;flex-direction:column;gap:12px}
+.nbs-note .banner .eyebrow{color:var(--gold)}
+.nbs-note .banner h1{color:var(--on-deep)}
+.nbs-note .banner .lead{color:var(--on-deep-muted)}
+.nbs-note .banner .goal{border-top:1px solid rgba(227,194,111,.35);padding-top:14px;font-size:.92rem;color:var(--on-deep-muted)}
+.nbs-note .banner .goal b{color:var(--gold);font-weight:600}
+.nbs-note .intro{gap:12px}
+.nbs-note h2{display:flex;align-items:center;gap:12px}
+.nbs-note h2::before{content:"";flex:none;width:6px;height:28px;border-radius:3px;background:var(--gold)}
+.nbs-note .steps{gap:28px}
+.nbs-note .step{background:transparent;border:0;border-radius:0;padding:0 0 28px;border-bottom:1px dashed var(--line);gap:12px}
+.nbs-note .step:last-child{border-bottom:0;padding-bottom:0}
+.nbs-note .step-head{gap:12px}
+.nbs-note .n{width:40px;height:40px;border-radius:12px;background:var(--green);color:#fff;font-family:var(--body);font-weight:600;font-size:1rem}
+.nbs-note .step h3{font-size:1.5rem}
+.nbs-note .def{background:var(--gold-soft);border-left:0;border-radius:12px;padding:12px 16px;gap:4px}
+.nbs-note .def::before{content:"Definition";font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-text)}
+.nbs-note p.eg,.nbs-note .step p.eg{background:#ffffff;border:1px solid #E9E1CF;border-left:4px solid #E3C26F;border-radius:12px;padding:12px 16px;color:var(--ink);font-size:.95rem}
+.nbs-note p.tip,.nbs-note .step p.tip{background:var(--pale);border-left:0;border-radius:12px;padding:12px 16px;font-size:.95rem}
+.nbs-note p.eg>b.lab,.nbs-note p.tip>b.lab{display:block;font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:2px}
+.nbs-note p.eg>b.lab{color:var(--gold-text)}
+.nbs-note p.tip>b.lab{color:var(--green-text)}
+.nbs-note .goals{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 22px;display:flex;flex-direction:column;gap:10px}
+.nbs-note .goals ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px}
+.nbs-note .before{font-size:.9rem;color:var(--muted)}
+.nbs-note .before b{color:var(--ink);font-weight:600}
+.nbs-note .try{border:1.5px dashed var(--green);border-radius:14px;padding:18px 22px;display:flex;flex-direction:column;gap:12px}
+.nbs-note .try details{background:var(--pale);border-radius:10px;padding:12px 16px}
+.nbs-note .try summary{cursor:pointer;font-weight:600;color:var(--green-text)}
+.nbs-note .try details[open] summary{margin-bottom:8px}
+.nbs-note .try details p+p{margin-top:8px}
+.nbs-note .later ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px}
+.nbs-note .map td:first-child{white-space:nowrap;font-weight:600}
+.nbs-note .nbs-head.banner{gap:12px}
+.nbs-note .banner .lead{font-size:1.05rem}
+.nbs-note .banner a{color:var(--gold)}
+.nbs-note .nbs-sec.try{border:1.5px dashed var(--green);border-radius:14px;padding:18px 22px;gap:12px}
+.nbs-note .nbs-sec.intro{gap:12px}
+.nbs-note .remember ul{margin:0}
+.nbs-note .btn{display:inline-block;font:inherit;font-weight:600;font-size:.92rem;background:var(--green);color:#fff;border:0;border-radius:999px;padding:10px 20px;text-decoration:none;cursor:pointer}
+.nbs-note .btn:hover{opacity:.9;color:#fff;text-decoration:none}
+.nbs-note .btn:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.nbs-note .nbs-copy{display:flex;flex-direction:column;gap:8px}
+.nbs-note .walk .wrow .label{font-size:.8rem;font-weight:600;color:var(--green-text)}
+.theme-doc-markdown .nbs-note h2{margin:12px 0 -20px}
+
+/* Tables: plain rows instead of the default grid */
+.nbs-note table{border:0}
+.nbs-note table tr{background:transparent;border:0}
+.nbs-note table th,.nbs-note table td{border:0;border-bottom:1px solid var(--line);background:transparent}
+.nbs-note table tr:nth-child(2n){background:transparent}
+.nbs-note table td{padding:9px 6px}
+.nbs-note table th{padding:8px 6px}
+.nbs-note .btn-ghost{background:transparent;color:var(--green-text);border:1.5px solid var(--green)}
+.nbs-note .btn-ghost:hover{color:var(--green-text)}
+
+/* Royal Emerald lessons (Nov 2026) */
+.nbs-note{--deep:#06352A;--gold:#E3C26F;--green:#0B4F3C;--green-text:#0B4F3C;--line:#E9E1CF;--cream:#F7F2E7}
+.nbs-note .banner{border:1px solid var(--gold)}
+.nbs-note .remember{background:var(--deep);color:#F3EFE3;border:1px solid var(--gold)}
+.nbs-note .remember .eyebrow{color:var(--gold)}
+.nbs-note .remember li::marker{color:var(--gold)}
+
+/* ---- Project pack download (Project 01) ---- */
+.nbs-note .pack{border:1px solid #E3C26F;background:#FFFCF2;border-radius:16px;padding:20px 22px;display:flex;flex-direction:column;gap:14px;margin:14px 0 8px}
+.nbs-note .pack-top{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;justify-content:space-between}
+.nbs-note .pack-top > div{min-width:0;flex:1 1 260px}
+.nbs-note .pack-title{font-family:var(--display);font-size:1.5rem;line-height:1.15;color:#06352A;margin:0}
+.nbs-note .pack .small{margin:2px 0 0}
+.nbs-note .pchips{display:flex;flex-wrap:nowrap;gap:6px}
+@media (max-width:996px){.nbs-note .pchips{flex-wrap:wrap}}
+.nbs-note .pchip{position:relative;display:inline-flex;align-items:center;gap:6px;white-space:nowrap;background:#fff;border:1px solid var(--line);border-radius:999px;padding:4px 12px 4px 5px;font-size:.82rem;font-weight:500;color:#06352A;cursor:default;outline:none}
+.nbs-note .pchip:hover,.nbs-note .pchip:focus-visible{border-color:var(--green)}
+.nbs-note .pic{padding:3px 7px;border-radius:999px;font-size:.62rem;font-weight:700;letter-spacing:.02em}
+.nbs-note .pic.pdf{background:#F6E3DE;color:#9A3A26}
+.nbs-note .pic.xls{background:var(--pale);color:var(--green-text)}
+.nbs-note .ptip{position:absolute;left:50%;bottom:calc(100% + 8px);transform:translateX(-50%);background:#06352A;color:#FFFDF8;font-size:.8rem;font-weight:400;line-height:1.4;white-space:normal;padding:7px 11px;border-radius:8px;width:max-content;max-width:220px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .15s;z-index:5}
+.nbs-note .ptip::after{content:"";position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:#06352A}
+.nbs-note .pchip:hover .ptip,.nbs-note .pchip:focus .ptip{opacity:1;visibility:visible}
+@media (max-width:600px){.nbs-note .pack .btn{width:100%;text-align:center}}
+
+/* Phones: tables and diagrams fit the screen instead of scrolling sideways. */
+@media (max-width: 600px) {
+  .nbs-note .tw, .nbs-note .viz { overflow-x: visible; }
+  .nbs-note .viz svg { min-width: 0; }
+  .nbs-note .tw table { font-size: 0.86em; }
+  .nbs-note .tw th, .nbs-note .tw td { overflow-wrap: anywhere; padding-left: 6px; padding-right: 6px; }
+}
+@media (max-width: 600px) {
+  .nbs-note .tw table:has(tr > :nth-child(5)) { font-size: 0.76em; }
+  .nbs-note .tw th, .nbs-note .tw td { padding-left: 4px; padding-right: 4px; }
+}

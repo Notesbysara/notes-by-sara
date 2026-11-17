@@ -1,0 +1,30 @@
+// Everyday words people type, and the finance topics they usually mean.
+// Used by the Dictionary and the Formulas search. To add a row: on the left,
+// the phrases people might type; on the right, what to search for instead.
+// Results for the right-hand words show after the direct matches.
+export const THESAURUS = [
+  [['profit per sale', 'profit on each sale', 'how much profit', 'profitability', 'keep from each sale'], ['profit margin', 'profit margins', 'gross margin', 'operating margin', 'margin analysis']],
+  [['how risky', 'riskiness', 'how much risk', 'ups and downs', 'swings', 'how volatile'], ['standard deviation', 'volatility', 'beta']],
+  [['worth today', 'value today', 'todays money', 'todays dollars', 'in todays terms'], ['present value', 'net present value']],
+  [['grow to', 'grows to', 'how much will', 'worth in the future', 'future worth', 'in the future'], ['future value', 'compound interest', 'compounding']],
+  [['interest on interest'], ['compound interest', 'compounding']],
+  [['monthly payment', 'mortgage payment', 'loan payment', 'pay off', 'repay', 'repayment'], ['loan payment', 'amortization', 'annuity', 'mortgage']],
+  [['price earnings', 'price to earnings', 'pe ratio', 'earnings multiple'], ['p e', 'price earnings ratio']],
+  [['cost of capital', 'cost of money', 'hurdle rate', 'required return'], ['wacc', 'weighted average cost of capital', 'cost of equity']],
+  [['average growth', 'growth rate', 'grew per year', 'yearly growth'], ['cagr', 'compound annual growth rate', 'growth rate']],
+  [['pay its bills', 'pay bills', 'short term cash', 'can it pay'], ['liquidity', 'current ratio', 'quick ratio']],
+  [['how much debt', 'debt level', 'too much debt', 'borrowing'], ['leverage', 'debt to equity', 'gearing']],
+  [['what a share is worth', 'stock value', 'share value', 'value a stock', 'value a company', 'company worth'], ['valuation', 'dividend discount', 'valuation multiples', 'discounted cash flow']],
+  [['after inflation', 'inflation adjusted', 'buying power', 'real value'], ['real return', 'inflation', 'purchasing power']],
+  [['break even', 'breakeven', 'no profit no loss', 'cover costs'], ['break even']],
+  [['earn back', 'get my money back', 'recover the cost', 'how long to recover'], ['payback', 'payback period']],
+  [['retire', 'retirement', 'pension', 'nest egg'], ['retirement', 'pension', 'annuity']],
+  [['option price', 'value an option', 'price an option'], ['black scholes', 'option pricing', 'option']],
+  [['bond price', 'price a bond', 'value a bond'], ['bond price', 'bond pricing', 'yield to maturity']],
+  [['interest rate risk', 'rate sensitivity', 'sensitive to rates'], ['duration', 'convexity']],
+  [['roi', 'return on investment', 'how much did i make'], ['return on investment', 'holding period return', 'return']],
+  [['money coming in', 'money going out', 'cash in and out'], ['cash flow', 'free cash flow']],
+  [['spending plan', 'monthly plan', 'track spending'], ['budget', 'budgeting']],
+  [['share buyback', 'buy back shares'], ['buyback', 'share repurchase']],
+  [['what investors want', 'investor return'], ['required rate of return', 'cost of equity']],
+];

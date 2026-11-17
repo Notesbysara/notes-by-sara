@@ -1,6 +1,6 @@
 .page { font-family: 'Poppins', system-ui, sans-serif; color: #17231e; background: #fff; }
 
-.hero { background: #0e7c5a; color: #fff; padding: 84px 24px 120px; }
+.hero { background: #0B4F3C; color: #fff; padding: 84px 24px 120px; }
 .heroInner { max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
 .eyebrow { font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: #cfeee2; font-weight: 500; }
 .headline { margin: 0; font-family: 'Forum', serif; font-weight: 400; font-size: 60px; line-height: 1.08; text-wrap: balance; color: #fff; }
@@ -9,35 +9,30 @@
 .me { margin: 0; font-size: 17px; color: #cfeee2; }
 
 .tilesWrap { padding: 0 24px; margin-top: -64px; }
-.tiles { max-width: 1040px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
-.tile { display: flex; flex-direction: column; gap: 10px; padding: 28px; background: #f4f7f5; border: 1px solid #dde6e1; border-radius: 14px; text-decoration: none; color: #17231e; box-shadow: 0 8px 24px rgba(14, 60, 44, 0.08); min-width: 0; }
-.tile:hover { text-decoration: none; color: #17231e; border-color: #0e7c5a; }
+.tiles { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.tile { display: flex; flex-direction: column; gap: 10px; padding: 28px; background: #F7F2E7; border: 1px solid #E9E1CF; border-radius: 14px; text-decoration: none; color: #17231e; box-shadow: 0 8px 24px rgba(14, 60, 44, 0.08); min-width: 0; }
+.tile:hover { text-decoration: none; color: #17231e; border-color: #0B4F3C; }
 .kicker { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: #4f625a; font-weight: 500; }
-.tileName { font-family: 'Forum', serif; font-size: 30px; line-height: 1.15; color: #0e7c5a; }
+.tileName { font-family: 'Forum', serif; font-size: 30px; line-height: 1.15; color: #0B4F3C; }
 .tileText { font-size: 15px; line-height: 1.55; color: #3d4d46; }
-.cta { margin-top: auto; padding-top: 8px; font-size: 15px; font-weight: 500; color: #0e7c5a; }
+.cta { margin-top: auto; padding-top: 8px; font-size: 15px; font-weight: 500; color: #0B4F3C; }
 
-.how { padding: 104px 24px 24px; }
 .narrow { max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
 .kickerDark { font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: #4f625a; font-weight: 500; }
 .h2 { margin: 0; font-family: 'Forum', serif; font-weight: 400; font-size: 42px; line-height: 1.15; text-wrap: balance; }
-.howLead { margin: 0 0 28px; font-size: 17px; line-height: 1.6; color: #3d4d46; max-width: 640px; }
-.steps { display: flex; flex-direction: column; border-bottom: 1px solid #dde6e1; }
-.step { display: flex; flex-wrap: wrap; gap: 12px 32px; align-items: baseline; padding: 28px 0; border-top: 1px solid #dde6e1; }
-.num { font-family: 'Forum', serif; font-size: 72px; line-height: 1; color: #0e7c5a; width: 96px; flex-shrink: 0; }
-.stepBody { flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
-.stepTitle { font-family: 'Forum', serif; font-size: 30px; line-height: 1.2; }
-.stepText { font-size: 17px; line-height: 1.6; color: #3d4d46; max-width: 560px; }
 
 .corrWrap { padding: 48px 24px 96px; }
-.corr { max-width: 900px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 24px 48px; padding: 36px; background: #f4f7f5; border: 1px solid #dde6e1; border-radius: 14px; }
+.corr { max-width: 900px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 24px 48px; padding: 36px; background: #F7F2E7; border: 1px solid #E9E1CF; border-radius: 14px; }
 .corrMain { flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 10px; }
 .corrTitle { font-family: 'Forum', serif; font-size: 30px; }
 .corrText { margin: 0; font-size: 16px; line-height: 1.6; color: #3d4d46; }
-.mail { font-size: 17px; font-weight: 500; color: #0e7c5a; overflow-wrap: anywhere; }
+.mail { font-size: 17px; font-weight: 500; color: #0B4F3C; overflow-wrap: anywhere; }
 .legal { flex: 1 1 280px; min-width: 0; margin: 0; align-self: flex-end; font-size: 14px; line-height: 1.6; color: #4f625a; }
 
-@media (max-width: 900px) {
+@media (max-width: 1100px) {
+  .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 600px) {
   .tiles { grid-template-columns: minmax(0, 1fr); }
 }
 @media (max-width: 600px) {
@@ -48,14 +43,35 @@
   .tilesWrap { padding: 0 16px; margin-top: -52px; }
   .tile { padding: 22px; }
   .tileName { font-size: 27px; }
-  .how { padding: 56px 16px 8px; }
   .h2 { font-size: 32px; }
-  .howLead { font-size: 16px; }
-  .step { flex-wrap: nowrap; gap: 18px; padding: 22px 0; align-items: flex-start; }
-  .num { font-size: 56px; width: 40px; }
-  .stepTitle { font-size: 25px; }
-  .stepText { font-size: 15px; }
   .corrWrap { padding: 32px 16px 56px; }
   .corr { padding: 24px; }
   .corrTitle { font-size: 26px; }
+}
+
+/* How it works: one path, four steps joined by a gold line. On phones the line runs down the side. */
+.how { padding: 72px 24px 40px; }
+.howInner { max-width: 1120px; margin: 0 auto; }
+.howKicker { font-size: var(--nbs-t-label, 12.5px); letter-spacing: 0.14em; text-transform: uppercase; color: #8A6A12; font-weight: 600; margin-bottom: 10px; }
+.howTitle { margin: 0 0 12px; font-family: 'Forum', serif; font-weight: 400; font-size: 38px; line-height: 1.15; color: #1F2A26; text-wrap: balance; }
+.howLead { margin: 0; font-size: var(--nbs-t-body, 16px); line-height: 1.6; color: #47524D; max-width: 560px; }
+.path { list-style: none; margin: 36px 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; position: relative; }
+.path::before { content: ''; position: absolute; left: 24px; right: 25%; top: 23px; height: 2px; background: #E3C26F; }
+.pathStep { position: relative; margin: 0; min-width: 0; }
+.pathNum {
+  position: relative; z-index: 1; width: 48px; height: 48px; border-radius: 50%;
+  background: #0B4F3C; color: #fff; font-family: 'Forum', serif; font-size: 24px;
+  display: flex; align-items: center; justify-content: center; margin-bottom: 16px;
+  box-shadow: 0 0 0 6px #FFFDF8;
+}
+.stepTitle { margin: 0 0 4px; font-family: 'Forum', serif; font-weight: 400; font-size: 22px; line-height: 1.25; color: #1F2A26; }
+.stepText { margin: 0; font-size: var(--nbs-t-body, 16px); line-height: 1.55; color: #47524D; }
+@media (max-width: 760px) {
+  .how { padding: 48px 16px 24px; }
+  .howTitle { font-size: 30px; }
+  .path { grid-template-columns: 1fr; gap: 0; padding-left: 6px; }
+  .path::before { display: none; }
+  .pathStep:not(:last-child)::after { content: ''; position: absolute; left: 23px; top: 48px; bottom: 0; width: 2px; background: #E3C26F; }
+  .pathStep { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 16px; padding-bottom: 22px; }
+  .pathNum { margin: 0; }
 }

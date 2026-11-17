@@ -18,9 +18,9 @@ const TERMS = [
 const doors = [
   {
     kicker: 'Start here',
-    name: 'Notes',
-    text: 'The step-by-step lessons, in order, from the idea to the worked example.',
-    cta: 'Open the notes',
+    name: 'Learning path',
+    text: 'One route through finance, in order, starting with a free hands-on course.',
+    cta: 'See the learning path',
     to: '/notes',
   },
   {
@@ -42,7 +42,8 @@ const doors = [
 ];
 
 const subjects = [
-  {name: 'Foundations', live: true},
+  {name: 'Free course: Financial Data-to-Insight', live: true, to: '/courses/financial-data-to-insight'},
+  {name: 'Foundations'},
   {name: 'Personal Finance'},
   {name: 'Financial Statement Analysis'},
   {name: 'Corporate Finance'},
@@ -60,7 +61,7 @@ const faqs = [
   },
   {
     q: 'Who are the notes for?',
-    a: 'University students, people preparing for finance exams, and anyone who wants to understand how finance works. No finance background is needed to start with Foundations.',
+    a: 'University students, people preparing for finance exams, and anyone who wants to understand how finance works. No finance background is needed to start the free Financial Data-to-Insight course.',
   },
   {
     q: 'How is this different from asking an AI chatbot?',
@@ -68,7 +69,7 @@ const faqs = [
   },
   {
     q: 'Are the notes free?',
-    a: 'Yes. Every note on the site is free to read, with no account needed.',
+    a: 'Yes. The course, the Financial Dictionary and the formulas are free to use, with no account needed.',
   },
   {
     q: 'What else is on the site?',
@@ -80,7 +81,7 @@ const faqs = [
   },
   {
     q: 'How often are new notes published?',
-    a: 'Notes are published subject by subject. Foundations is open now, and the other subjects follow in order.',
+    a: 'The free Financial Data-to-Insight course is open now. Notes are published subject by subject, starting with Foundations.',
   },
   {
     q: 'Can I suggest a topic?',
@@ -103,58 +104,15 @@ function reducedMotion() {
     window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 }
 
-// 'init' = server render and first paint (everything visible),
-// 'hide' = below the fold and waiting, 'show' = scrolled into view.
+// Sections are always visible. (They used to stay hidden until scrolled into view.)
 function useReveal() {
   const ref = useRef(null);
-  const [state, setState] = useState('init');
-  useEffect(() => {
-    const el = ref.current;
-    if (!el || reducedMotion() || typeof IntersectionObserver === 'undefined') {
-      setState('show');
-      return undefined;
-    }
-    if (el.getBoundingClientRect().top < window.innerHeight * 0.9) {
-      setState('show');
-      return undefined;
-    }
-    setState('hide');
-    const io = new IntersectionObserver((entries) => {
-      if (entries.some((e) => e.isIntersecting)) {
-        setState('show');
-        io.disconnect();
-      }
-    }, {threshold: 0.15});
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
-  return [ref, state];
+  return [ref, 'init'];
 }
 
-function useCountUp(target, run) {
-  const [value, setValue] = useState(target);
-  useEffect(() => {
-    if (!run) {
-      return undefined;
-    }
-    if (reducedMotion()) {
-      setValue(target);
-      return undefined;
-    }
-    let frame;
-    const start = performance.now();
-    const tick = (now) => {
-      const p = Math.min(1, (now - start) / 1400);
-      setValue(Math.round(target * (1 - Math.pow(1 - p, 3))));
-      if (p < 1) {
-        frame = requestAnimationFrame(tick);
-      }
-    };
-    setValue(0);
-    frame = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(frame);
-  }, [run, target]);
-  return value;
+// The counts show the real number straight away (no count-up from 0).
+function useCountUp(target) {
+  return target;
 }
 
 function money(v) {
@@ -164,27 +122,40 @@ function money(v) {
 function GrowthChart() {
   const [rate, setRate] = useState(8);
   const [t, setT] = useState(1);
-  const [auto, setAuto] = useState(true);
+  const cardRef = useRef(null);
 
+  // Draw the curve once, the first time the chart is on screen. After that it only
+  // moves when the reader drags the slider.
   useEffect(() => {
-    if (!auto) {
+    const el = cardRef.current;
+    if (!el || reducedMotion() || typeof IntersectionObserver === 'undefined') {
       return undefined;
     }
-    if (reducedMotion()) {
-      setAuto(false);
-      return undefined;
-    }
-    let tt = 0.05;
-    setT(tt);
-    const id = setInterval(() => {
-      tt += 0.014;
-      if (tt > 1.5) {
-        tt = 0.05;
+    let frame;
+    let done = false;
+    const play = () => {
+      const start = performance.now();
+      const step = (now) => {
+        const p = Math.min(1, (now - start) / 1100);
+        setT(Math.max(0.02, 1 - Math.pow(1 - p, 3)));
+        if (p < 1) frame = requestAnimationFrame(step);
+      };
+      setT(0.02);
+      frame = requestAnimationFrame(step);
+    };
+    const io = new IntersectionObserver((entries) => {
+      if (!done && entries.some((e) => e.isIntersecting)) {
+        done = true;
+        io.disconnect();
+        play();
       }
-      setT(Math.min(tt, 1));
-    }, 60);
-    return () => clearInterval(id);
-  }, [auto]);
+    }, {threshold: 0.4});
+    io.observe(el);
+    return () => {
+      io.disconnect();
+      cancelAnimationFrame(frame);
+    };
+  }, []);
 
   const r = rate / 100;
   const N = 20;
@@ -202,7 +173,7 @@ function GrowthChart() {
   const area = pts.join(' ') + ' ' + X(endY).toFixed(1) + ',190 20,190';
 
   return (
-    <div className={styles.chartCard}>
+    <div className={styles.chartCard} ref={cardRef}>
       <div className={styles.chartTop}>
         <div>$1,000 growing at {rate}% a year</div>
         <div>Year {Math.round(endY)}</div>
@@ -220,7 +191,7 @@ function GrowthChart() {
       <label className={styles.chartLabel}>
         <span>Drag to change the rate</span>
         <input type="range" min="3" max="12" step="1" value={rate}
-          onChange={(e) => { setRate(Number(e.target.value)); setAuto(false); setT(1); }} />
+          onChange={(e) => { setRate(Number(e.target.value)); setT(1); }} />
       </label>
     </div>
   );
@@ -232,51 +203,57 @@ function Hero() {
     <header className={styles.hero}>
       <div className={styles.heroInner}>
         <div className={styles.heroText}>
-          <div className={`${styles.fu} ${styles.lockup}`} style={{animationDelay: '.05s'}}>
+          <div className={`${styles.fu} ${styles.lockup}`} style={{animationDelay: '0s'}}>
             <img src={logo} alt="Notes by Sara logo" className={styles.lockupLogo} />
             <div>
               <div className={styles.lockupName}>Notes by Sara</div>
               <div className={styles.lockupTag}>Structured finance notes</div>
             </div>
           </div>
-          <Heading as="h1" className={`${styles.fu} ${styles.heroTitle}`} style={{animationDelay: '.15s'}}>
+          <Heading as="h1" className={`${styles.fu} ${styles.heroTitle}`} style={{animationDelay: '.03s'}}>
             Finance, <span className={styles.heroAccent}>explained in order</span>
           </Heading>
-          <p className={`${styles.fu} ${styles.heroSubtitle}`} style={{animationDelay: '.3s'}}>
+          <p className={`${styles.fu} ${styles.heroSubtitle}`} style={{animationDelay: '.06s'}}>
             Clear notes that take you from your first spreadsheet to derivatives,
             with the working shown at every step.
           </p>
-          <div className={`${styles.fu} ${styles.heroButtons}`} style={{animationDelay: '.45s'}}>
-            <Link className={styles.primaryButton} to="/notes/foundations/from-raw-numbers-to-decisions">
-              Start with Foundations
+          <div className={`${styles.fu} ${styles.heroButtons}`} style={{animationDelay: '.09s'}}>
+            <Link className={styles.primaryButton} to="/courses/financial-data-to-insight">
+              Start the free course
             </Link>
             <Link className={styles.secondaryButton} to="/notes">
               See the learning path
             </Link>
           </div>
-          <p className={`${styles.fu} ${styles.heroNote}`} style={{animationDelay: '.55s'}}>
+          <p className={`${styles.fu} ${styles.heroNote}`} style={{animationDelay: '.12s'}}>
             Free to read. No account needed.
           </p>
-          <div className={`${styles.fu} ${styles.pdfRow}`} style={{animationDelay: '.65s'}}>
-            <Link className={styles.pdfButton} to="/free-pdf">
-              <svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
-                <path d="M3 2.5h8a1.5 1.5 0 0 1 1.5 1.5v9.5H4.5A1.5 1.5 0 0 1 3 12V2.5z" />
-                <path d="M3 12a1.5 1.5 0 0 1 1.5-1.5h8" />
-              </svg>
-              Get the free Financial Dictionary Quick Reference (PDF)
-            </Link>
-          </div>
         </div>
-        <div className={`${styles.fu} ${styles.heroChart}`} style={{animationDelay: '.35s'}}>
+        <div className={`${styles.fu} ${styles.heroChart}`} style={{animationDelay: '.06s'}}>
           <GrowthChart />
         </div>
+      </div>
+      <div className={`${styles.fu} ${styles.projBand}`} style={{animationDelay: '.12s'}}>
+        <div className={styles.projText}>
+          <div className={styles.projKicker}>Free project · Start here</div>
+          <p className={styles.projLine}>
+            Your first real analysis: compare Walmart and Target using their published results, with a
+            workbook that checks your answers. New to this?{' '}
+            <Link to="/courses/financial-data-to-insight/from-raw-numbers-to-decisions" className={styles.projLink}>
+              Start the course from lesson 1.
+            </Link>
+          </p>
+        </div>
+        <Link className={styles.projButton} to="/courses/financial-data-to-insight/project-01-walmart-vs-target">
+          Start the free project →
+        </Link>
       </div>
     </header>
   );
 }
 
 function TermStrip() {
-  const list = [...TERMS, ...TERMS];
+  const list = TERMS;
   return (
     <div className={styles.strip} aria-hidden="true">
       <div className={styles.track}>
@@ -327,7 +304,7 @@ function LearningPath() {
         <div className={styles.sectionHead}>
           <Heading as="h2" className={styles.sectionTitle}>The learning path</Heading>
           <p className={styles.sectionLead}>
-            Start at the foundations and work forward. Each subject opens as its notes are published.
+            Start with the free course, then work forward. Each subject opens as its notes are published.
           </p>
         </div>
         <div ref={ref} className={`${styles.path} ${cls}`}>
@@ -335,7 +312,7 @@ function LearningPath() {
             <div className={styles.railLine} />
             <div className={styles.railDots}>
               {subjects.map((s, i) => (
-                <div key={s.name} className={styles.dot} style={{animationDelay: `${0.4 + i * 0.28}s`}} />
+                <div key={s.name} className={styles.dot} />
               ))}
             </div>
           </div>
@@ -343,9 +320,9 @@ function LearningPath() {
           <div className={styles.stageGrid}>
             {subjects.map((s, i) => (
               <div key={s.name} className={styles.stageWrap}>
-                <div className={styles.tileDot} aria-hidden="true" style={{animationDelay: `${0.4 + i * 0.28}s`}} />
+                <div className={styles.tileDot} aria-hidden="true" />
                 {s.live ? (
-                  <Link to="/notes/foundations/from-raw-numbers-to-decisions" className={styles.stageLive}>
+                  <Link to={s.to} className={styles.stageLive}>
                     <span className={styles.stageName}>{s.name}</span>
                     <span className={styles.stageStatusLive}>Open now</span>
                   </Link>
@@ -375,12 +352,13 @@ function StartHere() {
       <div className={styles.narrow}>
         <Heading as="h2" className={styles.sectionTitle}>Start here</Heading>
         <div ref={ref} className={cls}>
-          <Link to="/notes/foundations/from-raw-numbers-to-decisions" className={styles.featureCard}>
-            <span className={styles.featureEyebrow}>Foundations · Topic 1 of 12</span>
-            <span className={styles.featureTitle}>From raw numbers to decisions</span>
+          <Link to="/courses/financial-data-to-insight/from-raw-numbers-to-decisions" className={styles.featureCard}>
+            <span className={styles.featureEyebrow}>Free course · Lesson 1 of 12</span>
+            <span className={styles.featureTitle}>Read a business through its numbers</span>
             <span className={styles.featureBody}>
-              Six steps that take you from a spreadsheet full of numbers to a clear
-              decision. The first topic of the free Financial Data-to-Insight course.
+              The three financial statements, and the six-step method that takes you
+              from numbers to a decision. The first lesson of the free Financial
+              Data-to-Insight course.
             </span>
             <span className={styles.featureCta}>Read the note →</span>
           </Link>

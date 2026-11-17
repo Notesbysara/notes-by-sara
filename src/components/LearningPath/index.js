@@ -1,14 +1,15 @@
 import React, {useState} from 'react';
 import Link from '@docusaurus/Link';
-import {SUBJECTS, ALL_NOTES} from './catalog';
+import {SUBJECTS, ALL_NOTES, COURSES, noteLabel} from './catalog';
 import styles from './LearningPath.module.css';
 
 const GOALS = [
   {
     id: 'new',
     label: 'I am new to finance',
-    advice: 'Start with the first subject. Everything after it builds on it, so work down the list in order.',
-    open: 0,
+    advice:
+      'Start with the free course at the top. Then work down the subjects in order, as their notes are published.',
+    open: -1,
   },
   {
     id: 'course',
@@ -20,9 +21,10 @@ const GOALS = [
   {
     id: 'topic',
     label: 'I need one topic fast',
-    advice: 'Use the Notes tab to search for the exact topic, then come back here to see what to revise next.',
+    advice:
+      'Look the term up in the Financial Dictionary, or work it through in Formulas. Then come back here to see what to learn next.',
     open: -1,
-    link: {to: '/notes-library', label: 'Go to the Notes tab'},
+    link: {to: '/dictionary', label: 'Go to the Financial Dictionary'},
   },
 ];
 
@@ -92,9 +94,11 @@ function RouteArt() {
 
 export default function LearningPath() {
   const [goal, setGoal] = useState(null);
-  const [open, setOpen] = useState(0);
+  const [open, setOpen] = useState(-1);
 
-  const next = ALL_NOTES[0];
+  const course = COURSES[0];
+  // The first published note, or lesson 1 of the course while no notes are published yet.
+  const next = ALL_NOTES[0] || course.lessons.find((n) => /topic 1 of/i.test(n.meta || '')) || course.lessons[0];
   const currentGoal = GOALS.find((g) => g.id === goal);
 
   function pickGoal(g) {
@@ -109,8 +113,8 @@ export default function LearningPath() {
           <div className={styles.eyebrow}>Finance learning path</div>
           <h1 className={styles.h1}>What should I learn next?</h1>
           <p className={styles.lead}>
-            One route through finance, in order. Say where you are starting and follow the steps. Looking for one
-            specific topic? Use the <Link to="/notes-library">Notes tab</Link>.
+            One route through finance, in order. It starts with a free hands-on course, then the subjects from
+            Foundations to Derivatives. Looking for one term? Use the <Link to="/dictionary">Financial Dictionary</Link>.
           </p>
         </div>
         <RouteArt />
@@ -144,15 +148,41 @@ export default function LearningPath() {
       <section className={styles.body}>
         <div className={styles.side}>
           <div className={styles.next}>
-            <div className={styles.nextKicker}>Start here</div>
+            <div className={styles.nextKicker}>{ALL_NOTES.length ? 'Next up' : 'Your first lesson'}</div>
             <div className={styles.nextTitle}>{next.title}</div>
             <div className={styles.nextText}>{next.blurb}</div>
             <Link to={next.to} className={styles.nextCta}>
-              Read the note
+              {ALL_NOTES.length ? 'Read the note' : 'Read the lesson'}
             </Link>
           </div>
         </div>
 
+        <div className={styles.main}>
+        <div className={styles.courseCard}>
+          <div className={styles.courseHead}>
+            <span className={styles.startTag}>Start here</span>
+            <span className={styles.courseName}>{course.name}</span>
+            <span className={styles.courseStatus}>Course · Open now</span>
+          </div>
+          <p className={styles.courseBlurb}>{course.blurb}</p>
+          <div className={styles.coursePills}>
+            {course.covers.map(([a, b]) => (
+              <span key={a} className={styles.coursePill}>
+                <b>{a}</b>
+                {b}
+              </span>
+            ))}
+          </div>
+          <div className={styles.courseBtns}>
+            <Link to={next.to} className={styles.courseBtn}>
+              Start lesson 1
+            </Link>
+            <Link to={course.to} className={styles.courseBtnGhost}>
+              See the course
+            </Link>
+          </div>
+        </div>
+        <div className={styles.thenLabel}>Then the subjects, in order</div>
         <ol className={styles.stepper}>
           {SUBJECTS.map((s, i) => {
             const live = s.notes.length > 0;
@@ -193,7 +223,7 @@ export default function LearningPath() {
                           <div key={n.slug} className={styles.noteRow}>
                             <div className={styles.noteText}>
                               <div className={styles.noteTitle}>
-                                {j + 1}. {n.title}
+                                {noteLabel(n, j)}. {n.title}
                               </div>
                               <div className={styles.small}>{n.meta}</div>
                             </div>
@@ -202,6 +232,11 @@ export default function LearningPath() {
                             </Link>
                           </div>
                         ))}
+                        {s.course ? (
+                          <Link to={s.course.to} className={styles.courseLink}>
+                            {s.course.label} →
+                          </Link>
+                        ) : null}
                         <div className={styles.small}>
                           More notes in this subject are added in order. They appear here as they are published.
                         </div>
@@ -217,6 +252,7 @@ export default function LearningPath() {
             );
           })}
         </ol>
+        </div>
       </section>
 
       <section className={styles.how}>

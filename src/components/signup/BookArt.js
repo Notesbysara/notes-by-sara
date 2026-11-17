@@ -15,7 +15,7 @@ const PAGES = [
   ['Put Option', 'Advanced', 'The right, but not the obligation, to sell an asset at a set price before a set date.', 'Right to sell at 100 when the price falls to 80 gains 20, before the premium.'],
 ];
 
-function Page({n, side, title, level, text, example}) {
+function Page({n, side, title, level, text, example, boxLabel = 'Example'}) {
   return (
     <div className={`${styles.pgc} ${side === 'r' ? styles.r : styles.l}`}>
       <div className={styles.pgn}>{n}</div>
@@ -23,7 +23,7 @@ function Page({n, side, title, level, text, example}) {
       {level ? <div className={styles.pl}>{level}</div> : null}
       <div className={styles.pd}>{text}</div>
       <div className={styles.pe}>
-        <b>Example</b>
+        <b>{boxLabel}</b>
         {example}
       </div>
     </div>
@@ -35,8 +35,19 @@ function Page({n, side, title, level, text, example}) {
  * Pure CSS, no scripts. With "reduce motion" switched on, it stays closed.
  * `scale` shrinks the whole book (the design is drawn at 480 x 340).
  */
-export default function BookArt({scale = 1, className = ''}) {
-  const leaves = [0, 1, 2, 3, 4].map((i) => ({front: PAGES[i * 2], back: PAGES[i * 2 + 1]}));
+const DICTIONARY_BOOK = {
+  pages: PAGES,
+  boxLabel: 'Example',
+  coverTitle: 'Financial Dictionary',
+  coverSub: 'Quick Reference',
+  coverFoot: 'Plain-English finance terms',
+  lastTitle: 'And many more',
+  lastText: 'Every term has a plain-English meaning and a difficulty level, so you know where to start.',
+};
+
+export default function BookArt({scale = 1, className = '', book = DICTIONARY_BOOK}) {
+  const pages = book.pages;
+  const leaves = [0, 1, 2, 3, 4].map((i) => ({front: pages[i * 2], back: pages[i * 2 + 1]}));
   return (
     <div
       className={`${styles.stageBox} ${className}`}
@@ -49,10 +60,8 @@ export default function BookArt({scale = 1, className = ''}) {
             <div className={`${styles.face} ${styles.pf}`} style={{backfaceVisibility: 'visible'}}>
               <div className={`${styles.pgc} ${styles.r}`}>
                 <div className={styles.pgn}>11</div>
-                <div className={styles.pt}>And many more</div>
-                <div className={styles.pd}>
-                  Every term has a plain-English meaning and a difficulty level, so you know where to start.
-                </div>
+                <div className={styles.pt}>{book.lastTitle}</div>
+                <div className={styles.pd}>{book.lastText}</div>
                 <div className={styles.pe}>
                   <b>Free PDF</b>
                   Sign up to get it.
@@ -63,10 +72,10 @@ export default function BookArt({scale = 1, className = ''}) {
           {leaves.map((lf, i) => (
             <div key={i} className={`${styles.leaf} ${styles['lf' + i]}`}>
               <div className={`${styles.face} ${styles.pf}`}>
-                <Page n={i * 2 + 1} side="r" title={lf.front[0]} level={lf.front[1]} text={lf.front[2]} example={lf.front[3]} />
+                <Page n={i * 2 + 1} side="r" title={lf.front[0]} level={lf.front[1]} text={lf.front[2]} example={lf.front[3]} boxLabel={book.boxLabel} />
               </div>
               <div className={`${styles.face} ${styles.pb}`}>
-                <Page n={i * 2 + 2} side="l" title={lf.back[0]} level={lf.back[1]} text={lf.back[2]} example={lf.back[3]} />
+                <Page n={i * 2 + 2} side="l" title={lf.back[0]} level={lf.back[1]} text={lf.back[2]} example={lf.back[3]} boxLabel={book.boxLabel} />
               </div>
             </div>
           ))}
@@ -74,10 +83,10 @@ export default function BookArt({scale = 1, className = ''}) {
             <div className={`${styles.face} ${styles.front}`}>
               <div>
                 <div className={styles.coverBar} />
-                <div className={styles.coverTitle}>Financial Dictionary</div>
-                <div className={styles.coverSub}>Quick Reference</div>
+                <div className={styles.coverTitle}>{book.coverTitle}</div>
+                <div className={styles.coverSub}>{book.coverSub}</div>
               </div>
-              <div className={styles.coverFoot}>Plain-English finance terms</div>
+              <div className={styles.coverFoot}>{book.coverFoot}</div>
             </div>
             <div className={`${styles.face} ${styles.cback}`} />
           </div>

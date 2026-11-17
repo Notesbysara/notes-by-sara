@@ -45,7 +45,7 @@ export default function NoteExtras({permalink, previous, next}) {
           <div className={styles.sheet} role="dialog" aria-label="Course topics">
             <div className={styles.grab} />
             <div className={styles.sheetHead}>
-              <p>Foundations · Financial Data-to-Insight</p>
+              <p>Financial Data-to-Insight</p>
               <button type="button" onClick={() => setSheet(false)} aria-label="Close topics">✕</button>
             </div>
             <ol className={styles.list}>

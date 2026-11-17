@@ -1,6 +1,6 @@
 import {ML_ACCOUNT, ML_FORM} from './config';
 
-const ENDPOINT = `https://assets.mailerlite.com/jsonp/${ML_ACCOUNT}/forms/${ML_FORM}/subscribe`;
+const endpointFor = (form) => `https://assets.mailerlite.com/jsonp/${ML_ACCOUNT}/forms/${form}/subscribe`;
 
 /**
  * Sends the email to the MailerLite form "Quick Reference Sign up".
@@ -9,7 +9,7 @@ const ENDPOINT = `https://assets.mailerlite.com/jsonp/${ML_ACCOUNT}/forms/${ML_F
  * Field names are the ones in MailerLite's own HTML code for this form.
  * Throws an Error with a short message the reader can see.
  */
-export async function subscribe(email) {
+export async function subscribe(email, form = ML_FORM) {
   const body = new FormData();
   body.append('fields[email]', email);
   body.append('ml-submit', '1');
@@ -17,7 +17,7 @@ export async function subscribe(email) {
 
   let res;
   try {
-    res = await fetch(ENDPOINT, {method: 'POST', body});
+    res = await fetch(endpointFor(form), {method: 'POST', body});
   } catch (e) {
     throw new Error('Could not reach the sign-up service. Please check your connection and try again.');
   }

@@ -3,16 +3,16 @@ import Link from '@docusaurus/Link';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import {subscribe} from './subscribe';
 import {markSubscribed} from './storage';
-import {PDF_PATH} from './config';
+import {PDF_PATH, PDF_TITLE, ML_FORM} from './config';
 import styles from './signup.module.css';
 
 /** One form, used by both the card at the bottom of the page and the pop-up. */
-export default function SignupForm({idPrefix, onDone}) {
+export default function SignupForm({idPrefix, onDone, pdfPath = PDF_PATH, pdfTitle = PDF_TITLE, form = ML_FORM}) {
   const [email, setEmail] = useState('');
   const [agree, setAgree] = useState(false);
   const [status, setStatus] = useState('idle'); // idle | sending | done | error
   const [message, setMessage] = useState('');
-  const pdfUrl = useBaseUrl(PDF_PATH);
+  const pdfUrl = useBaseUrl(pdfPath);
 
   async function onSubmit(e) {
     e.preventDefault();
@@ -25,7 +25,7 @@ export default function SignupForm({idPrefix, onDone}) {
     setStatus('sending');
     setMessage('');
     try {
-      await subscribe(email.trim());
+      await subscribe(email.trim(), form);
       markSubscribed();
       setStatus('done');
       if (onDone) onDone();
@@ -44,7 +44,7 @@ export default function SignupForm({idPrefix, onDone}) {
           </svg>
         </span>
         <p className={styles.doneTitle}>You're in. Your PDF is ready.</p>
-        <p className={styles.doneText}>Tap the button to download the Financial Dictionary Quick Reference.</p>
+        <p className={styles.doneText}>Tap the button to download the {pdfTitle}.</p>
         <a className={styles.dlBtn} href={pdfUrl} download>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <path d="M12 4v11M7 11l5 5 5-5M5 20h14" />

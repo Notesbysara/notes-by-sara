@@ -16,8 +16,8 @@ export default function useShare() {
   };
 
   const share = useCallback(
-    async (term, slug) => {
-      const url = `${siteConfig.url}/dictionary/${slug}`;
+    async (term, slug, basePath = '/dictionary') => {
+      const url = `${siteConfig.url}${basePath}/${slug}`;
       if (typeof navigator !== 'undefined' && navigator.share) {
         try {
           await navigator.share({title: `${term} | Notes by Sara`, url});

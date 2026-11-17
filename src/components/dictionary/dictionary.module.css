@@ -1,5 +1,5 @@
 /* Financial Dictionary styles.
-   Colours: green #0E7C5A, gold #F2C35B (on green) and #E3B04B (definition edge),
+   Colours: green #0B4F3C, gold #F2C35B (on green) and #E3C26F (definition edge),
    text #1F2A26, muted #5E6863, borders #BDC7C2, fill #F4F7F4, white page. */
 
 .page {
@@ -24,7 +24,7 @@
 
 /* Green header band */
 .band {
-  background: #0e7c5a;
+  background: #0B4F3C;
   color: #ffffff;
   padding: 2.5rem 1rem 2.25rem;
 }
@@ -161,13 +161,13 @@
 }
 
 .pill:hover {
-  border-color: #0e7c5a;
-  color: #0e7c5a;
+  border-color: #0B4F3C;
+  color: #0B4F3C;
 }
 
 .pillActive {
-  background: #0e7c5a;
-  border-color: #0e7c5a;
+  background: #0B4F3C;
+  border-color: #0B4F3C;
   color: #ffffff;
 }
 
@@ -189,7 +189,7 @@
   border-radius: 8px;
   border: 1px solid transparent;
   background: transparent;
-  color: #0e7c5a;
+  color: #0B4F3C;
   cursor: pointer;
 }
 
@@ -205,7 +205,7 @@
 }
 
 .letterActive {
-  background: #0e7c5a;
+  background: #0B4F3C;
   color: #ffffff;
 }
 
@@ -232,7 +232,7 @@
   background: none;
   border: none;
   padding: 0.25rem 0;
-  color: #0e7c5a;
+  color: #0B4F3C;
   text-decoration: underline;
   cursor: pointer;
 }
@@ -263,7 +263,7 @@
 }
 
 .cardTerm a {
-  color: #0e7c5a;
+  color: #0B4F3C;
   text-decoration: none;
 }
 
@@ -276,8 +276,8 @@
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.02em;
-  color: #0e7c5a;
-  border: 1px solid #0e7c5a;
+  color: #0B4F3C;
+  border: 1px solid #0B4F3C;
   background: #ffffff;
   border-radius: 999px;
   padding: 0.1rem 0.65rem;
@@ -339,7 +339,7 @@
   font: inherit;
   font-size: 0.9rem;
   font-weight: 500;
-  color: #0e7c5a;
+  color: #0B4F3C;
   background: none;
   border: none;
   border-radius: 8px;
@@ -373,7 +373,7 @@
   justify-content: center;
   width: 2.75rem;
   height: 2.75rem;
-  color: #0e7c5a;
+  color: #0B4F3C;
   background: none;
   border: none;
   border-radius: 8px;
@@ -387,7 +387,7 @@
 /* Visible focus for everything on these pages */
 .page a:focus-visible,
 .page button:focus-visible {
-  outline: 3px solid #0e7c5a;
+  outline: 3px solid #0B4F3C;
   outline-offset: 2px;
 }
 
@@ -418,7 +418,7 @@
   font: inherit;
   font-weight: 600;
   color: #ffffff;
-  background: #0e7c5a;
+  background: #0B4F3C;
   border: none;
   border-radius: 10px;
   padding: 0.75rem 1.75rem;
@@ -460,7 +460,7 @@
 
 /* Term page */
 .termBand {
-  background: #0e7c5a;
+  background: #0B4F3C;
   padding: 0.9rem 1rem;
 }
 
@@ -502,14 +502,14 @@
   font-size: clamp(2rem, 6vw, 2.9rem);
   line-height: 1.12;
   margin: 0;
-  color: #0e7c5a;
+  color: #0B4F3C;
   overflow-wrap: anywhere;
 }
 
 .definitionBox {
   margin-top: 1.25rem;
   background: #f4f7f4;
-  border-left: 5px solid #e3b04b;
+  border-left: 5px solid #E3C26F;
   border-radius: 4px 12px 12px 4px;
   padding: 1.1rem 1.25rem;
 }
@@ -546,7 +546,7 @@
   font: inherit;
   font-size: 0.92rem;
   font-weight: 500;
-  color: #0e7c5a;
+  color: #0B4F3C;
   background: #ffffff;
   border: 1px solid #bdc7c2;
   border-radius: 999px;
@@ -556,7 +556,7 @@
 }
 
 .textBtn:hover {
-  border-color: #0e7c5a;
+  border-color: #0B4F3C;
 }
 
 .cta {
@@ -569,7 +569,7 @@
 
 .cta a,
 .backRow a {
-  color: #0e7c5a;
+  color: #0B4F3C;
   font-weight: 600;
 }
 
@@ -593,7 +593,7 @@
 }
 
 .prevNextLink:hover {
-  border-color: #0e7c5a;
+  border-color: #0B4F3C;
   text-decoration: none;
 }
 
@@ -610,7 +610,7 @@
 .prevNextTerm {
   font-family: 'Forum', Georgia, serif;
   font-size: 1.2rem;
-  color: #0e7c5a;
+  color: #0B4F3C;
   overflow-wrap: anywhere;
 }
 
@@ -750,7 +750,7 @@
 }
 
 .sideItemOn {
-  background: #0e7c5a;
+  background: #0B4F3C;
   color: #ffffff;
 }
 
@@ -883,8 +883,60 @@
   cursor: pointer;
 }
 .pill span, .pillOn span { font-size: 0.75rem; opacity: 0.75; margin-left: 0.2rem; }
-.pillOn { background: #0e7c5a; border-color: #0e7c5a; color: #ffffff; }
+.pillOn { background: #0B4F3C; border-color: #0B4F3C; color: #ffffff; }
  
 .letterBar { display: flex; flex-wrap: wrap; gap: 3px; margin-top: 0.75rem; }
 .letterBar .letter, .letterBar .letterActive { width: 2rem; height: 2rem; }
  
+/* Free Quick Reference PDF link, under the search box */
+.pdfLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 1rem;
+  padding: 10px 20px;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #06352A;
+  border: 1.5px solid #E3C26F;
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.pdfLink:hover {
+  color: #06352A;
+  text-decoration: none;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(227, 194, 111, 0.35);
+}
+@media (max-width: 700px) {
+  .pdfLink { display: flex; justify-content: center; text-align: center; line-height: 1.35; }
+}
+
+/* ---------- Term page: breadcrumb, lesson link, one-line PDF offer ---------- */
+.crumb { font-size: 0.85rem; color: #5A6862; margin: 1.6rem 0 0.4rem; }
+.crumb a { color: #5A6862; text-decoration: underline; text-underline-offset: 3px; }
+.crumb a:hover { color: #0B4F3C; }
+.crumb span[aria-current] { color: #0B4F3C; font-weight: 500; }
+.lessonLink {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 16px;
+  margin: 1.4rem 0 0.4rem; padding: 14px 18px; background: #ffffff; border: 1px solid #E9E1CF;
+  border-left: 4px solid #0B4F3C; border-radius: 12px; color: #17231e; text-decoration: none;
+  transition: border-color 0.2s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.lessonLink:hover { border-color: #0B4F3C; color: #17231e; text-decoration: none; }
+.lessonLink > span:first-child { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.lessonKicker { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #8A6A12; }
+.lessonName { font-size: 1rem; font-weight: 500; }
+.lessonGo { color: #0B4F3C; font-weight: 500; font-size: 0.95rem; }
+.pdfLine { margin: 1rem 0 0; padding-top: 0.9rem; border-top: 1px solid #E9E1CF; font-size: 0.9rem; color: #5A6862; }
+.pdfLine a { color: #0B4F3C; font-weight: 500; text-decoration: underline; text-underline-offset: 3px; }
+
+/* ---------- Match the rest of the site: warm ivory page, white cards ---------- */
+.page { background: #FFFDF8; }
+.card { background: #ffffff; border-color: #E9E1CF; }
+.definitionBox { background: #FBF4DF; }
+
+/* Let the main column shrink so nothing inside can push it wider than the screen. */
+.mainCol { width: 100%; }

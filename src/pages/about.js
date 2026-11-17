@@ -10,10 +10,17 @@ const FORMULAS = '522';
 const TILES = [
   {
     kicker: 'Start here',
-    name: 'Notes',
-    text: 'The step-by-step lessons, in order, from the idea to the worked example.',
-    cta: 'Open the notes',
+    name: 'Learning path',
+    text: 'One route through finance, in order, starting with a free hands-on course.',
+    cta: 'See the learning path',
     to: '/notes',
+  },
+  {
+    kicker: 'Free course',
+    name: 'Courses',
+    text: 'Hands-on courses that use real company numbers, with workbooks that check your answers.',
+    cta: 'See the courses',
+    to: '/courses',
   },
   {
     kicker: `${DICTIONARY_TERMS} terms`,
@@ -26,7 +33,7 @@ const TILES = [
     kicker: `${FORMULAS} formulas`,
     name: 'Formulas and Calculators',
     text: 'Each formula has a worked example and a calculator that shows its steps.',
-    cta: 'Open the library',
+    cta: 'Open the formulas',
     to: '/formula-library',
   },
 ];
@@ -79,24 +86,24 @@ export default function About() {
         </section>
 
         <section className={styles.how}>
-          <div className={styles.narrow}>
-            <div className={styles.kickerDark}>How it works</div>
-            <h2 className={styles.h2}>One path, and every note follows the same pattern.</h2>
+          <div className={styles.howInner}>
+            <div className={styles.howKicker}>How it works</div>
+            <h2 className={styles.howTitle}>One path, and every note follows the same pattern.</h2>
             <p className={styles.howLead}>
               Each topic builds on the one before it, so you are never asked to use something you
               have not met yet.
             </p>
-            <div className={styles.steps}>
+            <ol className={styles.path}>
               {STEPS.map((s) => (
-                <div key={s.n} className={styles.step}>
-                  <div className={styles.num}>{s.n}</div>
-                  <div className={styles.stepBody}>
-                    <div className={styles.stepTitle}>{s.title}</div>
-                    <div className={styles.stepText}>{s.text}</div>
+                <li key={s.n} className={styles.pathStep}>
+                  <span className={styles.pathNum} aria-hidden="true">{s.n}</span>
+                  <div>
+                    <h3 className={styles.stepTitle}>{s.title}</h3>
+                    <p className={styles.stepText}>{s.text}</p>
                   </div>
-                </div>
+                </li>
               ))}
-            </div>
+            </ol>
           </div>
         </section>
 

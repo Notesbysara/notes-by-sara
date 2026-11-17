@@ -53,7 +53,26 @@ const config = {
   ],
 
   // Financial Dictionary (adds /dictionary and one page per term)
-  plugins: ['./plugins/dictionary'],
+  // Start every new page at the top (see src/clientModules/scrollTop.js).
+  clientModules: ['./src/clientModules/scrollTop.js'],
+
+  plugins: [
+    './plugins/dictionary',
+    // Formula Library (adds /formula-library and one page per formula)
+    './plugins/formulas',
+    // Courses (Financial Data-to-Insight and later ones), published at /courses.
+    // Lessons are plain MDX files in /courses/<course>/, with their own sidebar.
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'courses',
+        path: 'courses',
+        routeBasePath: 'courses',
+        sidebarPath: './sidebarsCourses.js',
+        breadcrumbs: true,
+      },
+    ],
+  ],
 
   presets: [
     [
@@ -75,7 +94,7 @@ const config = {
         sitemap: {
           changefreq: 'weekly',
           priority: 0.5,
-          ignorePatterns: ['/notes/foundations/time-value-of-money'],
+          ignorePatterns: ['/notes/foundations/time-value-of-money', '/course', '/notes-library', '/free-pdf'],
           filename: 'sitemap.xml',
         },
       }),
@@ -103,7 +122,7 @@ const config = {
       },
       docs: {
         sidebar: {
-          hideable: false,
+          hideable: true,
         },
       },
       navbar: {
@@ -113,8 +132,8 @@ const config = {
           src: 'img/favicon.png',
         },
         items: [
-          {to: '/notes', label: 'Learning path', position: 'left', activeBaseRegex: '^/notes/?$'},
-          {to: '/notes-library', label: 'Notes', position: 'left', activeBaseRegex: '^/(notes-library|notes/.+)'},
+          {to: '/notes', label: 'Learning path', position: 'left', activeBaseRegex: '^/notes'},
+          {to: '/courses', label: 'Courses', position: 'left', activeBaseRegex: '^/courses'},
           {to: '/dictionary', label: 'Dictionary', position: 'left'},
           {to: '/formula-library',  label: 'Formulas',  position: 'left',},
           {to: '/about', label: 'About', position: 'left'},
@@ -128,7 +147,7 @@ const config = {
             title: 'Learn',
             items: [
               {label: 'Learning path', to: '/notes'},
-              {label: 'Notes', to: '/notes-library'},
+              {label: 'Courses', to: '/courses'},
               {label: 'Financial Dictionary', to: '/dictionary'},
               {label: 'Formulas', to: '/formula-library',},
             ],
@@ -149,7 +168,7 @@ const config = {
             ],
           },
         ],
-        copyright: `© ${new Date().getFullYear()} Notes by Sara. Educational content only, not financial advice.<br/><small>Accounts aren't available yet, so your reading progress isn't saved. Saved dictionary terms stay in this browser only.</small>`,
+        copyright: `© ${new Date().getFullYear()} Notes by Sara. Educational content only, not financial advice.`,
       },
       prism: {
         theme: prismThemes.github,

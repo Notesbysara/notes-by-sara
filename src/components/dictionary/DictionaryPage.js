@@ -1,5 +1,6 @@
 import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import Layout from '@theme/Layout';
+import Link from '@docusaurus/Link';
 import Head from '@docusaurus/Head';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import {useHistory} from '@docusaurus/router';
@@ -239,6 +240,13 @@ export default function DictionaryPage({terms}) {
                 /
               </kbd>
             </form>
+            <Link className={styles.pdfLink} to="/dictionary-free-pdf">
+              <svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+                <path d="M3 2.5h8a1.5 1.5 0 0 1 1.5 1.5v9.5H4.5A1.5 1.5 0 0 1 3 12V2.5z" />
+                <path d="M3 12a1.5 1.5 0 0 1 1.5-1.5h8" />
+              </svg>
+              Get the free Financial Dictionary Quick Reference (PDF)
+            </Link>
           </div>
         </header>
 

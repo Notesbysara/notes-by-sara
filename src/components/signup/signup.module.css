@@ -320,7 +320,7 @@
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #0e7c5a;
+  color: #0B4F3C;
 }
 
 /* ---- Form ---- */
@@ -348,9 +348,9 @@
 }
 
 .input:focus-visible {
-  outline: 2px solid #0e7c5a;
+  outline: 2px solid #0B4F3C;
   outline-offset: 1px;
-  border-color: #0e7c5a;
+  border-color: #0B4F3C;
 }
 
 .btn {
@@ -359,7 +359,7 @@
   font-size: 0.95rem;
   font-weight: 500;
   color: #ffffff;
-  background: #0e7c5a;
+  background: #0B4F3C;
   border: 0;
   border-radius: 999px;
   padding: 0.6rem 1.4rem;
@@ -389,7 +389,7 @@
   font-size: 0.85rem;
   font-weight: 500;
   color: #ffffff;
-  background: #0e7c5a;
+  background: #0B4F3C;
   border: 0;
   border-radius: 999px;
   padding: 0.45rem 1rem;
@@ -413,11 +413,11 @@
   width: 1.1rem;
   height: 1.1rem;
   margin-top: 0.15rem;
-  accent-color: #0e7c5a;
+  accent-color: #0B4F3C;
 }
 
 .consent a {
-  color: #0e7c5a;
+  color: #0B4F3C;
   font-weight: 500;
 }
 
@@ -446,7 +446,7 @@
   padding: 1.5rem 1.5rem 1.6rem 0.5rem;
   background: #ffffff;
   border: 1px solid #dde5e0;
-  border-left: 5px solid #e3b04b;
+  border-left: 5px solid #E3C26F;
   border-radius: 4px 14px 14px 4px;
   scroll-margin-top: calc(var(--ifm-navbar-height, 60px) + 1rem);
 }
@@ -629,7 +629,7 @@
   padding: 1.4rem 1.2rem;
   text-align: center;
   background: #ffffff;
-  border: 2px solid #0e7c5a;
+  border: 2px solid #0B4F3C;
   border-radius: 14px;
   box-sizing: border-box;
   width: 100%;
@@ -641,7 +641,7 @@
   justify-content: center;
   width: 52px;
   height: 52px;
-  color: #0e7c5a;
+  color: #0B4F3C;
   background: #e3f1ea;
   border-radius: 50%;
 }
@@ -671,7 +671,7 @@
   font-size: 1rem;
   font-weight: 600;
   color: #ffffff;
-  background: #0e7c5a;
+  background: #0B4F3C;
   border-radius: 999px;
   text-decoration: none;
 }

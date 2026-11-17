@@ -7,7 +7,6 @@ import styles from './dictionary.module.css';
 import {BookmarkIcon, ShareIcon} from './Icons';
 import useShare from './useShare';
 import {useSavedTerms} from '../../lib/savedTerms';
-import SignupCard from '../signup/SignupCard';
 
 /** About 155 characters, cut at a word boundary. */
 function metaDescription(text) {
@@ -48,15 +47,11 @@ export default function DictionaryTermPage({entry}) {
       </Head>
 
       <div className={styles.page}>
-        <div className={styles.termBand}>
-          <div className={styles.termBandInner}>
-            <Link to="/dictionary" className={styles.backLinkBand}>
-              &larr; Back to dictionary
-            </Link>
-          </div>
-        </div>
-
         <main className={styles.column}>
+          <nav className={styles.crumb} aria-label="Breadcrumb">
+            <Link to="/dictionary">Dictionary</Link> <span aria-hidden="true">›</span>{' '}
+            <span aria-current="page">{entry.term}</span>
+          </nav>
           <article className={styles.termArticle}>
             <div className={styles.termHead}>
               <h1 className={styles.termTitle}>{entry.term}</h1>
@@ -95,11 +90,19 @@ export default function DictionaryTermPage({entry}) {
               </button>
             </div>
 
-            <p className={styles.cta}>
-              For worked examples and full lessons, visit <Link to="/">notesbysara.org</Link>.
-            </p>
+            {entry.lesson && (
+              <Link to={entry.lesson.to} className={styles.lessonLink}>
+                <span>
+                  <span className={styles.lessonKicker}>Learn it in a lesson</span>
+                  <span className={styles.lessonName}>{entry.lesson.name}</span>
+                </span>
+                <span className={styles.lessonGo}>Open the lesson &rarr;</span>
+              </Link>
+            )}
 
-            <SignupCard />
+            <p className={styles.pdfLine}>
+              Want every term on one page? <Link to="/dictionary-free-pdf">Get the free Quick Reference (PDF)</Link>
+            </p>
           </article>
 
           <nav className={styles.prevNext} aria-label="Previous and next term">
