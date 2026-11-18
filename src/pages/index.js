@@ -323,11 +323,13 @@ function LearningPath() {
                 <div className={styles.tileDot} aria-hidden="true" />
                 {s.live ? (
                   <Link to={s.to} className={styles.stageLive}>
+                    <span className={styles.stageNum} aria-hidden="true">{i + 1}</span>
                     <span className={styles.stageName}>{s.name}</span>
                     <span className={styles.stageStatusLive}>Open now</span>
                   </Link>
                 ) : (
                   <div className={styles.stageSoon}>
+                    <span className={styles.stageNum} aria-hidden="true">{i + 1}</span>
                     <span className={styles.stageName}>{s.name}</span>
                     <span className={styles.stageStatusSoon}>Coming soon</span>
                   </div>
@@ -392,7 +394,7 @@ export default function Home() {
   return (
     <Layout
       title="Learn Finance From Scratch: Structured Finance Notes"
-      description="Free, structured finance notes from working with financial data to valuation, markets and derivatives, with worked examples, a financial dictionary and a formula and calculator library.">
+      description="Free, structured finance notes from financial data to valuation and derivatives, with worked examples, a financial dictionary and 522 formula calculators.">
       <Head>
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Head>

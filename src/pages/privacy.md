@@ -1,6 +1,6 @@
 ---
 title: Privacy Policy
-description: How Notes by Sara collects, uses and protects your information, including account details and the free Financial Dictionary Quick Reference email sign-up.
+description: How Notes by Sara collects, uses and protects your information, including accounts and the email sign-ups for the free PDFs.
 pagination_next: null
 pagination_prev: null
 ---
@@ -15,18 +15,18 @@ Notes by Sara ("we", "us" or "the site") respects your privacy. This policy expl
 
 **Account details.** If you create an account, we collect your email address and a password. Your password is stored in a protected form, so we cannot read it.
 
-**Email sign-up.** If you request the free Financial Dictionary Quick Reference, we collect the email address you enter. Our email service may also record technical details of the sign-up, such as the date, the time and your IP address, so that we can show you agreed.
+**Email sign-up.** If you request one of our free PDFs (the Financial Dictionary Quick Reference or the Financial Formulas Cheat Sheet), we collect the email address you enter. Our email service may also record technical details of the sign-up, such as the date, the time and your IP address, so that we can show you agreed.
 
-**Information kept in your browser.** The site stores a few small items on your own device, such as the dictionary terms you save and whether you have closed a sign-up prompt. If you are signed in, your browser also holds the details needed to keep you signed in. These items stay on your device and can be cleared in your browser settings at any time.
+**Information kept in your browser.** The site stores a few small items on your own device, such as the dictionary terms and formulas you save and whether you have closed a sign-up prompt. If you are signed in, your browser also holds the details needed to keep you signed in. These items stay on your device and can be cleared in your browser settings at any time.
 
-**Technical information.** Our website host, GitHub Pages, may keep ordinary technical records of visits, such as your IP address and the pages requested. We do not use advertising or tracking cookies on the site.
+**Technical information.** Our website host, GitHub Pages, may keep ordinary technical records of visits, such as your IP address and the pages requested. The site's fonts are loaded from Google Fonts, so when a page opens, your browser asks Google for them and Google receives your IP address as part of that request. We do not use advertising or tracking cookies on the site.
 
 ## 2. How we use your information
 
 We use your information to:
 
 - create and manage your account, and keep you signed in;
-- send you the Quick Reference link and, if you agreed, occasional study updates and news about new notes;
+- send you the link to the PDF you asked for and, if you agreed, occasional study updates and news about new notes;
 - keep the site secure and working properly.
 
 We do not sell your information, and we do not share it with advertisers.
@@ -44,12 +44,13 @@ A small number of service providers handle information on our behalf. They may u
 - **MailerLite** is our email service. It stores the email addresses of people who sign up and sends our emails. Its own privacy policy describes how it handles data.
 - **Supabase** provides sign-in and account storage.
 - **GitHub Pages** hosts the site.
+- **Google Fonts** supplies the fonts the site uses.
 - **Zoho Mail** handles email sent to support@notesbysara.org.
 - **Web3Forms** delivers messages sent through our Contact page to that inbox. We use what you write, and your email address, only to reply to you.
 
 ## 5. Cookies and browser storage
 
-We do not use advertising or tracking cookies. We use only the browser storage needed to keep you signed in and to remember your choices, such as saved terms and closed sign-up prompts. A sign-up prompt you close stays hidden for 30 days.
+We do not use advertising or tracking cookies. We use only the browser storage needed to keep you signed in and to remember your choices, such as saved terms and formulas and closed sign-up prompts. A sign-up prompt you close stays hidden for 30 days.
 
 ## 6. Payments
 

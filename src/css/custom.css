@@ -148,3 +148,14 @@ body { overflow-anchor: none; }
   --nbs-t-small: 14px;  /* breadcrumb, tags, labels, units */
   --nbs-t-label: 12.5px; /* small gold capitals */
 }
+
+/* Links inside sentences are underlined, so they don't rely on color alone. */
+main :is(p, li, td) a:is(:not([class]), [class='']),
+main [class*='sideNote'] a {
+  text-decoration: underline;
+  text-decoration-color: #E3C26F;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+}
+main :is(p, li, td) a:is(:not([class]), [class='']):hover,
+main [class*='sideNote'] a:hover { text-decoration-color: currentColor; }

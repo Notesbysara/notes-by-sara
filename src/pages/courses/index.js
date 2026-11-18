@@ -9,7 +9,7 @@ export default function Courses() {
   return (
     <Layout
       title="Free Finance Courses: Learn by Doing"
-      description="Hands-on finance courses that use real company numbers, with workbooks that check your answers. Start with Financial Data-to-Insight, free and with no account needed.">
+      description="Hands-on finance courses using real company numbers, with workbooks that check your answers. Start with Financial Data-to-Insight, free, no account needed.">
       <div className={styles.page}>
         <main className={styles.inner}>
           <p className={styles.kicker}>Courses</p>

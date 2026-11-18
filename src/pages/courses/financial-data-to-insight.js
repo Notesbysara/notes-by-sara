@@ -62,7 +62,7 @@ export default function Course() {
   return (
     <Layout
       title="Financial Data-to-Insight: A Free Finance Data Course"
-      description="A free course in twelve short lessons: read financial statements, check data, work out ratios and forecasts, chart honestly and write a clear summary, then practice on Walmart and Target.">
+      description="A free course in 12 lessons: read financial statements, check data, work out ratios and forecasts, chart honestly, then practice on Walmart and Target.">
       <Head>
         <script type="application/ld+json">{JSON.stringify(schema)}</script>
       </Head>

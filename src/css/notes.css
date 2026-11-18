@@ -217,7 +217,9 @@
   .nbs-note .tw, .nbs-note .viz { overflow-x: visible; }
   .nbs-note .viz svg { min-width: 0; }
   .nbs-note .tw table { font-size: 0.86em; }
-  .nbs-note .tw th, .nbs-note .tw td { overflow-wrap: anywhere; padding-left: 6px; padding-right: 6px; }
+  .nbs-note .tw th, .nbs-note .tw td { padding-left: 6px; padding-right: 6px; }
+  .nbs-note .tw th, .nbs-note .tw td { overflow-wrap: anywhere; }
+  .nbs-note .typechip { letter-spacing: 0; padding-left: 5px; padding-right: 5px; white-space: nowrap; overflow-wrap: normal; }
 }
 @media (max-width: 600px) {
   .nbs-note .tw table:has(tr > :nth-child(5)) { font-size: 0.76em; }

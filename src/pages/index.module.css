@@ -365,3 +365,16 @@
 .door:hover { border-color: #0B4F3C; border-top-color: #E3C26F; }
 .featureCard:hover { border-color: #0B4F3C; border-left-color: #E3C26F; }
 .door:hover .doorCta, .featureCard:hover .featureCta { text-decoration: underline; text-decoration-color: #E3C26F; text-underline-offset: 4px; }
+
+/* Learning path: the row of dots could not line up with two rows of cards,
+   so each card carries its own step number instead. Phones keep the side line. */
+.rail { display: none !important; }
+.stageNum {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 24px; height: 24px; border-radius: 50%; margin-bottom: 8px;
+  background: #E3C26F; color: #06352A; font-size: 13px; font-weight: 600; line-height: 1;
+}
+.stageLive .stageNum { background: #E3C26F; color: #06352A; }
+@media (max-width: 996px) {
+  .stageNum { display: none; }
+}
