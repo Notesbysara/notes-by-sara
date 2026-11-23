@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="icon" href="/img/favicon.png">
+<meta name="description" content="Weighted averages: Averages where some items count more. A short lesson from Notes by Sara.">
+<link rel="canonical" href="https://notesbysara.org/lessons/mathematics/weighted-averages.html">
+
+<style>
+.shell{display:grid;grid-template-columns:290px minmax(0,1fr);align-items:start}
+.shell.closed{grid-template-columns:minmax(0,1fr)}
+.side{position:sticky;top:50px;height:calc(100vh - 50px);overflow:auto;background:#FFFFFF;border-right:1px solid var(--line);padding:14px 14px 28px;display:flex;flex-direction:column;gap:2px;font-size:14px;scrollbar-width:thin}
+.shell.closed .side{display:none}
+.sidehead{display:flex;justify-content:space-between;align-items:center;padding:0 2px 8px;margin-bottom:4px;border-bottom:1px solid var(--line)}
+.allp{font-size:13px;font-weight:500;color:var(--green-text);text-decoration:none}.allp:hover{text-decoration:underline}
+.col{font:inherit;cursor:pointer;border:1px solid var(--line);background:var(--surface);border-radius:8px;color:var(--brand);width:28px;height:28px;display:grid;place-items:center;font-size:15px;line-height:1}
+.col:hover{border-color:var(--brand)}
+.subj{font-family:var(--display);font-size:1.2rem;color:var(--brand);margin:12px 2px 2px}
+.grp{margin-top:8px}
+.gh{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin:0 2px 4px;font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text)}
+.gc{font-size:11.5px;letter-spacing:0;text-transform:none;font-weight:500;color:var(--muted);white-space:nowrap}
+.grp ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:1px}
+.grp li a{display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;align-items:start;padding:6px 8px;border-radius:8px;text-decoration:none;color:var(--ink);line-height:1.35}
+.grp li a:hover{background:var(--pale)}
+.mk{width:22px;height:22px;border-radius:50%;border:1.5px solid #C5D6CC;display:grid;place-items:center;font-size:11px;font-weight:600;color:var(--muted);background:#fff;margin-top:-1px}
+.grp a.done .mk{background:var(--green);border-color:var(--green);color:#fff}
+.grp a.done .tt{color:var(--muted)}
+.grp a.now{background:#EEF4EF;box-shadow:inset 3px 0 0 var(--gold)}
+.grp a.now .mk{background:var(--deep);border-color:var(--gold);color:#fff}
+.grp a.now .tt{color:var(--brand);font-weight:500}
+.shell .page{max-width:none;margin:0;padding-left:clamp(16px,4vw,56px);padding-right:clamp(16px,4vw,56px)}
+.shell .page>*{max-width:900px;width:100%}
+.shell.closed .page>*{margin-inline:auto}
+.menu-btn{display:none;font:inherit;font-size:13px;font-weight:500;color:#06352A;background:#E3C26F;border:0;border-radius:999px;padding:4px 12px;cursor:pointer;white-space:nowrap}
+body.side-closed .menu-btn{display:inline-flex}
+.scrim{display:none}
+@media (max-width:860px){
+ .shell,.shell.closed{grid-template-columns:minmax(0,1fr)}
+ .side,.shell.closed .side{display:flex;position:fixed;top:0;left:0;bottom:0;height:100vh;width:min(300px,86vw);z-index:40;transform:translateX(-105%);transition:transform .25s ease;box-shadow:6px 0 24px rgba(6,53,42,.2)}
+ .shell.mopen .side{transform:none}
+ .menu-btn{display:inline-flex}
+ .scrim{position:fixed;inset:0;background:rgba(6,53,42,.35);z-index:35}.shell.mopen .scrim{display:block}
+ .shell .page>*{margin-inline:auto}
+}
+@media (prefers-reduced-motion:reduce){.side{transition:none!important}}
+@media (max-width:480px){.nbs-strip .prog{display:none}}
+</style>
+</head><body data-lesson="mathematics/weighted-averages" data-group="mathematics" data-total="14">
+<style>
+body{margin:0}
+.nbs-strip{position:sticky;top:0;z-index:20;background:#06352A;color:#FFFDF8;display:flex;align-items:center;justify-content:space-between;gap:12px;
+ padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:10px;font-family:'Poppins',system-ui,sans-serif;flex-wrap:wrap}
+.nbs-strip .l{display:flex;align-items:center;gap:12px;min-width:0}
+.nbs-strip img{width:30px;height:30px;border-radius:6px;display:block}
+.nbs-strip .crumb{font-size:14px;color:#C9D6D0}.nbs-strip .crumb a{color:#C9D6D0;text-decoration:none}.nbs-strip .crumb a:hover{color:#fff;text-decoration:underline}
+.nbs-strip .crumb i{font-style:normal;color:#E3C26F;margin:0 5px}.nbs-strip .crumb b{color:#fff;font-weight:500}
+.nbs-strip .prog{display:flex;align-items:center;gap:10px;font-size:13px;color:#C9D6D0}
+.nbs-strip .bar{width:130px;height:5px;border-radius:9px;background:rgba(255,255,255,.18);overflow:hidden}
+.nbs-strip .bar span{display:block;height:100%;width:0;background:#E3C26F;transition:width 1.2s cubic-bezier(.2,.8,.2,1) .2s}
+@media (max-width:560px){.nbs-strip .bar{display:none}.nbs-strip .crumb .mid{display:none}}
+@media (prefers-reduced-motion:reduce){.nbs-strip .bar span{transition:none}}
+</style>
+<header class="nbs-strip"><div class="l"><button type="button" class="menu-btn" id="mbtn" aria-label="Show the lesson list">☰ Lessons</button><a href="https://notesbysara.org/" aria-label="Notes by Sara home"><img src="/img/favicon.png" alt="Notes by Sara"></a><nav class="crumb" aria-label="Breadcrumb"><a href="https://notesbysara.org/notes">Learning path</a><span class="mid"><i>›</i><a href="../index.html#mathematics">Mathematics</a></span><span><i>›</i><b>Weighted averages</b></span></nav></div><div class="prog"><span>Lesson 5 of 14</span><span class="bar" aria-hidden="true"><span id="nbs-bar"></span></span></div></header>
+<title>Weighted averages · Notes by Sara</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Forum&family=Poppins:wght@400;500;600&display=swap">
+<style>
+/* Layout: one calm reading column. Three surfaces only: the deep banner, white boxes, and pale green for anything the learner answers. Light only, like the site. */
+:root{
+  color-scheme:light;
+  --ivory:#FFFDF8; --surface:#FFFFFF; --pearl:#F7F2E7; --pale:#EAF4EF;
+  --ink:#1F2A26; --muted:#5A6862; --line:#E6E1D5;
+  --deep:#06352A; --green:#0E7C5A; --green-text:#0B6A4C; --brand:#0B4F3C;
+  --gold:#E3C26F; --gold-text:#8A6A12; --coral:#B4452F; --coral-pale:#FBEDE9;
+  --on-deep:#FFFDF8; --on-deep-muted:#C9D6D0;
+  --display:'Forum',Georgia,'Times New Roman',serif;
+  --body:'Poppins',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --t-body:16px; --t-small:14px; --t-label:12.5px;
+}
+*{box-sizing:border-box}
+body{background:var(--ivory);color:var(--ink);font-family:var(--body);font-size:var(--t-body);line-height:1.75}
+a{color:var(--green-text)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
+.mockbar{background:var(--pearl);color:var(--muted);font-size:var(--t-small);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:8px;text-align:center;border-bottom:1px solid var(--line)}
+.mockbar b{color:var(--gold-text);letter-spacing:.12em;text-transform:uppercase;font-size:var(--t-label);margin-right:6px}
+.page{max-width:720px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px;display:flex;flex-direction:column;gap:40px}
+h1,h2{font-family:var(--display);font-weight:400;line-height:1.15;margin:0;text-wrap:balance}
+h2{font-size:1.7rem;color:var(--brand)}
+p{margin:0}
+.sec{display:flex;flex-direction:column;gap:14px}
+.eyebrow{font-size:var(--t-label);font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--gold-text)}
+.muted{color:var(--muted)}
+.small{font-size:var(--t-small)}
+b{font-weight:600}
+.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* 1. banner */
+.banner{background:var(--deep);color:var(--on-deep);border-radius:18px;padding:26px 26px 22px;display:flex;flex-direction:column;gap:10px}
+.banner .eyebrow{color:var(--gold)}
+.banner h1{font-size:clamp(2rem,6vw,2.6rem)}
+.banner .lead{color:var(--on-deep-muted)}
+.banner .meta{font-size:var(--t-small);color:var(--on-deep-muted);border-top:1px solid rgba(227,194,111,.35);padding-top:10px;display:flex;flex-wrap:wrap;gap:4px 18px}
+.banner .meta b{color:var(--gold);font-weight:600}
+.banner .meta a{color:var(--on-deep)}
+
+/* white box */
+.box{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.svgwrap{overflow-x:auto}
+.svgwrap svg{display:block;width:100%;height:auto;min-width:480px}
+.cap{font-size:var(--t-small);color:var(--muted)}
+
+/* formula */
+.fx{font-family:Georgia,'Times New Roman',serif;font-size:1.8rem;display:flex;align-items:center;justify-content:center;gap:14px}
+.frac{display:inline-flex;flex-direction:column;align-items:center;line-height:1.2}
+.frac span:first-child{border-bottom:2px solid var(--ink);padding:0 8px 2px}
+.frac span:last-child{padding-top:2px}
+.fx i{font-style:italic}
+.fx sup{font-size:.6em}
+.legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:4px 16px;font-size:var(--t-small);color:var(--muted)}
+.legend i{font-family:Georgia,serif;color:var(--ink);font-size:1.05rem;margin-right:6px}
+table{border-collapse:collapse;width:100%}
+td,th{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left}
+th{font-size:var(--t-small);color:var(--muted);font-weight:500}
+td.r,th.r{text-align:right}
+.tw{overflow-x:auto}
+.result{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;border-top:2px solid var(--brand);padding-top:10px}
+.result b{font-family:var(--display);font-weight:400;font-size:1.8rem;color:var(--brand)}
+
+/* pale: anything you answer */
+.ask{background:var(--pale);border-radius:14px;padding:16px 20px;display:flex;flex-direction:column;gap:10px}
+.ask .q{font-weight:500}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opts button{font:inherit;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 14px;cursor:pointer;color:var(--ink);line-height:1.5}
+.opts button:hover{border-color:var(--green)}
+.opts button.right{border-color:var(--green);box-shadow:inset 3px 0 0 var(--green)}
+.opts button.wrong{border-color:var(--coral);box-shadow:inset 3px 0 0 var(--coral)}
+.opts button[disabled]{cursor:default}
+.fb{font-size:var(--t-small);line-height:1.6}
+.fb b{color:var(--green-text)}
+.fb.no b{color:var(--coral)}
+.quiz{display:flex;flex-direction:column;gap:10px}
+.score{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:var(--t-small);color:var(--muted)}
+.score b{color:var(--brand)}
+.btn{font:inherit;font-size:var(--t-small);border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:4px 12px;cursor:pointer;color:var(--ink)}
+
+/* optional extras */
+.extras{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.extras details{border-bottom:1px solid var(--line)}
+.extras summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 4px}
+.extras summary::-webkit-details-marker{display:none}
+.extras summary .t{font-family:var(--display);font-size:1.3rem;color:var(--brand)}
+.extras summary .s{font-size:var(--t-small);color:var(--muted)}
+.extras summary::after{content:"+";font-size:1.4rem;color:var(--gold-text);flex:none;width:20px;text-align:center}
+.extras details[open] summary::after{content:"−"}
+.extras .inner{padding:0 4px 18px;display:flex;flex-direction:column;gap:12px}
+.inputs{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.inputs label{display:flex;flex-direction:column;gap:4px;font-size:var(--t-small);color:var(--muted)}
+.inputs input[type=number]{font:inherit;color:var(--ink);padding:7px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);width:100%}
+.inputs input[type=range]{width:100%;accent-color:var(--green)}
+.calcout{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+.calcout b{font-family:var(--display);font-weight:400;font-size:1.8rem;color:var(--brand)}
+.mist{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px}
+
+/* recap */
+.recap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:center}
+.recap ul{margin:4px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:2px}
+.recap .fx{font-size:1.3rem}
+@media (max-width:560px){.recap{grid-template-columns:1fr}}
+
+/* next */
+.next{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;background:var(--deep);color:var(--on-deep);border-radius:14px;padding:16px 20px;text-decoration:none}
+.next .eyebrow{color:var(--gold)}
+.next .t{font-family:var(--display);font-size:1.35rem}
+.next .arrow{font-size:1.4rem;color:var(--gold)}
+.related{font-size:var(--t-small);color:var(--muted)}
+.related a{margin-right:10px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<style>
+.fx{white-space:nowrap;font-size:clamp(1.05rem,4.8vw,1.6rem);gap:10px}
+.fx sub{font-size:.6em}
+.calc3{display:flex;flex-direction:column;gap:8px}
+.calc3 .row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;align-items:end}
+.calc3 .row span{font-size:var(--t-small);color:var(--muted)}
+.calc3 input{font:inherit;color:var(--ink);padding:7px 10px;border:1px solid var(--line);border-radius:10px;background:var(--surface);width:100%}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.where{font-size:var(--t-small);color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center}
+.where span{border:1px solid var(--line);border-radius:999px;padding:1px 10px;background:var(--surface)}
+.where span.now{background:var(--brand);color:var(--on-deep);border-color:var(--brand)}
+.where span.done{color:var(--green-text);border-color:var(--green)}
+</style>
+
+<style>
+/* section practice */
+.prac{border-top:2px solid var(--gold);border-bottom:1px solid var(--line)}
+.pwrap>summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px 4px}
+.pwrap>summary::-webkit-details-marker{display:none}
+.pwrap>summary .t{font-family:var(--display);font-size:1.6rem;color:var(--brand);line-height:1.3}
+.pwrap>summary .s{font-size:var(--t-small);color:var(--muted)}
+.pwrap>summary::after{content:"+";font-size:1.6rem;color:var(--gold-text);flex:none;width:24px;text-align:center}
+.pwrap[open]>summary::after{content:"−"}
+.pin{padding:0 4px 22px;display:flex;flex-direction:column;gap:14px}
+.prac .intro{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:var(--t-small);color:var(--muted)}
+.prac ol{margin:0;padding:0;list-style:none;counter-reset:p;display:flex;flex-direction:column;gap:12px}
+.prac li{counter-increment:p;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 18px;display:flex;flex-direction:column;gap:8px}
+.prac li>p::before{content:counter(p) ". ";font-weight:600;color:var(--brand)}
+.prac li summary{cursor:pointer;font-size:var(--t-small);color:var(--green-text);font-weight:500;width:max-content}
+.prac .ans{background:var(--pale);border-radius:10px;padding:10px 14px;margin-top:8px;font-size:var(--t-small);line-height:1.65;display:flex;flex-direction:column;gap:4px}
+.prac .tool{font-size:var(--t-label);letter-spacing:.08em;text-transform:uppercase;color:var(--gold-text);font-weight:600}
+</style>
+<div class="shell" id="shell"><div class="scrim" id="scrim"></div><aside class="side" id="side" aria-label="All lessons"><div class="sidehead"><a href="../index.html" class="allp">All lessons</a><button type="button" class="col" id="col" aria-label="Hide the lesson list" title="Hide the lesson list">«</button></div><p class="subj">Mathematics for Finance</p><div class="grp"><p class="gh"><span>Numbers and percentages</span><span class="gc">0 of 5</span></p><ol><li><a href="numbers-in-finance.html" data-slug="mathematics/numbers-in-finance"><span class="mk">1</span><span class="tt">Numbers in finance</span></a></li><li><a href="percentage-change.html" data-slug="mathematics/percentage-change"><span class="mk">2</span><span class="tt">Percentages and percentage change</span></a></li><li><a href="percentage-traps.html" data-slug="mathematics/percentage-traps"><span class="mk">3</span><span class="tt">Percentage traps</span></a></li><li><a href="ratios.html" data-slug="mathematics/ratios"><span class="mk">4</span><span class="tt">Ratios and proportions</span></a></li><li><a href="weighted-averages.html" data-slug="mathematics/weighted-averages" class="now" aria-current="page"><span class="mk">5</span><span class="tt">Weighted averages</span></a></li></ol></div><div class="grp"><p class="gh"><span>Growth and equations</span><span class="gc">0 of 6</span></p><ol><li><a href="exponents.html" data-slug="mathematics/exponents"><span class="mk">6</span><span class="tt">Exponents</span></a></li><li><a href="logarithms.html" data-slug="mathematics/logarithms"><span class="mk">7</span><span class="tt">Logarithms</span></a></li><li><a href="linear-equations.html" data-slug="mathematics/linear-equations"><span class="mk">8</span><span class="tt">Linear equations and graphs</span></a></li><li><a href="reading-formulas.html" data-slug="mathematics/reading-formulas"><span class="mk">9</span><span class="tt">Reading formulas</span></a></li><li><a href="functions.html" data-slug="mathematics/functions"><span class="mk">10</span><span class="tt">Functions</span></a></li><li><a href="rate-and-time.html" data-slug="mathematics/rate-and-time"><span class="mk">11</span><span class="tt">Solving for rate and time</span></a></li></ol></div><div class="grp"><p class="gh"><span>Sequences and series</span><span class="gc">0 of 3</span></p><ol><li><a href="sequences.html" data-slug="mathematics/sequences"><span class="mk">12</span><span class="tt">Arithmetic and geometric sequences</span></a></li><li><a href="summing-a-geometric-series.html" data-slug="mathematics/summing-a-geometric-series"><span class="mk">13</span><span class="tt">Summing a geometric series</span></a></li><li><a href="infinite-series.html" data-slug="mathematics/infinite-series"><span class="mk">14</span><span class="tt">Infinite series</span></a></li></ol></div><p class="subj">Statistics for Finance</p><div class="grp"><p class="gh"><span>Describing data</span><span class="gc">0 of 1</span></p><ol><li><a href="../statistics/mean-median-mode.html" data-slug="statistics/mean-median-mode"><span class="mk">1</span><span class="tt">Mean, median and mode</span></a></li></ol></div></aside><article class="page">
+
+  <header class="banner">
+    <p class="eyebrow">Mathematics for Finance</p>
+    <h1>Weighted averages</h1>
+    <p class="lead">Portfolio returns, the average price you paid for a share, a company's cost of capital: all of them are weighted averages. Here's why a plain average gets them wrong.</p>
+    <div class="meta"><span><b>Numbers and percentages</b> · Lesson 5 of 5 · 5 minutes</span><span>Before this: <a href="ratios.html">Ratios and proportions</a></span></div>
+  </header>
+
+  <section class="sec">
+    <h2>What did you really earn?</h2>
+    <p><span class="muted">Example, with made-up numbers.</span> You put <b>$9,000</b> in Fund A, which returns <b>4%</b>, and <b>$1,000</b> in Fund B, which returns <b>20%</b>. The average of 4% and 20% is 12%. Did your money really grow 12%?</p>
+  </section>
+
+  <section class="sec">
+    <h2>The idea</h2>
+    <p>A <b>simple average</b> treats every item as equally important. A <b>weighted average</b> lets each item count in proportion to its size. Here, Fund A holds 90% of your money, so its return should count nine times as much as Fund B's.</p>
+    <p>Fund A earns $360 (4% of $9,000) and Fund B earns $200 (20% of $1,000). That's $560 on $10,000, or <b>5.6%</b>, not 12%.</p>
+    <div class="box">
+      <div class="svgwrap"><svg id="beam" viewBox="0 0 600 170" role="img" aria-label="On a line from 0% to 25%, Fund A at 4% holds 90% of the money and Fund B at 20% holds 10%. The weighted average is 5.6%, close to Fund A. The simple average is 12%."></svg></div>
+      <p class="cap">The circles are sized by how much money each fund holds. The weighted average sits close to the bigger one, the way a seesaw balances near the heavier side.</p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>The formula</h2>
+    <div class="box">
+      <div class="fx" aria-label="Weighted average equals w1 times x1 plus w2 times x2 and so on"><span>Weighted average = <i>w</i><sub>1</sub><i>x</i><sub>1</sub> + <i>w</i><sub>2</sub><i>x</i><sub>2</sub> + …</span></div>
+      <div class="legend"><span><i>w</i>each item's weight: its share of the total</span><span><i>x</i>each item's value, such as its return</span><span>The weights add up to 1 (100%)</span></div>
+    </div>
+    <p>The small numbers below the letters just label the items: item 1, item 2 and so on. For your funds: 0.90 × 4% + 0.10 × 20% = 3.6% + 2.0% = <b>5.6%</b>.</p>
+    <div class="ask" data-q="c1">
+      <p class="eyebrow">Quick check</p>
+      <p class="q">You buy 100 shares at $10 and later 300 shares at $14. What is your average price per share?</p>
+      <div class="opts">
+        <button type="button" data-ok="0">$12.00</button>
+        <button type="button" data-ok="1">$13.00</button>
+        <button type="button" data-ok="0">$12.50</button>
+      </div>
+      <p class="fb" hidden aria-live="polite"></p>
+      <template>You paid $1,000 + $4,200 = $5,200 for 400 shares, so $13 each. $12 is the simple average of the two prices, which ignores that you bought three times as many at $14.</template>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Worked example</h2>
+    <p><span class="muted">Example, with made-up numbers.</span> A $10,000 portfolio holds <b>$6,000</b> in stocks returning <b>8%</b>, <b>$3,000</b> in bonds returning <b>3%</b>, and <b>$1,000</b> in cash earning <b>1%</b>. What did the whole portfolio return?</p>
+    <div class="box">
+      <div class="tw"><table>
+        <thead><tr><th>Holding</th><th class="r">Weight</th><th class="r">× Return</th><th class="r">= Adds</th></tr></thead>
+        <tbody>
+          <tr><td>Stocks</td><td class="r num">0.60</td><td class="r num">8%</td><td class="r num">4.8%</td></tr>
+          <tr><td>Bonds</td><td class="r num">0.30</td><td class="r num">3%</td><td class="r num">0.9%</td></tr>
+          <tr><td>Cash</td><td class="r num">0.10</td><td class="r num">1%</td><td class="r num">0.1%</td></tr>
+        </tbody>
+      </table></div>
+      <div class="result"><span>Portfolio return</span><b class="num">5.8%</b></div>
+      <p class="small muted">Each weight is the holding divided by $10,000. The simple average of 8%, 3% and 1% would say 4%, which undersells the portfolio because most of it is in stocks.</p>
+    </div>
+  </section>
+
+  <section class="extras" aria-label="Optional extras">
+    <details>
+      <summary><span><span class="t">Try it yourself</span><br><span class="s">Change the amounts and see how the average moves toward the biggest one.</span></span></summary>
+      <div class="inner calc3">
+        <div class="row"><span>Item</span><span>Amount ($)</span><span>Value (%)</span></div>
+        <div class="row"><span>Stocks</span><input type="number" id="a1" value="6000" aria-label="Stocks amount"><input type="number" id="v1" value="8" step="any" aria-label="Stocks value"></div>
+        <div class="row"><span>Bonds</span><input type="number" id="a2" value="3000" aria-label="Bonds amount"><input type="number" id="v2" value="3" step="any" aria-label="Bonds value"></div>
+        <div class="row"><span>Cash</span><input type="number" id="a3" value="1000" aria-label="Cash amount"><input type="number" id="v3" value="1" step="any" aria-label="Cash value"></div>
+        <div class="two">
+          <div class="calcout"><span class="muted">Simple</span><b id="simple" class="num" style="font-size:1.4rem;color:var(--muted)">4.00%</b></div>
+          <div class="calcout"><span class="muted">Weighted</span><b id="weighted" class="num">5.80%</b></div>
+        </div>
+      </div>
+    </details>
+    <details>
+      <summary><span><span class="t">Common mistakes</span><br><span class="s">Three slips beginners make.</span></span></summary>
+      <div class="inner">
+        <ul class="mist">
+          <li><b>Using a simple average when sizes differ.</b> If the amounts aren't equal, the plain average is wrong.</li>
+          <li><b>Weights that don't add up to 100%.</b> Check the total. If it's 90% or 110%, a weight is missing or counted twice.</li>
+          <li><b>Weighting by the wrong thing.</b> Portfolio returns are weighted by money invested, not by the number of holdings. Margins are weighted by sales, not by the number of products.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <section class="sec">
+    <div class="box">
+      <p class="eyebrow">Remember</p>
+      <ul class="mist">
+        <li>A weighted average counts each item by its size.</li>
+        <li>Multiply each value by its weight, then add. The weights add up to 100%.</li>
+        <li>The result is pulled toward the biggest weight.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Check yourself</h2>
+    <div class="ask quiz">
+      <p class="small muted">Three questions. Try them without scrolling up.</p>
+      <div data-q="q1" data-quiz>
+        <p class="q">1. You hold $2,000 earning 5% and $8,000 earning 10%. What does the portfolio earn?</p>
+        <div class="opts">
+          <button type="button" data-ok="0">7.5%</button>
+          <button type="button" data-ok="1">9%</button>
+          <button type="button" data-ok="0">6%</button>
+        </div>
+        <p class="fb" hidden aria-live="polite"></p>
+        <template>0.20 × 5% + 0.80 × 10% = 1% + 8% = 9%. 7.5% is the simple average, and 6% puts the weights the wrong way round.</template>
+      </div>
+      <div data-q="q2" data-quiz>
+        <p class="q">2. 75% of a company's sales come from products with a 10% margin, and 25% from products with a 30% margin. What is its overall margin?</p>
+        <div class="opts">
+          <button type="button" data-ok="0">20%</button>
+          <button type="button" data-ok="1">15%</button>
+          <button type="button" data-ok="0">17.5%</button>
+        </div>
+        <p class="fb" hidden aria-live="polite"></p>
+        <template>0.75 × 10% + 0.25 × 30% = 7.5% + 7.5% = 15%. Margins are weighted by sales, and the low-margin products make up most of them, so they pull the average down.</template>
+      </div>
+      <div data-q="q3" data-quiz>
+        <p class="q">3. What must be true about the weights?</p>
+        <div class="opts">
+          <button type="button" data-ok="1">They add up to 100%</button>
+          <button type="button" data-ok="0">They are all equal</button>
+          <button type="button" data-ok="0">They are the values being averaged</button>
+        </div>
+        <p class="fb" hidden aria-live="polite"></p>
+        <template>Weights are each item's share of the total, so together they make 100%. If they were all equal, you'd be back to a simple average.</template>
+      </div>
+      <div class="score"><span>Score: <b id="score">0 of 3</b></span><button class="btn" type="button" id="reset">Try again</button></div>
+    </div>
+  </section>
+
+  <section class="prac" aria-label="Section practice">
+    <details class="pwrap">
+      <summary><span><span class="eyebrow">Section practice · optional</span><br><span class="t">Numbers and percentages</span><br><span class="s">10 mixed problems from lessons 1 to 5 · about 12 minutes</span></span></summary>
+      <div class="pin">
+    <p>The problems aren't labeled with a lesson, so part of the work is choosing the right tool. Work each one on paper, then open the answer.</p>
+    <ol>
+      <li><p>An income statement, shown in thousands, reports a net loss of (2,450). What is the loss in dollars?</p>
+        <details><summary>Show answer</summary><div class="ans"><span class="tool">Numbers in finance</span><span>Brackets mean a negative number, and "in thousands" means multiply by 1,000. The loss is <b>$2,450,000</b>.</span></div></details></li>
+      <li><p>A company's revenue is $3.4 billion. How much is that in millions?</p>
+        <details><summary>Show answer</summary><div class="ans"><span class="tool">Numbers in finance</span><span>1 billion is 1,000 million, so 3.4 × 1,000 = <b>$3,400 million</b>.</span></div></details></li>
+      <li><p>Sales rose from $80,000 to $92,000. What was the percentage change?</p>
+        <details><summary>Show answer</summary><div class="ans"><span class="tool">Percentage change</span><span>(92,000 − 80,000) ÷ 80,000 = 0.15, so <b>up 15%</b>.</span></div></details></li>
+      <li><p>A price of $96 includes 20% sales tax. What was the price before tax?</p>
+        <details><summary>Show answer</summary><div class="ans"><span class="tool">Percentage change</span><span>96 ÷ 1.20 = <b>$80</b>. Taking 20% off $96 would give $76.80, which is wrong: the 20% was added to $80, not to $96.</span></div></details></li>
+      <li><p>An interest rate goes from 4% to 5%. Describe the change in two ways.</p>
+        <details><summary>Show answer</summary><div class="ans"><span class="tool">Percentage traps</span><span>It rose by <b>1 percentage point</b>, which is a <b>25% increase</b> in the rate (1 ÷ 4).</span></div></details></li>
+      <li><p>A share falls 20%, then rises 20%. Is it back where it started?</p>
+        <details><summary>Show answer</summary><div class="ans"><span class="tool">Percentage traps</span><span>No. 0.80 × 1.20 = 0.96, so it's <b>down 4%</b>. The 20% rise is taken on a smaller amount.</span></div></details></li>
+      <li><p>Prices rise 10% a year for 3 years. What is the total rise?</p>
+        <details><summary>Show answer</summary><div class="ans"><span class="tool">Percentage traps</span><span>1.10 × 1.10 × 1.10 = 1.331, so <b>33.1%</b>, not 30%.</span></div></details></li>
+      <li><p>A business has $300,000 of debt and $500,000 of equity. What is its debt-to-equity ratio?</p>
+        <details><summary>Show answer</summary><div class="ans"><span class="tool">Ratios</span><span>300,000 ÷ 500,000 = <b>0.6</b>, or 3 : 5. It has 60 cents of debt for every dollar of equity.</span></div></details></li>
+      <li><p>Two partners split a $90,000 profit in the ratio 2 : 3. How much does each get?</p>
+        <details><summary>Show answer</summary><div class="ans"><span class="tool">Ratios</span><span>There are 5 parts of $18,000 each, so <b>$36,000</b> and <b>$54,000</b>.</span></div></details></li>
+      <li><p>Product A has sales of $10,000 at a 40% margin. Product B has sales of $30,000 at a 20% margin. What is the overall margin?</p>
+        <details><summary>Show answer</summary><div class="ans"><span class="tool">Weighted averages</span><span>Weight by sales: (0.40 × 10,000 + 0.20 × 30,000) ÷ 40,000 = <b>25%</b>. The simple average, 30%, ignores that B sells three times as much.</span></div></details></li>
+    </ol>
+      </div>
+    </details>
+  </section>
+
+  <section class="sec">
+    <a href="exponents.html" class="next"><span><span class="eyebrow">Next lesson · 5 minutes</span><br><span class="t">Exponents</span><br><span class="small" style="color:var(--on-deep-muted)">The math behind compound growth: why 1.10 × 1.10 × 1.10 is written 1.10³.</span></span><span class="arrow" aria-hidden="true">→</span></a>
+    <p class="related">Related: <a href="https://notesbysara.org/dictionary/weighted-average">Weighted average</a><span class="rel">Portfolio return</span><a href="https://notesbysara.org/dictionary/cost-basis">Average cost basis</a><a href="https://notesbysara.org/dictionary/weighted-average-cost-of-capital">WACC</a></p>
+  </section>
+
+</article></div>
+
+<script>
+const NS='http://www.w3.org/2000/svg';
+const el=(n,a={},p)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e};
+const text=(p,x,y,t,a={})=>{const e=el('text',Object.assign({x,y,'font-family':"Poppins,system-ui,sans-serif",'font-size':13,fill:'#1F2A26','text-anchor':'middle'},a),p);e.textContent=t;return e};
+(function(){
+  const s=document.getElementById('beam'),L=40,R=560,y=96,X=v=>L+(R-L)*v/25;
+  el('line',{x1:L,y1:y,x2:R,y2:y,stroke:'#C9C2B2','stroke-width':2},s);
+  [0,5,10,15,20,25].forEach(v=>{el('line',{x1:X(v),y1:y-5,x2:X(v),y2:y+5,stroke:'#C9C2B2','stroke-width':1.5},s);text(s,X(v),y+24,v+'%',{'font-size':12,fill:'#5A6862'})});
+  el('circle',{cx:X(4),cy:y,r:30,fill:'#0B4F3C','fill-opacity':.9},s);
+  text(s,X(4),y+5,'90%',{'font-size':13,'font-weight':600,fill:'#FFFDF8'});
+  text(s,X(4),y-40,'Fund A · 4%',{'font-size':12.5,'font-weight':600,fill:'#0B4F3C'});
+  el('circle',{cx:X(20),cy:y,r:12,fill:'#0E7C5A'},s);
+  text(s,X(20),y-22,'Fund B · 20%',{'font-size':12.5,'font-weight':600,fill:'#0E7C5A'});
+  text(s,X(20),y+44,'10% of money',{'font-size':11.5,fill:'#5A6862'});
+  el('line',{x1:X(12),y1:y-56,x2:X(12),y2:y+50,stroke:'#5A6862','stroke-width':1.5,'stroke-dasharray':'4 4'},s);
+  text(s,X(12),y-62,'Simple average 12%',{'font-size':12,fill:'#5A6862'});
+  el('path',{d:`M${X(5.6)},${y+36} l-8,14 h16 z`,fill:'#C9A13B'},s);
+  text(s,X(5.6)+12,y+64,'Weighted average 5.6%',{'font-size':12.5,'font-weight':600,fill:'#8A6A12','text-anchor':'start'});
+})();
+
+const answered={},correct={};
+document.querySelectorAll('[data-q]').forEach(box=>{
+  const id=box.dataset.q,fb=box.querySelector('.fb'),tpl=box.querySelector('template');
+  box.querySelectorAll('.opts button').forEach(b=>b.addEventListener('click',()=>{
+    if(answered[id])return;
+    const ok=b.dataset.ok==='1';answered[id]=true;correct[id]=ok;
+    box.querySelectorAll('.opts button').forEach(x=>{x.disabled=true;if(x.dataset.ok==='1')x.classList.add('right')});
+    if(!ok)b.classList.add('wrong');
+    fb.innerHTML='<b>'+(ok?'Right. ':'Not quite. ')+'</b>';fb.appendChild(tpl.content.cloneNode(true));
+    fb.classList.toggle('no',!ok);fb.hidden=false;score();
+  }));
+});
+function score(){document.getElementById('score').textContent=['q1','q2','q3'].filter(k=>correct[k]).length+' of 3'}
+document.getElementById('reset').addEventListener('click',()=>{
+  document.querySelectorAll('[data-quiz]').forEach(box=>{const id=box.dataset.q;delete answered[id];delete correct[id];
+    box.querySelectorAll('.opts button').forEach(x=>{x.disabled=false;x.classList.remove('right','wrong')});
+    const fb=box.querySelector('.fb');fb.hidden=true;fb.innerHTML='';});
+  score();
+});
+const ids=[1,2,3];
+function run(){
+  let tot=0,sum=0,simple=0;
+  ids.forEach(i=>{const a=Math.max(0,+document.getElementById('a'+i).value||0),v=+document.getElementById('v'+i).value||0;tot+=a;sum+=a*v;simple+=v});
+  document.getElementById('simple').textContent=(simple/3).toFixed(2)+'%';
+  document.getElementById('weighted').textContent=tot?(sum/tot).toFixed(2)+'%':'—';
+}
+ids.forEach(i=>['a','v'].forEach(k=>document.getElementById(k+i).addEventListener('input',run)));run();
+document.querySelectorAll('a[href="#"]').forEach(a=>a.addEventListener('click',e=>e.preventDefault()));
+</script>
+
+<script>
+(function(){
+  var KEY='nbs-lessons-done',done=[];
+  try{done=JSON.parse(localStorage.getItem(KEY)||'[]')||[]}catch(e){}
+  var me=document.body.getAttribute('data-lesson'),total=+document.body.getAttribute('data-total')||0,group=document.body.getAttribute('data-group');
+  function count(){return done.filter(function(s){return s.indexOf(group+'/')===0}).length}
+  function show(){var b=document.getElementById('nbs-bar');if(b&&total)b.style.width=Math.min(100,count()/total*100)+'%'}
+  requestAnimationFrame(function(){requestAnimationFrame(show)});
+  var end=document.querySelector('.next');
+  if(me&&end&&'IntersectionObserver' in window){
+    new IntersectionObserver(function(es,o){es.forEach(function(e){if(e.isIntersecting){
+      if(done.indexOf(me)<0){done.push(me);try{localStorage.setItem(KEY,JSON.stringify(done))}catch(err){}show()}
+      o.disconnect()}})},{threshold:.6}).observe(end);
+  }
+})();
+</script>
+<script>
+(function(){
+  var sh=document.getElementById('shell'),KEY='nbs-side-closed',done=[];
+  try{done=JSON.parse(localStorage.getItem('nbs-lessons-done')||'[]')||[]}catch(e){}
+  function marks(){
+    document.querySelectorAll('.side .grp').forEach(function(g){var n=0,a=g.querySelectorAll('a[data-slug]');
+      a.forEach(function(x){var d=done.indexOf(x.dataset.slug)>=0;x.classList.toggle('done',d&&!x.classList.contains('now'));if(d)n++});
+      var c=g.querySelector('.gc');if(c)c.textContent=n+' of '+a.length;});
+  }
+  marks();
+  window.addEventListener('storage',function(){try{done=JSON.parse(localStorage.getItem('nbs-lessons-done')||'[]')||[]}catch(e){}marks()});
+  var closed=false;try{closed=localStorage.getItem(KEY)==='1'}catch(e){}
+  function setClosed(c){closed=c;sh.classList.toggle('closed',c);document.body.classList.toggle('side-closed',c);try{localStorage.setItem(KEY,c?'1':'0')}catch(e){}}
+  if(closed&&innerWidth>860)setClosed(true);
+  document.getElementById('col').addEventListener('click',function(){if(innerWidth<=860){sh.classList.remove('mopen')}else{setClosed(true)}});
+  document.getElementById('mbtn').addEventListener('click',function(){if(innerWidth<=860){sh.classList.add('mopen')}else{setClosed(false)}});
+  document.getElementById('scrim').addEventListener('click',function(){sh.classList.remove('mopen')});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')sh.classList.remove('mopen')});
+  var now=document.querySelector('.side a.now');if(now&&now.scrollIntoView&&innerWidth>860){var s=document.getElementById('side');s.scrollTop=Math.max(0,now.offsetTop-s.clientHeight/2)}
+})();
+</script>
+</body></html>

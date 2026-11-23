@@ -8,8 +8,8 @@ const GOALS = [
     id: 'new',
     label: 'I am new to finance',
     advice:
-      'Start with the free course at the top. Then work down the subjects in order, as their notes are published.',
-    open: -1,
+      'Start with Foundations below. Its first lesson, Numbers in finance, takes about five minutes. Then work down the subjects in order, as their notes are published.',
+    open: 0,
   },
   {
     id: 'course',
@@ -113,8 +113,8 @@ export default function LearningPath() {
           <div className={styles.eyebrow}>Finance learning path</div>
           <h1 className={styles.h1}>What should I learn next?</h1>
           <p className={styles.lead}>
-            One route through finance, in order. It starts with a free hands-on course, then the subjects from
-            Foundations to Derivatives. Looking for one term? Use the <Link to="/dictionary">Financial Dictionary</Link>.
+            One route through finance, in order. It starts with Foundations, short lessons on the math and statistics
+            finance uses, then the subjects up to Derivatives. Looking for one term? Use the <Link to="/dictionary">Financial Dictionary</Link>.
           </p>
         </div>
         <RouteArt />
@@ -148,41 +148,17 @@ export default function LearningPath() {
       <section className={styles.body}>
         <div className={styles.side}>
           <div className={styles.next}>
-            <div className={styles.nextKicker}>{ALL_NOTES.length ? 'Next up' : 'Your first lesson'}</div>
+            <div className={styles.nextKicker}>Your first lesson</div>
             <div className={styles.nextTitle}>{next.title}</div>
             <div className={styles.nextText}>{next.blurb}</div>
             <Link to={next.to} className={styles.nextCta}>
-              {ALL_NOTES.length ? 'Read the note' : 'Read the lesson'}
+              Read the lesson
             </Link>
           </div>
         </div>
 
         <div className={styles.main}>
-        <div className={styles.courseCard}>
-          <div className={styles.courseHead}>
-            <span className={styles.startTag}>Start here</span>
-            <span className={styles.courseName}>{course.name}</span>
-            <span className={styles.courseStatus}>Course · Open now</span>
-          </div>
-          <p className={styles.courseBlurb}>{course.blurb}</p>
-          <div className={styles.coursePills}>
-            {course.covers.map(([a, b]) => (
-              <span key={a} className={styles.coursePill}>
-                <b>{a}</b>
-                {b}
-              </span>
-            ))}
-          </div>
-          <div className={styles.courseBtns}>
-            <Link to={next.to} className={styles.courseBtn}>
-              Start lesson 1
-            </Link>
-            <Link to={course.to} className={styles.courseBtnGhost}>
-              See the course
-            </Link>
-          </div>
-        </div>
-        <div className={styles.thenLabel}>Then the subjects, in order</div>
+        <div className={styles.thenLabel}>The subjects, in order</div>
         <ol className={styles.stepper}>
           {SUBJECTS.map((s, i) => {
             const live = s.notes.length > 0;
@@ -252,6 +228,10 @@ export default function LearningPath() {
             );
           })}
         </ol>
+        <p className={styles.courseLine}>
+          Want a hands-on project? Try the free course{' '}
+          <Link to={course.to}>{course.name} →</Link>
+        </p>
         </div>
       </section>
 

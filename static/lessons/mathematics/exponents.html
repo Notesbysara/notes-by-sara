@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="icon" href="/img/favicon.png">
+<meta name="description" content="Exponents: The math of repeated growth. A short lesson from Notes by Sara.">
+<link rel="canonical" href="https://notesbysara.org/lessons/mathematics/exponents.html">
+
+<style>
+.shell{display:grid;grid-template-columns:290px minmax(0,1fr);align-items:start}
+.shell.closed{grid-template-columns:minmax(0,1fr)}
+.side{position:sticky;top:50px;height:calc(100vh - 50px);overflow:auto;background:#FFFFFF;border-right:1px solid var(--line);padding:14px 14px 28px;display:flex;flex-direction:column;gap:2px;font-size:14px;scrollbar-width:thin}
+.shell.closed .side{display:none}
+.sidehead{display:flex;justify-content:space-between;align-items:center;padding:0 2px 8px;margin-bottom:4px;border-bottom:1px solid var(--line)}
+.allp{font-size:13px;font-weight:500;color:var(--green-text);text-decoration:none}.allp:hover{text-decoration:underline}
+.col{font:inherit;cursor:pointer;border:1px solid var(--line);background:var(--surface);border-radius:8px;color:var(--brand);width:28px;height:28px;display:grid;place-items:center;font-size:15px;line-height:1}
+.col:hover{border-color:var(--brand)}
+.subj{font-family:var(--display);font-size:1.2rem;color:var(--brand);margin:12px 2px 2px}
+.grp{margin-top:8px}
+.gh{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin:0 2px 4px;font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text)}
+.gc{font-size:11.5px;letter-spacing:0;text-transform:none;font-weight:500;color:var(--muted);white-space:nowrap}
+.grp ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:1px}
+.grp li a{display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;align-items:start;padding:6px 8px;border-radius:8px;text-decoration:none;color:var(--ink);line-height:1.35}
+.grp li a:hover{background:var(--pale)}
+.mk{width:22px;height:22px;border-radius:50%;border:1.5px solid #C5D6CC;display:grid;place-items:center;font-size:11px;font-weight:600;color:var(--muted);background:#fff;margin-top:-1px}
+.grp a.done .mk{background:var(--green);border-color:var(--green);color:#fff}
+.grp a.done .tt{color:var(--muted)}
+.grp a.now{background:#EEF4EF;box-shadow:inset 3px 0 0 var(--gold)}
+.grp a.now .mk{background:var(--deep);border-color:var(--gold);color:#fff}
+.grp a.now .tt{color:var(--brand);font-weight:500}
+.shell .page{max-width:none;margin:0;padding-left:clamp(16px,4vw,56px);padding-right:clamp(16px,4vw,56px)}
+.shell .page>*{max-width:900px;width:100%}
+.shell.closed .page>*{margin-inline:auto}
+.menu-btn{display:none;font:inherit;font-size:13px;font-weight:500;color:#06352A;background:#E3C26F;border:0;border-radius:999px;padding:4px 12px;cursor:pointer;white-space:nowrap}
+body.side-closed .menu-btn{display:inline-flex}
+.scrim{display:none}
+@media (max-width:860px){
+ .shell,.shell.closed{grid-template-columns:minmax(0,1fr)}
+ .side,.shell.closed .side{display:flex;position:fixed;top:0;left:0;bottom:0;height:100vh;width:min(300px,86vw);z-index:40;transform:translateX(-105%);transition:transform .25s ease;box-shadow:6px 0 24px rgba(6,53,42,.2)}
+ .shell.mopen .side{transform:none}
+ .menu-btn{display:inline-flex}
+ .scrim{position:fixed;inset:0;background:rgba(6,53,42,.35);z-index:35}.shell.mopen .scrim{display:block}
+ .shell .page>*{margin-inline:auto}
+}
+@media (prefers-reduced-motion:reduce){.side{transition:none!important}}
+@media (max-width:480px){.nbs-strip .prog{display:none}}
+</style>
+</head><body data-lesson="mathematics/exponents" data-group="mathematics" data-total="14">
+<style>
+body{margin:0}
+.nbs-strip{position:sticky;top:0;z-index:20;background:#06352A;color:#FFFDF8;display:flex;align-items:center;justify-content:space-between;gap:12px;
+ padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:10px;font-family:'Poppins',system-ui,sans-serif;flex-wrap:wrap}
+.nbs-strip .l{display:flex;align-items:center;gap:12px;min-width:0}
+.nbs-strip img{width:30px;height:30px;border-radius:6px;display:block}
+.nbs-strip .crumb{font-size:14px;color:#C9D6D0}.nbs-strip .crumb a{color:#C9D6D0;text-decoration:none}.nbs-strip .crumb a:hover{color:#fff;text-decoration:underline}
+.nbs-strip .crumb i{font-style:normal;color:#E3C26F;margin:0 5px}.nbs-strip .crumb b{color:#fff;font-weight:500}
+.nbs-strip .prog{display:flex;align-items:center;gap:10px;font-size:13px;color:#C9D6D0}
+.nbs-strip .bar{width:130px;height:5px;border-radius:9px;background:rgba(255,255,255,.18);overflow:hidden}
+.nbs-strip .bar span{display:block;height:100%;width:0;background:#E3C26F;transition:width 1.2s cubic-bezier(.2,.8,.2,1) .2s}
+@media (max-width:560px){.nbs-strip .bar{display:none}.nbs-strip .crumb .mid{display:none}}
+@media (prefers-reduced-motion:reduce){.nbs-strip .bar span{transition:none}}
+</style>
+<header class="nbs-strip"><div class="l"><button type="button" class="menu-btn" id="mbtn" aria-label="Show the lesson list">☰ Lessons</button><a href="https://notesbysara.org/" aria-label="Notes by Sara home"><img src="/img/favicon.png" alt="Notes by Sara"></a><nav class="crumb" aria-label="Breadcrumb"><a href="https://notesbysara.org/notes">Learning path</a><span class="mid"><i>›</i><a href="../index.html#mathematics">Mathematics</a></span><span><i>›</i><b>Exponents</b></span></nav></div><div class="prog"><span>Lesson 6 of 14</span><span class="bar" aria-hidden="true"><span id="nbs-bar"></span></span></div></header>
+<title>Exponents · Notes by Sara</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Forum&family=Poppins:wght@400;500;600&display=swap">
+<style>
+/* Layout: one calm reading column. Three surfaces only: the deep banner, white boxes, and pale green for anything the learner answers. Light only, like the site. */
+:root{
+  color-scheme:light;
+  --ivory:#FFFDF8; --surface:#FFFFFF; --pearl:#F7F2E7; --pale:#EAF4EF;
+  --ink:#1F2A26; --muted:#5A6862; --line:#E6E1D5;
+  --deep:#06352A; --green:#0E7C5A; --green-text:#0B6A4C; --brand:#0B4F3C;
+  --gold:#E3C26F; --gold-text:#8A6A12; --coral:#B4452F; --coral-pale:#FBEDE9;
+  --on-deep:#FFFDF8; --on-deep-muted:#C9D6D0;
+  --display:'Forum',Georgia,'Times New Roman',serif;
+  --body:'Poppins',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --t-body:16px; --t-small:14px; --t-label:12.5px;
+}
+*{box-sizing:border-box}
+body{background:var(--ivory);color:var(--ink);font-family:var(--body);font-size:var(--t-body);line-height:1.75}
+a{color:var(--green-text)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
+.mockbar{background:var(--pearl);color:var(--muted);font-size:var(--t-small);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:8px;text-align:center;border-bottom:1px solid var(--line)}
+.mockbar b{color:var(--gold-text);letter-spacing:.12em;text-transform:uppercase;font-size:var(--t-label);margin-right:6px}
+.page{max-width:720px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px;display:flex;flex-direction:column;gap:40px}
+h1,h2{font-family:var(--display);font-weight:400;line-height:1.15;margin:0;text-wrap:balance}
+h2{font-size:1.7rem;color:var(--brand)}
+p{margin:0}
+.sec{display:flex;flex-direction:column;gap:14px}
+.eyebrow{font-size:var(--t-label);font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--gold-text)}
+.muted{color:var(--muted)}
+.small{font-size:var(--t-small)}
+b{font-weight:600}
+.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* 1. banner */
+.banner{background:var(--deep);color:var(--on-deep);border-radius:18px;padding:26px 26px 22px;display:flex;flex-direction:column;gap:10px}
+.banner .eyebrow{color:var(--gold)}
+.banner h1{font-size:clamp(2rem,6vw,2.6rem)}
+.banner .lead{color:var(--on-deep-muted)}
+.banner .meta{font-size:var(--t-small);color:var(--on-deep-muted);border-top:1px solid rgba(227,194,111,.35);padding-top:10px;display:flex;flex-wrap:wrap;gap:4px 18px}
+.banner .meta b{color:var(--gold);font-weight:600}
+.banner .meta a{color:var(--on-deep)}
+
+/* white box */
+.box{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.svgwrap{overflow-x:auto}
+.svgwrap svg{display:block;width:100%;height:auto;min-width:480px}
+.cap{font-size:var(--t-small);color:var(--muted)}
+
+/* formula */
+.fx{font-family:Georgia,'Times New Roman',serif;font-size:1.8rem;display:flex;align-items:center;justify-content:center;gap:14px}
+.frac{display:inline-flex;flex-direction:column;align-items:center;line-height:1.2}
+.frac span:first-child{border-bottom:2px solid var(--ink);padding:0 8px 2px}
+.frac span:last-child{padding-top:2px}
+.fx i{font-style:italic}
+.fx sup{font-size:.6em}
+.legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:4px 16px;font-size:var(--t-small);color:var(--muted)}
+.legend i{font-family:Georgia,serif;color:var(--ink);font-size:1.05rem;margin-right:6px}
+table{border-collapse:collapse;width:100%}
+td,th{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left}
+th{font-size:var(--t-small);color:var(--muted);font-weight:500}
+td.r,th.r{text-align:right}
+.tw{overflow-x:auto}
+.result{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;border-top:2px solid var(--brand);padding-top:10px}
+.result b{font-family:var(--display);font-weight:400;font-size:1.8rem;color:var(--brand)}
+
+/* pale: anything you answer */
+.ask{background:var(--pale);border-radius:14px;padding:16px 20px;display:flex;flex-direction:column;gap:10px}
+.ask .q{font-weight:500}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opts button{font:inherit;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 14px;cursor:pointer;color:var(--ink);line-height:1.5}
+.opts button:hover{border-color:var(--green)}
+.opts button.right{border-color:var(--green);box-shadow:inset 3px 0 0 var(--green)}
+.opts button.wrong{border-color:var(--coral);box-shadow:inset 3px 0 0 var(--coral)}
+.opts button[disabled]{cursor:default}
+.fb{font-size:var(--t-small);line-height:1.6}
+.fb b{color:var(--green-text)}
+.fb.no b{color:var(--coral)}
+.quiz{display:flex;flex-direction:column;gap:10px}
+.score{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:var(--t-small);color:var(--muted)}
+.score b{color:var(--brand)}
+.btn{font:inherit;font-size:var(--t-small);border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:4px 12px;cursor:pointer;color:var(--ink)}
+
+/* optional extras */
+.extras{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.extras details{border-bottom:1px solid var(--line)}
+.extras summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 4px}
+.extras summary::-webkit-details-marker{display:none}
+.extras summary .t{font-family:var(--display);font-size:1.3rem;color:var(--brand)}
+.extras summary .s{font-size:var(--t-small);color:var(--muted)}
+.extras summary::after{content:"+";font-size:1.4rem;color:var(--gold-text);flex:none;width:20px;text-align:center}
+.extras details[open] summary::after{content:"−"}
+.extras .inner{padding:0 4px 18px;display:flex;flex-direction:column;gap:12px}
+.inputs{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.inputs label{display:flex;flex-direction:column;gap:4px;font-size:var(--t-small);color:var(--muted)}
+.inputs input[type=number]{font:inherit;color:var(--ink);padding:7px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);width:100%}
+.inputs input[type=range]{width:100%;accent-color:var(--green)}
+.calcout{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+.calcout b{font-family:var(--display);font-weight:400;font-size:1.8rem;color:var(--brand)}
+.mist{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px}
+
+/* recap */
+.recap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:center}
+.recap ul{margin:4px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:2px}
+.recap .fx{font-size:1.3rem}
+@media (max-width:560px){.recap{grid-template-columns:1fr}}
+
+/* next */
+.next{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;background:var(--deep);color:var(--on-deep);border-radius:14px;padding:16px 20px;text-decoration:none}
+.next .eyebrow{color:var(--gold)}
+.next .t{font-family:var(--display);font-size:1.35rem}
+.next .arrow{font-size:1.4rem;color:var(--gold)}
+.related{font-size:var(--t-small);color:var(--muted)}
+.related a{margin-right:10px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<style>
+.fx{white-space:nowrap;font-size:clamp(1.05rem,4.8vw,1.6rem);gap:10px}
+.fx sup{font-size:.6em}
+.rules{width:100%;border-collapse:collapse}
+.rules th,.rules td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.rules td:nth-child(2){font-family:Georgia,'Times New Roman',serif;font-size:1.05rem;white-space:nowrap}
+.rules sup{font-size:.7em}
+.pair{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.pair .box{gap:6px}
+.pair .k{font-family:var(--display);font-size:1.3rem;color:var(--brand)}
+.pair .m{font-family:Georgia,'Times New Roman',serif;font-size:1.1rem}
+.pair sup{font-size:.7em}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.where{font-size:var(--t-small);color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center}
+.where span{border:1px solid var(--line);border-radius:999px;padding:1px 10px;background:var(--surface)}
+.where span.now{background:var(--brand);color:var(--on-deep);border-color:var(--brand)}
+.where span.done{color:var(--green-text);border-color:var(--green)}
+sup{line-height:0}
+</style>
+
+<div class="shell" id="shell"><div class="scrim" id="scrim"></div><aside class="side" id="side" aria-label="All lessons"><div class="sidehead"><a href="../index.html" class="allp">All lessons</a><button type="button" class="col" id="col" aria-label="Hide the lesson list" title="Hide the lesson list">«</button></div><p class="subj">Mathematics for Finance</p><div class="grp"><p class="gh"><span>Numbers and percentages</span><span class="gc">0 of 5</span></p><ol><li><a href="numbers-in-finance.html" data-slug="mathematics/numbers-in-finance"><span class="mk">1</span><span class="tt">Numbers in finance</span></a></li><li><a href="percentage-change.html" data-slug="mathematics/percentage-change"><span class="mk">2</span><span class="tt">Percentages and percentage change</span></a></li><li><a href="percentage-traps.html" data-slug="mathematics/percentage-traps"><span class="mk">3</span><span class="tt">Percentage traps</span></a></li><li><a href="ratios.html" data-slug="mathematics/ratios"><span class="mk">4</span><span class="tt">Ratios and proportions</span></a></li><li><a href="weighted-averages.html" data-slug="mathematics/weighted-averages"><span class="mk">5</span><span class="tt">Weighted averages</span></a></li></ol></div><div class="grp"><p class="gh"><span>Growth and equations</span><span class="gc">0 of 6</span></p><ol><li><a href="exponents.html" data-slug="mathematics/exponents" class="now" aria-current="page"><span class="mk">6</span><span class="tt">Exponents</span></a></li><li><a href="logarithms.html" data-slug="mathematics/logarithms"><span class="mk">7</span><span class="tt">Logarithms</span></a></li><li><a href="linear-equations.html" data-slug="mathematics/linear-equations"><span class="mk">8</span><span class="tt">Linear equations and graphs</span></a></li><li><a href="reading-formulas.html" data-slug="mathematics/reading-formulas"><span class="mk">9</span><span class="tt">Reading formulas</span></a></li><li><a href="functions.html" data-slug="mathematics/functions"><span class="mk">10</span><span class="tt">Functions</span></a></li><li><a href="rate-and-time.html" data-slug="mathematics/rate-and-time"><span class="mk">11</span><span class="tt">Solving for rate and time</span></a></li></ol></div><div class="grp"><p class="gh"><span>Sequences and series</span><span class="gc">0 of 3</span></p><ol><li><a href="sequences.html" data-slug="mathematics/sequences"><span class="mk">12</span><span class="tt">Arithmetic and geometric sequences</span></a></li><li><a href="summing-a-geometric-series.html" data-slug="mathematics/summing-a-geometric-series"><span class="mk">13</span><span class="tt">Summing a geometric series</span></a></li><li><a href="infinite-series.html" data-slug="mathematics/infinite-series"><span class="mk">14</span><span class="tt">Infinite series</span></a></li></ol></div><p class="subj">Statistics for Finance</p><div class="grp"><p class="gh"><span>Describing data</span><span class="gc">0 of 1</span></p><ol><li><a href="../statistics/mean-median-mode.html" data-slug="statistics/mean-median-mode"><span class="mk">1</span><span class="tt">Mean, median and mode</span></a></li></ol></div></aside><article class="page">
+
+  <header class="banner">
+    <p class="eyebrow">Mathematics for Finance</p>
+    <h1>Exponents</h1>
+    <p class="lead">Compound interest, discounting and average growth rates are all written with exponents. This lesson covers the few rules finance actually uses.</p>
+    <div class="meta"><span><b>Growth and equations</b> · Lesson 1 of 6 · 6 minutes</span><span>Before this: <a href="percentage-traps.html">Percentage traps</a></span></div>
+  </header>
+
+  <section class="sec">
+    <h2>Make a guess</h2>
+    <p>You invest <b>$1,000</b> at <b>10%</b> a year and leave it alone for <b>30 years</b>. How much do you have at the end? A common guess is about $4,000: $1,000 plus $100 a year for 30 years. The real answer is <b>$17,449</b>.</p>
+  </section>
+
+  <section class="sec">
+    <h2>The idea</h2>
+    <p>Growing by 10% means multiplying by 1.10. Three years of growth is 1.10 × 1.10 × 1.10. An <b>exponent</b> is a short way to write that repeated multiplication: <b>1.10³</b>, read "1.10 to the power of 3". The 1.10 is the <b>base</b> and the 3 is the <b>exponent</b>.</p>
+    <p>Each year's growth is applied to everything you already have, including last year's growth. Over 30 years, that adds up to 1.10³⁰ ≈ 17.45, so $1,000 becomes about $17,449.</p>
+    <p class="small muted">On a calculator, use the <b>xʸ</b> or <b>^</b> key. In a spreadsheet, type <b>=1.1^30</b>.</p>
+    <div class="box">
+      <div class="svgwrap"><svg id="growth" viewBox="0 0 600 250" role="img" aria-label="$1,000 over 30 years. Adding $100 a year reaches $4,000. Growing 10% a year compounded reaches $17,449."></svg></div>
+      <p class="cap">Both lines start at $1,000. Adding $100 a year is a straight line. Multiplying by 1.10 every year curves upward, and the gap keeps widening.</p>
+    </div>
+    <div class="box">
+      <div class="fx" aria-label="Future value equals present value times one plus r to the power n"><span><i>FV</i> = <i>PV</i> × (1 + <i>r</i>)<sup><i>n</i></sup></span></div>
+      <div class="legend"><span><i>PV</i>what you start with</span><span><i>r</i>the yearly rate, as a decimal</span><span><i>n</i>the number of years</span></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Three rules you'll use</h2>
+    <div class="box">
+      <div class="tw"><table class="rules">
+        <thead><tr><th>Rule</th><th>Example</th><th>What it means in finance</th></tr></thead>
+        <tbody>
+          <tr><td>Same base multiplied: add the exponents</td><td>1.1<sup>2</sup> × 1.1<sup>3</sup> = 1.1<sup>5</sup></td><td>2 years of growth, then 3 more, is 5 years</td></tr>
+          <tr><td>Power of a power: multiply the exponents</td><td>(1.1<sup>2</sup>)<sup>3</sup> = 1.1<sup>6</sup></td><td>Three 2-year periods is 6 years</td></tr>
+          <tr><td>Any number (except 0) to the power 0 is 1</td><td>1.1<sup>0</sup> = 1</td><td>Zero years means no growth yet</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div class="ask" data-q="c1">
+      <p class="eyebrow">Quick check</p>
+      <p class="q">What is 1.08² × 1.08³ written as one power?</p>
+      <div class="opts">
+        <button type="button" data-ok="1">1.08⁵</button>
+        <button type="button" data-ok="0">1.08⁶</button>
+        <button type="button" data-ok="0">2.16⁵</button>
+      </div>
+      <p class="fb" hidden aria-live="polite"></p>
+      <template>Same base, so add the exponents: 2 + 3 = 5. Two years then three more is five years of 8% growth.</template>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Negative and fractional exponents</h2>
+    <p>These look odd, but each one is a finance tool you'll use again and again.</p>
+    <div class="pair">
+      <div class="box"><span class="k">Negative: go back in time</span><span class="m">1.05<sup>−3</sup> = 1 ÷ 1.05<sup>3</sup></span><span class="small">A negative exponent means "divide by". It turns growth into discounting, which is how you find what future money is worth today.</span></div>
+      <div class="box"><span class="k">Fractional: find the yearly rate</span><span class="m">1.21<sup>1/2</sup> = 1.10</span><span class="small">A power of ½ is a square root, ⅓ a cube root and so on. If something grew 21% over 2 years, it grew by an average of 10% a year.</span></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Worked example</h2>
+    <p><span class="muted">Example, with made-up numbers.</span> A company's revenue grew from <b>$50 million</b> to <b>$80 million</b> over <b>5 years</b>. What was its average yearly growth rate? Analysts call this the <b>compound annual growth rate</b>, or CAGR.</p>
+    <div class="box">
+      <div class="tw"><table><tbody>
+        <tr><td>1. Total growth factor</td><td class="r num">80 ÷ 50 = 1.6</td></tr>
+        <tr><td>2. Raise it to 1 ÷ years</td><td class="r num">1.6<sup>1/5</sup> = 1.0986</td></tr>
+        <tr><td>3. Subtract 1</td><td class="r num">1.0986 − 1 = 0.0986</td></tr>
+      </tbody></table></div>
+      <div class="result"><span>Average yearly growth</span><b class="num">9.86%</b></div>
+      <p class="small muted">Check it: 1.0986⁵ ≈ 1.6, and 50 × 1.6 = 80. Simply dividing the 60% total by 5 years would say 12%, which overstates the yearly rate.</p>
+    </div>
+  </section>
+
+  <section class="extras" aria-label="Optional extras">
+    <details>
+      <summary><span><span class="t">Try it yourself</span><br><span class="s">Compare adding the same amount each year with compounding.</span></span></summary>
+      <div class="inner">
+        <div class="inputs">
+          <label for="pv">Start ($)<input type="number" id="pv" value="1000" min="0" step="100"></label>
+          <label for="yrs">Years<input type="number" id="yrs" value="30" min="0" max="80" step="1"></label>
+          <label for="rate">Rate: <span id="rateLbl">10.0%</span><input type="range" id="rate" min="0" max="20" step="0.5" value="10"></label>
+        </div>
+        <div class="two">
+          <div class="calcout"><span class="muted">Simple</span><b id="simple" class="num" style="font-size:1.4rem;color:var(--muted)">$4,000</b></div>
+          <div class="calcout"><span class="muted">Compounded</span><b id="comp" class="num">$17,449</b></div>
+        </div>
+      </div>
+    </details>
+    <details>
+      <summary><span><span class="t">Common mistakes</span><br><span class="s">Three slips beginners make.</span></span></summary>
+      <div class="inner">
+        <ul class="mist">
+          <li><b>Multiplying instead of raising to a power.</b> 1.10³⁰ is not 1 + 0.10 × 30. That shortcut ignores growth on growth.</li>
+          <li><b>Applying the exponent to the wrong part.</b> 1,000 × 1.1³ means 1,000 × (1.1³), not (1,000 × 1.1)³. Powers come before multiplication.</li>
+          <li><b>Reading a negative exponent as a negative number.</b> 1.05⁻³ is about 0.864, a positive number below 1.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <section class="sec">
+    <div class="box recap">
+      <div>
+        <p class="eyebrow">Remember</p>
+        <ul>
+          <li>An exponent is repeated multiplication: 1.1³ = 1.1 × 1.1 × 1.1.</li>
+          <li>A negative exponent divides. That's discounting.</li>
+          <li>A fractional exponent is a root. That's how you find a yearly rate.</li>
+        </ul>
+      </div>
+      <div class="fx"><span><i>PV</i> × (1 + <i>r</i>)<sup><i>n</i></sup></span></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Check yourself</h2>
+    <div class="ask quiz">
+      <p class="small muted">Three questions. Try them without scrolling up.</p>
+      <div data-q="q1" data-quiz>
+        <p class="q">1. What is 1.05⁰?</p>
+        <div class="opts">
+          <button type="button" data-ok="0">0</button>
+          <button type="button" data-ok="1">1</button>
+          <button type="button" data-ok="0">1.05</button>
+        </div>
+        <p class="fb" hidden aria-live="polite"></p>
+        <template>Anything to the power 0 is 1. After zero years, your money has been multiplied by 1: it hasn't grown yet.</template>
+      </div>
+      <div data-q="q2" data-quiz>
+        <p class="q">2. What is 1.10⁻²?</p>
+        <div class="opts">
+          <button type="button" data-ok="0">−1.21</button>
+          <button type="button" data-ok="0">0.80</button>
+          <button type="button" data-ok="1">0.8264</button>
+        </div>
+        <p class="fb" hidden aria-live="polite"></p>
+        <template>1 ÷ 1.10² = 1 ÷ 1.21 = 0.8264. So $1 received in 2 years is worth about 83 cents today at 10%.</template>
+      </div>
+      <div data-q="q3" data-quiz>
+        <p class="q">3. An investment doubles in 10 years. What was its average yearly growth rate?</p>
+        <div class="opts">
+          <button type="button" data-ok="0">10%</button>
+          <button type="button" data-ok="1">7.18%</button>
+          <button type="button" data-ok="0">20%</button>
+        </div>
+        <p class="fb" hidden aria-live="polite"></p>
+        <template>2<sup>1/10</sup> = 1.0718, so 7.18% a year. Dividing 100% by 10 years says 10%, but that ignores compounding.</template>
+      </div>
+      <div class="score"><span>Score: <b id="score">0 of 3</b></span><button class="btn" type="button" id="reset">Try again</button></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <a href="logarithms.html" class="next"><span><span class="eyebrow">Next lesson · 5 minutes</span><br><span class="t">Logarithms</span><br><span class="small" style="color:var(--on-deep-muted)">How long until your money doubles? Logarithms answer "how many years".</span></span><span class="arrow" aria-hidden="true">→</span></a>
+    <p class="related">Related: <a href="https://notesbysara.org/dictionary/compound-interest">Compound interest</a><a href="https://notesbysara.org/dictionary/future-value">Future value</a><a href="https://notesbysara.org/dictionary/compound-annual-growth-rate">CAGR</a><span class="rel">Future value formula</span></p>
+  </section>
+
+</article></div>
+
+<script>
+const NS='http://www.w3.org/2000/svg';
+const el=(n,a={},p)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e};
+const text=(p,x,y,t,a={})=>{const e=el('text',Object.assign({x,y,'font-family':"Poppins,system-ui,sans-serif",'font-size':12,fill:'#5A6862','text-anchor':'middle'},a),p);e.textContent=t;return e};
+(function(){
+  const s=document.getElementById('growth'),L=64,R=480,T=16,B=214,X=n=>L+(R-L)*n/30,Y=v=>B-(B-T)*v/18000;
+  [0,5000,10000,15000].forEach(v=>{el('line',{x1:L,y1:Y(v),x2:R,y2:Y(v),stroke:'#EFEAE0'},s);text(s,L-8,Y(v)+4,'$'+(v/1000)+'k',{'text-anchor':'end'})});
+  [0,10,20,30].forEach(n=>text(s,X(n),B+18,n+' yrs'));
+  let d1='',d2='';for(let n=0;n<=30;n++){d1+=(n?'L':'M')+X(n).toFixed(1)+','+Y(1000+100*n).toFixed(1);d2+=(n?'L':'M')+X(n).toFixed(1)+','+Y(1000*Math.pow(1.1,n)).toFixed(1)}
+  el('path',{d:d1,fill:'none',stroke:'#9AA59F','stroke-width':2.5,'stroke-dasharray':'6 5'},s);
+  el('path',{d:d2,fill:'none',stroke:'#0E7C5A','stroke-width':3},s);
+  el('circle',{cx:X(30),cy:Y(4000),r:4,fill:'#9AA59F'},s);el('circle',{cx:X(30),cy:Y(17449.4),r:5,fill:'#0E7C5A'},s);
+  text(s,X(30)+10,Y(4000)+4,'$4,000',{'text-anchor':'start','font-weight':600,'font-size':12.5});
+  text(s,X(30)+10,Y(4000)+20,'adding $100 a year',{'text-anchor':'start','font-size':11.5});
+  text(s,X(30)+10,Y(17449.4)+4,'$17,449',{'text-anchor':'start','font-weight':600,'font-size':12.5,fill:'#0E7C5A'});
+  text(s,X(30)+10,Y(17449.4)+20,'growing 10% a year',{'text-anchor':'start','font-size':11.5,fill:'#0E7C5A'});
+})();
+
+const answered={},correct={};
+document.querySelectorAll('[data-q]').forEach(box=>{
+  const id=box.dataset.q,fb=box.querySelector('.fb'),tpl=box.querySelector('template');
+  box.querySelectorAll('.opts button').forEach(b=>b.addEventListener('click',()=>{
+    if(answered[id])return;
+    const ok=b.dataset.ok==='1';answered[id]=true;correct[id]=ok;
+    box.querySelectorAll('.opts button').forEach(x=>{x.disabled=true;if(x.dataset.ok==='1')x.classList.add('right')});
+    if(!ok)b.classList.add('wrong');
+    fb.innerHTML='<b>'+(ok?'Right. ':'Not quite. ')+'</b>';fb.appendChild(tpl.content.cloneNode(true));
+    fb.classList.toggle('no',!ok);fb.hidden=false;score();
+  }));
+});
+function score(){document.getElementById('score').textContent=['q1','q2','q3'].filter(k=>correct[k]).length+' of 3'}
+document.getElementById('reset').addEventListener('click',()=>{
+  document.querySelectorAll('[data-quiz]').forEach(box=>{const id=box.dataset.q;delete answered[id];delete correct[id];
+    box.querySelectorAll('.opts button').forEach(x=>{x.disabled=false;x.classList.remove('right','wrong')});
+    const fb=box.querySelector('.fb');fb.hidden=true;fb.innerHTML='';});
+  score();
+});
+const m0=v=>'$'+Math.round(v).toLocaleString('en-US');
+const pv=document.getElementById('pv'),yrs=document.getElementById('yrs'),rate=document.getElementById('rate');
+function run(){
+  const P=Math.max(0,+pv.value||0),n=Math.max(0,Math.round(+yrs.value||0)),r=(+rate.value||0)/100;
+  document.getElementById('rateLbl').textContent=(r*100).toFixed(1)+'%';
+  document.getElementById('simple').textContent=m0(P*(1+r*n));
+  document.getElementById('comp').textContent=m0(P*Math.pow(1+r,n));
+}
+[pv,yrs,rate].forEach(i=>i.addEventListener('input',run));run();
+document.querySelectorAll('a[href="#"]').forEach(a=>a.addEventListener('click',e=>e.preventDefault()));
+</script>
+
+<script>
+(function(){
+  var KEY='nbs-lessons-done',done=[];
+  try{done=JSON.parse(localStorage.getItem(KEY)||'[]')||[]}catch(e){}
+  var me=document.body.getAttribute('data-lesson'),total=+document.body.getAttribute('data-total')||0,group=document.body.getAttribute('data-group');
+  function count(){return done.filter(function(s){return s.indexOf(group+'/')===0}).length}
+  function show(){var b=document.getElementById('nbs-bar');if(b&&total)b.style.width=Math.min(100,count()/total*100)+'%'}
+  requestAnimationFrame(function(){requestAnimationFrame(show)});
+  var end=document.querySelector('.next');
+  if(me&&end&&'IntersectionObserver' in window){
+    new IntersectionObserver(function(es,o){es.forEach(function(e){if(e.isIntersecting){
+      if(done.indexOf(me)<0){done.push(me);try{localStorage.setItem(KEY,JSON.stringify(done))}catch(err){}show()}
+      o.disconnect()}})},{threshold:.6}).observe(end);
+  }
+})();
+</script>
+<script>
+(function(){
+  var sh=document.getElementById('shell'),KEY='nbs-side-closed',done=[];
+  try{done=JSON.parse(localStorage.getItem('nbs-lessons-done')||'[]')||[]}catch(e){}
+  function marks(){
+    document.querySelectorAll('.side .grp').forEach(function(g){var n=0,a=g.querySelectorAll('a[data-slug]');
+      a.forEach(function(x){var d=done.indexOf(x.dataset.slug)>=0;x.classList.toggle('done',d&&!x.classList.contains('now'));if(d)n++});
+      var c=g.querySelector('.gc');if(c)c.textContent=n+' of '+a.length;});
+  }
+  marks();
+  window.addEventListener('storage',function(){try{done=JSON.parse(localStorage.getItem('nbs-lessons-done')||'[]')||[]}catch(e){}marks()});
+  var closed=false;try{closed=localStorage.getItem(KEY)==='1'}catch(e){}
+  function setClosed(c){closed=c;sh.classList.toggle('closed',c);document.body.classList.toggle('side-closed',c);try{localStorage.setItem(KEY,c?'1':'0')}catch(e){}}
+  if(closed&&innerWidth>860)setClosed(true);
+  document.getElementById('col').addEventListener('click',function(){if(innerWidth<=860){sh.classList.remove('mopen')}else{setClosed(true)}});
+  document.getElementById('mbtn').addEventListener('click',function(){if(innerWidth<=860){sh.classList.add('mopen')}else{setClosed(false)}});
+  document.getElementById('scrim').addEventListener('click',function(){sh.classList.remove('mopen')});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')sh.classList.remove('mopen')});
+  var now=document.querySelector('.side a.now');if(now&&now.scrollIntoView&&innerWidth>860){var s=document.getElementById('side');s.scrollTop=Math.max(0,now.offsetTop-s.clientHeight/2)}
+})();
+</script>
+</body></html>

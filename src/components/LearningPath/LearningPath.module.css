@@ -447,3 +447,7 @@
   .main { flex-basis: 100%; }
   .courseBtn, .courseBtnGhost { width: 100%; text-align: center; box-sizing: border-box; }
 }
+
+/* Small link to the hands-on course, under the subjects */
+.courseLine { margin: 4px 0 0; font-size: 14px; color: #4f625a; }
+.courseLine a { color: #0B4F3C; font-weight: 500; }
