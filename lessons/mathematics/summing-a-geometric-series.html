@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="icon" href="/img/favicon.png">
+<meta name="description" content="Summing a geometric series: One formula for a whole series. A short lesson from Notes by Sara.">
+<link rel="canonical" href="https://notesbysara.org/lessons/mathematics/summing-a-geometric-series.html">
+
+<title>Summing a geometric series · Notes by Sara</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Forum&family=Poppins:wght@400;500;600&display=swap">
+<style>
+/* Layout: one calm reading column. Three surfaces only: the deep banner, white boxes, and pale green for anything the learner answers. Light only, like the site. */
+:root{
+  color-scheme:light;
+  --ivory:#FFFDF8; --surface:#FFFFFF; --pearl:#F7F2E7; --pale:#EAF4EF;
+  --ink:#1F2A26; --muted:#5A6862; --line:#E6E1D5;
+  --deep:#06352A; --green:#0E7C5A; --green-text:#0B6A4C; --brand:#0B4F3C;
+  --gold:#E3C26F; --gold-text:#8A6A12; --coral:#B4452F; --coral-pale:#FBEDE9;
+  --on-deep:#FFFDF8; --on-deep-muted:#C9D6D0;
+  --display:'Forum',Georgia,'Times New Roman',serif;
+  --body:'Poppins',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --t-body:16px; --t-small:14px; --t-label:12.5px;
+}
+*{box-sizing:border-box}
+body{background:var(--ivory);color:var(--ink);font-family:var(--body);font-size:var(--t-body);line-height:1.75}
+a{color:var(--green-text)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
+.mockbar{background:var(--pearl);color:var(--muted);font-size:var(--t-small);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:8px;text-align:center;border-bottom:1px solid var(--line)}
+.mockbar b{color:var(--gold-text);letter-spacing:.12em;text-transform:uppercase;font-size:var(--t-label);margin-right:6px}
+.page{max-width:720px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px;display:flex;flex-direction:column;gap:40px}
+h1,h2{font-family:var(--display);font-weight:400;line-height:1.15;margin:0;text-wrap:balance}
+h2{font-size:1.7rem;color:var(--brand)}
+p{margin:0}
+.sec{display:flex;flex-direction:column;gap:14px}
+.eyebrow{font-size:var(--t-label);font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--gold-text)}
+.muted{color:var(--muted)}
+.small{font-size:var(--t-small)}
+b{font-weight:600}
+.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* 1. banner */
+.banner{background:var(--deep);color:var(--on-deep);border-radius:18px;padding:26px 26px 22px;display:flex;flex-direction:column;gap:10px}
+.banner .eyebrow{color:var(--gold)}
+.banner h1{font-size:clamp(2rem,6vw,2.6rem)}
+.banner .lead{color:var(--on-deep-muted)}
+.banner .meta{font-size:var(--t-small);color:var(--on-deep-muted);border-top:1px solid rgba(227,194,111,.35);padding-top:10px;display:flex;flex-wrap:wrap;gap:4px 18px}
+.banner .meta b{color:var(--gold);font-weight:600}
+.banner .meta a{color:var(--on-deep)}
+
+/* white box */
+.box{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.svgwrap{overflow-x:auto}
+.svgwrap svg{display:block;width:100%;height:auto;min-width:480px}
+.cap{font-size:var(--t-small);color:var(--muted)}
+
+/* formula */
+.fx{font-family:Georgia,'Times New Roman',serif;font-size:1.8rem;display:flex;align-items:center;justify-content:center;gap:14px}
+.frac{display:inline-flex;flex-direction:column;align-items:center;line-height:1.2}
+.frac span:first-child{border-bottom:2px solid var(--ink);padding:0 8px 2px}
+.frac span:last-child{padding-top:2px}
+.fx i{font-style:italic}
+.fx sup{font-size:.6em}
+.legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:4px 16px;font-size:var(--t-small);color:var(--muted)}
+.legend i{font-family:Georgia,serif;color:var(--ink);font-size:1.05rem;margin-right:6px}
+table{border-collapse:collapse;width:100%}
+td,th{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left}
+th{font-size:var(--t-small);color:var(--muted);font-weight:500}
+td.r,th.r{text-align:right}
+.tw{overflow-x:auto}
+.result{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;border-top:2px solid var(--brand);padding-top:10px}
+.result b{font-family:var(--display);font-weight:400;font-size:1.8rem;color:var(--brand)}
+
+/* pale: anything you answer */
+.ask{background:var(--pale);border-radius:14px;padding:16px 20px;display:flex;flex-direction:column;gap:10px}
+.ask .q{font-weight:500}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opts button{font:inherit;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 14px;cursor:pointer;color:var(--ink);line-height:1.5}
+.opts button:hover{border-color:var(--green)}
+.opts button.right{border-color:var(--green);box-shadow:inset 3px 0 0 var(--green)}
+.opts button.wrong{border-color:var(--coral);box-shadow:inset 3px 0 0 var(--coral)}
+.opts button[disabled]{cursor:default}
+.fb{font-size:var(--t-small);line-height:1.6}
+.fb b{color:var(--green-text)}
+.fb.no b{color:var(--coral)}
+.quiz{display:flex;flex-direction:column;gap:10px}
+.score{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:var(--t-small);color:var(--muted)}
+.score b{color:var(--brand)}
+.btn{font:inherit;font-size:var(--t-small);border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:4px 12px;cursor:pointer;color:var(--ink)}
+
+/* optional extras */
+.extras{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.extras details{border-bottom:1px solid var(--line)}
+.extras summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 4px}
+.extras summary::-webkit-details-marker{display:none}
+.extras summary .t{font-family:var(--display);font-size:1.3rem;color:var(--brand)}
+.extras summary .s{font-size:var(--t-small);color:var(--muted)}
+.extras summary::after{content:"+";font-size:1.4rem;color:var(--gold-text);flex:none;width:20px;text-align:center}
+.extras details[open] summary::after{content:"−"}
+.extras .inner{padding:0 4px 18px;display:flex;flex-direction:column;gap:12px}
+.inputs{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.inputs label{display:flex;flex-direction:column;gap:4px;font-size:var(--t-small);color:var(--muted)}
+.inputs input[type=number]{font:inherit;color:var(--ink);padding:7px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);width:100%}
+.inputs input[type=range]{width:100%;accent-color:var(--green)}
+.calcout{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+.calcout b{font-family:var(--display);font-weight:400;font-size:1.8rem;color:var(--brand)}
+.mist{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px}
+
+/* recap */
+.recap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:center}
+.recap ul{margin:4px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:2px}
+.recap .fx{font-size:1.3rem}
+@media (max-width:560px){.recap{grid-template-columns:1fr}}
+
+/* next */
+.next{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;background:var(--deep);color:var(--on-deep);border-radius:14px;padding:16px 20px;text-decoration:none}
+.next .eyebrow{color:var(--gold)}
+.next .t{font-family:var(--display);font-size:1.35rem}
+.next .arrow{font-size:1.4rem;color:var(--gold)}
+.related{font-size:var(--t-small);color:var(--muted)}
+.related a{margin-right:10px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+
+<style>
+.shell{display:grid;grid-template-columns:290px minmax(0,1fr);align-items:start}
+.shell.closed{grid-template-columns:minmax(0,1fr)}
+.side{position:sticky;top:50px;height:calc(100vh - 50px);overflow:auto;background:#FFFFFF;border-right:1px solid var(--line);padding:14px 14px 28px;display:flex;flex-direction:column;gap:2px;font-size:14px;scrollbar-width:thin}
+.shell.closed .side{display:none}
+.sidehead{display:flex;justify-content:space-between;align-items:center;padding:0 2px 8px;margin-bottom:4px;border-bottom:1px solid var(--line)}
+.allp{font-size:13px;font-weight:500;color:var(--green-text);text-decoration:none}.allp:hover{text-decoration:underline}
+.col{font:inherit;cursor:pointer;border:1px solid var(--line);background:var(--surface);border-radius:8px;color:var(--brand);width:28px;height:28px;display:grid;place-items:center;font-size:15px;line-height:1}
+.col:hover{border-color:var(--brand)}
+.subj{font-family:var(--display);font-size:1.2rem;color:var(--brand);margin:12px 2px 2px}
+.grp{margin-top:8px}
+.gh{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin:0 2px 4px;font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text)}
+.gc{font-size:11.5px;letter-spacing:0;text-transform:none;font-weight:500;color:var(--muted);white-space:nowrap}
+.grp ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:1px}
+.grp li a{display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;align-items:start;padding:6px 8px;border-radius:8px;text-decoration:none;color:var(--ink);line-height:1.35}
+.grp li a:hover{background:var(--pale)}
+.mk{width:22px;height:22px;border-radius:50%;border:1.5px solid #C5D6CC;display:grid;place-items:center;font-size:11px;font-weight:600;color:var(--muted);background:#fff;margin-top:-1px}
+.grp a.done .mk{background:var(--green);border-color:var(--green);color:#fff}
+.grp a.done .tt{color:var(--muted)}
+.grp a.now{background:#EEF4EF;box-shadow:inset 3px 0 0 var(--gold)}
+.grp a.now .mk{background:var(--deep);border-color:var(--gold);color:#fff}
+.grp a.now .tt{color:var(--brand);font-weight:500}
+.shell .page{max-width:none;margin:0;padding-left:clamp(16px,4vw,56px);padding-right:clamp(16px,4vw,56px)}
+.shell .page>*{max-width:900px;width:100%}
+.shell.closed .page>*{margin-inline:auto}
+.menu-btn{display:none;font:inherit;font-size:13px;font-weight:500;color:#06352A;background:#E3C26F;border:0;border-radius:999px;padding:4px 12px;cursor:pointer;white-space:nowrap}
+body.side-closed .menu-btn{display:inline-flex}
+.scrim{display:none}
+@media (max-width:860px){
+ .shell,.shell.closed{grid-template-columns:minmax(0,1fr)}
+ .side,.shell.closed .side{display:flex;position:fixed;top:0;left:0;bottom:0;height:100vh;width:min(300px,86vw);z-index:40;transform:translateX(-105%);transition:transform .25s ease;box-shadow:6px 0 24px rgba(6,53,42,.2)}
+ .shell.mopen .side{transform:none}
+ .menu-btn{display:inline-flex}
+ .scrim{position:fixed;inset:0;background:rgba(6,53,42,.35);z-index:35}.shell.mopen .scrim{display:block}
+ .shell .page>*{margin-inline:auto}
+}
+@media (prefers-reduced-motion:reduce){.side{transition:none!important}}
+@media (max-width:480px){.nbs-strip .prog{display:none}}
+</style>
+</head><body data-lesson="mathematics/summing-a-geometric-series" data-group="mathematics" data-total="14">
+<style>
+body{margin:0}
+.nbs-strip{position:sticky;top:0;z-index:20;background:#06352A;color:#FFFDF8;display:flex;align-items:center;justify-content:space-between;gap:12px;
+ padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:10px;font-family:'Poppins',system-ui,sans-serif;flex-wrap:wrap}
+.nbs-strip .l{display:flex;align-items:center;gap:12px;min-width:0}
+.nbs-strip img{width:30px;height:30px;border-radius:6px;display:block}
+.nbs-strip .crumb{font-size:14px;color:#C9D6D0}.nbs-strip .crumb a{color:#C9D6D0;text-decoration:none}.nbs-strip .crumb a:hover{color:#fff;text-decoration:underline}
+.nbs-strip .crumb i{font-style:normal;color:#E3C26F;margin:0 5px}.nbs-strip .crumb b{color:#fff;font-weight:500}
+.nbs-strip .prog{display:flex;align-items:center;gap:10px;font-size:13px;color:#C9D6D0}
+.nbs-strip .bar{width:130px;height:5px;border-radius:9px;background:rgba(255,255,255,.18);overflow:hidden}
+.nbs-strip .bar span{display:block;height:100%;width:0;background:#E3C26F;transition:width 1.2s cubic-bezier(.2,.8,.2,1) .2s}
+@media (max-width:560px){.nbs-strip .bar{display:none}.nbs-strip .crumb .mid{display:none}}
+@media (prefers-reduced-motion:reduce){.nbs-strip .bar span{transition:none}}
+</style>
+<header class="nbs-strip"><div class="l"><button type="button" class="menu-btn" id="mbtn" aria-label="Show the lesson list">☰ Lessons</button><a href="https://notesbysara.org/" aria-label="Notes by Sara home"><img src="/img/favicon.png" alt="Notes by Sara"></a><nav class="crumb" aria-label="Breadcrumb"><a href="https://notesbysara.org/notes">Learning path</a><span class="mid"><i>›</i><a href="../index.html#mathematics">Mathematics</a></span><span><i>›</i><b>Summing a geometric series</b></span></nav></div><div class="prog"><span>Lesson 13 of 14</span><span class="bar" aria-hidden="true"><span id="nbs-bar"></span></span></div></header>
+
+<style>
+.fx{white-space:nowrap;font-size:clamp(1rem,4.6vw,1.55rem);gap:10px}
+.fx sub,.fx sup{font-size:.6em;line-height:0}
+sub,sup{line-height:0}
+.trick{font-family:Georgia,'Times New Roman',serif;font-size:clamp(.74rem,3.2vw,1.05rem);display:grid;grid-template-columns:auto 1fr;gap:6px 12px;align-items:baseline;overflow-x:auto}
+.trick .l{font-family:var(--body);font-size:var(--t-small);color:var(--muted);white-space:nowrap}
+.trick .e{white-space:nowrap}
+.trick .hl{color:var(--green-text);font-weight:600}
+.trick .sum{border-top:1px solid var(--line);padding-top:6px}
+@media (max-width:560px){.steps td{display:block;border:0;padding:2px 0;text-align:left!important;white-space:normal}.steps tr{display:block;border-bottom:1px solid var(--line);padding:8px 0}.steps td.r{font-weight:500}}
+.where{font-size:var(--t-small);color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center}
+.where span{border:1px solid var(--line);border-radius:999px;padding:1px 10px;background:var(--surface)}
+.where span.now{background:var(--brand);color:var(--on-deep);border-color:var(--brand)}
+.where span.done{color:var(--green-text);border-color:var(--green)}
+</style>
+
+<div class="shell" id="shell"><div class="scrim" id="scrim"></div><aside class="side" id="side" aria-label="All lessons"><div class="sidehead"><a href="../index.html" class="allp">All lessons</a><button type="button" class="col" id="col" aria-label="Hide the lesson list" title="Hide the lesson list">«</button></div><p class="subj">Mathematics for Finance</p><div class="grp"><p class="gh"><span>Numbers and percentages</span><span class="gc">0 of 5</span></p><ol><li><a href="numbers-in-finance.html" data-slug="mathematics/numbers-in-finance"><span class="mk">1</span><span class="tt">Numbers in finance</span></a></li><li><a href="percentage-change.html" data-slug="mathematics/percentage-change"><span class="mk">2</span><span class="tt">Percentages and percentage change</span></a></li><li><a href="percentage-traps.html" data-slug="mathematics/percentage-traps"><span class="mk">3</span><span class="tt">Percentage traps</span></a></li><li><a href="ratios.html" data-slug="mathematics/ratios"><span class="mk">4</span><span class="tt">Ratios and proportions</span></a></li><li><a href="weighted-averages.html" data-slug="mathematics/weighted-averages"><span class="mk">5</span><span class="tt">Weighted averages</span></a></li></ol></div><div class="grp"><p class="gh"><span>Growth and equations</span><span class="gc">0 of 6</span></p><ol><li><a href="exponents.html" data-slug="mathematics/exponents"><span class="mk">6</span><span class="tt">Exponents</span></a></li><li><a href="logarithms.html" data-slug="mathematics/logarithms"><span class="mk">7</span><span class="tt">Logarithms</span></a></li><li><a href="linear-equations.html" data-slug="mathematics/linear-equations"><span class="mk">8</span><span class="tt">Linear equations and graphs</span></a></li><li><a href="reading-formulas.html" data-slug="mathematics/reading-formulas"><span class="mk">9</span><span class="tt">Reading formulas</span></a></li><li><a href="functions.html" data-slug="mathematics/functions"><span class="mk">10</span><span class="tt">Functions</span></a></li><li><a href="rate-and-time.html" data-slug="mathematics/rate-and-time"><span class="mk">11</span><span class="tt">Solving for rate and time</span></a></li></ol></div><div class="grp"><p class="gh"><span>Sequences and series</span><span class="gc">0 of 3</span></p><ol><li><a href="sequences.html" data-slug="mathematics/sequences"><span class="mk">12</span><span class="tt">Arithmetic and geometric sequences</span></a></li><li><a href="summing-a-geometric-series.html" data-slug="mathematics/summing-a-geometric-series" class="now" aria-current="page"><span class="mk">13</span><span class="tt">Summing a geometric series</span></a></li><li><a href="infinite-series.html" data-slug="mathematics/infinite-series"><span class="mk">14</span><span class="tt">Infinite series</span></a></li></ol></div><p class="subj">Statistics for Finance</p><div class="grp"><p class="gh"><span>Describing data</span><span class="gc">0 of 1</span></p><ol><li><a href="../statistics/mean-median-mode.html" data-slug="statistics/mean-median-mode"><span class="mk">1</span><span class="tt">Mean, median and mode</span></a></li></ol></div></aside><article class="page">
+
+  <header class="banner">
+    <p class="eyebrow">Mathematics for Finance</p>
+    <h1>Summing a geometric series</h1>
+    <p class="lead">Adding up a geometric sequence term by term gets slow fast. One short formula does it in a single step, and it sits behind every loan and savings plan.</p>
+    <div class="meta"><span><b>Sequences and series</b> · Lesson 2 of 3 · 6 minutes</span><span>Before this: <a href="sequences.html">Arithmetic and geometric sequences</a></span></div>
+  </header>
+
+  <section class="sec">
+    <h2>How much will the savings plan hold?</h2>
+    <p><span class="muted">Example, with made-up numbers.</span> You put <b>$1,000</b> into savings at the end of every year for <b>5 years</b>, earning <b>5%</b> a year. How much is there right after the last deposit?</p>
+  </section>
+
+  <section class="sec">
+    <h2>The idea</h2>
+    <p>Each deposit grows for a different number of years. The last one has just arrived, so it hasn't grown at all. The first one has grown for 4 years. Their values form a geometric sequence with a ratio of 1.05:</p>
+    <div class="box">
+      <div class="svgwrap"><svg id="bars" viewBox="0 0 600 250" role="img" aria-label="Five deposits of $1,000 at the end of year 5. The deposit from year 1 has grown to $1,215.51, year 2 to $1,157.63, year 3 to $1,102.50, year 4 to $1,050, and year 5 is still $1,000. Together they make $5,525.63."></svg></div>
+      <p class="cap">Five deposits worth $1,000, $1,050, $1,102.50, $1,157.63 and $1,215.51 by the end. Together they make $5,525.63.</p>
+    </div>
+    <p>A <b>series</b> is what you get when you add up the terms of a sequence. With 5 terms you can add them by hand. With 30 years of deposits, or 360 monthly loan payments, you need a shortcut.</p>
+  </section>
+
+  <section class="sec">
+    <h2>The shortcut</h2>
+    <p>Write the sum as <i>S</i>. Multiply every term by the ratio, and almost everything lines up with the original. Subtract, and the middle cancels:</p>
+    <div class="box">
+      <div class="trick">
+        <span class="l">The sum</span><span class="e"><i>S</i> = <span class="hl">1</span> + 1.05 + 1.05<sup>2</sup> + 1.05<sup>3</sup> + 1.05<sup>4</sup></span>
+        <span class="l">Times 1.05</span><span class="e">1.05<i>S</i> = 1.05 + 1.05<sup>2</sup> + 1.05<sup>3</sup> + 1.05<sup>4</sup> + <span class="hl">1.05<sup>5</sup></span></span>
+        <span class="l sum">Subtract</span><span class="e sum">1.05<i>S</i> − <i>S</i> = <span class="hl">1.05<sup>5</sup> − 1</span></span>
+      </div>
+      <p class="small muted">Shown in thousands of dollars to keep it short. Only the two ends survive, so <i>S</i> = (1.05<sup>5</sup> − 1) ÷ 0.05 = 5.5256, or $5,525.63.</p>
+    </div>
+    <p>The same trick works for any geometric series, which gives the general formula:</p>
+    <div class="box">
+      <div class="fx"><span><i>S</i> = <i>a</i> × (1 − <i>r</i><sup><i>n</i></sup>) ÷ (1 − <i>r</i>)</span></div>
+      <div class="legend"><span><i>a</i>first term</span><span><i>r</i>ratio</span><span><i>n</i>number of terms</span></div>
+      <p class="small muted">It works whether <i>r</i> is above or below 1, but not when <i>r</i> = 1. If you just add the same amount each time, multiply instead. When <i>r</i> is above 1, you can flip both signs to get <i>a</i> × (<i>r</i><sup><i>n</i></sup> − 1) ÷ (<i>r</i> − 1), which is easier to read.</p>
+    </div>
+    <div class="ask" data-q="c1">
+      <p class="eyebrow">Quick check</p>
+      <p class="q">What is 2 + 4 + 8 + 16 + 32?</p>
+      <div class="opts">
+        <button type="button" data-ok="1">62, from 2 × (2<sup>5</sup> − 1) ÷ (2 − 1)</button>
+        <button type="button" data-ok="0">64, from 2<sup>6</sup></button>
+      </div>
+      <p class="fb" hidden aria-live="polite"></p>
+      <template>The first term is 2, the ratio 2, and there are 5 terms: 2 × 31 ÷ 1 = 62. Adding by hand gives the same.</template>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Worked example</h2>
+    <p><span class="muted">Example, with made-up numbers.</span> Someone will pay you <b>$1,000</b> at the end of each of the next <b>3 years</b>. With a <b>10%</b> discount rate, what is that worth today?</p>
+    <div class="box">
+      <div class="tw"><table class="steps"><tbody>
+        <tr><td>1. First term: next year's $1,000 in today's money</td><td class="r num">1,000 ÷ 1.1 = 909.09</td></tr>
+        <tr><td>2. Ratio: each later payment is worth less by</td><td class="r num">1 ÷ 1.1 = 0.9091</td></tr>
+        <tr><td>3. Number of terms</td><td class="r num">3</td></tr>
+        <tr><td>4. Use the formula</td><td class="r num">909.09 × (1 − 0.9091<sup>3</sup>) ÷ (1 − 0.9091)</td></tr>
+      </tbody></table></div>
+      <div class="result"><span>Worth today</span><b class="num">$2,486.85</b></div>
+      <p class="small muted">Here the ratio is below 1 because each payment is further away. In Time value of money, this same sum becomes the formula for an <b>annuity</b>.</p>
+    </div>
+  </section>
+
+  <section class="extras" aria-label="Optional extras">
+    <details>
+      <summary><span><span class="t">Try it yourself</span><br><span class="s">Sum any geometric series in one step.</span></span></summary>
+      <div class="inner">
+        <div class="inputs">
+          <label for="a">First term<input type="number" id="a" value="1000" step="any"></label>
+          <label for="r">Ratio<input type="number" id="r" value="1.05" step="any"></label>
+          <label for="n">Number of terms<input type="number" id="n" value="5" step="1" min="1"></label>
+        </div>
+        <div class="calcout"><span class="muted small">Sum</span><b class="num" id="out"></b></div>
+      </div>
+    </details>
+    <details>
+      <summary><span><span class="t">Common mistakes</span><br><span class="s">Three slips beginners make.</span></span></summary>
+      <div class="inner">
+        <ul class="mist">
+          <li><b>Using the last power instead of the count.</b> Five deposits run from 1.05<sup>0</sup> to 1.05<sup>4</sup>, but <i>n</i> is 5, the number of terms.</li>
+          <li><b>Using the rate as the ratio.</b> At 5% the ratio is 1.05, not 0.05.</li>
+          <li><b>Getting the first term wrong.</b> In the worked example, the first term is $909.09, the value today of the first payment, not $1,000.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <section class="sec">
+    <div class="box">
+      <p class="eyebrow">Remember</p>
+      <ul class="mist">
+        <li>A series is the sum of a sequence.</li>
+        <li>A geometric series sums to <i>a</i> × (1 − <i>r</i><sup><i>n</i></sup>) ÷ (1 − <i>r</i>).</li>
+        <li>Savings plans and loan payments are geometric series. That's why the formula keeps coming back in finance.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Check yourself</h2>
+    <div class="ask quiz">
+      <p class="small muted">Three questions. Try them without scrolling up.</p>
+      <div data-q="q1" data-quiz>
+        <p class="q">1. What is the sum of the first 6 terms of 3, 6, 12, 24, …?</p>
+        <div class="opts">
+          <button type="button" data-ok="0">96</button>
+          <button type="button" data-ok="1">189</button>
+          <button type="button" data-ok="0">192</button>
+        </div>
+        <p class="fb" hidden aria-live="polite"></p>
+        <template>3 × (2<sup>6</sup> − 1) ÷ (2 − 1) = 3 × 63 = 189. 96 is the 6th term alone, and 192 uses 2<sup>6</sup> without the "− 1".</template>
+      </div>
+      <div data-q="q2" data-quiz>
+        <p class="q">2. In the formula <i>S</i> = <i>a</i> × (1 − <i>r</i><sup><i>n</i></sup>) ÷ (1 − <i>r</i>), what is <i>n</i>?</p>
+        <div class="opts">
+          <button type="button" data-ok="1">The number of terms being added</button>
+          <button type="button" data-ok="0">The power on the last term</button>
+          <button type="button" data-ok="0">The interest rate</button>
+        </div>
+        <p class="fb" hidden aria-live="polite"></p>
+        <template><i>n</i> counts the terms. The last term's power is one less, <i>n</i> − 1, because the first term has power 0.</template>
+      </div>
+      <div data-q="q3" data-quiz>
+        <p class="q">3. What is 1,000 + 1,000 × 1.1 + 1,000 × 1.1<sup>2</sup> + 1,000 × 1.1<sup>3</sup>?</p>
+        <div class="opts">
+          <button type="button" data-ok="0">4,400</button>
+          <button type="button" data-ok="0">4,600</button>
+          <button type="button" data-ok="1">4,641</button>
+        </div>
+        <p class="fb" hidden aria-live="polite"></p>
+        <template>Four terms with ratio 1.1: 1,000 × (1.1<sup>4</sup> − 1) ÷ 0.1 = 1,000 × 0.4641 ÷ 0.1 = 4,641. 4,600 adds a fixed $100 each time, which ignores compounding.</template>
+      </div>
+      <div class="score"><span>Score: <b id="score">0 of 3</b></span><button class="btn" type="button" id="reset">Try again</button></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <a href="infinite-series.html" class="next"><span><span class="eyebrow">Next lesson · Core · 5 minutes</span><br><span class="t">Infinite series</span><br><span class="small" style="color:var(--on-deep-muted)">How a never-ending sum can settle to one number.</span></span><span class="arrow" aria-hidden="true">→</span></a>
+    <p class="related">Related: <a href="https://notesbysara.org/dictionary/annuity">Annuities</a><span class="rel">Future value of a savings plan</span><span class="rel">Loan payments</span></p>
+  </section>
+
+</article></div>
+
+<script>
+const NS='http://www.w3.org/2000/svg';
+const el=(n,a={},p)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e};
+const text=(p,x,y,t,a={})=>{const e=el('text',Object.assign({x,y,'font-family':"Poppins,system-ui,sans-serif",'font-size':12,fill:'#5A6862','text-anchor':'middle'},a),p);e.textContent=t;return e};
+(function(){
+  const s=document.getElementById('bars'),L=60,B=200,T=30,H=v=>(B-T)*v/1300,bw=62,gap=26;
+  [0,400,800,1200].forEach(v=>{el('line',{x1:L,y1:B-H(v),x2:L+5*(bw+gap),y2:B-H(v),stroke:'#EFEAE0'},s);text(s,L-8,B-H(v)+4,'$'+v.toLocaleString('en-US'),{'text-anchor':'end'})});
+  for(let i=0;i<5;i++){
+    const yrs=4-i,v=1000*Math.pow(1.05,yrs),x=L+12+i*(bw+gap);
+    el('rect',{x,y:B-H(1000),width:bw,height:H(1000),fill:'#9AA59F',rx:3},s);
+    if(yrs>0)el('rect',{x,y:B-H(v),width:bw,height:H(v)-H(1000),fill:'#0E7C5A',rx:3},s);
+    text(s,x+bw/2,B-H(v)-8,'$'+v.toLocaleString('en-US',{minimumFractionDigits:Number.isInteger(v)?0:2,maximumFractionDigits:2}),{'font-weight':600,fill:'#1F2A26','font-size':11.5});
+    text(s,x+bw/2,B+16,'Year '+(i+1));
+    text(s,x+bw/2,B+31,yrs?('grew '+yrs+(yrs>1?' yrs':' yr')):'just paid',{'font-size':11});
+  }
+  const sx=L+5*(bw+gap)+14;
+  el('rect',{x:sx,y:T+38,width:12,height:12,fill:'#9AA59F',rx:2},s);text(s,sx+18,T+48,'Deposit',{'text-anchor':'start'});
+  el('rect',{x:sx,y:T+60,width:12,height:12,fill:'#0E7C5A',rx:2},s);text(s,sx+18,T+70,'Growth',{'text-anchor':'start'});
+  text(s,sx,T+104,'Total',{'text-anchor':'start'});
+  text(s,sx,T+128,'$5,525.63',{'text-anchor':'start','font-weight':600,'font-size':17,fill:'#0B4F3C'});
+})();
+
+const answered={},correct={};
+document.querySelectorAll('[data-q]').forEach(box=>{
+  const id=box.dataset.q,fb=box.querySelector('.fb'),tpl=box.querySelector('template');
+  box.querySelectorAll('.opts button').forEach(b=>b.addEventListener('click',()=>{
+    if(answered[id])return;
+    const ok=b.dataset.ok==='1';answered[id]=true;correct[id]=ok;
+    box.querySelectorAll('.opts button').forEach(x=>{x.disabled=true;if(x.dataset.ok==='1')x.classList.add('right')});
+    if(!ok)b.classList.add('wrong');
+    fb.innerHTML='<b>'+(ok?'Right. ':'Not quite. ')+'</b>';fb.appendChild(tpl.content.cloneNode(true));
+    fb.classList.toggle('no',!ok);fb.hidden=false;score();
+  }));
+});
+function score(){document.getElementById('score').textContent=['q1','q2','q3'].filter(k=>correct[k]).length+' of 3'}
+document.getElementById('reset').addEventListener('click',()=>{
+  document.querySelectorAll('[data-quiz]').forEach(box=>{const id=box.dataset.q;delete answered[id];delete correct[id];
+    box.querySelectorAll('.opts button').forEach(x=>{x.disabled=false;x.classList.remove('right','wrong')});
+    const fb=box.querySelector('.fb');fb.hidden=true;fb.innerHTML='';});
+  score();
+});
+const ia=document.getElementById('a'),ir=document.getElementById('r'),inn=document.getElementById('n'),out=document.getElementById('out');
+function run(){
+  const a=+ia.value,r=+ir.value,n=Math.round(+inn.value);
+  if(!(n>=1)){out.textContent='Enter at least 1 term';return}
+  const s=r===1?a*n:a*(1-Math.pow(r,n))/(1-r);
+  out.textContent=isFinite(s)?s.toLocaleString('en-US',{maximumFractionDigits:2}):'Too large';
+}
+[ia,ir,inn].forEach(i=>i.addEventListener('input',run));run();
+document.querySelectorAll('a[href="#"]').forEach(a=>a.addEventListener('click',e=>e.preventDefault()));
+</script>
+
+
+<script>
+(function(){
+  var KEY='nbs-lessons-done',done=[];
+  try{done=JSON.parse(localStorage.getItem(KEY)||'[]')||[]}catch(e){}
+  var me=document.body.getAttribute('data-lesson'),total=+document.body.getAttribute('data-total')||0,group=document.body.getAttribute('data-group');
+  function count(){return done.filter(function(s){return s.indexOf(group+'/')===0}).length}
+  function show(){var b=document.getElementById('nbs-bar');if(b&&total)b.style.width=Math.min(100,count()/total*100)+'%'}
+  requestAnimationFrame(function(){requestAnimationFrame(show)});
+  var end=document.querySelector('.next');
+  if(me&&end&&'IntersectionObserver' in window){
+    new IntersectionObserver(function(es,o){es.forEach(function(e){if(e.isIntersecting){
+      if(done.indexOf(me)<0){done.push(me);try{localStorage.setItem(KEY,JSON.stringify(done))}catch(err){}show()}
+      o.disconnect()}})},{threshold:.6}).observe(end);
+  }
+})();
+</script>
+<script>
+(function(){
+  var sh=document.getElementById('shell'),KEY='nbs-side-closed',done=[];
+  try{done=JSON.parse(localStorage.getItem('nbs-lessons-done')||'[]')||[]}catch(e){}
+  function marks(){
+    document.querySelectorAll('.side .grp').forEach(function(g){var n=0,a=g.querySelectorAll('a[data-slug]');
+      a.forEach(function(x){var d=done.indexOf(x.dataset.slug)>=0;x.classList.toggle('done',d&&!x.classList.contains('now'));if(d)n++});
+      var c=g.querySelector('.gc');if(c)c.textContent=n+' of '+a.length;});
+  }
+  marks();
+  window.addEventListener('storage',function(){try{done=JSON.parse(localStorage.getItem('nbs-lessons-done')||'[]')||[]}catch(e){}marks()});
+  var closed=false;try{closed=localStorage.getItem(KEY)==='1'}catch(e){}
+  function setClosed(c){closed=c;sh.classList.toggle('closed',c);document.body.classList.toggle('side-closed',c);try{localStorage.setItem(KEY,c?'1':'0')}catch(e){}}
+  if(closed&&innerWidth>860)setClosed(true);
+  document.getElementById('col').addEventListener('click',function(){if(innerWidth<=860){sh.classList.remove('mopen')}else{setClosed(true)}});
+  document.getElementById('mbtn').addEventListener('click',function(){if(innerWidth<=860){sh.classList.add('mopen')}else{setClosed(false)}});
+  document.getElementById('scrim').addEventListener('click',function(){sh.classList.remove('mopen')});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')sh.classList.remove('mopen')});
+  var now=document.querySelector('.side a.now');if(now&&now.scrollIntoView&&innerWidth>860){var s=document.getElementById('side');s.scrollTop=Math.max(0,now.offsetTop-s.clientHeight/2)}
+})();
+</script>
+</body></html>
