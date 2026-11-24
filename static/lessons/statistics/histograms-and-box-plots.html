@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="icon" href="/img/favicon.png">
+<meta name="description" content="Histograms and box plots: Seeing the whole shape of data at a glance. A short lesson from Notes by Sara.">
+<link rel="canonical" href="https://notesbysara.org/lessons/statistics/histograms-and-box-plots.html">
+
+<title>Histograms and box plots · Notes by Sara</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Forum&family=Poppins:wght@400;500;600&display=swap">
+<style>
+/* Layout: one calm reading column. Three surfaces only: the deep banner, white boxes, and pale green for anything the learner answers. Light only, like the site. */
+:root{
+  color-scheme:light;
+  --ivory:#FFFDF8; --surface:#FFFFFF; --pearl:#F7F2E7; --pale:#EAF4EF;
+  --ink:#1F2A26; --muted:#5A6862; --line:#E6E1D5;
+  --deep:#06352A; --green:#0E7C5A; --green-text:#0B6A4C; --brand:#0B4F3C;
+  --gold:#E3C26F; --gold-text:#8A6A12; --coral:#B4452F; --coral-pale:#FBEDE9;
+  --on-deep:#FFFDF8; --on-deep-muted:#C9D6D0;
+  --display:'Forum',Georgia,'Times New Roman',serif;
+  --body:'Poppins',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --t-body:16px; --t-small:14px; --t-label:12.5px;
+}
+*{box-sizing:border-box}
+body{background:var(--ivory);color:var(--ink);font-family:var(--body);font-size:var(--t-body);line-height:1.75}
+a{color:var(--green-text)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
+.mockbar{background:var(--pearl);color:var(--muted);font-size:var(--t-small);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:8px;text-align:center;border-bottom:1px solid var(--line)}
+.mockbar b{color:var(--gold-text);letter-spacing:.12em;text-transform:uppercase;font-size:var(--t-label);margin-right:6px}
+.page{max-width:720px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px;display:flex;flex-direction:column;gap:40px}
+h1,h2{font-family:var(--display);font-weight:400;line-height:1.15;margin:0;text-wrap:balance}
+h2{font-size:1.7rem;color:var(--brand)}
+p{margin:0}
+.sec{display:flex;flex-direction:column;gap:14px}
+.eyebrow{font-size:var(--t-label);font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--gold-text)}
+.muted{color:var(--muted)}
+.small{font-size:var(--t-small)}
+b{font-weight:600}
+.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* 1. banner */
+.banner{background:var(--deep);color:var(--on-deep);border-radius:18px;padding:26px 26px 22px;display:flex;flex-direction:column;gap:10px}
+.banner .eyebrow{color:var(--gold)}
+.banner h1{font-size:clamp(2rem,6vw,2.6rem)}
+.banner .lead{color:var(--on-deep-muted)}
+.banner .meta{font-size:var(--t-small);color:var(--on-deep-muted);border-top:1px solid rgba(227,194,111,.35);padding-top:10px;display:flex;flex-wrap:wrap;gap:4px 18px}
+.banner .meta b{color:var(--gold);font-weight:600}
+.banner .meta a{color:var(--on-deep)}
+
+/* white box */
+.box{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.svgwrap{overflow-x:auto}
+.svgwrap svg{display:block;width:100%;height:auto;min-width:480px}
+.cap{font-size:var(--t-small);color:var(--muted)}
+
+/* formula */
+.fx{font-family:Georgia,'Times New Roman',serif;font-size:1.8rem;display:flex;align-items:center;justify-content:center;gap:14px}
+.frac{display:inline-flex;flex-direction:column;align-items:center;line-height:1.2}
+.frac span:first-child{border-bottom:2px solid var(--ink);padding:0 8px 2px}
+.frac span:last-child{padding-top:2px}
+.fx i{font-style:italic}
+.fx sup{font-size:.6em}
+.legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:4px 16px;font-size:var(--t-small);color:var(--muted)}
+.legend i{font-family:Georgia,serif;color:var(--ink);font-size:1.05rem;margin-right:6px}
+table{border-collapse:collapse;width:100%}
+td,th{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left}
+th{font-size:var(--t-small);color:var(--muted);font-weight:500}
+td.r,th.r{text-align:right}
+.tw{overflow-x:auto}
+.result{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;border-top:2px solid var(--brand);padding-top:10px}
+.result b{font-family:var(--display);font-weight:400;font-size:1.8rem;color:var(--brand)}
+
+/* pale: anything you answer */
+.ask{background:var(--pale);border-radius:14px;padding:16px 20px;display:flex;flex-direction:column;gap:10px}
+.ask .q{font-weight:500}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opts button{font:inherit;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 14px;cursor:pointer;color:var(--ink);line-height:1.5}
+.opts button:hover{border-color:var(--green)}
+.opts button.right{border-color:var(--green);box-shadow:inset 3px 0 0 var(--green)}
+.opts button.wrong{border-color:var(--coral);box-shadow:inset 3px 0 0 var(--coral)}
+.opts button[disabled]{cursor:default}
+.fb{font-size:var(--t-small);line-height:1.6}
+.fb b{color:var(--green-text)}
+.fb.no b{color:var(--coral)}
+.quiz{display:flex;flex-direction:column;gap:10px}
+.score{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:var(--t-small);color:var(--muted)}
+.score b{color:var(--brand)}
+.btn{font:inherit;font-size:var(--t-small);border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:4px 12px;cursor:pointer;color:var(--ink)}
+
+/* optional extras */
+.extras{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.extras details{border-bottom:1px solid var(--line)}
+.extras summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 4px}
+.extras summary::-webkit-details-marker{display:none}
+.extras summary .t{font-family:var(--display);font-size:1.3rem;color:var(--brand)}
+.extras summary .s{font-size:var(--t-small);color:var(--muted)}
+.extras summary::after{content:"+";font-size:1.4rem;color:var(--gold-text);flex:none;width:20px;text-align:center}
+.extras details[open] summary::after{content:"−"}
+.extras .inner{padding:0 4px 18px;display:flex;flex-direction:column;gap:12px}
+.inputs{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.inputs label{display:flex;flex-direction:column;gap:4px;font-size:var(--t-small);color:var(--muted)}
+.inputs input[type=number]{font:inherit;color:var(--ink);padding:7px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);width:100%}
+.inputs input[type=range]{width:100%;accent-color:var(--green)}
+.calcout{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+.calcout b{font-family:var(--display);font-weight:400;font-size:1.8rem;color:var(--brand)}
+.mist{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px}
+
+/* recap */
+.recap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:center}
+.recap ul{margin:4px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:2px}
+.recap .fx{font-size:1.3rem}
+@media (max-width:560px){.recap{grid-template-columns:1fr}}
+
+/* next */
+.next{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;background:var(--deep);color:var(--on-deep);border-radius:14px;padding:16px 20px;text-decoration:none}
+.next .eyebrow{color:var(--gold)}
+.next .t{font-family:var(--display);font-size:1.35rem}
+.next .arrow{font-size:1.4rem;color:var(--gold)}
+.related{font-size:var(--t-small);color:var(--muted)}
+.related a{margin-right:10px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+
+<style>
+.shell{display:grid;grid-template-columns:290px minmax(0,1fr);align-items:start}
+.shell.closed{grid-template-columns:minmax(0,1fr)}
+.side{position:sticky;top:50px;height:calc(100vh - 50px);overflow:auto;background:#FFFFFF;border-right:1px solid var(--line);padding:14px 14px 28px;display:flex;flex-direction:column;gap:2px;font-size:14px;scrollbar-width:thin}
+.shell.closed .side{display:none}
+.sidehead{display:flex;justify-content:space-between;align-items:center;padding:0 2px 8px;margin-bottom:4px;border-bottom:1px solid var(--line)}
+.allp{font-size:13px;font-weight:500;color:var(--green-text);text-decoration:none}.allp:hover{text-decoration:underline}
+.col{font:inherit;cursor:pointer;border:1px solid var(--line);background:var(--surface);border-radius:8px;color:var(--brand);width:28px;height:28px;display:grid;place-items:center;font-size:15px;line-height:1}
+.col:hover{border-color:var(--brand)}
+.subj{font-family:var(--display);font-size:1.2rem;color:var(--brand);margin:12px 2px 2px}
+.grp{margin-top:8px}
+.gh{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin:0 2px 4px;font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text)}
+.gc{font-size:11.5px;letter-spacing:0;text-transform:none;font-weight:500;color:var(--muted);white-space:nowrap}
+.grp ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:1px}
+.grp li a{display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;align-items:start;padding:6px 8px;border-radius:8px;text-decoration:none;color:var(--ink);line-height:1.35}
+.grp li a:hover{background:var(--pale)}
+.mk{width:22px;height:22px;border-radius:50%;border:1.5px solid #C5D6CC;display:grid;place-items:center;font-size:11px;font-weight:600;color:var(--muted);background:#fff;margin-top:-1px}
+.grp a.done .mk{background:var(--green);border-color:var(--green);color:#fff}
+.grp a.done .tt{color:var(--muted)}
+.grp a.now{background:#EEF4EF;box-shadow:inset 3px 0 0 var(--gold)}
+.grp a.now .mk{background:var(--deep);border-color:var(--gold);color:#fff}
+.grp a.now .tt{color:var(--brand);font-weight:500}
+.shell .page{max-width:none;margin:0;padding-left:clamp(16px,4vw,56px);padding-right:clamp(16px,4vw,56px)}
+.shell .page>*{max-width:900px;width:100%}
+.shell.closed .page>*{margin-inline:auto}
+.menu-btn{display:none;font:inherit;font-size:13px;font-weight:500;color:#06352A;background:#E3C26F;border:0;border-radius:999px;padding:4px 12px;cursor:pointer;white-space:nowrap}
+body.side-closed .menu-btn{display:inline-flex}
+.scrim{display:none}
+@media (max-width:860px){
+ .shell,.shell.closed{grid-template-columns:minmax(0,1fr)}
+ .side,.shell.closed .side{display:flex;position:fixed;top:0;left:0;bottom:0;height:100vh;width:min(300px,86vw);z-index:40;transform:translateX(-105%);transition:transform .25s ease;box-shadow:6px 0 24px rgba(6,53,42,.2)}
+ .shell.mopen .side{transform:none}
+ .menu-btn{display:inline-flex}
+ .scrim{position:fixed;inset:0;background:rgba(6,53,42,.35);z-index:35}.shell.mopen .scrim{display:block}
+ .shell .page>*{margin-inline:auto}
+}
+@media (prefers-reduced-motion:reduce){.side{transition:none!important}}
+@media (max-width:480px){.nbs-strip .prog{display:none}}
+</style>
+</head><body data-lesson="statistics/histograms-and-box-plots" data-group="statistics" data-total="9">
+<style>
+body{margin:0}
+.related .rel{margin-right:10px}
+.nbs-strip{position:sticky;top:0;z-index:20;background:#06352A;color:#FFFDF8;display:flex;align-items:center;justify-content:space-between;gap:12px;
+ padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:10px;font-family:'Poppins',system-ui,sans-serif;flex-wrap:wrap}
+.nbs-strip .l{display:flex;align-items:center;gap:12px;min-width:0}
+.nbs-strip img{width:30px;height:30px;border-radius:6px;display:block}
+.nbs-strip .crumb{font-size:14px;color:#C9D6D0}.nbs-strip .crumb a{color:#C9D6D0;text-decoration:none}.nbs-strip .crumb a:hover{color:#fff;text-decoration:underline}
+.nbs-strip .crumb i{font-style:normal;color:#E3C26F;margin:0 5px}.nbs-strip .crumb b{color:#fff;font-weight:500}
+.nbs-strip .prog{display:flex;align-items:center;gap:10px;font-size:13px;color:#C9D6D0}
+.nbs-strip .bar{width:130px;height:5px;border-radius:9px;background:rgba(255,255,255,.18);overflow:hidden}
+.nbs-strip .bar span{display:block;height:100%;width:0;background:#E3C26F;transition:width 1.2s cubic-bezier(.2,.8,.2,1) .2s}
+@media (max-width:560px){.nbs-strip .bar{display:none}.nbs-strip .crumb .mid{display:none}}
+@media (prefers-reduced-motion:reduce){.nbs-strip .bar span{transition:none}}
+</style>
+<header class="nbs-strip"><div class="l"><button type="button" class="menu-btn" id="mbtn" aria-label="Show the lesson list">☰ Lessons</button><a href="https://notesbysara.org/" aria-label="Notes by Sara home"><img src="/img/favicon.png" alt="Notes by Sara"></a><nav class="crumb" aria-label="Breadcrumb"><a href="https://notesbysara.org/notes">Learning path</a><span class="mid"><i>›</i><a href="../index.html#statistics">Statistics</a></span><span><i>›</i><b>Histograms and box plots</b></span></nav></div><div class="prog"><span>Lesson 7</span><span class="bar" aria-hidden="true"><span id="nbs-bar"></span></span></div></header>
+
+<style>
+sub,sup{line-height:0}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.two .box{gap:6px}.two .k{font-family:var(--display);font-size:1.25rem;color:var(--brand)}
+.inputs textarea{font:inherit;font-size:var(--t-small);color:var(--ink);padding:7px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);width:100%;min-height:70px;resize:vertical}
+.inputs input[type=number]{font:inherit;color:var(--ink);padding:7px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);width:100%}
+.mini{display:flex;align-items:flex-end;gap:3px;height:140px;padding:8px 4px 0;border-bottom:1.5px solid #9AA59F}
+.mini div{flex:1;background:var(--green);border-radius:3px 3px 0 0;min-width:4px;position:relative}
+.mini div span{position:absolute;top:-17px;left:50%;transform:translateX(-50%);font-size:11px;color:var(--muted)}
+.minix{display:flex;justify-content:space-between;font-size:11px;color:var(--muted)}
+.steps td:first-child{white-space:normal}
+@media (max-width:560px){.steps td{display:block;border:0;padding:2px 0;text-align:left!important;white-space:normal}.steps tr{display:block;border-bottom:1px solid var(--line);padding:8px 0}.steps td.r{font-weight:500}}
+.where{font-size:var(--t-small);color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 8px}
+</style>
+
+<div class="shell" id="shell"><div class="scrim" id="scrim"></div><aside class="side" id="side" aria-label="All lessons"><div class="sidehead"><a href="../index.html" class="allp">All lessons</a><button type="button" class="col" id="col" aria-label="Hide the lesson list" title="Hide the lesson list">«</button></div><p class="subj">Mathematics for Finance</p><div class="grp"><p class="gh"><span>Numbers and percentages</span><span class="gc">0 of 5</span></p><ol><li><a href="../mathematics/numbers-in-finance.html" data-slug="mathematics/numbers-in-finance"><span class="mk">1</span><span class="tt">Numbers in finance</span></a></li><li><a href="../mathematics/percentage-change.html" data-slug="mathematics/percentage-change"><span class="mk">2</span><span class="tt">Percentages and percentage change</span></a></li><li><a href="../mathematics/percentage-traps.html" data-slug="mathematics/percentage-traps"><span class="mk">3</span><span class="tt">Percentage traps</span></a></li><li><a href="../mathematics/ratios.html" data-slug="mathematics/ratios"><span class="mk">4</span><span class="tt">Ratios and proportions</span></a></li><li><a href="../mathematics/weighted-averages.html" data-slug="mathematics/weighted-averages"><span class="mk">5</span><span class="tt">Weighted averages</span></a></li></ol></div><div class="grp"><p class="gh"><span>Growth and equations</span><span class="gc">0 of 7</span></p><ol><li><a href="../mathematics/exponents.html" data-slug="mathematics/exponents"><span class="mk">6</span><span class="tt">Exponents</span></a></li><li><a href="../mathematics/logarithms.html" data-slug="mathematics/logarithms"><span class="mk">7</span><span class="tt">Logarithms</span></a></li><li><a href="../mathematics/linear-equations.html" data-slug="mathematics/linear-equations"><span class="mk">8</span><span class="tt">Linear equations and graphs</span></a></li><li><a href="../mathematics/simultaneous-equations.html" data-slug="mathematics/simultaneous-equations"><span class="mk">9</span><span class="tt">Solving two equations at once</span></a></li><li><a href="../mathematics/reading-formulas.html" data-slug="mathematics/reading-formulas"><span class="mk">10</span><span class="tt">Reading formulas</span></a></li><li><a href="../mathematics/functions.html" data-slug="mathematics/functions"><span class="mk">11</span><span class="tt">Functions</span></a></li><li><a href="../mathematics/rate-and-time.html" data-slug="mathematics/rate-and-time"><span class="mk">12</span><span class="tt">Solving for rate and time</span></a></li></ol></div><div class="grp"><p class="gh"><span>Sequences and series</span><span class="gc">0 of 3</span></p><ol><li><a href="../mathematics/sequences.html" data-slug="mathematics/sequences"><span class="mk">13</span><span class="tt">Arithmetic and geometric sequences</span></a></li><li><a href="../mathematics/summing-a-geometric-series.html" data-slug="mathematics/summing-a-geometric-series"><span class="mk">14</span><span class="tt">Summing a geometric series</span></a></li><li><a href="../mathematics/infinite-series.html" data-slug="mathematics/infinite-series"><span class="mk">15</span><span class="tt">Infinite series</span></a></li></ol></div><div class="grp"><p class="gh"><span>Calculus</span><span class="gc">0 of 6</span></p><ol><li><a href="../mathematics/rate-of-change.html" data-slug="mathematics/rate-of-change"><span class="mk">16</span><span class="tt">Rate of change</span></a></li><li><a href="../mathematics/derivatives.html" data-slug="mathematics/derivatives"><span class="mk">17</span><span class="tt">Derivatives as sensitivity</span></a></li><li><a href="../mathematics/derivative-rules.html" data-slug="mathematics/derivative-rules"><span class="mk">18</span><span class="tt">Derivative rules you need</span></a></li><li><a href="../mathematics/number-e.html" data-slug="mathematics/number-e"><span class="mk">19</span><span class="tt">The number e and continuous growth</span></a></li><li><a href="../mathematics/curvature.html" data-slug="mathematics/curvature"><span class="mk">20</span><span class="tt">Second derivative and curvature</span></a></li><li><a href="../mathematics/optimization.html" data-slug="mathematics/optimization"><span class="mk">21</span><span class="tt">Optimization</span></a></li></ol></div><p class="subj">Statistics for Finance</p><div class="grp"><p class="gh"><span>Describing data</span><span class="gc">0 of 8</span></p><ol><li><a href="mean-median-mode.html" data-slug="statistics/mean-median-mode"><span class="mk">1</span><span class="tt">Mean, median and mode</span></a></li><li><a href="averaging-returns.html" data-slug="statistics/averaging-returns"><span class="mk">2</span><span class="tt">Averaging returns</span></a></li><li><a href="range-and-percentiles.html" data-slug="statistics/range-and-percentiles"><span class="mk">3</span><span class="tt">Range and percentiles</span></a></li><li><a href="standard-deviation.html" data-slug="statistics/standard-deviation"><span class="mk">4</span><span class="tt">Variance and standard deviation</span></a></li><li><a href="skewness.html" data-slug="statistics/skewness"><span class="mk">5</span><span class="tt">Skewness</span></a></li><li><a href="fat-tails.html" data-slug="statistics/fat-tails"><span class="mk">6</span><span class="tt">Fat tails</span></a></li><li><a href="histograms-and-box-plots.html" data-slug="statistics/histograms-and-box-plots" class="now" aria-current="page"><span class="mk">7</span><span class="tt">Histograms and box plots</span></a></li><li><a href="misleading-charts.html" data-slug="statistics/misleading-charts"><span class="mk">8</span><span class="tt">Misleading charts</span></a></li></ol></div><div class="grp"><p class="gh"><span>Probability</span><span class="gc">0 of 1</span></p><ol><li><a href="probability-basics.html" data-slug="statistics/probability-basics"><span class="mk">9</span><span class="tt">Probability basics</span></a></li></ol></div></aside><article class="page">
+
+  <header class="banner">
+    <p class="eyebrow">Statistics for Finance</p>
+    <h1>Histograms and box plots</h1>
+    <p class="lead">Averages, spread and skew are just numbers. Two simple charts let you see all of them at once, and spot what the numbers hide.</p>
+    <div class="meta"><span><b>Describing data</b> · Lesson 7 of 8 · 5 minutes</span><span>Before this: <a href="range-and-percentiles.html">Range and percentiles</a>, <a href="skewness.html">Skewness</a></span></div>
+  </header>
+
+  <section class="sec">
+    <h2>Sixty numbers, one glance</h2>
+    <p><span class="muted">Example, with made-up numbers.</span> You have five years of a fund's monthly returns: 60 numbers, from −7.0% to +7.0%. Reading down the list tells you almost nothing. How can you see what a typical month looks like, how wide the swings are, and whether anything strange is going on?</p>
+  </section>
+
+  <section class="sec">
+    <h2>The idea</h2>
+    <p>A <b>histogram</b> sorts the values into equal-width bins and draws a bar for each, as tall as the number of values that fall in it. A <b>box plot</b> squeezes the same data into five markers. Here are the same 60 months, both ways:</p>
+    <div class="box">
+      <div class="svgwrap"><svg id="hb" viewBox="0 0 600 330" role="img" aria-label="Histogram of 60 monthly returns in 2-point bins from −8% to 8%. Counts: 1, 2, 5, 11, 19, 15, 6, 1. The tallest bar is 0% to 2%, with a longer tail to the left. Below, a box plot on the same scale: box from −0.7% to 2.95%, median 1.15%, whiskers from −5.5% to 7.0%, and one outlier at −7.0%."></svg></div>
+      <p class="cap">Top: how many months fell in each 2-point bin. Bottom: the same months as a box plot, on the same scale.</p>
+    </div>
+    <div class="two">
+      <div class="box"><span class="k">Reading the histogram</span><span class="small">The tallest bar is the most common range: 0% to 2%. The width shows the spread. Here the left side trails off further than the right: a slight <b>negative skew</b>.</span></div>
+      <div class="box"><span class="k">Reading the box plot</span><span class="small">The <b>box</b> holds the middle half, from the 25th to the 75th percentile. The line inside is the <b>median</b>. The <b>whiskers</b> reach out to the rest, and any dot beyond them is an <b>outlier</b>.</span></div>
+    </div>
+    <div class="ask" data-q="c1">
+      <p class="eyebrow">Quick check</p>
+      <p class="q">What share of the data sits inside the box of a box plot?</p>
+      <div class="opts">
+        <button type="button" data-ok="1">The middle 50%</button>
+        <button type="button" data-ok="0">Everything except the outliers</button>
+      </div>
+      <p class="fb" hidden aria-live="polite"></p>
+      <template>The box runs from the 25th to the 75th percentile, the interquartile range from <a href="range-and-percentiles.html">Range and percentiles</a>. The whiskers cover the rest, apart from any outliers.</template>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Worked example: finding the outlier</h2>
+    <p>A box plot marks a value as an <b>outlier</b> when it lies more than 1.5 box-lengths beyond the box. For the 60 months:</p>
+    <div class="box">
+      <div class="tw"><table class="steps"><tbody>
+        <tr><td>Box (25th to 75th percentile)</td><td class="r num">−0.7% to 2.95%</td></tr>
+        <tr><td>Box length (interquartile range)</td><td class="r num">3.65 points</td></tr>
+        <tr><td>1.5 box-lengths</td><td class="r num">1.5 × 3.65 = 5.48 points</td></tr>
+        <tr><td>Lower fence: −0.7 − 5.48</td><td class="r num">−6.18%</td></tr>
+        <tr><td>Upper fence: 2.95 + 5.48</td><td class="r num">8.43%</td></tr>
+      </tbody></table></div>
+      <div class="result"><span>Outside the fences</span><b class="num">one month, at −7.0%</b></div>
+      <p class="small muted">That's the month to look into: a one-off shock, a data error, or a sign of fat tails. The mean (0.97%) sits below the median (1.15%), which agrees with the slight negative skew in the histogram.</p>
+    </div>
+  </section>
+
+  <section class="extras" aria-label="Optional extras">
+    <details>
+      <summary><span><span class="t">Try it yourself</span><br><span class="s">Paste values and choose a bin width.</span></span></summary>
+      <div class="inner">
+        <div class="inputs">
+          <label for="vs">Values, separated by commas<textarea id="vs" inputmode="decimal">-7.0, -5.5, -4.5, -3.8, -3.4, -3.0, -2.6, -2.2, -1.9, -1.7, -1.5, -1.4, -1.2, -1.0, -0.8, -0.6, -0.5, -0.3, -0.1, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2.1, 2.2, 2.3, 2.5, 2.6, 2.7, 2.9, 3.0, 3.1, 3.3, 3.4, 3.5, 3.7, 3.8, 3.9, 4.2, 4.5, 4.8, 5.2, 5.5, 5.8, 7.0</textarea></label>
+          <label for="bw">Bin width<input type="number" id="bw" value="2" min="0.1" step="0.5"></label>
+        </div>
+        <div class="mini" id="mini" aria-label="Histogram of your values"></div>
+        <div class="minix"><span id="x0"></span><span id="x1"></span></div>
+        <p class="small muted">Try a bin width of 0.5, then 5. Too narrow and the shape turns into noise. Too wide and it disappears.</p>
+      </div>
+    </details>
+    <details>
+      <summary><span><span class="t">Common mistakes</span><br><span class="s">Three slips beginners make.</span></span></summary>
+      <div class="inner">
+        <ul class="mist">
+          <li><b>Reading a bar's height as a value.</b> In a histogram, the height is a count: how many values fall in that bin.</li>
+          <li><b>Using bins of different widths.</b> Wider bins catch more values just by being wider, which distorts the shape. Keep them equal.</li>
+          <li><b>Assuming the whiskers reach the lowest and highest values.</b> They stop at the last value inside the fences. Anything further is drawn as a separate dot.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <section class="sec">
+    <div class="box">
+      <p class="eyebrow">Remember</p>
+      <ul class="mist">
+        <li>A histogram counts values in equal-width bins, and shows the center, spread, skew and tails.</li>
+        <li>A box plot shows the median, the middle half (the box), the rest (whiskers) and outliers (dots).</li>
+        <li>An outlier lies more than 1.5 box-lengths beyond the box. Always look into it.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Check yourself</h2>
+    <div class="ask quiz">
+      <p class="small muted">Three questions. Try them without scrolling up.</p>
+      <div data-q="q1" data-quiz>
+        <p class="q">1. A histogram's tallest bars are on the left, with a long, thin tail stretching to the right. What shape is the data?</p>
+        <div class="opts">
+          <button type="button" data-ok="0">Negative skew</button>
+          <button type="button" data-ok="1">Positive skew</button>
+          <button type="button" data-ok="0">Symmetric</button>
+        </div>
+        <p class="fb" hidden aria-live="polite"></p>
+        <template>The skew is named after the tail. A tail to the right is positive skew, like incomes or house prices.</template>
+      </div>
+      <div data-q="q2" data-quiz>
+        <p class="q">2. In a box plot, the box runs from 2% to 6%. What is the interquartile range?</p>
+        <div class="opts">
+          <button type="button" data-ok="1">4 points</button>
+          <button type="button" data-ok="0">6%</button>
+          <button type="button" data-ok="0">4%, the median</button>
+        </div>
+        <p class="fb" hidden aria-live="polite"></p>
+        <template>The box is the interquartile range: 6 − 2 = 4 points. The median is the line inside the box, wherever it falls.</template>
+      </div>
+      <div data-q="q3" data-quiz>
+        <p class="q">3. With the box from 2% to 6%, which of these values would be drawn as an outlier dot?</p>
+        <div class="opts">
+          <button type="button" data-ok="0">11%</button>
+          <button type="button" data-ok="0">−3%</button>
+          <button type="button" data-ok="1">13%</button>
+        </div>
+        <p class="fb" hidden aria-live="polite"></p>
+        <template>1.5 × 4 = 6, so the fences are 2 − 6 = −4% and 6 + 6 = 12%. Only 13% lies outside them.</template>
+      </div>
+      <div class="score"><span>Score: <b id="score">0 of 3</b></span><button class="btn" type="button" id="reset">Try again</button></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <a href="misleading-charts.html" class="next"><span><span class="eyebrow">Next lesson · Foundation · 5 minutes</span><br><span class="t">Misleading charts</span><br><span class="small" style="color:var(--on-deep-muted)">Cut axes, cherry-picked dates and other tricks to spot.</span></span><span class="arrow" aria-hidden="true">→</span></a>
+    <p class="related">Related: <span class="rel">Histogram</span><span class="rel">Box plot</span><a href="https://notesbysara.org/dictionary/outlier">Outlier</a><span class="rel">Interquartile range</span></p>
+  </section>
+
+</article></div>
+
+<script>
+const NS='http://www.w3.org/2000/svg';
+const el=(n,a={},p)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e};
+const text=(p,x,y,t,a={})=>{const e=el('text',Object.assign({x,y,'font-family':"Poppins,system-ui,sans-serif",'font-size':12,fill:'#5A6862','text-anchor':'middle'},a),p);e.textContent=t;return e};
+(function(){
+  const s=document.getElementById('hb'),L=50,R=570,X=v=>L+(R-L)*(v+8)/16;
+  const counts=[1,2,5,11,19,15,6,1],B=200,T=20,Y=c=>B-(B-T)*c/20;
+  [0,5,10,15,20].forEach(c=>{el('line',{x1:L,y1:Y(c),x2:R,y2:Y(c),stroke:'#EFEAE0'},s);text(s,L-8,Y(c)+4,String(c),{'text-anchor':'end'})});
+  text(s,L-34,T+60,'months',{'font-size':11,transform:`rotate(-90 ${L-34} ${T+60})`});
+  counts.forEach((c,i)=>{const x=X(-8+2*i)+2,w=X(-6)-X(-8)-4;
+    el('rect',{x,y:Y(c),width:w,height:B-Y(c),rx:3,fill:i===4?'#0B4F3C':'#0E7C5A'},s);
+    text(s,x+w/2,Y(c)-6,String(c),{'font-size':11.5,'font-weight':600,fill:'#1F2A26'})});
+  el('line',{x1:L,y1:B,x2:R,y2:B,stroke:'#9AA59F'},s);
+  // box plot
+  const by=262,q1=-0.7,q3=2.95,med=1.15,wl=-5.5,wh=7.0;
+  el('line',{x1:X(wl),y1:by,x2:X(q1),y2:by,stroke:'#0B4F3C','stroke-width':2},s);
+  el('line',{x1:X(q3),y1:by,x2:X(wh),y2:by,stroke:'#0B4F3C','stroke-width':2},s);
+  [wl,wh].forEach(v=>el('line',{x1:X(v),y1:by-10,x2:X(v),y2:by+10,stroke:'#0B4F3C','stroke-width':2},s));
+  el('rect',{x:X(q1),y:by-18,width:X(q3)-X(q1),height:36,rx:4,fill:'#EAF4EF',stroke:'#0B4F3C','stroke-width':2},s);
+  el('line',{x1:X(med),y1:by-18,x2:X(med),y2:by+18,stroke:'#B8892A','stroke-width':3},s);
+  el('circle',{cx:X(-7),cy:by,r:5,fill:'#fff',stroke:'#B4452F','stroke-width':2.5},s);
+  text(s,X(-7),by-14,'outlier',{'font-size':11,fill:'#B4452F','font-weight':600});
+  text(s,X(med),by-24,'median',{'font-size':11,fill:'#8A6A12','font-weight':600});
+  text(s,(X(wl)+X(q1))/2,by-8,'whisker',{'font-size':11});
+  [-8,-6,-4,-2,0,2,4,6,8].forEach(v=>text(s,X(v),by+42,v+'%',{'font-size':11.5}));
+  text(s,(L+R)/2,by+60,'monthly return',{'font-size':11});
+})();
+
+const answered={},correct={};
+document.querySelectorAll('[data-q]').forEach(box=>{
+  const id=box.dataset.q,fb=box.querySelector('.fb'),tpl=box.querySelector('template');
+  box.querySelectorAll('.opts button').forEach(b=>b.addEventListener('click',()=>{
+    if(answered[id])return;
+    const ok=b.dataset.ok==='1';answered[id]=true;correct[id]=ok;
+    box.querySelectorAll('.opts button').forEach(x=>{x.disabled=true;if(x.dataset.ok==='1')x.classList.add('right')});
+    if(!ok)b.classList.add('wrong');
+    fb.innerHTML='<b>'+(ok?'Right. ':'Not quite. ')+'</b>';fb.appendChild(tpl.content.cloneNode(true));
+    fb.classList.toggle('no',!ok);fb.hidden=false;score();
+  }));
+});
+function score(){document.getElementById('score').textContent=['q1','q2','q3'].filter(k=>correct[k]).length+' of 3'}
+document.getElementById('reset').addEventListener('click',()=>{
+  document.querySelectorAll('[data-quiz]').forEach(box=>{const id=box.dataset.q;delete answered[id];delete correct[id];
+    box.querySelectorAll('.opts button').forEach(x=>{x.disabled=false;x.classList.remove('right','wrong')});
+    const fb=box.querySelector('.fb');fb.hidden=true;fb.innerHTML='';});
+  score();
+});
+const vs=document.getElementById('vs'),bw=document.getElementById('bw'),mini=document.getElementById('mini');
+const f=v=>Number(v.toPrecision(8)).toLocaleString('en-US',{maximumFractionDigits:2});
+function run(){
+  const a=vs.value.split(/[,\s]+/).filter(t=>t!=='').map(Number),w=+bw.value;mini.innerHTML='';
+  if(!a.length||a.some(x=>!isFinite(x))||!(w>0)){mini.textContent='Enter numbers and a bin width above 0';return}
+  const lo=Math.floor(Math.min(...a)/w)*w,hi=Math.max(...a),nb=Math.min(80,Math.floor((hi-lo)/w)+1),c=new Array(nb).fill(0);
+  a.forEach(x=>{c[Math.min(nb-1,Math.floor((x-lo)/w))]++});
+  const mx=Math.max(...c);
+  c.forEach(n=>{const d=document.createElement('div');d.style.height=(n/mx*100)+'%';if(nb<=24){const s=document.createElement('span');s.textContent=n;d.appendChild(s)}mini.appendChild(d)});
+  document.getElementById('x0').textContent=f(lo);document.getElementById('x1').textContent=f(lo+nb*w);
+}
+[vs,bw].forEach(i=>i.addEventListener('input',run));run();
+document.querySelectorAll('a[href="#"]').forEach(a=>a.addEventListener('click',e=>e.preventDefault()));
+</script>
+
+
+<script>
+(function(){
+  var KEY='nbs-lessons-done',done=[];
+  try{done=JSON.parse(localStorage.getItem(KEY)||'[]')||[]}catch(e){}
+  var me=document.body.getAttribute('data-lesson'),total=+document.body.getAttribute('data-total')||0,group=document.body.getAttribute('data-group');
+  function count(){return done.filter(function(s){return s.indexOf(group+'/')===0}).length}
+  function show(){var b=document.getElementById('nbs-bar');if(b&&total)b.style.width=Math.min(100,count()/total*100)+'%'}
+  requestAnimationFrame(function(){requestAnimationFrame(show)});
+  var end=document.querySelector('.next');
+  if(me&&end&&'IntersectionObserver' in window){
+    new IntersectionObserver(function(es,o){es.forEach(function(e){if(e.isIntersecting){
+      if(done.indexOf(me)<0){done.push(me);try{localStorage.setItem(KEY,JSON.stringify(done))}catch(err){}show()}
+      o.disconnect()}})},{threshold:.6}).observe(end);
+  }
+})();
+</script>
+<script>
+(function(){
+  var sh=document.getElementById('shell'),KEY='nbs-side-closed',done=[];
+  try{done=JSON.parse(localStorage.getItem('nbs-lessons-done')||'[]')||[]}catch(e){}
+  function marks(){
+    document.querySelectorAll('.side .grp').forEach(function(g){var n=0,a=g.querySelectorAll('a[data-slug]');
+      a.forEach(function(x){var d=done.indexOf(x.dataset.slug)>=0;x.classList.toggle('done',d&&!x.classList.contains('now'));if(d)n++});
+      var c=g.querySelector('.gc');if(c)c.textContent=n+' of '+a.length;});
+  }
+  marks();
+  window.addEventListener('storage',function(){try{done=JSON.parse(localStorage.getItem('nbs-lessons-done')||'[]')||[]}catch(e){}marks()});
+  var closed=false;try{closed=localStorage.getItem(KEY)==='1'}catch(e){}
+  function setClosed(c){closed=c;sh.classList.toggle('closed',c);document.body.classList.toggle('side-closed',c);try{localStorage.setItem(KEY,c?'1':'0')}catch(e){}}
+  if(closed&&innerWidth>860)setClosed(true);
+  document.getElementById('col').addEventListener('click',function(){if(innerWidth<=860){sh.classList.remove('mopen')}else{setClosed(true)}});
+  document.getElementById('mbtn').addEventListener('click',function(){if(innerWidth<=860){sh.classList.add('mopen')}else{setClosed(false)}});
+  document.getElementById('scrim').addEventListener('click',function(){sh.classList.remove('mopen')});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')sh.classList.remove('mopen')});
+  var now=document.querySelector('.side a.now');if(now&&now.scrollIntoView&&innerWidth>860){var s=document.getElementById('side');s.scrollTop=Math.max(0,now.offsetTop-s.clientHeight/2)}
+})();
+</script>
+</body></html>

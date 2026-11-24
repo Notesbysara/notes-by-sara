@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="icon" href="/img/favicon.png">
+<meta name="description" content="Derivative rules you need: Five rules that find almost every derivative. A short lesson from Notes by Sara.">
+<link rel="canonical" href="https://notesbysara.org/lessons/mathematics/derivative-rules.html">
+
+<title>Derivative rules you need · Notes by Sara</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Forum&family=Poppins:wght@400;500;600&display=swap">
+<style>
+/* Layout: one calm reading column. Three surfaces only: the deep banner, white boxes, and pale green for anything the learner answers. Light only, like the site. */
+:root{
+  color-scheme:light;
+  --ivory:#FFFDF8; --surface:#FFFFFF; --pearl:#F7F2E7; --pale:#EAF4EF;
+  --ink:#1F2A26; --muted:#5A6862; --line:#E6E1D5;
+  --deep:#06352A; --green:#0E7C5A; --green-text:#0B6A4C; --brand:#0B4F3C;
+  --gold:#E3C26F; --gold-text:#8A6A12; --coral:#B4452F; --coral-pale:#FBEDE9;
+  --on-deep:#FFFDF8; --on-deep-muted:#C9D6D0;
+  --display:'Forum',Georgia,'Times New Roman',serif;
+  --body:'Poppins',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --t-body:16px; --t-small:14px; --t-label:12.5px;
+}
+*{box-sizing:border-box}
+body{background:var(--ivory);color:var(--ink);font-family:var(--body);font-size:var(--t-body);line-height:1.75}
+a{color:var(--green-text)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
+.mockbar{background:var(--pearl);color:var(--muted);font-size:var(--t-small);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:8px;text-align:center;border-bottom:1px solid var(--line)}
+.mockbar b{color:var(--gold-text);letter-spacing:.12em;text-transform:uppercase;font-size:var(--t-label);margin-right:6px}
+.page{max-width:720px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px;display:flex;flex-direction:column;gap:40px}
+h1,h2{font-family:var(--display);font-weight:400;line-height:1.15;margin:0;text-wrap:balance}
+h2{font-size:1.7rem;color:var(--brand)}
+p{margin:0}
+.sec{display:flex;flex-direction:column;gap:14px}
+.eyebrow{font-size:var(--t-label);font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--gold-text)}
+.muted{color:var(--muted)}
+.small{font-size:var(--t-small)}
+b{font-weight:600}
+.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* 1. banner */
+.banner{background:var(--deep);color:var(--on-deep);border-radius:18px;padding:26px 26px 22px;display:flex;flex-direction:column;gap:10px}
+.banner .eyebrow{color:var(--gold)}
+.banner h1{font-size:clamp(2rem,6vw,2.6rem)}
+.banner .lead{color:var(--on-deep-muted)}
+.banner .meta{font-size:var(--t-small);color:var(--on-deep-muted);border-top:1px solid rgba(227,194,111,.35);padding-top:10px;display:flex;flex-wrap:wrap;gap:4px 18px}
+.banner .meta b{color:var(--gold);font-weight:600}
+.banner .meta a{color:var(--on-deep)}
+
+/* white box */
+.box{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.svgwrap{overflow-x:auto}
+.svgwrap svg{display:block;width:100%;height:auto;min-width:480px}
+.cap{font-size:var(--t-small);color:var(--muted)}
+
+/* formula */
+.fx{font-family:Georgia,'Times New Roman',serif;font-size:1.8rem;display:flex;align-items:center;justify-content:center;gap:14px}
+.frac{display:inline-flex;flex-direction:column;align-items:center;line-height:1.2}
+.frac span:first-child{border-bottom:2px solid var(--ink);padding:0 8px 2px}
+.frac span:last-child{padding-top:2px}
+.fx i{font-style:italic}
+.fx sup{font-size:.6em}
+.legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:4px 16px;font-size:var(--t-small);color:var(--muted)}
+.legend i{font-family:Georgia,serif;color:var(--ink);font-size:1.05rem;margin-right:6px}
+table{border-collapse:collapse;width:100%}
+td,th{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left}
+th{font-size:var(--t-small);color:var(--muted);font-weight:500}
+td.r,th.r{text-align:right}
+.tw{overflow-x:auto}
+.result{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;border-top:2px solid var(--brand);padding-top:10px}
+.result b{font-family:var(--display);font-weight:400;font-size:1.8rem;color:var(--brand)}
+
+/* pale: anything you answer */
+.ask{background:var(--pale);border-radius:14px;padding:16px 20px;display:flex;flex-direction:column;gap:10px}
+.ask .q{font-weight:500}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opts button{font:inherit;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 14px;cursor:pointer;color:var(--ink);line-height:1.5}
+.opts button:hover{border-color:var(--green)}
+.opts button.right{border-color:var(--green);box-shadow:inset 3px 0 0 var(--green)}
+.opts button.wrong{border-color:var(--coral);box-shadow:inset 3px 0 0 var(--coral)}
+.opts button[disabled]{cursor:default}
+.fb{font-size:var(--t-small);line-height:1.6}
+.fb b{color:var(--green-text)}
+.fb.no b{color:var(--coral)}
+.quiz{display:flex;flex-direction:column;gap:10px}
+.score{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:var(--t-small);color:var(--muted)}
+.score b{color:var(--brand)}
+.btn{font:inherit;font-size:var(--t-small);border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:4px 12px;cursor:pointer;color:var(--ink)}
+
+/* optional extras */
+.extras{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.extras details{border-bottom:1px solid var(--line)}
+.extras summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 4px}
+.extras summary::-webkit-details-marker{display:none}
+.extras summary .t{font-family:var(--display);font-size:1.3rem;color:var(--brand)}
+.extras summary .s{font-size:var(--t-small);color:var(--muted)}
+.extras summary::after{content:"+";font-size:1.4rem;color:var(--gold-text);flex:none;width:20px;text-align:center}
+.extras details[open] summary::after{content:"−"}
+.extras .inner{padding:0 4px 18px;display:flex;flex-direction:column;gap:12px}
+.inputs{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.inputs label{display:flex;flex-direction:column;gap:4px;font-size:var(--t-small);color:var(--muted)}
+.inputs input[type=number]{font:inherit;color:var(--ink);padding:7px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);width:100%}
+.inputs input[type=range]{width:100%;accent-color:var(--green)}
+.calcout{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+.calcout b{font-family:var(--display);font-weight:400;font-size:1.8rem;color:var(--brand)}
+.mist{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px}
+
+/* recap */
+.recap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:center}
+.recap ul{margin:4px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:2px}
+.recap .fx{font-size:1.3rem}
+@media (max-width:560px){.recap{grid-template-columns:1fr}}
+
+/* next */
+.next{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;background:var(--deep);color:var(--on-deep);border-radius:14px;padding:16px 20px;text-decoration:none}
+.next .eyebrow{color:var(--gold)}
+.next .t{font-family:var(--display);font-size:1.35rem}
+.next .arrow{font-size:1.4rem;color:var(--gold)}
+.related{font-size:var(--t-small);color:var(--muted)}
+.related a{margin-right:10px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+
+<style>
+.shell{display:grid;grid-template-columns:290px minmax(0,1fr);align-items:start}
+.shell.closed{grid-template-columns:minmax(0,1fr)}
+.side{position:sticky;top:50px;height:calc(100vh - 50px);overflow:auto;background:#FFFFFF;border-right:1px solid var(--line);padding:14px 14px 28px;display:flex;flex-direction:column;gap:2px;font-size:14px;scrollbar-width:thin}
+.shell.closed .side{display:none}
+.sidehead{display:flex;justify-content:space-between;align-items:center;padding:0 2px 8px;margin-bottom:4px;border-bottom:1px solid var(--line)}
+.allp{font-size:13px;font-weight:500;color:var(--green-text);text-decoration:none}.allp:hover{text-decoration:underline}
+.col{font:inherit;cursor:pointer;border:1px solid var(--line);background:var(--surface);border-radius:8px;color:var(--brand);width:28px;height:28px;display:grid;place-items:center;font-size:15px;line-height:1}
+.col:hover{border-color:var(--brand)}
+.subj{font-family:var(--display);font-size:1.2rem;color:var(--brand);margin:12px 2px 2px}
+.grp{margin-top:8px}
+.gh{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin:0 2px 4px;font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text)}
+.gc{font-size:11.5px;letter-spacing:0;text-transform:none;font-weight:500;color:var(--muted);white-space:nowrap}
+.grp ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:1px}
+.grp li a{display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;align-items:start;padding:6px 8px;border-radius:8px;text-decoration:none;color:var(--ink);line-height:1.35}
+.grp li a:hover{background:var(--pale)}
+.mk{width:22px;height:22px;border-radius:50%;border:1.5px solid #C5D6CC;display:grid;place-items:center;font-size:11px;font-weight:600;color:var(--muted);background:#fff;margin-top:-1px}
+.grp a.done .mk{background:var(--green);border-color:var(--green);color:#fff}
+.grp a.done .tt{color:var(--muted)}
+.grp a.now{background:#EEF4EF;box-shadow:inset 3px 0 0 var(--gold)}
+.grp a.now .mk{background:var(--deep);border-color:var(--gold);color:#fff}
+.grp a.now .tt{color:var(--brand);font-weight:500}
+.shell .page{max-width:none;margin:0;padding-left:clamp(16px,4vw,56px);padding-right:clamp(16px,4vw,56px)}
+.shell .page>*{max-width:900px;width:100%}
+.shell.closed .page>*{margin-inline:auto}
+.menu-btn{display:none;font:inherit;font-size:13px;font-weight:500;color:#06352A;background:#E3C26F;border:0;border-radius:999px;padding:4px 12px;cursor:pointer;white-space:nowrap}
+body.side-closed .menu-btn{display:inline-flex}
+.scrim{display:none}
+@media (max-width:860px){
+ .shell,.shell.closed{grid-template-columns:minmax(0,1fr)}
+ .side,.shell.closed .side{display:flex;position:fixed;top:0;left:0;bottom:0;height:100vh;width:min(300px,86vw);z-index:40;transform:translateX(-105%);transition:transform .25s ease;box-shadow:6px 0 24px rgba(6,53,42,.2)}
+ .shell.mopen .side{transform:none}
+ .menu-btn{display:inline-flex}
+ .scrim{position:fixed;inset:0;background:rgba(6,53,42,.35);z-index:35}.shell.mopen .scrim{display:block}
+ .shell .page>*{margin-inline:auto}
+}
+@media (prefers-reduced-motion:reduce){.side{transition:none!important}}
+@media (max-width:480px){.nbs-strip .prog{display:none}}
+</style>
+</head><body data-lesson="mathematics/derivative-rules" data-group="mathematics" data-total="21">
+<style>
+body{margin:0}
+.related .rel{margin-right:10px}
+.nbs-strip{position:sticky;top:0;z-index:20;background:#06352A;color:#FFFDF8;display:flex;align-items:center;justify-content:space-between;gap:12px;
+ padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:10px;font-family:'Poppins',system-ui,sans-serif;flex-wrap:wrap}
+.nbs-strip .l{display:flex;align-items:center;gap:12px;min-width:0}
+.nbs-strip img{width:30px;height:30px;border-radius:6px;display:block}
+.nbs-strip .crumb{font-size:14px;color:#C9D6D0}.nbs-strip .crumb a{color:#C9D6D0;text-decoration:none}.nbs-strip .crumb a:hover{color:#fff;text-decoration:underline}
+.nbs-strip .crumb i{font-style:normal;color:#E3C26F;margin:0 5px}.nbs-strip .crumb b{color:#fff;font-weight:500}
+.nbs-strip .prog{display:flex;align-items:center;gap:10px;font-size:13px;color:#C9D6D0}
+.nbs-strip .bar{width:130px;height:5px;border-radius:9px;background:rgba(255,255,255,.18);overflow:hidden}
+.nbs-strip .bar span{display:block;height:100%;width:0;background:#E3C26F;transition:width 1.2s cubic-bezier(.2,.8,.2,1) .2s}
+@media (max-width:560px){.nbs-strip .bar{display:none}.nbs-strip .crumb .mid{display:none}}
+@media (prefers-reduced-motion:reduce){.nbs-strip .bar span{transition:none}}
+</style>
+<header class="nbs-strip"><div class="l"><button type="button" class="menu-btn" id="mbtn" aria-label="Show the lesson list">☰ Lessons</button><a href="https://notesbysara.org/" aria-label="Notes by Sara home"><img src="/img/favicon.png" alt="Notes by Sara"></a><nav class="crumb" aria-label="Breadcrumb"><a href="https://notesbysara.org/notes">Learning path</a><span class="mid"><i>›</i><a href="../index.html#mathematics">Mathematics</a></span><span><i>›</i><b>Derivative rules you need</b></span></nav></div><div class="prog"><span>Lesson 18</span><span class="bar" aria-hidden="true"><span id="nbs-bar"></span></span></div></header>
+
+<style>
+.fx{white-space:nowrap;font-size:clamp(1rem,4.6vw,1.55rem);gap:10px}
+.fx sub,.fx sup{font-size:.6em;line-height:0}
+sub,sup{line-height:0}
+.rules td{vertical-align:top}
+.rules td:nth-child(2),.rules td:nth-child(3){font-family:Georgia,'Times New Roman',serif;font-size:1.05rem;white-space:nowrap}
+.rules td:first-child{font-weight:600;color:var(--brand)}
+.rules td:last-child{font-size:var(--t-small);color:var(--muted)}
+@media (max-width:560px){.rules thead{display:none}.rules td{display:block;border:0;padding:1px 0}.rules td:nth-child(2)::before{content:'Function: ';font-family:var(--body);font-size:var(--t-small);color:var(--muted)}.rules td:nth-child(3)::before{content:'Derivative: ';font-family:var(--body);font-size:var(--t-small);color:var(--muted)}.rules tr{display:block;border-bottom:1px solid var(--line);padding:10px 0}
+ .steps td{display:block;border:0;padding:2px 0;text-align:left!important;white-space:normal}.steps tr{display:block;border-bottom:1px solid var(--line);padding:8px 0}.steps td.r{font-weight:500}}
+.inputs .mid{display:flex;align-items:flex-end;justify-content:center;font-family:Georgia,serif;font-size:1.2rem;color:var(--ink);padding-bottom:6px}
+.where{font-size:var(--t-small);color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 8px}
+</style>
+
+<div class="shell" id="shell"><div class="scrim" id="scrim"></div><aside class="side" id="side" aria-label="All lessons"><div class="sidehead"><a href="../index.html" class="allp">All lessons</a><button type="button" class="col" id="col" aria-label="Hide the lesson list" title="Hide the lesson list">«</button></div><p class="subj">Mathematics for Finance</p><div class="grp"><p class="gh"><span>Numbers and percentages</span><span class="gc">0 of 5</span></p><ol><li><a href="numbers-in-finance.html" data-slug="mathematics/numbers-in-finance"><span class="mk">1</span><span class="tt">Numbers in finance</span></a></li><li><a href="percentage-change.html" data-slug="mathematics/percentage-change"><span class="mk">2</span><span class="tt">Percentages and percentage change</span></a></li><li><a href="percentage-traps.html" data-slug="mathematics/percentage-traps"><span class="mk">3</span><span class="tt">Percentage traps</span></a></li><li><a href="ratios.html" data-slug="mathematics/ratios"><span class="mk">4</span><span class="tt">Ratios and proportions</span></a></li><li><a href="weighted-averages.html" data-slug="mathematics/weighted-averages"><span class="mk">5</span><span class="tt">Weighted averages</span></a></li></ol></div><div class="grp"><p class="gh"><span>Growth and equations</span><span class="gc">0 of 7</span></p><ol><li><a href="exponents.html" data-slug="mathematics/exponents"><span class="mk">6</span><span class="tt">Exponents</span></a></li><li><a href="logarithms.html" data-slug="mathematics/logarithms"><span class="mk">7</span><span class="tt">Logarithms</span></a></li><li><a href="linear-equations.html" data-slug="mathematics/linear-equations"><span class="mk">8</span><span class="tt">Linear equations and graphs</span></a></li><li><a href="simultaneous-equations.html" data-slug="mathematics/simultaneous-equations"><span class="mk">9</span><span class="tt">Solving two equations at once</span></a></li><li><a href="reading-formulas.html" data-slug="mathematics/reading-formulas"><span class="mk">10</span><span class="tt">Reading formulas</span></a></li><li><a href="functions.html" data-slug="mathematics/functions"><span class="mk">11</span><span class="tt">Functions</span></a></li><li><a href="rate-and-time.html" data-slug="mathematics/rate-and-time"><span class="mk">12</span><span class="tt">Solving for rate and time</span></a></li></ol></div><div class="grp"><p class="gh"><span>Sequences and series</span><span class="gc">0 of 3</span></p><ol><li><a href="sequences.html" data-slug="mathematics/sequences"><span class="mk">13</span><span class="tt">Arithmetic and geometric sequences</span></a></li><li><a href="summing-a-geometric-series.html" data-slug="mathematics/summing-a-geometric-series"><span class="mk">14</span><span class="tt">Summing a geometric series</span></a></li><li><a href="infinite-series.html" data-slug="mathematics/infinite-series"><span class="mk">15</span><span class="tt">Infinite series</span></a></li></ol></div><div class="grp"><p class="gh"><span>Calculus</span><span class="gc">0 of 6</span></p><ol><li><a href="rate-of-change.html" data-slug="mathematics/rate-of-change"><span class="mk">16</span><span class="tt">Rate of change</span></a></li><li><a href="derivatives.html" data-slug="mathematics/derivatives"><span class="mk">17</span><span class="tt">Derivatives as sensitivity</span></a></li><li><a href="derivative-rules.html" data-slug="mathematics/derivative-rules" class="now" aria-current="page"><span class="mk">18</span><span class="tt">Derivative rules you need</span></a></li><li><a href="number-e.html" data-slug="mathematics/number-e"><span class="mk">19</span><span class="tt">The number e and continuous growth</span></a></li><li><a href="curvature.html" data-slug="mathematics/curvature"><span class="mk">20</span><span class="tt">Second derivative and curvature</span></a></li><li><a href="optimization.html" data-slug="mathematics/optimization"><span class="mk">21</span><span class="tt">Optimization</span></a></li></ol></div><p class="subj">Statistics for Finance</p><div class="grp"><p class="gh"><span>Describing data</span><span class="gc">0 of 8</span></p><ol><li><a href="../statistics/mean-median-mode.html" data-slug="statistics/mean-median-mode"><span class="mk">1</span><span class="tt">Mean, median and mode</span></a></li><li><a href="../statistics/averaging-returns.html" data-slug="statistics/averaging-returns"><span class="mk">2</span><span class="tt">Averaging returns</span></a></li><li><a href="../statistics/range-and-percentiles.html" data-slug="statistics/range-and-percentiles"><span class="mk">3</span><span class="tt">Range and percentiles</span></a></li><li><a href="../statistics/standard-deviation.html" data-slug="statistics/standard-deviation"><span class="mk">4</span><span class="tt">Variance and standard deviation</span></a></li><li><a href="../statistics/skewness.html" data-slug="statistics/skewness"><span class="mk">5</span><span class="tt">Skewness</span></a></li><li><a href="../statistics/fat-tails.html" data-slug="statistics/fat-tails"><span class="mk">6</span><span class="tt">Fat tails</span></a></li><li><a href="../statistics/histograms-and-box-plots.html" data-slug="statistics/histograms-and-box-plots"><span class="mk">7</span><span class="tt">Histograms and box plots</span></a></li><li><a href="../statistics/misleading-charts.html" data-slug="statistics/misleading-charts"><span class="mk">8</span><span class="tt">Misleading charts</span></a></li></ol></div><div class="grp"><p class="gh"><span>Probability</span><span class="gc">0 of 1</span></p><ol><li><a href="../statistics/probability-basics.html" data-slug="statistics/probability-basics"><span class="mk">9</span><span class="tt">Probability basics</span></a></li></ol></div></aside><article class="page">
+
+  <header class="banner">
+    <p class="eyebrow">Mathematics for Finance</p>
+    <h1>Derivative rules you need</h1>
+    <p class="lead">You don't need to shrink a gap toward zero every time. Five short rules find almost every derivative in finance.</p>
+    <div class="meta"><span><b>Calculus</b> · Lesson 3 of 6 · 6 minutes</span><span>Before this: <a href="derivatives.html">Derivatives as sensitivity</a></span></div>
+  </header>
+
+  <section class="sec">
+    <h2>A shortcut for marginal cost</h2>
+    <p><span class="muted">Example, with made-up numbers.</span> Last lesson, a factory's cost of making <i>q</i> units was 5,000 + 20<i>q</i> + 0.01<i>q</i><sup>2</sup>, and we found the marginal cost at 1,000 units by brute force: $40.01 for one more unit. Is there a way to get the marginal cost at <i>any</i> level of output, in one line?</p>
+  </section>
+
+  <section class="sec">
+    <h2>The idea</h2>
+    <p>The derivative of a function is itself a function. Find it once, and you can read off the sensitivity anywhere. Here is the factory's cost (top) and its derivative, the marginal cost (bottom):</p>
+    <div class="box">
+      <div class="svgwrap"><svg id="cost" viewBox="0 0 600 300" role="img" aria-label="Top: total cost rises from $5,000 at zero units to $85,000 at 2,000 units, curving upward. Bottom: marginal cost is a straight line rising from $20 at zero units to $60 at 2,000 units, and is $40 at 1,000 units."></svg></div>
+      <p class="cap">As the cost curve gets steeper, the marginal cost line rises. At 1,000 units it reads $40 per unit.</p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>The five rules</h2>
+    <div class="box">
+      <div class="tw"><table class="rules"><thead><tr><th>Rule</th><th>Function</th><th>Derivative</th><th>In plain words</th></tr></thead><tbody>
+        <tr><td>Constant</td><td>5,000</td><td>0</td><td>A fixed amount doesn't change, so its rate of change is zero.</td></tr>
+        <tr><td>Power</td><td><i>x</i><sup><i>n</i></sup></td><td><i>n</i> × <i>x</i><sup><i>n</i>−1</sup></td><td>Bring the power down in front, then lower it by 1.</td></tr>
+        <tr><td>Sum and multiple</td><td>3<i>f</i> + <i>g</i></td><td>3<i>f</i>′ + <i>g</i>′</td><td>Take each part separately. Numbers in front stay put.</td></tr>
+        <tr><td><i>e</i> and ln</td><td><i>e</i><sup><i>x</i></sup> &nbsp;·&nbsp; ln <i>x</i></td><td><i>e</i><sup><i>x</i></sup> &nbsp;·&nbsp; 1/<i>x</i></td><td><i>e</i><sup><i>x</i></sup> is its own derivative. For any base: <i>a</i><sup><i>x</i></sup> becomes <i>a</i><sup><i>x</i></sup> × ln <i>a</i>.</td></tr>
+        <tr><td>Chain</td><td><i>f</i>(<i>g</i>(<i>x</i>))</td><td><i>f</i>′(<i>g</i>) × <i>g</i>′(<i>x</i>)</td><td>For a function inside a function: derivative of the outside, times derivative of the inside.</td></tr>
+      </tbody></table></div>
+    </div>
+    <p>Apply them to the factory's cost, piece by piece:</p>
+    <div class="box">
+      <div class="tw"><table class="steps"><tbody>
+        <tr><td>5,000 is a constant</td><td class="r num">→ 0</td></tr>
+        <tr><td>20<i>q</i> is 20 × <i>q</i><sup>1</sup></td><td class="r num">→ 20 × 1 = 20</td></tr>
+        <tr><td>0.01<i>q</i><sup>2</sup></td><td class="r num">→ 0.01 × 2<i>q</i> = 0.02<i>q</i></td></tr>
+      </tbody></table></div>
+      <div class="result"><span>Marginal cost</span><b class="num">20 + 0.02<i>q</i></b></div>
+      <p class="small muted">At 1,000 units: 20 + 0.02 × 1,000 = $40. Brute force gave $40.01, because one whole unit is a small step, not an infinitely small one.</p>
+    </div>
+    <div class="ask" data-q="c1">
+      <p class="eyebrow">Quick check</p>
+      <p class="q">What is the derivative of 3<i>x</i><sup>4</sup>?</p>
+      <div class="opts">
+        <button type="button" data-ok="0">3<i>x</i><sup>3</sup></button>
+        <button type="button" data-ok="1">12<i>x</i><sup>3</sup></button>
+      </div>
+      <p class="fb" hidden aria-live="polite"></p>
+      <template>Bring the 4 down and multiply by the 3 in front, then lower the power: 3 × 4 × <i>x</i><sup>3</sup> = 12<i>x</i><sup>3</sup>.</template>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Worked example: the chain rule</h2>
+    <p>The present value of $100 in 5 years is <i>PV</i> = 100 × (1 + <i>r</i>)<sup>−5</sup>. How sensitive is it to the rate <i>r</i>, at 5%?</p>
+    <div class="box">
+      <div class="tw"><table class="steps"><tbody>
+        <tr><td>1. Outside: 100 × (something)<sup>−5</sup>, by the power rule</td><td class="r num">100 × −5 × (1 + <i>r</i>)<sup>−6</sup></td></tr>
+        <tr><td>2. Inside: 1 + <i>r</i> has derivative 1</td><td class="r num">× 1</td></tr>
+        <tr><td>3. At <i>r</i> = 0.05</td><td class="r num">−500 ÷ 1.05<sup>6</sup></td></tr>
+      </tbody></table></div>
+      <div class="result"><span>Sensitivity</span><b class="num">−$3.73 per point</b></div>
+      <p class="small muted">The formula gives −373.11 per 1.00 change in <i>r</i>, which means per 100 percentage points. Divide by 100 for one point: near 5%, the $78.35 present value drops about $3.73 for each point rates rise, for small moves.</p>
+    </div>
+    <p>One more check on an earlier lesson. In <a href="rate-of-change.html">Rate of change</a>, $1,000 × 1.08<sup><i>t</i></sup> grew at $166.15 a year at year 10. The <i>a</i><sup><i>x</i></sup> rule gives it straight away: 1,000 × 1.08<sup>10</sup> × ln 1.08 = 2,158.92 × 0.07696 = <b>$166.15</b>.</p>
+  </section>
+
+  <section class="extras" aria-label="Optional extras">
+    <details>
+      <summary><span><span class="t">Try it yourself</span><br><span class="s">The power rule on any term <i>a</i> × <i>x</i><sup><i>n</i></sup>.</span></span></summary>
+      <div class="inner">
+        <div class="inputs">
+          <label for="a">Number in front, <i>a</i><input type="number" id="a" value="0.01" step="any"></label>
+          <label for="n">Power, <i>n</i><input type="number" id="n" value="2" step="any"></label>
+          <label for="x">At <i>x</i> =<input type="number" id="x" value="1000" step="any"></label>
+        </div>
+        <div class="calcout" style="flex-direction:column;align-items:flex-start;gap:4px"><span class="muted small">Derivative</span><span id="expr" class="num" style="font-family:Georgia,serif;font-size:1.2rem"></span><b class="num" id="val"></b></div>
+        <p class="small muted">This handles one term at a time. For the factory, the 0.01<i>q</i><sup>2</sup> term gives 20 at 1,000 units; add 20 from the 20<i>q</i> term to get the $40 marginal cost.</p>
+      </div>
+    </details>
+    <details>
+      <summary><span><span class="t">Common mistakes</span><br><span class="s">Three slips beginners make.</span></span></summary>
+      <div class="inner">
+        <ul class="mist">
+          <li><b>Forgetting to lower the power.</b> The derivative of <i>x</i><sup>3</sup> is 3<i>x</i><sup>2</sup>, not 3<i>x</i><sup>3</sup>.</li>
+          <li><b>Keeping the constant.</b> Fixed costs disappear from marginal cost. The derivative of 5,000 is 0.</li>
+          <li><b>Skipping the inside in the chain rule.</b> The derivative of <i>e</i><sup>0.05<i>t</i></sup> is 0.05<i>e</i><sup>0.05<i>t</i></sup>: the 0.05 comes from the inside.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <section class="sec">
+    <div class="box">
+      <p class="eyebrow">Remember</p>
+      <ul class="mist">
+        <li>Constants vanish. Powers come down and drop by one. Sums split into parts.</li>
+        <li><i>e</i><sup><i>x</i></sup> is its own derivative, and ln <i>x</i> becomes 1/<i>x</i>.</li>
+        <li>Chain rule: derivative of the outside × derivative of the inside.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Check yourself</h2>
+    <div class="ask quiz">
+      <p class="small muted">Three questions. Try them without scrolling up.</p>
+      <div data-q="q1" data-quiz>
+        <p class="q">1. What is the derivative of 5<i>x</i><sup>2</sup>?</p>
+        <div class="opts">
+          <button type="button" data-ok="1">10<i>x</i></button>
+          <button type="button" data-ok="0">5<i>x</i></button>
+          <button type="button" data-ok="0">10<i>x</i><sup>2</sup></button>
+        </div>
+        <p class="fb" hidden aria-live="polite"></p>
+        <template>5 × 2 × <i>x</i><sup>1</sup> = 10<i>x</i>. Bring the power down and lower it by one.</template>
+      </div>
+      <div data-q="q2" data-quiz>
+        <p class="q">2. Revenue is <i>R</i> = 50<i>q</i> − 0.1<i>q</i><sup>2</sup>. What is the marginal revenue at <i>q</i> = 100?</p>
+        <div class="opts">
+          <button type="button" data-ok="0">50</button>
+          <button type="button" data-ok="1">30</button>
+          <button type="button" data-ok="0">40</button>
+        </div>
+        <p class="fb" hidden aria-live="polite"></p>
+        <template>The derivative is 50 − 0.2<i>q</i>. At 100 units: 50 − 20 = 30. Each extra unit sold now adds about $30 of revenue.</template>
+      </div>
+      <div data-q="q3" data-quiz>
+        <p class="q">3. What is the derivative of <i>e</i><sup>0.05<i>t</i></sup>?</p>
+        <div class="opts">
+          <button type="button" data-ok="0"><i>e</i><sup>0.05<i>t</i></sup></button>
+          <button type="button" data-ok="0">0.05<i>t</i> × <i>e</i><sup>0.05<i>t</i> − 1</sup></button>
+          <button type="button" data-ok="1">0.05 × <i>e</i><sup>0.05<i>t</i></sup></button>
+        </div>
+        <p class="fb" hidden aria-live="polite"></p>
+        <template>Chain rule: <i>e</i> to anything stays the same on the outside, times the derivative of the inside, 0.05<i>t</i>, which is 0.05. The power rule doesn't apply to <i>e</i><sup><i>x</i></sup>.</template>
+      </div>
+      <div class="score"><span>Score: <b id="score">0 of 3</b></span><button class="btn" type="button" id="reset">Try again</button></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <a href="number-e.html" class="next"><span><span class="eyebrow">Next lesson · Core · 5 minutes</span><br><span class="t">The number e and continuous growth</span><br><span class="small" style="color:var(--on-deep-muted)">Where e comes from, and why finance uses it.</span></span><span class="arrow" aria-hidden="true">→</span></a>
+    <p class="related">Related: <a href="https://notesbysara.org/dictionary/marginal-cost">Marginal cost</a><span class="rel">Marginal revenue</span><a href="https://notesbysara.org/dictionary/present-value">Present value</a><a href="https://notesbysara.org/dictionary/modified-duration">Modified duration</a></p>
+  </section>
+
+</article></div>
+
+<script>
+const NS='http://www.w3.org/2000/svg';
+const el=(n,a={},p)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e};
+const text=(p,x,y,t,a={})=>{const e=el('text',Object.assign({x,y,'font-family':"Poppins,system-ui,sans-serif",'font-size':12,fill:'#5A6862','text-anchor':'middle'},a),p);e.textContent=t;return e};
+(function(){
+  const s=document.getElementById('cost'),L=70,R=560,X=q=>L+(R-L)*q/2000;
+  const C=q=>5000+20*q+.01*q*q,M=q=>20+.02*q;
+  // top panel
+  const T1=14,B1=140,Y1=v=>B1-(B1-T1)*v/90000;
+  [0,30000,60000,90000].forEach(v=>{el('line',{x1:L,y1:Y1(v),x2:R,y2:Y1(v),stroke:'#EFEAE0'},s);text(s,L-8,Y1(v)+4,v?'$'+(v/1000)+'k':'$0',{'text-anchor':'end'})});
+  let d='';for(let q=0;q<=2000;q+=25)d+=(q?'L':'M')+X(q).toFixed(1)+','+Y1(C(q)).toFixed(1);
+  el('path',{d,fill:'none',stroke:'#0E7C5A','stroke-width':3},s);
+  text(s,L+6,T1+12,'Total cost',{'text-anchor':'start','font-weight':600,fill:'#1F2A26'});
+  // bottom panel
+  const T2=172,B2=262,Y2=v=>B2-(B2-T2)*v/70;
+  [0,20,40,60].forEach(v=>{el('line',{x1:L,y1:Y2(v),x2:R,y2:Y2(v),stroke:'#EFEAE0'},s);text(s,L-8,Y2(v)+4,'$'+v,{'text-anchor':'end'})});
+  el('line',{x1:X(0),y1:Y2(M(0)),x2:X(2000),y2:Y2(M(2000)),stroke:'#B8892A','stroke-width':3},s);
+  text(s,L+6,T2+4,'Marginal cost, per unit',{'text-anchor':'start','font-weight':600,fill:'#1F2A26'});
+  [0,500,1000,1500,2000].forEach(q=>text(s,X(q),B2+18,q.toLocaleString('en-US')+(q===2000?' units':'')));
+  // marker at 1000
+  el('line',{x1:X(1000),y1:Y1(C(1000)),x2:X(1000),y2:Y2(M(1000)),stroke:'#9AA59F','stroke-dasharray':'4 4'},s);
+  el('circle',{cx:X(1000),cy:Y1(C(1000)),r:5,fill:'#0B4F3C'},s);el('circle',{cx:X(1000),cy:Y2(M(1000)),r:5,fill:'#0B4F3C'},s);
+  text(s,X(1000)+12,Y1(C(1000))+20,'$35,000 total',{'text-anchor':'start','font-weight':600,fill:'#1F2A26','font-size':11.5});
+  text(s,X(1000)+12,Y2(M(1000))+20,'$40 per unit',{'text-anchor':'start','font-weight':600,fill:'#8A6A12','font-size':11.5});
+})();
+
+const answered={},correct={};
+document.querySelectorAll('[data-q]').forEach(box=>{
+  const id=box.dataset.q,fb=box.querySelector('.fb'),tpl=box.querySelector('template');
+  box.querySelectorAll('.opts button').forEach(b=>b.addEventListener('click',()=>{
+    if(answered[id])return;
+    const ok=b.dataset.ok==='1';answered[id]=true;correct[id]=ok;
+    box.querySelectorAll('.opts button').forEach(x=>{x.disabled=true;if(x.dataset.ok==='1')x.classList.add('right')});
+    if(!ok)b.classList.add('wrong');
+    fb.innerHTML='<b>'+(ok?'Right. ':'Not quite. ')+'</b>';fb.appendChild(tpl.content.cloneNode(true));
+    fb.classList.toggle('no',!ok);fb.hidden=false;score();
+  }));
+});
+function score(){document.getElementById('score').textContent=['q1','q2','q3'].filter(k=>correct[k]).length+' of 3'}
+document.getElementById('reset').addEventListener('click',()=>{
+  document.querySelectorAll('[data-quiz]').forEach(box=>{const id=box.dataset.q;delete answered[id];delete correct[id];
+    box.querySelectorAll('.opts button').forEach(x=>{x.disabled=false;x.classList.remove('right','wrong')});
+    const fb=box.querySelector('.fb');fb.hidden=true;fb.innerHTML='';});
+  score();
+});
+const ia=document.getElementById('a'),inn=document.getElementById('n'),ix=document.getElementById('x');
+const fmt=v=>Number(v.toPrecision(6)).toLocaleString('en-US',{maximumFractionDigits:6});
+function run(){
+  const a=+ia.value,n=+inn.value,x=+ix.value,expr=document.getElementById('expr'),val=document.getElementById('val');
+  if(![a,n,x].every(isFinite)){expr.textContent='';val.textContent='Enter numbers';return}
+  const c=a*n,p=n-1;
+  expr.innerHTML=n===0?'0 (a constant)':(fmt(c)+(p===0?'':' × <i>x</i>'+(p===1?'':'<sup>'+fmt(p)+'</sup>')));
+  const v=n===0?0:c*Math.pow(x,p);
+  val.textContent=isFinite(v)?'At x = '+fmt(x)+': '+fmt(v):'Not defined at this x';
+}
+[ia,inn,ix].forEach(i=>i.addEventListener('input',run));run();
+document.querySelectorAll('a[href="#"]').forEach(a=>a.addEventListener('click',e=>e.preventDefault()));
+</script>
+
+
+<script>
+(function(){
+  var KEY='nbs-lessons-done',done=[];
+  try{done=JSON.parse(localStorage.getItem(KEY)||'[]')||[]}catch(e){}
+  var me=document.body.getAttribute('data-lesson'),total=+document.body.getAttribute('data-total')||0,group=document.body.getAttribute('data-group');
+  function count(){return done.filter(function(s){return s.indexOf(group+'/')===0}).length}
+  function show(){var b=document.getElementById('nbs-bar');if(b&&total)b.style.width=Math.min(100,count()/total*100)+'%'}
+  requestAnimationFrame(function(){requestAnimationFrame(show)});
+  var end=document.querySelector('.next');
+  if(me&&end&&'IntersectionObserver' in window){
+    new IntersectionObserver(function(es,o){es.forEach(function(e){if(e.isIntersecting){
+      if(done.indexOf(me)<0){done.push(me);try{localStorage.setItem(KEY,JSON.stringify(done))}catch(err){}show()}
+      o.disconnect()}})},{threshold:.6}).observe(end);
+  }
+})();
+</script>
+<script>
+(function(){
+  var sh=document.getElementById('shell'),KEY='nbs-side-closed',done=[];
+  try{done=JSON.parse(localStorage.getItem('nbs-lessons-done')||'[]')||[]}catch(e){}
+  function marks(){
+    document.querySelectorAll('.side .grp').forEach(function(g){var n=0,a=g.querySelectorAll('a[data-slug]');
+      a.forEach(function(x){var d=done.indexOf(x.dataset.slug)>=0;x.classList.toggle('done',d&&!x.classList.contains('now'));if(d)n++});
+      var c=g.querySelector('.gc');if(c)c.textContent=n+' of '+a.length;});
+  }
+  marks();
+  window.addEventListener('storage',function(){try{done=JSON.parse(localStorage.getItem('nbs-lessons-done')||'[]')||[]}catch(e){}marks()});
+  var closed=false;try{closed=localStorage.getItem(KEY)==='1'}catch(e){}
+  function setClosed(c){closed=c;sh.classList.toggle('closed',c);document.body.classList.toggle('side-closed',c);try{localStorage.setItem(KEY,c?'1':'0')}catch(e){}}
+  if(closed&&innerWidth>860)setClosed(true);
+  document.getElementById('col').addEventListener('click',function(){if(innerWidth<=860){sh.classList.remove('mopen')}else{setClosed(true)}});
+  document.getElementById('mbtn').addEventListener('click',function(){if(innerWidth<=860){sh.classList.add('mopen')}else{setClosed(false)}});
+  document.getElementById('scrim').addEventListener('click',function(){sh.classList.remove('mopen')});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')sh.classList.remove('mopen')});
+  var now=document.querySelector('.side a.now');if(now&&now.scrollIntoView&&innerWidth>860){var s=document.getElementById('side');s.scrollTop=Math.max(0,now.offsetTop-s.clientHeight/2)}
+})();
+</script>
+</body></html>
