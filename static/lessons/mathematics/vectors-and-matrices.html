@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="icon" href="/img/favicon.png">
+<meta name="description" content="Vectors and matrices: Portfolio return and risk for many assets at once. A short lesson from Notes by Sara.">
+<link rel="canonical" href="https://notesbysara.org/lessons/mathematics/vectors-and-matrices.html">
+
+<title>Vectors and matrices · Notes by Sara</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Forum&family=Poppins:wght@400;500;600&display=swap">
+<style>
+/* Layout: one calm reading column. Three surfaces only: the deep banner, white boxes, and pale green for anything the learner answers. Light only, like the site. */
+:root{
+  color-scheme:light;
+  --ivory:#FFFDF8; --surface:#FFFFFF; --pearl:#F7F2E7; --pale:#EAF4EF;
+  --ink:#1F2A26; --muted:#5A6862; --line:#E6E1D5;
+  --deep:#06352A; --green:#0E7C5A; --green-text:#0B6A4C; --brand:#0B4F3C;
+  --gold:#E3C26F; --gold-text:#8A6A12; --coral:#B4452F; --coral-pale:#FBEDE9;
+  --on-deep:#FFFDF8; --on-deep-muted:#C9D6D0;
+  --display:'Forum',Georgia,'Times New Roman',serif;
+  --body:'Poppins',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --t-body:16px; --t-small:14px; --t-label:12.5px;
+}
+*{box-sizing:border-box}
+body{background:var(--ivory);color:var(--ink);font-family:var(--body);font-size:var(--t-body);line-height:1.75}
+a{color:var(--green-text)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
+.mockbar{background:var(--pearl);color:var(--muted);font-size:var(--t-small);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:8px;text-align:center;border-bottom:1px solid var(--line)}
+.mockbar b{color:var(--gold-text);letter-spacing:.12em;text-transform:uppercase;font-size:var(--t-label);margin-right:6px}
+.page{max-width:720px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px;display:flex;flex-direction:column;gap:40px}
+h1,h2{font-family:var(--display);font-weight:400;line-height:1.15;margin:0;text-wrap:balance}
+h2{font-size:1.7rem;color:var(--brand)}
+p{margin:0}
+.sec{display:flex;flex-direction:column;gap:14px}
+.eyebrow{font-size:var(--t-label);font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--gold-text)}
+.muted{color:var(--muted)}
+.small{font-size:var(--t-small)}
+b{font-weight:600}
+.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* 1. banner */
+.banner{background:var(--deep);color:var(--on-deep);border-radius:18px;padding:26px 26px 22px;display:flex;flex-direction:column;gap:10px}
+.banner .eyebrow{color:var(--gold)}
+.banner h1{font-size:clamp(2rem,6vw,2.6rem)}
+.banner .lead{color:var(--on-deep-muted)}
+.banner .meta{font-size:var(--t-small);color:var(--on-deep-muted);border-top:1px solid rgba(227,194,111,.35);padding-top:10px;display:flex;flex-wrap:wrap;gap:4px 18px}
+.banner .meta b{color:var(--gold);font-weight:600}
+.banner .meta a{color:var(--on-deep)}
+
+/* white box */
+.box{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.svgwrap{overflow-x:auto}
+.svgwrap svg{display:block;width:100%;height:auto;min-width:480px}
+.cap{font-size:var(--t-small);color:var(--muted)}
+
+/* formula */
+.fx{font-family:Georgia,'Times New Roman',serif;font-size:1.8rem;display:flex;align-items:center;justify-content:center;gap:14px}
+.frac{display:inline-flex;flex-direction:column;align-items:center;line-height:1.2}
+.frac span:first-child{border-bottom:2px solid var(--ink);padding:0 8px 2px}
+.frac span:last-child{padding-top:2px}
+.fx i{font-style:italic}
+.fx sup{font-size:.6em}
+.legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:4px 16px;font-size:var(--t-small);color:var(--muted)}
+.legend i{font-family:Georgia,serif;color:var(--ink);font-size:1.05rem;margin-right:6px}
+table{border-collapse:collapse;width:100%}
+td,th{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left}
+th{font-size:var(--t-small);color:var(--muted);font-weight:500}
+td.r,th.r{text-align:right}
+.tw{overflow-x:auto}
+.result{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;border-top:2px solid var(--brand);padding-top:10px}
+.result b{font-family:var(--display);font-weight:400;font-size:1.8rem;color:var(--brand)}
+
+/* pale: anything you answer */
+.ask{background:var(--pale);border-radius:14px;padding:16px 20px;display:flex;flex-direction:column;gap:10px}
+.ask .q{font-weight:500}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opts button{font:inherit;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 14px;cursor:pointer;color:var(--ink);line-height:1.5}
+.opts button:hover{border-color:var(--green)}
+.opts button.right{border-color:var(--green);box-shadow:inset 3px 0 0 var(--green)}
+.opts button.wrong{border-color:var(--coral);box-shadow:inset 3px 0 0 var(--coral)}
+.opts button[disabled]{cursor:default}
+.fb{font-size:var(--t-small);line-height:1.6}
+.fb b{color:var(--green-text)}
+.fb.no b{color:var(--coral)}
+.quiz{display:flex;flex-direction:column;gap:10px}
+.score{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:var(--t-small);color:var(--muted)}
+.score b{color:var(--brand)}
+.btn{font:inherit;font-size:var(--t-small);border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:4px 12px;cursor:pointer;color:var(--ink)}
+
+/* optional extras */
+.extras{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.extras details{border-bottom:1px solid var(--line)}
+.extras summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 4px}
+.extras summary::-webkit-details-marker{display:none}
+.extras summary .t{font-family:var(--display);font-size:1.3rem;color:var(--brand)}
+.extras summary .s{font-size:var(--t-small);color:var(--muted)}
+.extras summary::after{content:"+";font-size:1.4rem;color:var(--gold-text);flex:none;width:20px;text-align:center}
+.extras details[open] summary::after{content:"−"}
+.extras .inner{padding:0 4px 18px;display:flex;flex-direction:column;gap:12px}
+.inputs{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.inputs label{display:flex;flex-direction:column;gap:4px;font-size:var(--t-small);color:var(--muted)}
+.inputs input[type=number]{font:inherit;color:var(--ink);padding:7px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);width:100%}
+.inputs input[type=range]{width:100%;accent-color:var(--green)}
+.calcout{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+.calcout b{font-family:var(--display);font-weight:400;font-size:1.8rem;color:var(--brand)}
+.mist{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px}
+
+/* recap */
+.recap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:center}
+.recap ul{margin:4px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:2px}
+.recap .fx{font-size:1.3rem}
+@media (max-width:560px){.recap{grid-template-columns:1fr}}
+
+/* next */
+.next{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;background:var(--deep);color:var(--on-deep);border-radius:14px;padding:16px 20px;text-decoration:none}
+.next .eyebrow{color:var(--gold)}
+.next .t{font-family:var(--display);font-size:1.35rem}
+.next .arrow{font-size:1.4rem;color:var(--gold)}
+.related{font-size:var(--t-small);color:var(--muted)}
+.related a{margin-right:10px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+
+<style>
+.shell{display:grid;grid-template-columns:290px minmax(0,1fr);align-items:start}
+.shell.closed{grid-template-columns:minmax(0,1fr)}
+.side{position:sticky;top:50px;height:calc(100vh - 50px);overflow:auto;background:#FFFFFF;border-right:1px solid var(--line);padding:14px 14px 28px;display:flex;flex-direction:column;gap:2px;font-size:14px;scrollbar-width:thin}
+.shell.closed .side{display:none}
+.sidehead{display:flex;justify-content:space-between;align-items:center;padding:0 2px 8px;margin-bottom:4px;border-bottom:1px solid var(--line)}
+.allp{font-size:13px;font-weight:500;color:var(--green-text);text-decoration:none}.allp:hover{text-decoration:underline}
+.col{font:inherit;cursor:pointer;border:1px solid var(--line);background:var(--surface);border-radius:8px;color:var(--brand);width:28px;height:28px;display:grid;place-items:center;font-size:15px;line-height:1}
+.col:hover{border-color:var(--brand)}
+.subj{font-family:var(--display);font-size:1.2rem;color:var(--brand);margin:12px 2px 2px}
+.grp{margin-top:8px}
+.gh{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin:0 2px 4px;font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text)}
+.gc{font-size:11.5px;letter-spacing:0;text-transform:none;font-weight:500;color:var(--muted);white-space:nowrap}
+.grp ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:1px}
+.grp li a{display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;align-items:start;padding:6px 8px;border-radius:8px;text-decoration:none;color:var(--ink);line-height:1.35}
+.grp li a:hover{background:var(--pale)}
+.mk{width:22px;height:22px;border-radius:50%;border:1.5px solid #C5D6CC;display:grid;place-items:center;font-size:11px;font-weight:600;color:var(--muted);background:#fff;margin-top:-1px}
+.grp a.done .mk{background:var(--green);border-color:var(--green);color:#fff}
+.grp a.done .tt{color:var(--muted)}
+.grp a.now{background:#EEF4EF;box-shadow:inset 3px 0 0 var(--gold)}
+.grp a.now .mk{background:var(--deep);border-color:var(--gold);color:#fff}
+.grp a.now .tt{color:var(--brand);font-weight:500}
+.shell .page{max-width:none;margin:0;padding-left:clamp(16px,4vw,56px);padding-right:clamp(16px,4vw,56px)}
+.shell .page>*{max-width:900px;width:100%}
+.shell.closed .page>*{margin-inline:auto}
+.menu-btn{display:none;font:inherit;font-size:13px;font-weight:500;color:#06352A;background:#E3C26F;border:0;border-radius:999px;padding:4px 12px;cursor:pointer;white-space:nowrap}
+body.side-closed .menu-btn{display:inline-flex}
+.scrim{display:none}
+@media (max-width:860px){
+ .shell,.shell.closed{grid-template-columns:minmax(0,1fr)}
+ .side,.shell.closed .side{display:flex;position:fixed;top:0;left:0;bottom:0;height:100vh;width:min(300px,86vw);z-index:40;transform:translateX(-105%);transition:transform .25s ease;box-shadow:6px 0 24px rgba(6,53,42,.2)}
+ .shell.mopen .side{transform:none}
+ .menu-btn{display:inline-flex}
+ .scrim{position:fixed;inset:0;background:rgba(6,53,42,.35);z-index:35}.shell.mopen .scrim{display:block}
+ .shell .page>*{margin-inline:auto}
+}
+@media (prefers-reduced-motion:reduce){.side{transition:none!important}}
+@media (max-width:480px){.nbs-strip .prog{display:none}}
+</style>
+</head><body data-lesson="mathematics/vectors-and-matrices" data-group="mathematics" data-total="26">
+<style>
+body{margin:0}
+.related .rel{margin-right:10px}
+.nbs-strip{position:sticky;top:0;z-index:20;background:#06352A;color:#FFFDF8;display:flex;align-items:center;justify-content:space-between;gap:12px;
+ padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:10px;font-family:'Poppins',system-ui,sans-serif;flex-wrap:wrap}
+.nbs-strip .l{display:flex;align-items:center;gap:12px;min-width:0}
+.nbs-strip img{width:30px;height:30px;border-radius:6px;display:block}
+.nbs-strip .crumb{font-size:14px;color:#C9D6D0}.nbs-strip .crumb a{color:#C9D6D0;text-decoration:none}.nbs-strip .crumb a:hover{color:#fff;text-decoration:underline}
+.nbs-strip .crumb i{font-style:normal;color:#E3C26F;margin:0 5px}.nbs-strip .crumb b{color:#fff;font-weight:500}
+.nbs-strip .prog{display:flex;align-items:center;gap:10px;font-size:13px;color:#C9D6D0}
+.nbs-strip .bar{width:130px;height:5px;border-radius:9px;background:rgba(255,255,255,.18);overflow:hidden}
+.nbs-strip .bar span{display:block;height:100%;width:0;background:#E3C26F;transition:width 1.2s cubic-bezier(.2,.8,.2,1) .2s}
+@media (max-width:560px){.nbs-strip .bar{display:none}.nbs-strip .crumb .mid{display:none}}
+@media (prefers-reduced-motion:reduce){.nbs-strip .bar span{transition:none}}
+</style>
+<header class="nbs-strip"><div class="l"><button type="button" class="menu-btn" id="mbtn" aria-label="Show the lesson list">☰ Lessons</button><a href="https://notesbysara.org/" aria-label="Notes by Sara home"><img src="/img/favicon.png" alt="Notes by Sara"></a><nav class="crumb" aria-label="Breadcrumb"><a href="https://notesbysara.org/notes">Learning path</a><span class="mid"><i>›</i><a href="../index.html#mathematics">Mathematics</a></span><span><i>›</i><b>Vectors and matrices</b></span></nav></div><div class="prog"><span>Lesson 25</span><span class="bar" aria-hidden="true"><span id="nbs-bar"></span></span></div></header>
+
+<style>
+.fx{white-space:nowrap;font-size:clamp(.95rem,4.2vw,1.45rem);gap:10px}
+.fx.wrap{white-space:normal}
+sub,sup{line-height:0}
+.cmp td:first-child{white-space:normal}
+.steps td:first-child{white-space:normal}
+@media (max-width:560px){.steps td{display:block;border:0;padding:2px 0;text-align:left!important;white-space:normal}.steps tr{display:block;border-bottom:1px solid var(--line);padding:8px 0}.steps td.r{font-weight:500}}
+.where{font-size:var(--t-small);color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 8px}
+.mtx td{text-align:center}
+.inputs.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.subh{font-size:var(--t-small);color:var(--muted);margin:12px 0 4px;font-weight:600}
+</style>
+
+<div class="shell" id="shell"><div class="scrim" id="scrim"></div><aside class="side" id="side" aria-label="All lessons"><div class="sidehead"><a href="../index.html" class="allp">All lessons</a><button type="button" class="col" id="col" aria-label="Hide the lesson list" title="Hide the lesson list">«</button></div><p class="subj">Mathematics for Finance</p><div class="grp"><p class="gh"><span>Numbers and percentages</span><span class="gc">0 of 5</span></p><ol><li><a href="numbers-in-finance.html" data-slug="mathematics/numbers-in-finance"><span class="mk">1</span><span class="tt">Numbers in finance</span></a></li><li><a href="percentage-change.html" data-slug="mathematics/percentage-change"><span class="mk">2</span><span class="tt">Percentages and percentage change</span></a></li><li><a href="percentage-traps.html" data-slug="mathematics/percentage-traps"><span class="mk">3</span><span class="tt">Percentage traps</span></a></li><li><a href="ratios.html" data-slug="mathematics/ratios"><span class="mk">4</span><span class="tt">Ratios and proportions</span></a></li><li><a href="weighted-averages.html" data-slug="mathematics/weighted-averages"><span class="mk">5</span><span class="tt">Weighted averages</span></a></li></ol></div><div class="grp"><p class="gh"><span>Growth and equations</span><span class="gc">0 of 7</span></p><ol><li><a href="exponents.html" data-slug="mathematics/exponents"><span class="mk">6</span><span class="tt">Exponents</span></a></li><li><a href="logarithms.html" data-slug="mathematics/logarithms"><span class="mk">7</span><span class="tt">Logarithms</span></a></li><li><a href="linear-equations.html" data-slug="mathematics/linear-equations"><span class="mk">8</span><span class="tt">Linear equations and graphs</span></a></li><li><a href="simultaneous-equations.html" data-slug="mathematics/simultaneous-equations"><span class="mk">9</span><span class="tt">Solving two equations at once</span></a></li><li><a href="reading-formulas.html" data-slug="mathematics/reading-formulas"><span class="mk">10</span><span class="tt">Reading formulas</span></a></li><li><a href="functions.html" data-slug="mathematics/functions"><span class="mk">11</span><span class="tt">Functions</span></a></li><li><a href="rate-and-time.html" data-slug="mathematics/rate-and-time"><span class="mk">12</span><span class="tt">Solving for rate and time</span></a></li></ol></div><div class="grp"><p class="gh"><span>Sequences and series</span><span class="gc">0 of 3</span></p><ol><li><a href="sequences.html" data-slug="mathematics/sequences"><span class="mk">13</span><span class="tt">Arithmetic and geometric sequences</span></a></li><li><a href="summing-a-geometric-series.html" data-slug="mathematics/summing-a-geometric-series"><span class="mk">14</span><span class="tt">Summing a geometric series</span></a></li><li><a href="infinite-series.html" data-slug="mathematics/infinite-series"><span class="mk">15</span><span class="tt">Infinite series</span></a></li></ol></div><div class="grp"><p class="gh"><span>Calculus</span><span class="gc">0 of 6</span></p><ol><li><a href="rate-of-change.html" data-slug="mathematics/rate-of-change"><span class="mk">16</span><span class="tt">Rate of change</span></a></li><li><a href="derivatives.html" data-slug="mathematics/derivatives"><span class="mk">17</span><span class="tt">Derivatives as sensitivity</span></a></li><li><a href="derivative-rules.html" data-slug="mathematics/derivative-rules"><span class="mk">18</span><span class="tt">Derivative rules you need</span></a></li><li><a href="number-e.html" data-slug="mathematics/number-e"><span class="mk">19</span><span class="tt">The number e and continuous growth</span></a></li><li><a href="curvature.html" data-slug="mathematics/curvature"><span class="mk">20</span><span class="tt">Second derivative and curvature</span></a></li><li><a href="optimization.html" data-slug="mathematics/optimization"><span class="mk">21</span><span class="tt">Optimization</span></a></li></ol></div><div class="grp"><p class="gh"><span>Advanced tools</span><span class="gc">0 of 5</span></p><ol><li><a href="partial-derivatives.html" data-slug="mathematics/partial-derivatives"><span class="mk">22</span><span class="tt">Partial derivatives</span></a></li><li><a href="optimization-with-a-limit.html" data-slug="mathematics/optimization-with-a-limit"><span class="mk">23</span><span class="tt">Optimization with a limit</span></a></li><li><a href="taylor-approximations.html" data-slug="mathematics/taylor-approximations"><span class="mk">24</span><span class="tt">Taylor approximations</span></a></li><li><a href="vectors-and-matrices.html" data-slug="mathematics/vectors-and-matrices" class="now" aria-current="page"><span class="mk">25</span><span class="tt">Vectors and matrices</span></a></li><li><a href="matrix-inverse.html" data-slug="mathematics/matrix-inverse"><span class="mk">26</span><span class="tt">Matrix inverse</span></a></li></ol></div><p class="subj">Statistics for Finance</p><div class="grp"><p class="gh"><span>Describing data</span><span class="gc">0 of 8</span></p><ol><li><a href="../statistics/mean-median-mode.html" data-slug="statistics/mean-median-mode"><span class="mk">1</span><span class="tt">Mean, median and mode</span></a></li><li><a href="../statistics/averaging-returns.html" data-slug="statistics/averaging-returns"><span class="mk">2</span><span class="tt">Averaging returns</span></a></li><li><a href="../statistics/range-and-percentiles.html" data-slug="statistics/range-and-percentiles"><span class="mk">3</span><span class="tt">Range and percentiles</span></a></li><li><a href="../statistics/standard-deviation.html" data-slug="statistics/standard-deviation"><span class="mk">4</span><span class="tt">Variance and standard deviation</span></a></li><li><a href="../statistics/skewness.html" data-slug="statistics/skewness"><span class="mk">5</span><span class="tt">Skewness</span></a></li><li><a href="../statistics/fat-tails.html" data-slug="statistics/fat-tails"><span class="mk">6</span><span class="tt">Fat tails</span></a></li><li><a href="../statistics/histograms-and-box-plots.html" data-slug="statistics/histograms-and-box-plots"><span class="mk">7</span><span class="tt">Histograms and box plots</span></a></li><li><a href="../statistics/misleading-charts.html" data-slug="statistics/misleading-charts"><span class="mk">8</span><span class="tt">Misleading charts</span></a></li></ol></div><div class="grp"><p class="gh"><span>Probability</span><span class="gc">0 of 7</span></p><ol><li><a href="../statistics/probability-basics.html" data-slug="statistics/probability-basics"><span class="mk">9</span><span class="tt">Probability basics</span></a></li><li><a href="../statistics/conditional-probability.html" data-slug="statistics/conditional-probability"><span class="mk">10</span><span class="tt">Conditional probability</span></a></li><li><a href="../statistics/bayes-rule.html" data-slug="statistics/bayes-rule"><span class="mk">11</span><span class="tt">Bayes&#x27; rule</span></a></li><li><a href="../statistics/expected-value.html" data-slug="statistics/expected-value"><span class="mk">12</span><span class="tt">Expected value</span></a></li><li><a href="../statistics/binomial-distribution.html" data-slug="statistics/binomial-distribution"><span class="mk">13</span><span class="tt">The binomial distribution</span></a></li><li><a href="../statistics/normal-distribution.html" data-slug="statistics/normal-distribution"><span class="mk">14</span><span class="tt">The normal distribution</span></a></li><li><a href="../statistics/lognormal-distribution.html" data-slug="statistics/lognormal-distribution"><span class="mk">15</span><span class="tt">The lognormal distribution</span></a></li></ol></div><div class="grp"><p class="gh"><span>Relationships</span><span class="gc">0 of 3</span></p><ol><li><a href="../statistics/correlation.html" data-slug="statistics/correlation"><span class="mk">16</span><span class="tt">Correlation</span></a></li><li><a href="../statistics/linear-regression.html" data-slug="statistics/linear-regression"><span class="mk">17</span><span class="tt">Linear regression</span></a></li><li><a href="../statistics/r-squared.html" data-slug="statistics/r-squared"><span class="mk">18</span><span class="tt">R-squared and residuals</span></a></li></ol></div><div class="grp"><p class="gh"><span>Inference</span><span class="gc">0 of 4</span></p><ol><li><a href="../statistics/standard-error.html" data-slug="statistics/standard-error"><span class="mk">19</span><span class="tt">Samples and standard error</span></a></li><li><a href="../statistics/confidence-intervals.html" data-slug="statistics/confidence-intervals"><span class="mk">20</span><span class="tt">Confidence intervals</span></a></li><li><a href="../statistics/hypothesis-tests.html" data-slug="statistics/hypothesis-tests"><span class="mk">21</span><span class="tt">Hypothesis tests and p-values</span></a></li><li><a href="../statistics/simulation.html" data-slug="statistics/simulation"><span class="mk">22</span><span class="tt">Simulation</span></a></li></ol></div></aside><article class="page">
+
+  <header class="banner">
+    <p class="eyebrow">Mathematics for Finance</p>
+    <h1>Vectors and matrices</h1>
+    <p class="lead">With two assets you can write out portfolio risk by hand. With twenty, you need a tidier way. Vectors hold lists, matrices hold tables, and two short formulas give a portfolio's return and risk.</p>
+    <div class="meta"><span><b>Advanced tools</b> · Lesson 4 of 5 · 6 minutes</span><span>Before this: <a href="../statistics/correlation.html">Correlation</a>, <a href="weighted-averages.html">Weighted averages</a></span></div>
+  </header>
+
+  <section class="sec">
+    <h2>Three funds, one number</h2>
+    <p><span class="muted">Example, with made-up numbers.</span> You hold 50% in a stock fund, 30% in a property fund and 20% in a bond fund. You know each fund's expected return, its standard deviation and how each pair is correlated. What are the portfolio's return and risk?</p>
+  </section>
+
+  <section class="sec">
+    <h2>The idea</h2>
+    <p>A <b>vector</b> is an ordered list: the weights <b>w</b> = (0.5, 0.3, 0.2), or the expected returns <b>μ</b> = (8%, 5%, 3%). A <b>matrix</b> is a table. The one finance uses most is the <b>covariance matrix</b> Σ: one row and one column per asset, each asset's variance on the diagonal and the covariance of each pair off it.</p>
+    <div class="box">
+      <div class="tw"><table class="mtx"><tbody>
+        <tr><td></td><td><b>Stocks</b></td><td><b>Property</b></td><td><b>Bonds</b></td></tr>
+        <tr><td><b>Stocks</b></td><td class="num">0.0400</td><td class="num">0.0060</td><td class="num">0</td></tr>
+        <tr><td><b>Property</b></td><td class="num">0.0060</td><td class="num">0.0100</td><td class="num">0.0010</td></tr>
+        <tr><td><b>Bonds</b></td><td class="num">0</td><td class="num">0.0010</td><td class="num">0.0025</td></tr>
+      </tbody></table></div>
+      <p class="small muted">Diagonal: standard deviations 20%, 10% and 5%, squared. Off the diagonal: correlation × both standard deviations. Stocks and property have correlation 0.3, so 0.3 × 0.20 × 0.10 = 0.006. The table is symmetric.</p>
+    </div>
+    <div class="box">
+      <div class="fx wrap"><span>Return = <b>w</b> · <b>μ</b> &nbsp;·&nbsp; Variance = <b>w</b><sup>T</sup> Σ <b>w</b></span></div>
+      <p class="small muted"><b>w</b> · <b>μ</b> is a <b>dot product</b>: multiply matching items and add. <b>w</b><sup>T</sup> Σ <b>w</b> means: multiply every cell of Σ by the weights of its row and its column, then add all the cells.</p>
+    </div>
+    <div class="ask" data-q="c1">
+      <p class="eyebrow">Quick check</p>
+      <p class="q">What's the dot product of (1, 2, 3) and (4, 5, 6)?</p>
+      <div class="opts">
+        <button type="button" data-ok="1">32</button>
+        <button type="button" data-ok="0">(4, 10, 18)</button>
+      </div>
+      <p class="fb" hidden aria-live="polite"></p>
+      <template>1 × 4 + 2 × 5 + 3 × 6 = 4 + 10 + 18 = 32. A dot product ends with one number, not a list.</template>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Worked example: return and risk</h2>
+    <div class="box">
+      <div class="tw"><table class="steps"><tbody>
+        <tr><td>1. Return: <b>w</b> · <b>μ</b></td><td class="r num">0.5 × 8 + 0.3 × 5 + 0.2 × 3 = 6.1%</td></tr>
+        <tr><td>2. Each cell × its row weight × its column weight</td><td class="r num">see the grid below</td></tr>
+        <tr><td>3. Add all nine cells</td><td class="r num">0.01292</td></tr>
+        <tr><td>4. Standard deviation</td><td class="r num">√0.01292 = 11.4%</td></tr>
+      </tbody></table></div>
+      <div class="svgwrap"><svg id="grid" viewBox="0 0 600 280" role="img" aria-label="A three-by-three grid of contributions to variance, in units of 0.0001. Row stocks: 100, 9, 0. Row property: 9, 9, 0.6. Row bonds: 0, 0.6, 1. Total 129.2. Row totals as shares of risk: stocks 84%, property 14%, bonds 1%."></svg></div>
+      <div class="result"><span>Portfolio</span><b class="num">return 6.1% · risk 11.4%</b></div>
+      <p class="small muted">The grid also shows where the risk comes from: add each row and divide by the total. Stocks are 50% of the money but <b>84% of the risk</b>. In Excel: =SUMPRODUCT(weights, returns) for step 1, and =MMULT(TRANSPOSE(weights), MMULT(covariance, weights)) for step 3, with the weights in a column.</p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Why this scales</h2>
+    <p>The two formulas don't change as you add assets. Twenty funds just means a 20-long vector and a 20 × 20 matrix. That's how portfolio software, risk systems and the <span class="rel">efficient frontier</span> handle hundreds of holdings. Each asset's risk share, from the row totals, tells you which holdings really drive the swings.</p>
+  </section>
+
+  <section class="extras" aria-label="Optional extras">
+    <details>
+      <summary><span><span class="t">Try it yourself</span><br><span class="s">Three assets: weights, risks and correlations.</span></span></summary>
+      <div class="inner">
+        <p class="subh">Weights (%)</p>
+        <div class="inputs three">
+          <label for="w1">Asset 1<input type="number" id="w1" value="50" step="any"></label>
+          <label for="w2">Asset 2<input type="number" id="w2" value="30" step="any"></label>
+          <label for="w3">Asset 3<input type="number" id="w3" value="20" step="any"></label>
+        </div>
+        <p class="subh">Standard deviations (%)</p>
+        <div class="inputs three">
+          <label for="s1">Asset 1<input type="number" id="s1" value="20" step="any" min="0"></label>
+          <label for="s2">Asset 2<input type="number" id="s2" value="10" step="any" min="0"></label>
+          <label for="s3">Asset 3<input type="number" id="s3" value="5" step="any" min="0"></label>
+        </div>
+        <p class="subh">Correlations (−1 to 1)</p>
+        <div class="inputs three">
+          <label for="r12">1 and 2<input type="number" id="r12" value="0.3" step="0.05" min="-1" max="1"></label>
+          <label for="r13">1 and 3<input type="number" id="r13" value="0" step="0.05" min="-1" max="1"></label>
+          <label for="r23">2 and 3<input type="number" id="r23" value="0.2" step="0.05" min="-1" max="1"></label>
+        </div>
+        <div class="tw"><table class="cmp"><tbody>
+          <tr><td>Portfolio standard deviation</td><td class="r num" id="o1"></td></tr>
+          <tr><td>Share of risk: asset 1 · 2 · 3</td><td class="r num" id="o2"></td></tr>
+          <tr><td>Weights add to</td><td class="r num" id="o3"></td></tr>
+        </tbody></table></div>
+      </div>
+    </details>
+    <details>
+      <summary><span><span class="t">Common mistakes</span><br><span class="s">Three slips beginners make.</span></span></summary>
+      <div class="inner">
+        <ul class="mist">
+          <li><b>Putting correlations in the matrix.</b> The formula needs covariances: correlation × both standard deviations.</li>
+          <li><b>Counting each pair once.</b> Every pair appears twice, above and below the diagonal. Adding all the cells handles it.</li>
+          <li><b>Mismatched order.</b> The weights, returns and rows of the matrix must list the assets in the same order.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <section class="sec">
+    <div class="box">
+      <p class="eyebrow">Remember</p>
+      <ul class="mist">
+        <li>A vector is a list, a matrix is a table. The covariance matrix has variances on the diagonal and covariances off it.</li>
+        <li>Portfolio return = <b>w</b> · <b>μ</b>. Portfolio variance = <b>w</b><sup>T</sup> Σ <b>w</b>: weight every cell and add.</li>
+        <li>Row totals show each asset's share of the risk, which can be far from its share of the money.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Check yourself</h2>
+    <div class="ask quiz">
+      <p class="small muted">Three questions. Try them without scrolling up.</p>
+      <div data-q="q1" data-quiz>
+        <p class="q">1. Weights (0.6, 0.4) and expected returns (10%, 4%). What's the portfolio's expected return?</p>
+        <div class="opts">
+          <button type="button" data-ok="0">7%</button>
+          <button type="button" data-ok="1">7.6%</button>
+          <button type="button" data-ok="0">14%</button>
+        </div>
+        <p class="fb" hidden aria-live="polite"></p>
+        <template>0.6 × 10 + 0.4 × 4 = 6 + 1.6 = 7.6%. 7% is the plain average, which ignores the weights.</template>
+      </div>
+      <div data-q="q2" data-quiz>
+        <p class="q">2. Covariance matrix [0.04, 0.01; 0.01, 0.09] and weights (0.5, 0.5). What's the portfolio standard deviation?</p>
+        <div class="opts">
+          <button type="button" data-ok="1">About 19.4%</button>
+          <button type="button" data-ok="0">25%</button>
+          <button type="button" data-ok="0">About 18.7%</button>
+        </div>
+        <p class="fb" hidden aria-live="polite"></p>
+        <template>Cells × weights: 0.25 × 0.04 + 0.25 × 0.09 + 2 × 0.25 × 0.01 = 0.0375. √0.0375 ≈ 19.4%. About 18.7% comes from counting the covariance only once.</template>
+      </div>
+      <div data-q="q3" data-quiz>
+        <p class="q">3. What sits on the diagonal of a covariance matrix?</p>
+        <div class="opts">
+          <button type="button" data-ok="0">Correlations of 1</button>
+          <button type="button" data-ok="1">Each asset's variance</button>
+          <button type="button" data-ok="0">The weights</button>
+        </div>
+        <p class="fb" hidden aria-live="polite"></p>
+        <template>An asset's covariance with itself is its variance. A correlation matrix has 1s on its diagonal instead.</template>
+      </div>
+      <div class="score"><span>Score: <b id="score">0 of 3</b></span><button class="btn" type="button" id="reset">Try again</button></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <a href="matrix-inverse.html" class="next"><span><span class="eyebrow">Next lesson · Advanced · 6 minutes</span><br><span class="t">Matrix inverse</span><br><span class="small" style="color:var(--on-deep-muted)">Solving many equations at once.</span></span><span class="arrow" aria-hidden="true">→</span></a>
+    <p class="related">Related: <a href="https://notesbysara.org/dictionary/covariance">Covariance</a><a href="https://notesbysara.org/dictionary/diversification">Diversification</a><a href="../statistics/correlation.html">Correlation</a></p>
+  </section>
+
+</article></div>
+
+<script>
+const NS='http://www.w3.org/2000/svg';
+const el=(n,a={},p)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e};
+const text=(p,x,y,t,a={})=>{const e=el('text',Object.assign({x,y,'font-family':"Poppins,system-ui,sans-serif",'font-size':12,fill:'#5A6862','text-anchor':'middle'},a),p);e.textContent=t;return e};
+function cov(s,r){return[[s[0]*s[0],r[0]*s[0]*s[1],r[1]*s[0]*s[2]],[r[0]*s[0]*s[1],s[1]*s[1],r[2]*s[1]*s[2]],[r[1]*s[0]*s[2],r[2]*s[1]*s[2],s[2]*s[2]]]}
+function contrib(w,S){return S.map((row,i)=>row.map((v,j)=>w[i]*w[j]*v))}
+(function(){
+  const s=document.getElementById('grid'),w=[.5,.3,.2],S=cov([.2,.1,.05],[.3,0,.2]),C=contrib(w,S),tot=C.flat().reduce((a,b)=>a+b),mx=Math.max(...C.flat());
+  const names=['Stocks','Property','Bonds'],L=150,T=40,cw=110,ch=56;
+  names.forEach((n,j)=>{text(s,L+cw*j+cw/2,T-22,n,{'font-weight':600,fill:'#3F4B46'});text(s,L+cw*j+cw/2,T-8,'w = '+w[j],{'font-size':11})});
+  names.forEach((n,i)=>{text(s,L-12,T+ch*i+ch/2,n,{'text-anchor':'end','font-weight':600,fill:'#3F4B46'});text(s,L-12,T+ch*i+ch/2+15,'w = '+w[i],{'text-anchor':'end','font-size':11})});
+  C.forEach((row,i)=>row.forEach((v,j)=>{const op=v/mx;el('rect',{x:L+cw*j+2,y:T+ch*i+2,width:cw-4,height:ch-4,rx:6,fill:i===j?'#0B4F3C':'#0E7C5A','fill-opacity':0.08+0.8*op,stroke:'#D9DED8'},s);
+    text(s,L+cw*j+cw/2,T+ch*i+ch/2+5,(v*1e4).toLocaleString('en-US',{maximumFractionDigits:1}),{'font-size':14,'font-weight':600,fill:op>0.5?'#fff':'#1F2A26'})}));
+  const RX=L+cw*3+14;text(s,RX+40,T-8,'risk share',{'font-size':11,'font-weight':600,fill:'#8A6A12'});
+  C.forEach((row,i)=>{const r=row.reduce((a,b)=>a+b)/tot;text(s,RX+40,T+ch*i+ch/2+5,Math.round(r*100)+'%',{'font-size':14,'font-weight':700,fill:'#8A6A12'})});
+  text(s,300,T+ch*3+22,'Each cell: covariance × row weight × column weight, in units of 0.0001.',{'font-size':11.5});
+  text(s,300,T+ch*3+40,'All nine add to '+(tot*1e4).toFixed(1)+', so the variance is 0.01292.',{'font-size':11.5,'font-weight':600,fill:'#3F4B46'});
+})();
+
+const answered={},correct={};
+document.querySelectorAll('[data-q]').forEach(box=>{
+  const id=box.dataset.q,fb=box.querySelector('.fb'),tpl=box.querySelector('template');
+  box.querySelectorAll('.opts button').forEach(b=>b.addEventListener('click',()=>{
+    if(answered[id])return;
+    const ok=b.dataset.ok==='1';answered[id]=true;correct[id]=ok;
+    box.querySelectorAll('.opts button').forEach(x=>{x.disabled=true;if(x.dataset.ok==='1')x.classList.add('right')});
+    if(!ok)b.classList.add('wrong');
+    fb.innerHTML='<b>'+(ok?'Right. ':'Not quite. ')+'</b>';fb.appendChild(tpl.content.cloneNode(true));
+    fb.classList.toggle('no',!ok);fb.hidden=false;score();
+  }));
+});
+function score(){document.getElementById('score').textContent=['q1','q2','q3'].filter(k=>correct[k]).length+' of 3'}
+document.getElementById('reset').addEventListener('click',()=>{
+  document.querySelectorAll('[data-quiz]').forEach(box=>{const id=box.dataset.q;delete answered[id];delete correct[id];
+    box.querySelectorAll('.opts button').forEach(x=>{x.disabled=false;x.classList.remove('right','wrong')});
+    const fb=box.querySelector('.fb');fb.hidden=true;fb.innerHTML='';});
+  score();
+});
+const ids=['w1','w2','w3','s1','s2','s3','r12','r13','r23'].map(i=>document.getElementById(i));
+function run(){
+  const v=ids.map(i=>+i.value),o=['o1','o2','o3'].map(i=>document.getElementById(i));
+  const w=v.slice(0,3).map(x=>x/100),s=v.slice(3,6).map(x=>x/100),r=v.slice(6);
+  if(v.some(x=>!isFinite(x))||s.some(x=>x<0)||r.some(x=>x<-1||x>1)){o.forEach(e=>e.textContent='Check the inputs');return}
+  const S=cov(s,r),C=contrib(w,S),tot=C.flat().reduce((a,b)=>a+b);
+  if(tot<0){o.forEach(e=>e.textContent='');o[0].textContent="These correlations can't all hold at once";return}
+  o[0].textContent=(Math.sqrt(tot)*100).toFixed(2)+'%';
+  o[1].textContent=tot>0?C.map(row=>Math.round(row.reduce((a,b)=>a+b)/tot*100)+'%').join(' · '):'no risk';
+  const sw=v[0]+v[1]+v[2];o[2].textContent=sw.toLocaleString('en-US',{maximumFractionDigits:2})+'%'+(Math.abs(sw-100)>1e-9?' (usually 100%)':'');
+}
+ids.forEach(i=>i.addEventListener('input',run));run();
+document.querySelectorAll('a[href="#"]').forEach(a=>a.addEventListener('click',e=>e.preventDefault()));
+</script>
+
+
+<script>
+(function(){
+  var KEY='nbs-lessons-done',done=[];
+  try{done=JSON.parse(localStorage.getItem(KEY)||'[]')||[]}catch(e){}
+  var me=document.body.getAttribute('data-lesson'),total=+document.body.getAttribute('data-total')||0,group=document.body.getAttribute('data-group');
+  function count(){return done.filter(function(s){return s.indexOf(group+'/')===0}).length}
+  function show(){var b=document.getElementById('nbs-bar');if(b&&total)b.style.width=Math.min(100,count()/total*100)+'%'}
+  requestAnimationFrame(function(){requestAnimationFrame(show)});
+  var end=document.querySelector('.next');
+  if(me&&end&&'IntersectionObserver' in window){
+    new IntersectionObserver(function(es,o){es.forEach(function(e){if(e.isIntersecting){
+      if(done.indexOf(me)<0){done.push(me);try{localStorage.setItem(KEY,JSON.stringify(done))}catch(err){}show()}
+      o.disconnect()}})},{threshold:.6}).observe(end);
+  }
+})();
+</script>
+<script>
+(function(){
+  var sh=document.getElementById('shell'),KEY='nbs-side-closed',done=[];
+  try{done=JSON.parse(localStorage.getItem('nbs-lessons-done')||'[]')||[]}catch(e){}
+  function marks(){
+    document.querySelectorAll('.side .grp').forEach(function(g){var n=0,a=g.querySelectorAll('a[data-slug]');
+      a.forEach(function(x){var d=done.indexOf(x.dataset.slug)>=0;x.classList.toggle('done',d&&!x.classList.contains('now'));if(d)n++});
+      var c=g.querySelector('.gc');if(c)c.textContent=n+' of '+a.length;});
+  }
+  marks();
+  window.addEventListener('storage',function(){try{done=JSON.parse(localStorage.getItem('nbs-lessons-done')||'[]')||[]}catch(e){}marks()});
+  var closed=false;try{closed=localStorage.getItem(KEY)==='1'}catch(e){}
+  function setClosed(c){closed=c;sh.classList.toggle('closed',c);document.body.classList.toggle('side-closed',c);try{localStorage.setItem(KEY,c?'1':'0')}catch(e){}}
+  if(closed&&innerWidth>860)setClosed(true);
+  document.getElementById('col').addEventListener('click',function(){if(innerWidth<=860){sh.classList.remove('mopen')}else{setClosed(true)}});
+  document.getElementById('mbtn').addEventListener('click',function(){if(innerWidth<=860){sh.classList.add('mopen')}else{setClosed(false)}});
+  document.getElementById('scrim').addEventListener('click',function(){sh.classList.remove('mopen')});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')sh.classList.remove('mopen')});
+  var now=document.querySelector('.side a.now');if(now&&now.scrollIntoView&&innerWidth>860){var s=document.getElementById('side');s.scrollTop=Math.max(0,now.offsetTop-s.clientHeight/2)}
+})();
+</script>
+</body></html>

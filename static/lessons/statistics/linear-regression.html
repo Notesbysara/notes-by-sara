@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="icon" href="/img/favicon.png">
+<meta name="description" content="Linear regression: Fitting a line through the dots, and what beta means. A short lesson from Notes by Sara.">
+<link rel="canonical" href="https://notesbysara.org/lessons/statistics/linear-regression.html">
+
+<title>Linear regression · Notes by Sara</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Forum&family=Poppins:wght@400;500;600&display=swap">
+<style>
+/* Layout: one calm reading column. Three surfaces only: the deep banner, white boxes, and pale green for anything the learner answers. Light only, like the site. */
+:root{
+  color-scheme:light;
+  --ivory:#FFFDF8; --surface:#FFFFFF; --pearl:#F7F2E7; --pale:#EAF4EF;
+  --ink:#1F2A26; --muted:#5A6862; --line:#E6E1D5;
+  --deep:#06352A; --green:#0E7C5A; --green-text:#0B6A4C; --brand:#0B4F3C;
+  --gold:#E3C26F; --gold-text:#8A6A12; --coral:#B4452F; --coral-pale:#FBEDE9;
+  --on-deep:#FFFDF8; --on-deep-muted:#C9D6D0;
+  --display:'Forum',Georgia,'Times New Roman',serif;
+  --body:'Poppins',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --t-body:16px; --t-small:14px; --t-label:12.5px;
+}
+*{box-sizing:border-box}
+body{background:var(--ivory);color:var(--ink);font-family:var(--body);font-size:var(--t-body);line-height:1.75}
+a{color:var(--green-text)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
+.mockbar{background:var(--pearl);color:var(--muted);font-size:var(--t-small);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:8px;text-align:center;border-bottom:1px solid var(--line)}
+.mockbar b{color:var(--gold-text);letter-spacing:.12em;text-transform:uppercase;font-size:var(--t-label);margin-right:6px}
+.page{max-width:720px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px;display:flex;flex-direction:column;gap:40px}
+h1,h2{font-family:var(--display);font-weight:400;line-height:1.15;margin:0;text-wrap:balance}
+h2{font-size:1.7rem;color:var(--brand)}
+p{margin:0}
+.sec{display:flex;flex-direction:column;gap:14px}
+.eyebrow{font-size:var(--t-label);font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--gold-text)}
+.muted{color:var(--muted)}
+.small{font-size:var(--t-small)}
+b{font-weight:600}
+.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* 1. banner */
+.banner{background:var(--deep);color:var(--on-deep);border-radius:18px;padding:26px 26px 22px;display:flex;flex-direction:column;gap:10px}
+.banner .eyebrow{color:var(--gold)}
+.banner h1{font-size:clamp(2rem,6vw,2.6rem)}
+.banner .lead{color:var(--on-deep-muted)}
+.banner .meta{font-size:var(--t-small);color:var(--on-deep-muted);border-top:1px solid rgba(227,194,111,.35);padding-top:10px;display:flex;flex-wrap:wrap;gap:4px 18px}
+.banner .meta b{color:var(--gold);font-weight:600}
+.banner .meta a{color:var(--on-deep)}
+
+/* white box */
+.box{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.svgwrap{overflow-x:auto}
+.svgwrap svg{display:block;width:100%;height:auto;min-width:480px}
+.cap{font-size:var(--t-small);color:var(--muted)}
+
+/* formula */
+.fx{font-family:Georgia,'Times New Roman',serif;font-size:1.8rem;display:flex;align-items:center;justify-content:center;gap:14px}
+.frac{display:inline-flex;flex-direction:column;align-items:center;line-height:1.2}
+.frac span:first-child{border-bottom:2px solid var(--ink);padding:0 8px 2px}
+.frac span:last-child{padding-top:2px}
+.fx i{font-style:italic}
+.fx sup{font-size:.6em}
+.legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:4px 16px;font-size:var(--t-small);color:var(--muted)}
+.legend i{font-family:Georgia,serif;color:var(--ink);font-size:1.05rem;margin-right:6px}
+table{border-collapse:collapse;width:100%}
+td,th{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left}
+th{font-size:var(--t-small);color:var(--muted);font-weight:500}
+td.r,th.r{text-align:right}
+.tw{overflow-x:auto}
+.result{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;border-top:2px solid var(--brand);padding-top:10px}
+.result b{font-family:var(--display);font-weight:400;font-size:1.8rem;color:var(--brand)}
+
+/* pale: anything you answer */
+.ask{background:var(--pale);border-radius:14px;padding:16px 20px;display:flex;flex-direction:column;gap:10px}
+.ask .q{font-weight:500}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opts button{font:inherit;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 14px;cursor:pointer;color:var(--ink);line-height:1.5}
+.opts button:hover{border-color:var(--green)}
+.opts button.right{border-color:var(--green);box-shadow:inset 3px 0 0 var(--green)}
+.opts button.wrong{border-color:var(--coral);box-shadow:inset 3px 0 0 var(--coral)}
+.opts button[disabled]{cursor:default}
+.fb{font-size:var(--t-small);line-height:1.6}
+.fb b{color:var(--green-text)}
+.fb.no b{color:var(--coral)}
+.quiz{display:flex;flex-direction:column;gap:10px}
+.score{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:var(--t-small);color:var(--muted)}
+.score b{color:var(--brand)}
+.btn{font:inherit;font-size:var(--t-small);border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:4px 12px;cursor:pointer;color:var(--ink)}
+
+/* optional extras */
+.extras{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.extras details{border-bottom:1px solid var(--line)}
+.extras summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 4px}
+.extras summary::-webkit-details-marker{display:none}
+.extras summary .t{font-family:var(--display);font-size:1.3rem;color:var(--brand)}
+.extras summary .s{font-size:var(--t-small);color:var(--muted)}
+.extras summary::after{content:"+";font-size:1.4rem;color:var(--gold-text);flex:none;width:20px;text-align:center}
+.extras details[open] summary::after{content:"−"}
+.extras .inner{padding:0 4px 18px;display:flex;flex-direction:column;gap:12px}
+.inputs{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.inputs label{display:flex;flex-direction:column;gap:4px;font-size:var(--t-small);color:var(--muted)}
+.inputs input[type=number]{font:inherit;color:var(--ink);padding:7px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);width:100%}
+.inputs input[type=range]{width:100%;accent-color:var(--green)}
+.calcout{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+.calcout b{font-family:var(--display);font-weight:400;font-size:1.8rem;color:var(--brand)}
+.mist{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px}
+
+/* recap */
+.recap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:center}
+.recap ul{margin:4px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:2px}
+.recap .fx{font-size:1.3rem}
+@media (max-width:560px){.recap{grid-template-columns:1fr}}
+
+/* next */
+.next{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;background:var(--deep);color:var(--on-deep);border-radius:14px;padding:16px 20px;text-decoration:none}
+.next .eyebrow{color:var(--gold)}
+.next .t{font-family:var(--display);font-size:1.35rem}
+.next .arrow{font-size:1.4rem;color:var(--gold)}
+.related{font-size:var(--t-small);color:var(--muted)}
+.related a{margin-right:10px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+
+<style>
+.shell{display:grid;grid-template-columns:290px minmax(0,1fr);align-items:start}
+.shell.closed{grid-template-columns:minmax(0,1fr)}
+.side{position:sticky;top:50px;height:calc(100vh - 50px);overflow:auto;background:#FFFFFF;border-right:1px solid var(--line);padding:14px 14px 28px;display:flex;flex-direction:column;gap:2px;font-size:14px;scrollbar-width:thin}
+.shell.closed .side{display:none}
+.sidehead{display:flex;justify-content:space-between;align-items:center;padding:0 2px 8px;margin-bottom:4px;border-bottom:1px solid var(--line)}
+.allp{font-size:13px;font-weight:500;color:var(--green-text);text-decoration:none}.allp:hover{text-decoration:underline}
+.col{font:inherit;cursor:pointer;border:1px solid var(--line);background:var(--surface);border-radius:8px;color:var(--brand);width:28px;height:28px;display:grid;place-items:center;font-size:15px;line-height:1}
+.col:hover{border-color:var(--brand)}
+.subj{font-family:var(--display);font-size:1.2rem;color:var(--brand);margin:12px 2px 2px}
+.grp{margin-top:8px}
+.gh{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin:0 2px 4px;font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text)}
+.gc{font-size:11.5px;letter-spacing:0;text-transform:none;font-weight:500;color:var(--muted);white-space:nowrap}
+.grp ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:1px}
+.grp li a{display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;align-items:start;padding:6px 8px;border-radius:8px;text-decoration:none;color:var(--ink);line-height:1.35}
+.grp li a:hover{background:var(--pale)}
+.mk{width:22px;height:22px;border-radius:50%;border:1.5px solid #C5D6CC;display:grid;place-items:center;font-size:11px;font-weight:600;color:var(--muted);background:#fff;margin-top:-1px}
+.grp a.done .mk{background:var(--green);border-color:var(--green);color:#fff}
+.grp a.done .tt{color:var(--muted)}
+.grp a.now{background:#EEF4EF;box-shadow:inset 3px 0 0 var(--gold)}
+.grp a.now .mk{background:var(--deep);border-color:var(--gold);color:#fff}
+.grp a.now .tt{color:var(--brand);font-weight:500}
+.shell .page{max-width:none;margin:0;padding-left:clamp(16px,4vw,56px);padding-right:clamp(16px,4vw,56px)}
+.shell .page>*{max-width:900px;width:100%}
+.shell.closed .page>*{margin-inline:auto}
+.menu-btn{display:none;font:inherit;font-size:13px;font-weight:500;color:#06352A;background:#E3C26F;border:0;border-radius:999px;padding:4px 12px;cursor:pointer;white-space:nowrap}
+body.side-closed .menu-btn{display:inline-flex}
+.scrim{display:none}
+@media (max-width:860px){
+ .shell,.shell.closed{grid-template-columns:minmax(0,1fr)}
+ .side,.shell.closed .side{display:flex;position:fixed;top:0;left:0;bottom:0;height:100vh;width:min(300px,86vw);z-index:40;transform:translateX(-105%);transition:transform .25s ease;box-shadow:6px 0 24px rgba(6,53,42,.2)}
+ .shell.mopen .side{transform:none}
+ .menu-btn{display:inline-flex}
+ .scrim{position:fixed;inset:0;background:rgba(6,53,42,.35);z-index:35}.shell.mopen .scrim{display:block}
+ .shell .page>*{margin-inline:auto}
+}
+@media (prefers-reduced-motion:reduce){.side{transition:none!important}}
+@media (max-width:480px){.nbs-strip .prog{display:none}}
+</style>
+</head><body data-lesson="statistics/linear-regression" data-group="statistics" data-total="22">
+<style>
+body{margin:0}
+.related .rel{margin-right:10px}
+.nbs-strip{position:sticky;top:0;z-index:20;background:#06352A;color:#FFFDF8;display:flex;align-items:center;justify-content:space-between;gap:12px;
+ padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:10px;font-family:'Poppins',system-ui,sans-serif;flex-wrap:wrap}
+.nbs-strip .l{display:flex;align-items:center;gap:12px;min-width:0}
+.nbs-strip img{width:30px;height:30px;border-radius:6px;display:block}
+.nbs-strip .crumb{font-size:14px;color:#C9D6D0}.nbs-strip .crumb a{color:#C9D6D0;text-decoration:none}.nbs-strip .crumb a:hover{color:#fff;text-decoration:underline}
+.nbs-strip .crumb i{font-style:normal;color:#E3C26F;margin:0 5px}.nbs-strip .crumb b{color:#fff;font-weight:500}
+.nbs-strip .prog{display:flex;align-items:center;gap:10px;font-size:13px;color:#C9D6D0}
+.nbs-strip .bar{width:130px;height:5px;border-radius:9px;background:rgba(255,255,255,.18);overflow:hidden}
+.nbs-strip .bar span{display:block;height:100%;width:0;background:#E3C26F;transition:width 1.2s cubic-bezier(.2,.8,.2,1) .2s}
+@media (max-width:560px){.nbs-strip .bar{display:none}.nbs-strip .crumb .mid{display:none}}
+@media (prefers-reduced-motion:reduce){.nbs-strip .bar span{transition:none}}
+</style>
+<header class="nbs-strip"><div class="l"><button type="button" class="menu-btn" id="mbtn" aria-label="Show the lesson list">☰ Lessons</button><a href="https://notesbysara.org/" aria-label="Notes by Sara home"><img src="/img/favicon.png" alt="Notes by Sara"></a><nav class="crumb" aria-label="Breadcrumb"><a href="https://notesbysara.org/notes">Learning path</a><span class="mid"><i>›</i><a href="../index.html#statistics">Statistics</a></span><span><i>›</i><b>Linear regression</b></span></nav></div><div class="prog"><span>Lesson 17</span><span class="bar" aria-hidden="true"><span id="nbs-bar"></span></span></div></header>
+
+<style>
+.fx{white-space:nowrap;font-size:clamp(.95rem,4.2vw,1.45rem);gap:10px}
+.fx.wrap{white-space:normal}
+sub,sup{line-height:0}
+.cmp td:first-child{white-space:normal}
+.steps td:first-child{white-space:normal}
+@media (max-width:560px){.steps td{display:block;border:0;padding:2px 0;text-align:left!important;white-space:normal}.steps tr{display:block;border-bottom:1px solid var(--line);padding:8px 0}.steps td.r{font-weight:500}}
+.where{font-size:var(--t-small);color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 8px}
+.inputs textarea{width:100%;font:inherit;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--card,#fff);color:inherit}
+.inputs .full{grid-column:1/-1}
+</style>
+
+<div class="shell" id="shell"><div class="scrim" id="scrim"></div><aside class="side" id="side" aria-label="All lessons"><div class="sidehead"><a href="../index.html" class="allp">All lessons</a><button type="button" class="col" id="col" aria-label="Hide the lesson list" title="Hide the lesson list">«</button></div><p class="subj">Mathematics for Finance</p><div class="grp"><p class="gh"><span>Numbers and percentages</span><span class="gc">0 of 5</span></p><ol><li><a href="../mathematics/numbers-in-finance.html" data-slug="mathematics/numbers-in-finance"><span class="mk">1</span><span class="tt">Numbers in finance</span></a></li><li><a href="../mathematics/percentage-change.html" data-slug="mathematics/percentage-change"><span class="mk">2</span><span class="tt">Percentages and percentage change</span></a></li><li><a href="../mathematics/percentage-traps.html" data-slug="mathematics/percentage-traps"><span class="mk">3</span><span class="tt">Percentage traps</span></a></li><li><a href="../mathematics/ratios.html" data-slug="mathematics/ratios"><span class="mk">4</span><span class="tt">Ratios and proportions</span></a></li><li><a href="../mathematics/weighted-averages.html" data-slug="mathematics/weighted-averages"><span class="mk">5</span><span class="tt">Weighted averages</span></a></li></ol></div><div class="grp"><p class="gh"><span>Growth and equations</span><span class="gc">0 of 7</span></p><ol><li><a href="../mathematics/exponents.html" data-slug="mathematics/exponents"><span class="mk">6</span><span class="tt">Exponents</span></a></li><li><a href="../mathematics/logarithms.html" data-slug="mathematics/logarithms"><span class="mk">7</span><span class="tt">Logarithms</span></a></li><li><a href="../mathematics/linear-equations.html" data-slug="mathematics/linear-equations"><span class="mk">8</span><span class="tt">Linear equations and graphs</span></a></li><li><a href="../mathematics/simultaneous-equations.html" data-slug="mathematics/simultaneous-equations"><span class="mk">9</span><span class="tt">Solving two equations at once</span></a></li><li><a href="../mathematics/reading-formulas.html" data-slug="mathematics/reading-formulas"><span class="mk">10</span><span class="tt">Reading formulas</span></a></li><li><a href="../mathematics/functions.html" data-slug="mathematics/functions"><span class="mk">11</span><span class="tt">Functions</span></a></li><li><a href="../mathematics/rate-and-time.html" data-slug="mathematics/rate-and-time"><span class="mk">12</span><span class="tt">Solving for rate and time</span></a></li></ol></div><div class="grp"><p class="gh"><span>Sequences and series</span><span class="gc">0 of 3</span></p><ol><li><a href="../mathematics/sequences.html" data-slug="mathematics/sequences"><span class="mk">13</span><span class="tt">Arithmetic and geometric sequences</span></a></li><li><a href="../mathematics/summing-a-geometric-series.html" data-slug="mathematics/summing-a-geometric-series"><span class="mk">14</span><span class="tt">Summing a geometric series</span></a></li><li><a href="../mathematics/infinite-series.html" data-slug="mathematics/infinite-series"><span class="mk">15</span><span class="tt">Infinite series</span></a></li></ol></div><div class="grp"><p class="gh"><span>Calculus</span><span class="gc">0 of 6</span></p><ol><li><a href="../mathematics/rate-of-change.html" data-slug="mathematics/rate-of-change"><span class="mk">16</span><span class="tt">Rate of change</span></a></li><li><a href="../mathematics/derivatives.html" data-slug="mathematics/derivatives"><span class="mk">17</span><span class="tt">Derivatives as sensitivity</span></a></li><li><a href="../mathematics/derivative-rules.html" data-slug="mathematics/derivative-rules"><span class="mk">18</span><span class="tt">Derivative rules you need</span></a></li><li><a href="../mathematics/number-e.html" data-slug="mathematics/number-e"><span class="mk">19</span><span class="tt">The number e and continuous growth</span></a></li><li><a href="../mathematics/curvature.html" data-slug="mathematics/curvature"><span class="mk">20</span><span class="tt">Second derivative and curvature</span></a></li><li><a href="../mathematics/optimization.html" data-slug="mathematics/optimization"><span class="mk">21</span><span class="tt">Optimization</span></a></li></ol></div><div class="grp"><p class="gh"><span>Advanced tools</span><span class="gc">0 of 5</span></p><ol><li><a href="../mathematics/partial-derivatives.html" data-slug="mathematics/partial-derivatives"><span class="mk">22</span><span class="tt">Partial derivatives</span></a></li><li><a href="../mathematics/optimization-with-a-limit.html" data-slug="mathematics/optimization-with-a-limit"><span class="mk">23</span><span class="tt">Optimization with a limit</span></a></li><li><a href="../mathematics/taylor-approximations.html" data-slug="mathematics/taylor-approximations"><span class="mk">24</span><span class="tt">Taylor approximations</span></a></li><li><a href="../mathematics/vectors-and-matrices.html" data-slug="mathematics/vectors-and-matrices"><span class="mk">25</span><span class="tt">Vectors and matrices</span></a></li><li><a href="../mathematics/matrix-inverse.html" data-slug="mathematics/matrix-inverse"><span class="mk">26</span><span class="tt">Matrix inverse</span></a></li></ol></div><p class="subj">Statistics for Finance</p><div class="grp"><p class="gh"><span>Describing data</span><span class="gc">0 of 8</span></p><ol><li><a href="mean-median-mode.html" data-slug="statistics/mean-median-mode"><span class="mk">1</span><span class="tt">Mean, median and mode</span></a></li><li><a href="averaging-returns.html" data-slug="statistics/averaging-returns"><span class="mk">2</span><span class="tt">Averaging returns</span></a></li><li><a href="range-and-percentiles.html" data-slug="statistics/range-and-percentiles"><span class="mk">3</span><span class="tt">Range and percentiles</span></a></li><li><a href="standard-deviation.html" data-slug="statistics/standard-deviation"><span class="mk">4</span><span class="tt">Variance and standard deviation</span></a></li><li><a href="skewness.html" data-slug="statistics/skewness"><span class="mk">5</span><span class="tt">Skewness</span></a></li><li><a href="fat-tails.html" data-slug="statistics/fat-tails"><span class="mk">6</span><span class="tt">Fat tails</span></a></li><li><a href="histograms-and-box-plots.html" data-slug="statistics/histograms-and-box-plots"><span class="mk">7</span><span class="tt">Histograms and box plots</span></a></li><li><a href="misleading-charts.html" data-slug="statistics/misleading-charts"><span class="mk">8</span><span class="tt">Misleading charts</span></a></li></ol></div><div class="grp"><p class="gh"><span>Probability</span><span class="gc">0 of 7</span></p><ol><li><a href="probability-basics.html" data-slug="statistics/probability-basics"><span class="mk">9</span><span class="tt">Probability basics</span></a></li><li><a href="conditional-probability.html" data-slug="statistics/conditional-probability"><span class="mk">10</span><span class="tt">Conditional probability</span></a></li><li><a href="bayes-rule.html" data-slug="statistics/bayes-rule"><span class="mk">11</span><span class="tt">Bayes&#x27; rule</span></a></li><li><a href="expected-value.html" data-slug="statistics/expected-value"><span class="mk">12</span><span class="tt">Expected value</span></a></li><li><a href="binomial-distribution.html" data-slug="statistics/binomial-distribution"><span class="mk">13</span><span class="tt">The binomial distribution</span></a></li><li><a href="normal-distribution.html" data-slug="statistics/normal-distribution"><span class="mk">14</span><span class="tt">The normal distribution</span></a></li><li><a href="lognormal-distribution.html" data-slug="statistics/lognormal-distribution"><span class="mk">15</span><span class="tt">The lognormal distribution</span></a></li></ol></div><div class="grp"><p class="gh"><span>Relationships</span><span class="gc">0 of 3</span></p><ol><li><a href="correlation.html" data-slug="statistics/correlation"><span class="mk">16</span><span class="tt">Correlation</span></a></li><li><a href="linear-regression.html" data-slug="statistics/linear-regression" class="now" aria-current="page"><span class="mk">17</span><span class="tt">Linear regression</span></a></li><li><a href="r-squared.html" data-slug="statistics/r-squared"><span class="mk">18</span><span class="tt">R-squared and residuals</span></a></li></ol></div><div class="grp"><p class="gh"><span>Inference</span><span class="gc">0 of 4</span></p><ol><li><a href="standard-error.html" data-slug="statistics/standard-error"><span class="mk">19</span><span class="tt">Samples and standard error</span></a></li><li><a href="confidence-intervals.html" data-slug="statistics/confidence-intervals"><span class="mk">20</span><span class="tt">Confidence intervals</span></a></li><li><a href="hypothesis-tests.html" data-slug="statistics/hypothesis-tests"><span class="mk">21</span><span class="tt">Hypothesis tests and p-values</span></a></li><li><a href="simulation.html" data-slug="statistics/simulation"><span class="mk">22</span><span class="tt">Simulation</span></a></li></ol></div></aside><article class="page">
+
+  <header class="banner">
+    <p class="eyebrow">Statistics for Finance</p>
+    <h1>Linear regression</h1>
+    <p class="lead">Correlation says two things move together. Regression says by how much: it fits the best straight line through the dots. In finance, the slope of that line is a stock's beta.</p>
+    <div class="meta"><span><b>Relationships</b> · Lesson 2 of 3 · 6 minutes</span><span>Before this: <a href="correlation.html">Correlation</a>, <a href="../mathematics/linear-equations.html">Linear equations and graphs</a></span></div>
+  </header>
+
+  <section class="sec">
+    <h2>If the market rises 1%, what does your stock do?</h2>
+    <p><span class="muted">Example, with made-up numbers.</span> In the last lesson, a stock and the market had a correlation of +0.87 over five months. That tells you they move together. It doesn't tell you whether the stock moves half as much as the market, the same or twice as much. For that you need the slope of a line.</p>
+  </section>
+
+  <section class="sec">
+    <h2>The idea</h2>
+    <p>Draw a straight line through the scatter plot: <i>y</i> = <i>a</i> + <i>b</i> × <i>x</i>. Each dot misses the line by some vertical gap, called a <b>residual</b>. <b>Linear regression</b> picks the one line that makes the sum of those squared gaps as small as possible. That's why it's also called <b>least squares</b>.</p>
+    <div class="box">
+      <div class="svgwrap"><svg id="fit" viewBox="0 0 600 300" role="img" aria-label="Five monthly dots of stock return against market return, with the fitted line stock = −0.4 + 1.4 × market. Dashed vertical lines show each dot's gap from the line."></svg></div>
+      <p class="cap">The fitted line, with each month's miss shown as a dashed gap. No other straight line has a smaller total of squared gaps.</p>
+    </div>
+    <p>The <b>slope</b> <i>b</i> says how much <i>y</i> moves, on average, for each 1-unit move in <i>x</i>. The <b>intercept</b> <i>a</i> is where the line sits when <i>x</i> is zero.</p>
+    <div class="ask" data-q="c1">
+      <p class="eyebrow">Quick check</p>
+      <p class="q">A stock's line is stock = 0 + 0.6 × market. The market falls 10%. What's the expected move in the stock?</p>
+      <div class="opts">
+        <button type="button" data-ok="1">About −6%</button>
+        <button type="button" data-ok="0">About −10%</button>
+      </div>
+      <p class="fb" hidden aria-live="polite"></p>
+      <template>0.6 × −10% = −6%. A slope below 1 means the stock tends to move less than the market.</template>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Worked example: the stock's beta</h2>
+    <p><span class="muted">Example, with made-up numbers.</span> Same five months as the correlation lesson. Market: 2, −1, 3, 0, 1. Stock: 3, −2, 4, 1, −1. Both average 1%.</p>
+    <div class="box">
+      <div class="fx wrap"><span>Slope <i>b</i> = sum of (<i>x</i> gap × <i>y</i> gap) ÷ sum of <i>x</i> gaps² &nbsp;·&nbsp; Intercept <i>a</i> = mean <i>y</i> − <i>b</i> × mean <i>x</i></span></div>
+      <div class="tw"><table class="steps"><tbody>
+        <tr><td>1. Sum of (<i>x</i> gap × <i>y</i> gap), from the last lesson</td><td class="r num">14</td></tr>
+        <tr><td>2. Sum of market gaps²</td><td class="r num">10</td></tr>
+        <tr><td>3. Slope</td><td class="r num">14 ÷ 10 = 1.4</td></tr>
+        <tr><td>4. Intercept</td><td class="r num">1 − 1.4 × 1 = −0.4</td></tr>
+        <tr><td>5. If the market rises 2%</td><td class="r num">−0.4 + 1.4 × 2 = 2.4%</td></tr>
+      </tbody></table></div>
+      <div class="result"><span>Fitted line</span><b class="num">stock = −0.4 + 1.4 × market</b></div>
+      <p class="small muted">The slope of a stock against the market is its <b>beta</b>: here 1.4, so the stock tends to move 1.4 times as much as the market, both up and down. In Excel: =SLOPE(stock range, market range) and =INTERCEPT(stock range, market range). Five months is far too few for a reliable beta. Analysts usually use 3 to 5 years of monthly returns.</p>
+    </div>
+    <p>There's a neat link to correlation: slope = correlation × (standard deviation of <i>y</i> ÷ standard deviation of <i>x</i>). Here 0.87 × (2.55 ÷ 1.58) = 1.4.</p>
+  </section>
+
+  <section class="sec">
+    <h2>Reading a beta</h2>
+    <div class="box">
+      <div class="tw"><table><tbody>
+        <tr><td>Beta above 1</td><td class="r">Swings more than the market, like many tech stocks</td></tr>
+        <tr><td>Beta of 1</td><td class="r">Moves with the market, like an index fund</td></tr>
+        <tr><td>Beta between 0 and 1</td><td class="r">Calmer than the market, like utilities</td></tr>
+        <tr><td>Beta below 0</td><td class="r">Tends to rise when the market falls</td></tr>
+      </tbody></table></div>
+      <p class="small muted">Beta is also how traders hedge. To cancel the market risk of $100,000 of a stock with beta 1.4, you'd sell about $140,000 of the market index.</p>
+    </div>
+  </section>
+
+  <section class="extras" aria-label="Optional extras">
+    <details>
+      <summary><span><span class="t">Try it yourself</span><br><span class="s">Paste two lists, see the fitted line, and make a prediction.</span></span></summary>
+      <div class="inner">
+        <div class="inputs">
+          <label for="xs" class="full">x values (for example, market returns), separated by commas<textarea id="xs" rows="2">2, -1, 3, 0, 1</textarea></label>
+          <label for="ys" class="full">y values (for example, stock returns), same length<textarea id="ys" rows="2">3, -2, 4, 1, -1</textarea></label>
+          <label for="px">Predict y when x is<input type="number" id="px" value="2" step="any"></label>
+        </div>
+        <div class="svgwrap"><svg id="mine" viewBox="0 0 600 240" role="img" aria-label="Scatter plot of your data with the fitted line."></svg></div>
+        <div class="tw"><table class="cmp"><tbody>
+          <tr><td>Fitted line</td><td class="r num" id="eq"></td></tr>
+          <tr><td>Slope (beta, if x is the market)</td><td class="r num" id="sl"></td></tr>
+          <tr><td>Predicted y</td><td class="r num" id="pr"></td></tr>
+        </tbody></table></div>
+      </div>
+    </details>
+    <details>
+      <summary><span><span class="t">Common mistakes</span><br><span class="s">Three slips beginners make.</span></span></summary>
+      <div class="inner">
+        <ul class="mist">
+          <li><b>Swapping x and y.</b> Regressing the stock on the market gives beta. Regressing the market on the stock gives a different line and a different slope.</li>
+          <li><b>Predicting far outside the data.</b> A line fitted on months between −3% and +3% says little about a −30% crash month.</li>
+          <li><b>Treating beta as fixed.</b> It's an estimate from past data. It changes over time and with the period you choose.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <section class="sec">
+    <div class="box">
+      <p class="eyebrow">Remember</p>
+      <ul class="mist">
+        <li>Regression fits the line <i>y</i> = <i>a</i> + <i>b</i> × <i>x</i> that makes the squared gaps smallest.</li>
+        <li>Slope = sum of (<i>x</i> gap × <i>y</i> gap) ÷ sum of <i>x</i> gaps². In Excel, =SLOPE and =INTERCEPT.</li>
+        <li>A stock's slope against the market is its beta: how much it moves per 1% market move.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Check yourself</h2>
+    <div class="ask quiz">
+      <p class="small muted">Three questions. Try them without scrolling up.</p>
+      <div data-q="q1" data-quiz>
+        <p class="q">1. A fitted line is stock = 0.2 + 1.5 × market, in %. The market rises 4%. What's the predicted stock return?</p>
+        <div class="opts">
+          <button type="button" data-ok="0">6.0%</button>
+          <button type="button" data-ok="1">6.2%</button>
+          <button type="button" data-ok="0">5.7%</button>
+        </div>
+        <p class="fb" hidden aria-live="polite"></p>
+        <template>0.2 + 1.5 × 4 = 0.2 + 6 = 6.2%. Don't forget the intercept.</template>
+      </div>
+      <div data-q="q2" data-quiz>
+        <p class="q">2. A stock has a beta of 0.5. What does that mean?</p>
+        <div class="opts">
+          <button type="button" data-ok="1">On average it moves half as much as the market</button>
+          <button type="button" data-ok="0">It has a 50% correlation with the market</button>
+          <button type="button" data-ok="0">It returns 0.5% a month</button>
+        </div>
+        <p class="fb" hidden aria-live="polite"></p>
+        <template>Beta is a slope: 0.5% per 1% market move. Correlation is a different number. It measures how tightly the dots follow the line, not how steep it is.</template>
+      </div>
+      <div data-q="q3" data-quiz>
+        <p class="q">3. A stock's correlation with the market is 0.6. Its standard deviation is 30%, the market's is 15%. What's its beta?</p>
+        <div class="opts">
+          <button type="button" data-ok="0">0.3</button>
+          <button type="button" data-ok="0">0.6</button>
+          <button type="button" data-ok="1">1.2</button>
+        </div>
+        <p class="fb" hidden aria-live="polite"></p>
+        <template>Beta = 0.6 × (30 ÷ 15) = 1.2. A modest correlation can still give a high beta when the stock swings a lot more than the market.</template>
+      </div>
+      <div class="score"><span>Score: <b id="score">0 of 3</b></span><button class="btn" type="button" id="reset">Try again</button></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <a href="r-squared.html" class="next"><span><span class="eyebrow">Next lesson · Core · 5 minutes</span><br><span class="t">R-squared and residuals</span><br><span class="small" style="color:var(--on-deep-muted)">How well the line fits, and what's left over.</span></span><span class="arrow" aria-hidden="true">→</span></a>
+    <p class="related">Related: <a href="https://notesbysara.org/dictionary/linear-regression">Linear regression</a><a href="https://notesbysara.org/dictionary/beta">Beta</a><a href="https://notesbysara.org/dictionary/multiple-regression">Multiple regression</a><a href="correlation.html">Correlation</a></p>
+  </section>
+
+</article></div>
+
+<script>
+const NS='http://www.w3.org/2000/svg';
+const el=(n,a={},p)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e};
+const text=(p,x,y,t,a={})=>{const e=el('text',Object.assign({x,y,'font-family':"Poppins,system-ui,sans-serif",'font-size':12,fill:'#5A6862','text-anchor':'middle'},a),p);e.textContent=t;return e};
+const mn=v=>v.reduce((a,b)=>a+b)/v.length;
+function fit(x,y){const mx=mn(x),my=mn(y);let sxy=0,sxx=0;x.forEach((v,i)=>{sxy+=(v-mx)*(y[i]-my);sxx+=(v-mx)**2});const b=sxy/sxx;return{b,a:my-b*mx}}
+const sg=v=>(v<0?'−':'')+Math.abs(v).toLocaleString('en-US',{maximumFractionDigits:3});
+function draw(s,x,y,W,H,showGaps,ticks){
+  const {a,b}=fit(x,y),pad=(lo,hi)=>{const d=(hi-lo)||1;return[lo-d*.15,hi+d*.15]};
+  const [x0,x1]=pad(Math.min(...x),Math.max(...x)),[y0,y1]=pad(Math.min(...y,a+b*x0,a+b*x1),Math.max(...y,a+b*x0,a+b*x1));
+  const L=60,R=W-20,T=14,B=H-36,X=v=>L+(R-L)*(v-x0)/(x1-x0),Y=v=>B-(B-T)*(v-y0)/(y1-y0);
+  el('line',{x1:L,y1:B,x2:R,y2:B,stroke:'#9AA59F'},s);el('line',{x1:L,y1:T,x2:L,y2:B,stroke:'#9AA59F'},s);
+  if(x0<0&&x1>0)el('line',{x1:X(0),y1:T,x2:X(0),y2:B,stroke:'#E2E6E1'},s);
+  if(y0<0&&y1>0)el('line',{x1:L,y1:Y(0),x2:R,y2:Y(0),stroke:'#E2E6E1'},s);
+  if(ticks){ticks.x.forEach(v=>{text(s,X(v),B+16,v+'%',{'font-size':11.5})});ticks.y.forEach(v=>{text(s,L-8,Y(v)+4,v+'%',{'font-size':11.5,'text-anchor':'end'})});}
+  el('line',{x1:X(x0),y1:Y(a+b*x0),x2:X(x1),y2:Y(a+b*x1),stroke:'#C89B2C','stroke-width':2.5},s);
+  x.forEach((v,i)=>{if(showGaps)el('line',{x1:X(v),y1:Y(y[i]),x2:X(v),y2:Y(a+b*v),stroke:'#B4452F','stroke-width':1.5,'stroke-dasharray':'4 3'},s);
+    el('circle',{cx:X(v),cy:Y(y[i]),r:x.length>30?3.5:6,fill:'#0E7C5A'},s)});
+  return {X,Y,a,b,L,R,T,B};
+}
+(function(){
+  const s=document.getElementById('fit'),x=[2,-1,3,0,1],y=[3,-2,4,1,-1];
+  const g=draw(s,x,y,600,300,true,{x:[-1,0,1,2,3],y:[-2,0,2,4]});
+  text(s,(g.L+g.R)/2,g.B+32,'Market return',{'font-size':12,'font-weight':600,fill:'#3F4B46'});
+  const t=text(s,g.L+6,g.T+4,'Stock return',{'font-size':12,'font-weight':600,fill:'#3F4B46','text-anchor':'start'});
+  text(s,g.X(-1.25),g.Y(3.9),'fitted line:',{'font-size':12.5,fill:'#8A6A12','font-weight':600,'text-anchor':'start'});
+  text(s,g.X(-1.25),g.Y(3.9)+17,'stock = −0.4 + 1.4 × market',{'font-size':12.5,fill:'#8A6A12','font-weight':600,'text-anchor':'start'});
+  text(s,g.X(1)+10,g.Y(-1.7),'gap',{'font-size':11.5,fill:'#B4452F','font-weight':600,'text-anchor':'start'});
+})();
+
+const answered={},correct={};
+document.querySelectorAll('[data-q]').forEach(box=>{
+  const id=box.dataset.q,fb=box.querySelector('.fb'),tpl=box.querySelector('template');
+  box.querySelectorAll('.opts button').forEach(b=>b.addEventListener('click',()=>{
+    if(answered[id])return;
+    const ok=b.dataset.ok==='1';answered[id]=true;correct[id]=ok;
+    box.querySelectorAll('.opts button').forEach(x=>{x.disabled=true;if(x.dataset.ok==='1')x.classList.add('right')});
+    if(!ok)b.classList.add('wrong');
+    fb.innerHTML='<b>'+(ok?'Right. ':'Not quite. ')+'</b>';fb.appendChild(tpl.content.cloneNode(true));
+    fb.classList.toggle('no',!ok);fb.hidden=false;score();
+  }));
+});
+function score(){document.getElementById('score').textContent=['q1','q2','q3'].filter(k=>correct[k]).length+' of 3'}
+document.getElementById('reset').addEventListener('click',()=>{
+  document.querySelectorAll('[data-quiz]').forEach(box=>{const id=box.dataset.q;delete answered[id];delete correct[id];
+    box.querySelectorAll('.opts button').forEach(x=>{x.disabled=false;x.classList.remove('right','wrong')});
+    const fb=box.querySelector('.fb');fb.hidden=true;fb.innerHTML='';});
+  score();
+});
+const xs=document.getElementById('xs'),ys=document.getElementById('ys'),px=document.getElementById('px'),mine=document.getElementById('mine');
+const parse=t=>t.split(/[,\s;]+/).filter(Boolean).map(Number);
+function run(){
+  const x=parse(xs.value),y=parse(ys.value),o=['eq','sl','pr'].map(i=>document.getElementById(i));mine.innerHTML='';
+  if(x.length<2||x.length!==y.length||x.concat(y).some(v=>!isFinite(v))){o.forEach(e=>e.textContent='');o[0].textContent='Enter two lists of the same length';return}
+  if(Math.max(...x)===Math.min(...x)){o.forEach(e=>e.textContent='');o[0].textContent='The x values never change, so no line fits';return}
+  const {a,b}=draw(mine,x,y,600,240,true,null),p=+px.value;
+  o[0].textContent='y = '+sg(a)+(b<0?' − ':' + ')+Math.abs(b).toLocaleString('en-US',{maximumFractionDigits:3})+' × x';
+  o[1].textContent=sg(b);o[2].textContent=isFinite(p)?sg(a+b*p):'';
+}
+[xs,ys,px].forEach(i=>i.addEventListener('input',run));run();
+document.querySelectorAll('a[href="#"]').forEach(a=>a.addEventListener('click',e=>e.preventDefault()));
+</script>
+
+
+<script>
+(function(){
+  var KEY='nbs-lessons-done',done=[];
+  try{done=JSON.parse(localStorage.getItem(KEY)||'[]')||[]}catch(e){}
+  var me=document.body.getAttribute('data-lesson'),total=+document.body.getAttribute('data-total')||0,group=document.body.getAttribute('data-group');
+  function count(){return done.filter(function(s){return s.indexOf(group+'/')===0}).length}
+  function show(){var b=document.getElementById('nbs-bar');if(b&&total)b.style.width=Math.min(100,count()/total*100)+'%'}
+  requestAnimationFrame(function(){requestAnimationFrame(show)});
+  var end=document.querySelector('.next');
+  if(me&&end&&'IntersectionObserver' in window){
+    new IntersectionObserver(function(es,o){es.forEach(function(e){if(e.isIntersecting){
+      if(done.indexOf(me)<0){done.push(me);try{localStorage.setItem(KEY,JSON.stringify(done))}catch(err){}show()}
+      o.disconnect()}})},{threshold:.6}).observe(end);
+  }
+})();
+</script>
+<script>
+(function(){
+  var sh=document.getElementById('shell'),KEY='nbs-side-closed',done=[];
+  try{done=JSON.parse(localStorage.getItem('nbs-lessons-done')||'[]')||[]}catch(e){}
+  function marks(){
+    document.querySelectorAll('.side .grp').forEach(function(g){var n=0,a=g.querySelectorAll('a[data-slug]');
+      a.forEach(function(x){var d=done.indexOf(x.dataset.slug)>=0;x.classList.toggle('done',d&&!x.classList.contains('now'));if(d)n++});
+      var c=g.querySelector('.gc');if(c)c.textContent=n+' of '+a.length;});
+  }
+  marks();
+  window.addEventListener('storage',function(){try{done=JSON.parse(localStorage.getItem('nbs-lessons-done')||'[]')||[]}catch(e){}marks()});
+  var closed=false;try{closed=localStorage.getItem(KEY)==='1'}catch(e){}
+  function setClosed(c){closed=c;sh.classList.toggle('closed',c);document.body.classList.toggle('side-closed',c);try{localStorage.setItem(KEY,c?'1':'0')}catch(e){}}
+  if(closed&&innerWidth>860)setClosed(true);
+  document.getElementById('col').addEventListener('click',function(){if(innerWidth<=860){sh.classList.remove('mopen')}else{setClosed(true)}});
+  document.getElementById('mbtn').addEventListener('click',function(){if(innerWidth<=860){sh.classList.add('mopen')}else{setClosed(false)}});
+  document.getElementById('scrim').addEventListener('click',function(){sh.classList.remove('mopen')});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')sh.classList.remove('mopen')});
+  var now=document.querySelector('.side a.now');if(now&&now.scrollIntoView&&innerWidth>860){var s=document.getElementById('side');s.scrollTop=Math.max(0,now.offsetTop-s.clientHeight/2)}
+})();
+</script>
+</body></html>
