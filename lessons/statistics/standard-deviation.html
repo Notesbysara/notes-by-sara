@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="icon" href="/img/favicon.png">
+<meta name="description" content="Variance and standard deviation: How far values stray: the measure of risk. A short lesson from Notes by Sara.">
+<link rel="canonical" href="https://notesbysara.org/lessons/statistics/standard-deviation.html">
+
+<title>Variance and standard deviation · Notes by Sara</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Forum&family=Poppins:wght@400;500;600&display=swap">
+<style>
+/* Layout: one calm reading column. Three surfaces only: the deep banner, white boxes, and pale green for anything the learner answers. Light only, like the site. */
+:root{
+  color-scheme:light;
+  --ivory:#FFFDF8; --surface:#FFFFFF; --pearl:#F7F2E7; --pale:#EAF4EF;
+  --ink:#1F2A26; --muted:#5A6862; --line:#E6E1D5;
+  --deep:#06352A; --green:#0E7C5A; --green-text:#0B6A4C; --brand:#0B4F3C;
+  --gold:#E3C26F; --gold-text:#8A6A12; --coral:#B4452F; --coral-pale:#FBEDE9;
+  --on-deep:#FFFDF8; --on-deep-muted:#C9D6D0;
+  --display:'Forum',Georgia,'Times New Roman',serif;
+  --body:'Poppins',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --t-body:16px; --t-small:14px; --t-label:12.5px;
+}
+*{box-sizing:border-box}
+body{background:var(--ivory);color:var(--ink);font-family:var(--body);font-size:var(--t-body);line-height:1.75}
+a{color:var(--green-text)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
+.mockbar{background:var(--pearl);color:var(--muted);font-size:var(--t-small);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:8px;text-align:center;border-bottom:1px solid var(--line)}
+.mockbar b{color:var(--gold-text);letter-spacing:.12em;text-transform:uppercase;font-size:var(--t-label);margin-right:6px}
+.page{max-width:720px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px;display:flex;flex-direction:column;gap:40px}
+h1,h2{font-family:var(--display);font-weight:400;line-height:1.15;margin:0;text-wrap:balance}
+h2{font-size:1.7rem;color:var(--brand)}
+p{margin:0}
+.sec{display:flex;flex-direction:column;gap:14px}
+.eyebrow{font-size:var(--t-label);font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--gold-text)}
+.muted{color:var(--muted)}
+.small{font-size:var(--t-small)}
+b{font-weight:600}
+.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* 1. banner */
+.banner{background:var(--deep);color:var(--on-deep);border-radius:18px;padding:26px 26px 22px;display:flex;flex-direction:column;gap:10px}
+.banner .eyebrow{color:var(--gold)}
+.banner h1{font-size:clamp(2rem,6vw,2.6rem)}
+.banner .lead{color:var(--on-deep-muted)}
+.banner .meta{font-size:var(--t-small);color:var(--on-deep-muted);border-top:1px solid rgba(227,194,111,.35);padding-top:10px;display:flex;flex-wrap:wrap;gap:4px 18px}
+.banner .meta b{color:var(--gold);font-weight:600}
+.banner .meta a{color:var(--on-deep)}
+
+/* white box */
+.box{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.svgwrap{overflow-x:auto}
+.svgwrap svg{display:block;width:100%;height:auto;min-width:480px}
+.cap{font-size:var(--t-small);color:var(--muted)}
+
+/* formula */
+.fx{font-family:Georgia,'Times New Roman',serif;font-size:1.8rem;display:flex;align-items:center;justify-content:center;gap:14px}
+.frac{display:inline-flex;flex-direction:column;align-items:center;line-height:1.2}
+.frac span:first-child{border-bottom:2px solid var(--ink);padding:0 8px 2px}
+.frac span:last-child{padding-top:2px}
+.fx i{font-style:italic}
+.fx sup{font-size:.6em}
+.legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:4px 16px;font-size:var(--t-small);color:var(--muted)}
+.legend i{font-family:Georgia,serif;color:var(--ink);font-size:1.05rem;margin-right:6px}
+table{border-collapse:collapse;width:100%}
+td,th{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left}
+th{font-size:var(--t-small);color:var(--muted);font-weight:500}
+td.r,th.r{text-align:right}
+.tw{overflow-x:auto}
+.result{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;border-top:2px solid var(--brand);padding-top:10px}
+.result b{font-family:var(--display);font-weight:400;font-size:1.8rem;color:var(--brand)}
+
+/* pale: anything you answer */
+.ask{background:var(--pale);border-radius:14px;padding:16px 20px;display:flex;flex-direction:column;gap:10px}
+.ask .q{font-weight:500}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opts button{font:inherit;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 14px;cursor:pointer;color:var(--ink);line-height:1.5}
+.opts button:hover{border-color:var(--green)}
+.opts button.right{border-color:var(--green);box-shadow:inset 3px 0 0 var(--green)}
+.opts button.wrong{border-color:var(--coral);box-shadow:inset 3px 0 0 var(--coral)}
+.opts button[disabled]{cursor:default}
+.fb{font-size:var(--t-small);line-height:1.6}
+.fb b{color:var(--green-text)}
+.fb.no b{color:var(--coral)}
+.quiz{display:flex;flex-direction:column;gap:10px}
+.score{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:var(--t-small);color:var(--muted)}
+.score b{color:var(--brand)}
+.btn{font:inherit;font-size:var(--t-small);border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:4px 12px;cursor:pointer;color:var(--ink)}
+
+/* optional extras */
+.extras{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.extras details{border-bottom:1px solid var(--line)}
+.extras summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 4px}
+.extras summary::-webkit-details-marker{display:none}
+.extras summary .t{font-family:var(--display);font-size:1.3rem;color:var(--brand)}
+.extras summary .s{font-size:var(--t-small);color:var(--muted)}
+.extras summary::after{content:"+";font-size:1.4rem;color:var(--gold-text);flex:none;width:20px;text-align:center}
+.extras details[open] summary::after{content:"−"}
+.extras .inner{padding:0 4px 18px;display:flex;flex-direction:column;gap:12px}
+.inputs{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.inputs label{display:flex;flex-direction:column;gap:4px;font-size:var(--t-small);color:var(--muted)}
+.inputs input[type=number]{font:inherit;color:var(--ink);padding:7px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);width:100%}
+.inputs input[type=range]{width:100%;accent-color:var(--green)}
+.calcout{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+.calcout b{font-family:var(--display);font-weight:400;font-size:1.8rem;color:var(--brand)}
+.mist{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px}
+
+/* recap */
+.recap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:center}
+.recap ul{margin:4px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:2px}
+.recap .fx{font-size:1.3rem}
+@media (max-width:560px){.recap{grid-template-columns:1fr}}
+
+/* next */
+.next{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;background:var(--deep);color:var(--on-deep);border-radius:14px;padding:16px 20px;text-decoration:none}
+.next .eyebrow{color:var(--gold)}
+.next .t{font-family:var(--display);font-size:1.35rem}
+.next .arrow{font-size:1.4rem;color:var(--gold)}
+.related{font-size:var(--t-small);color:var(--muted)}
+.related a{margin-right:10px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+
+<style>
+.shell{display:grid;grid-template-columns:290px minmax(0,1fr);align-items:start}
+.shell.closed{grid-template-columns:minmax(0,1fr)}
+.side{position:sticky;top:50px;height:calc(100vh - 50px);overflow:auto;background:#FFFFFF;border-right:1px solid var(--line);padding:14px 14px 28px;display:flex;flex-direction:column;gap:2px;font-size:14px;scrollbar-width:thin}
+.shell.closed .side{display:none}
+.sidehead{display:flex;justify-content:space-between;align-items:center;padding:0 2px 8px;margin-bottom:4px;border-bottom:1px solid var(--line)}
+.allp{font-size:13px;font-weight:500;color:var(--green-text);text-decoration:none}.allp:hover{text-decoration:underline}
+.col{font:inherit;cursor:pointer;border:1px solid var(--line);background:var(--surface);border-radius:8px;color:var(--brand);width:28px;height:28px;display:grid;place-items:center;font-size:15px;line-height:1}
+.col:hover{border-color:var(--brand)}
+.subj{font-family:var(--display);font-size:1.2rem;color:var(--brand);margin:12px 2px 2px}
+.grp{margin-top:8px}
+.gh{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin:0 2px 4px;font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text)}
+.gc{font-size:11.5px;letter-spacing:0;text-transform:none;font-weight:500;color:var(--muted);white-space:nowrap}
+.grp ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:1px}
+.grp li a{display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;align-items:start;padding:6px 8px;border-radius:8px;text-decoration:none;color:var(--ink);line-height:1.35}
+.grp li a:hover{background:var(--pale)}
+.mk{width:22px;height:22px;border-radius:50%;border:1.5px solid #C5D6CC;display:grid;place-items:center;font-size:11px;font-weight:600;color:var(--muted);background:#fff;margin-top:-1px}
+.grp a.done .mk{background:var(--green);border-color:var(--green);color:#fff}
+.grp a.done .tt{color:var(--muted)}
+.grp a.now{background:#EEF4EF;box-shadow:inset 3px 0 0 var(--gold)}
+.grp a.now .mk{background:var(--deep);border-color:var(--gold);color:#fff}
+.grp a.now .tt{color:var(--brand);font-weight:500}
+.shell .page{max-width:none;margin:0;padding-left:clamp(16px,4vw,56px);padding-right:clamp(16px,4vw,56px)}
+.shell .page>*{max-width:900px;width:100%}
+.shell.closed .page>*{margin-inline:auto}
+.menu-btn{display:none;font:inherit;font-size:13px;font-weight:500;color:#06352A;background:#E3C26F;border:0;border-radius:999px;padding:4px 12px;cursor:pointer;white-space:nowrap}
+body.side-closed .menu-btn{display:inline-flex}
+.scrim{display:none}
+@media (max-width:860px){
+ .shell,.shell.closed{grid-template-columns:minmax(0,1fr)}
+ .side,.shell.closed .side{display:flex;position:fixed;top:0;left:0;bottom:0;height:100vh;width:min(300px,86vw);z-index:40;transform:translateX(-105%);transition:transform .25s ease;box-shadow:6px 0 24px rgba(6,53,42,.2)}
+ .shell.mopen .side{transform:none}
+ .menu-btn{display:inline-flex}
+ .scrim{position:fixed;inset:0;background:rgba(6,53,42,.35);z-index:35}.shell.mopen .scrim{display:block}
+ .shell .page>*{margin-inline:auto}
+}
+@media (prefers-reduced-motion:reduce){.side{transition:none!important}}
+@media (max-width:480px){.nbs-strip .prog{display:none}}
+</style>
+</head><body data-lesson="statistics/standard-deviation" data-group="statistics" data-total="9">
+<style>
+body{margin:0}
+.related .rel{margin-right:10px}
+.nbs-strip{position:sticky;top:0;z-index:20;background:#06352A;color:#FFFDF8;display:flex;align-items:center;justify-content:space-between;gap:12px;
+ padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:10px;font-family:'Poppins',system-ui,sans-serif;flex-wrap:wrap}
+.nbs-strip .l{display:flex;align-items:center;gap:12px;min-width:0}
+.nbs-strip img{width:30px;height:30px;border-radius:6px;display:block}
+.nbs-strip .crumb{font-size:14px;color:#C9D6D0}.nbs-strip .crumb a{color:#C9D6D0;text-decoration:none}.nbs-strip .crumb a:hover{color:#fff;text-decoration:underline}
+.nbs-strip .crumb i{font-style:normal;color:#E3C26F;margin:0 5px}.nbs-strip .crumb b{color:#fff;font-weight:500}
+.nbs-strip .prog{display:flex;align-items:center;gap:10px;font-size:13px;color:#C9D6D0}
+.nbs-strip .bar{width:130px;height:5px;border-radius:9px;background:rgba(255,255,255,.18);overflow:hidden}
+.nbs-strip .bar span{display:block;height:100%;width:0;background:#E3C26F;transition:width 1.2s cubic-bezier(.2,.8,.2,1) .2s}
+@media (max-width:560px){.nbs-strip .bar{display:none}.nbs-strip .crumb .mid{display:none}}
+@media (prefers-reduced-motion:reduce){.nbs-strip .bar span{transition:none}}
+</style>
+<header class="nbs-strip"><div class="l"><button type="button" class="menu-btn" id="mbtn" aria-label="Show the lesson list">☰ Lessons</button><a href="https://notesbysara.org/" aria-label="Notes by Sara home"><img src="/img/favicon.png" alt="Notes by Sara"></a><nav class="crumb" aria-label="Breadcrumb"><a href="https://notesbysara.org/notes">Learning path</a><span class="mid"><i>›</i><a href="../index.html#statistics">Statistics</a></span><span><i>›</i><b>Variance and standard deviation</b></span></nav></div><div class="prog"><span>Lesson 4</span><span class="bar" aria-hidden="true"><span id="nbs-bar"></span></span></div></header>
+
+<style>
+.fx{white-space:nowrap;font-size:clamp(1rem,4.6vw,1.55rem);gap:10px}
+.fx sub,.fx sup{font-size:.6em;line-height:0}
+sub,sup{line-height:0}
+.inputs input[type=text]{font:inherit;color:var(--ink);padding:7px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);width:100%}
+.cmp td:first-child{white-space:nowrap}
+.dev td.r{font-variant-numeric:tabular-nums}
+.dev tr.tot td{font-weight:600;border-top:2px solid var(--line)}
+.where{font-size:var(--t-small);color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 8px}
+</style>
+
+<div class="shell" id="shell"><div class="scrim" id="scrim"></div><aside class="side" id="side" aria-label="All lessons"><div class="sidehead"><a href="../index.html" class="allp">All lessons</a><button type="button" class="col" id="col" aria-label="Hide the lesson list" title="Hide the lesson list">«</button></div><p class="subj">Mathematics for Finance</p><div class="grp"><p class="gh"><span>Numbers and percentages</span><span class="gc">0 of 5</span></p><ol><li><a href="../mathematics/numbers-in-finance.html" data-slug="mathematics/numbers-in-finance"><span class="mk">1</span><span class="tt">Numbers in finance</span></a></li><li><a href="../mathematics/percentage-change.html" data-slug="mathematics/percentage-change"><span class="mk">2</span><span class="tt">Percentages and percentage change</span></a></li><li><a href="../mathematics/percentage-traps.html" data-slug="mathematics/percentage-traps"><span class="mk">3</span><span class="tt">Percentage traps</span></a></li><li><a href="../mathematics/ratios.html" data-slug="mathematics/ratios"><span class="mk">4</span><span class="tt">Ratios and proportions</span></a></li><li><a href="../mathematics/weighted-averages.html" data-slug="mathematics/weighted-averages"><span class="mk">5</span><span class="tt">Weighted averages</span></a></li></ol></div><div class="grp"><p class="gh"><span>Growth and equations</span><span class="gc">0 of 7</span></p><ol><li><a href="../mathematics/exponents.html" data-slug="mathematics/exponents"><span class="mk">6</span><span class="tt">Exponents</span></a></li><li><a href="../mathematics/logarithms.html" data-slug="mathematics/logarithms"><span class="mk">7</span><span class="tt">Logarithms</span></a></li><li><a href="../mathematics/linear-equations.html" data-slug="mathematics/linear-equations"><span class="mk">8</span><span class="tt">Linear equations and graphs</span></a></li><li><a href="../mathematics/simultaneous-equations.html" data-slug="mathematics/simultaneous-equations"><span class="mk">9</span><span class="tt">Solving two equations at once</span></a></li><li><a href="../mathematics/reading-formulas.html" data-slug="mathematics/reading-formulas"><span class="mk">10</span><span class="tt">Reading formulas</span></a></li><li><a href="../mathematics/functions.html" data-slug="mathematics/functions"><span class="mk">11</span><span class="tt">Functions</span></a></li><li><a href="../mathematics/rate-and-time.html" data-slug="mathematics/rate-and-time"><span class="mk">12</span><span class="tt">Solving for rate and time</span></a></li></ol></div><div class="grp"><p class="gh"><span>Sequences and series</span><span class="gc">0 of 3</span></p><ol><li><a href="../mathematics/sequences.html" data-slug="mathematics/sequences"><span class="mk">13</span><span class="tt">Arithmetic and geometric sequences</span></a></li><li><a href="../mathematics/summing-a-geometric-series.html" data-slug="mathematics/summing-a-geometric-series"><span class="mk">14</span><span class="tt">Summing a geometric series</span></a></li><li><a href="../mathematics/infinite-series.html" data-slug="mathematics/infinite-series"><span class="mk">15</span><span class="tt">Infinite series</span></a></li></ol></div><div class="grp"><p class="gh"><span>Calculus</span><span class="gc">0 of 6</span></p><ol><li><a href="../mathematics/rate-of-change.html" data-slug="mathematics/rate-of-change"><span class="mk">16</span><span class="tt">Rate of change</span></a></li><li><a href="../mathematics/derivatives.html" data-slug="mathematics/derivatives"><span class="mk">17</span><span class="tt">Derivatives as sensitivity</span></a></li><li><a href="../mathematics/derivative-rules.html" data-slug="mathematics/derivative-rules"><span class="mk">18</span><span class="tt">Derivative rules you need</span></a></li><li><a href="../mathematics/number-e.html" data-slug="mathematics/number-e"><span class="mk">19</span><span class="tt">The number e and continuous growth</span></a></li><li><a href="../mathematics/curvature.html" data-slug="mathematics/curvature"><span class="mk">20</span><span class="tt">Second derivative and curvature</span></a></li><li><a href="../mathematics/optimization.html" data-slug="mathematics/optimization"><span class="mk">21</span><span class="tt">Optimization</span></a></li></ol></div><p class="subj">Statistics for Finance</p><div class="grp"><p class="gh"><span>Describing data</span><span class="gc">0 of 8</span></p><ol><li><a href="mean-median-mode.html" data-slug="statistics/mean-median-mode"><span class="mk">1</span><span class="tt">Mean, median and mode</span></a></li><li><a href="averaging-returns.html" data-slug="statistics/averaging-returns"><span class="mk">2</span><span class="tt">Averaging returns</span></a></li><li><a href="range-and-percentiles.html" data-slug="statistics/range-and-percentiles"><span class="mk">3</span><span class="tt">Range and percentiles</span></a></li><li><a href="standard-deviation.html" data-slug="statistics/standard-deviation" class="now" aria-current="page"><span class="mk">4</span><span class="tt">Variance and standard deviation</span></a></li><li><a href="skewness.html" data-slug="statistics/skewness"><span class="mk">5</span><span class="tt">Skewness</span></a></li><li><a href="fat-tails.html" data-slug="statistics/fat-tails"><span class="mk">6</span><span class="tt">Fat tails</span></a></li><li><a href="histograms-and-box-plots.html" data-slug="statistics/histograms-and-box-plots"><span class="mk">7</span><span class="tt">Histograms and box plots</span></a></li><li><a href="misleading-charts.html" data-slug="statistics/misleading-charts"><span class="mk">8</span><span class="tt">Misleading charts</span></a></li></ol></div><div class="grp"><p class="gh"><span>Probability</span><span class="gc">0 of 1</span></p><ol><li><a href="probability-basics.html" data-slug="statistics/probability-basics"><span class="mk">9</span><span class="tt">Probability basics</span></a></li></ol></div></aside><article class="page">
+
+  <header class="banner">
+    <p class="eyebrow">Statistics for Finance</p>
+    <h1>Variance and standard deviation</h1>
+    <p class="lead">Two investments can have the same average return and very different rides. Standard deviation measures how far the values typically stray from the average, and finance uses it as its main measure of risk.</p>
+    <div class="meta"><span><b>Describing data</b> · Lesson 4 of 8 · 6 minutes</span><span>Before this: <a href="range-and-percentiles.html">Range and percentiles</a></span></div>
+  </header>
+
+  <section class="sec">
+    <h2>Same average, different ride</h2>
+    <p><span class="muted">Example, with made-up numbers.</span> Over five years, fund A returned 5%, 6%, 7%, 6% and 6%. Fund B returned −10%, 20%, 2%, 18% and 0%. Both average <b>6% a year</b>. Which would you rather have held?</p>
+  </section>
+
+  <section class="sec">
+    <h2>The idea</h2>
+    <p>Measure how far each year lands from the average. Fund A's years hug the 6% line. Fund B's swing far above and below it:</p>
+    <div class="box">
+      <div class="svgwrap"><svg id="dev" viewBox="0 0 600 260" role="img" aria-label="Yearly returns of two funds around their 6% average. Fund A's five years sit between 5% and 7%. Fund B's range from −10% to 20%, with long lines showing their distance from the average."></svg></div>
+      <p class="cap">Each line is one year's distance from the 6% average. Standard deviation boils those distances down into one number.</p>
+    </div>
+    <p>You can't just average the distances: the ones above and below cancel out to zero. So square each one first, average the squares, then take the square root to get back to the original units:</p>
+    <div class="box">
+      <div class="fx"><span>Variance = sum of (value − mean)<sup>2</sup> ÷ (<i>n</i> − 1)</span></div>
+      <div class="fx"><span>Standard deviation = √variance</span></div>
+      <p class="small muted">Divide by <i>n</i> − 1 when your data is a sample of years, which it almost always is in finance. In a spreadsheet, <span class="num">=STDEV.S()</span> does it all.</p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Worked example: fund B</h2>
+    <div class="box">
+      <div class="tw"><table class="dev"><thead><tr><th>Return</th><th class="r">Minus the 6% mean</th><th class="r">Squared</th></tr></thead><tbody>
+        <tr><td>−10%</td><td class="r">−16</td><td class="r">256</td></tr>
+        <tr><td>20%</td><td class="r">14</td><td class="r">196</td></tr>
+        <tr><td>2%</td><td class="r">−4</td><td class="r">16</td></tr>
+        <tr><td>18%</td><td class="r">12</td><td class="r">144</td></tr>
+        <tr><td>0%</td><td class="r">−6</td><td class="r">36</td></tr>
+        <tr class="tot"><td>Sum</td><td class="r">0</td><td class="r">648</td></tr>
+      </tbody></table></div>
+      <p class="small muted">The distances add up to 0, which is why they're squared. Variance: 648 ÷ (5 − 1) = 162.</p>
+      <div class="result"><span>Standard deviation: √162</span><b class="num">12.7%</b></div>
+      <p class="small muted">Fund A works out at just 0.7%. Same average, but fund B is about eighteen times as volatile. In finance, the standard deviation of returns is called <b>volatility</b>.</p>
+    </div>
+    <div class="ask" data-q="c1">
+      <p class="eyebrow">Quick check</p>
+      <p class="q">Fund B's variance is 162 and its standard deviation is 12.7. Which is in the same units as the returns, percent?</p>
+      <div class="opts">
+        <button type="button" data-ok="1">The standard deviation</button>
+        <button type="button" data-ok="0">The variance</button>
+      </div>
+      <p class="fb" hidden aria-live="polite"></p>
+      <template>Variance is in "percent squared", which is hard to picture. Taking the square root brings it back to percent, so 12.7% can sit next to a 6% average.</template>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>What the number tells you</h2>
+    <p>When returns are roughly bell-shaped, a handy rule of thumb applies:</p>
+    <div class="box">
+      <div class="tw"><table><tbody>
+        <tr><td>About 2 years in 3 land within</td><td class="r num">mean ± 1 standard deviation</td></tr>
+        <tr><td>About 19 years in 20 land within</td><td class="r num">mean ± 2 standard deviations</td></tr>
+      </tbody></table></div>
+      <p class="small muted">For fund B: 6% ± 12.7%, so a typical year runs from about −6.7% to +18.7%. A later lesson, on the normal distribution, shows where these figures come from and when they fail.</p>
+    </div>
+    <div class="box">
+      <p class="eyebrow">Comparing spread across different averages</p>
+      <p class="small">A bigger average often comes with a bigger standard deviation. To compare risk per unit of return, divide one by the other: the <b>coefficient of variation</b>. Fund B: 12.7 ÷ 6 = <b>2.1</b>. <span class="muted">Example, with made-up numbers.</span> A fund C averaging 12% with a standard deviation of 18% scores 18 ÷ 12 = <b>1.5</b>: more ups and downs, but less risk for each point of return. Later, in Investments, the Sharpe ratio refines this same idea.</p>
+    </div>
+  </section>
+
+  <section class="extras" aria-label="Optional extras">
+    <details>
+      <summary><span><span class="t">Try it yourself</span><br><span class="s">Enter yearly returns and get the standard deviation.</span></span></summary>
+      <div class="inner">
+        <div class="inputs">
+          <label for="vs">Returns in %, separated by commas<input type="text" id="vs" value="-10, 20, 2, 18, 0" inputmode="decimal"></label>
+        </div>
+        <div class="tw"><table class="cmp"><tbody>
+          <tr><td>Mean</td><td class="r num" id="mn"></td></tr>
+          <tr><td>Variance</td><td class="r num" id="vr"></td></tr>
+          <tr><td>Standard deviation</td><td class="r num" id="sd"></td></tr>
+          <tr><td>Typical year (± 1 SD)</td><td class="r num" id="band"></td></tr>
+        </tbody></table></div>
+        <p class="small muted">Now try fund A: 5, 6, 7, 6, 6.</p>
+      </div>
+    </details>
+    <details>
+      <summary><span><span class="t">Common mistakes</span><br><span class="s">Three slips beginners make.</span></span></summary>
+      <div class="inner">
+        <ul class="mist">
+          <li><b>Averaging the distances without squaring.</b> They always add up to zero, whatever the data.</li>
+          <li><b>Forgetting the square root.</b> Variance is in squared units. Standard deviation is the one you report.</li>
+          <li><b>Dividing by <i>n</i> for a sample.</b> For a handful of past years, divide by <i>n</i> − 1. It gives a slightly larger, fairer figure.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <section class="sec">
+    <div class="box">
+      <p class="eyebrow">Remember</p>
+      <ul class="mist">
+        <li>Variance: square each distance from the mean, add them up, divide by <i>n</i> − 1.</li>
+        <li>Standard deviation is the square root, back in the data's own units. For returns it's called volatility.</li>
+        <li>Rough guide: about 2 values in 3 lie within one standard deviation of the mean.</li>
+        <li>To compare risk per unit of return, divide the standard deviation by the mean.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Check yourself</h2>
+    <div class="ask quiz">
+      <p class="small muted">Three questions. Try them without scrolling up.</p>
+      <div data-q="q1" data-quiz>
+        <p class="q">1. What is the standard deviation of 2, 4, 6, treated as a sample?</p>
+        <div class="opts">
+          <button type="button" data-ok="0">4</button>
+          <button type="button" data-ok="1">2</button>
+          <button type="button" data-ok="0">8</button>
+        </div>
+        <p class="fb" hidden aria-live="polite"></p>
+        <template>Mean 4. Squared distances 4, 0, 4 add to 8. Variance 8 ÷ 2 = 4. Standard deviation √4 = 2. The 4 is the variance, not the standard deviation.</template>
+      </div>
+      <div data-q="q2" data-quiz>
+        <p class="q">2. A fund averages 8% a year with a standard deviation of 15%. What is a typical year's range?</p>
+        <div class="opts">
+          <button type="button" data-ok="1">About −7% to +23%</button>
+          <button type="button" data-ok="0">About 0% to 15%</button>
+          <button type="button" data-ok="0">About 8% to 23%</button>
+        </div>
+        <p class="fb" hidden aria-live="polite"></p>
+        <template>Mean ± 1 standard deviation: 8 − 15 = −7 and 8 + 15 = 23. About 2 years in 3 should land in there.</template>
+      </div>
+      <div data-q="q3" data-quiz>
+        <p class="q">3. Why are the distances from the mean squared?</p>
+        <div class="opts">
+          <button type="button" data-ok="0">To make the answer bigger</button>
+          <button type="button" data-ok="1">Because otherwise those above and below cancel out</button>
+          <button type="button" data-ok="0">To turn percent into dollars</button>
+        </div>
+        <p class="fb" hidden aria-live="polite"></p>
+        <template>The distances always sum to zero. Squaring makes them all positive, so the size of each swing counts.</template>
+      </div>
+      <div class="score"><span>Score: <b id="score">0 of 3</b></span><button class="btn" type="button" id="reset">Try again</button></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <a href="skewness.html" class="next"><span><span class="eyebrow">Next lesson · Foundation · 5 minutes</span><br><span class="t">Skewness</span><br><span class="small" style="color:var(--on-deep-muted)">When data leans to one side, and why crashes make returns lopsided.</span></span><span class="arrow" aria-hidden="true">→</span></a>
+    <p class="related">Related: <a href="https://notesbysara.org/dictionary/standard-deviation">Standard deviation</a><a href="https://notesbysara.org/dictionary/variance-statistics">Variance</a><a href="https://notesbysara.org/dictionary/volatility">Volatility</a><span class="rel">Risk</span><span class="rel">Coefficient of variation</span></p>
+  </section>
+
+</article></div>
+
+<script>
+const NS='http://www.w3.org/2000/svg';
+const el=(n,a={},p)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e};
+const text=(p,x,y,t,a={})=>{const e=el('text',Object.assign({x,y,'font-family':"Poppins,system-ui,sans-serif",'font-size':12,fill:'#5A6862','text-anchor':'middle'},a),p);e.textContent=t;return e};
+(function(){
+  const s=document.getElementById('dev'),L=60,R=570,T=16,B=220,Y=v=>B-(B-T)*(v+12)/34;
+  const A=[5,6,7,6,6],Bf=[-10,20,2,18,0],mid=(L+R)/2;
+  [-10,0,10,20].forEach(v=>{el('line',{x1:L,y1:Y(v),x2:R,y2:Y(v),stroke:'#EFEAE0'},s);text(s,L-8,Y(v)+4,v+'%',{'text-anchor':'end'})});
+  el('line',{x1:L,y1:Y(6),x2:R,y2:Y(6),stroke:'#B8892A','stroke-width':2,'stroke-dasharray':'6 5'},s);
+  text(s,R,Y(6)-6,'average 6%',{'text-anchor':'end','font-size':11.5,fill:'#8A6A12','font-weight':600});
+  const xa=i=>L+40+i*42,xb=i=>mid+40+i*42;
+  A.forEach((v,i)=>{el('line',{x1:xa(i),y1:Y(6),x2:xa(i),y2:Y(v),stroke:'#0E7C5A','stroke-width':2},s);el('circle',{cx:xa(i),cy:Y(v),r:5,fill:'#0B4F3C'},s)});
+  Bf.forEach((v,i)=>{el('line',{x1:xb(i),y1:Y(6),x2:xb(i),y2:Y(v),stroke:'#0E7C5A','stroke-width':2},s);el('circle',{cx:xb(i),cy:Y(v),r:5,fill:'#0B4F3C'},s)});
+  text(s,(xa(0)+xa(4))/2,B+20,'Fund A · SD 0.7%',{'font-weight':600,fill:'#1F2A26'});
+  text(s,(xb(0)+xb(4))/2,B+20,'Fund B · SD 12.7%',{'font-weight':600,fill:'#1F2A26'});
+  el('line',{x1:mid+10,y1:T,x2:mid+10,y2:B,stroke:'#E6E1D5'},s);
+})();
+
+const answered={},correct={};
+document.querySelectorAll('[data-q]').forEach(box=>{
+  const id=box.dataset.q,fb=box.querySelector('.fb'),tpl=box.querySelector('template');
+  box.querySelectorAll('.opts button').forEach(b=>b.addEventListener('click',()=>{
+    if(answered[id])return;
+    const ok=b.dataset.ok==='1';answered[id]=true;correct[id]=ok;
+    box.querySelectorAll('.opts button').forEach(x=>{x.disabled=true;if(x.dataset.ok==='1')x.classList.add('right')});
+    if(!ok)b.classList.add('wrong');
+    fb.innerHTML='<b>'+(ok?'Right. ':'Not quite. ')+'</b>';fb.appendChild(tpl.content.cloneNode(true));
+    fb.classList.toggle('no',!ok);fb.hidden=false;score();
+  }));
+});
+function score(){document.getElementById('score').textContent=['q1','q2','q3'].filter(k=>correct[k]).length+' of 3'}
+document.getElementById('reset').addEventListener('click',()=>{
+  document.querySelectorAll('[data-quiz]').forEach(box=>{const id=box.dataset.q;delete answered[id];delete correct[id];
+    box.querySelectorAll('.opts button').forEach(x=>{x.disabled=false;x.classList.remove('right','wrong')});
+    const fb=box.querySelector('.fb');fb.hidden=true;fb.innerHTML='';});
+  score();
+});
+const vs=document.getElementById('vs');
+const f=v=>Number(v.toPrecision(10)).toLocaleString('en-US',{maximumFractionDigits:2});
+function run(){
+  const a=vs.value.split(/[,\s]+/).filter(t=>t!=='').map(Number),ids=['mn','vr','sd','band'].map(i=>document.getElementById(i));
+  if(a.length<2||a.some(x=>!isFinite(x))){ids.forEach(e=>e.textContent='');ids[0].textContent='Enter at least 2 numbers';return}
+  const n=a.length,m=a.reduce((x,y)=>x+y,0)/n,v=a.reduce((x,y)=>x+(y-m)*(y-m),0)/(n-1),sd=Math.sqrt(v);
+  ids[0].textContent=f(m)+'%';ids[1].textContent=f(v);ids[2].textContent=f(sd)+'%';ids[3].textContent=f(m-sd)+'% to '+f(m+sd)+'%';
+}
+vs.addEventListener('input',run);run();
+document.querySelectorAll('a[href="#"]').forEach(a=>a.addEventListener('click',e=>e.preventDefault()));
+</script>
+
+
+<script>
+(function(){
+  var KEY='nbs-lessons-done',done=[];
+  try{done=JSON.parse(localStorage.getItem(KEY)||'[]')||[]}catch(e){}
+  var me=document.body.getAttribute('data-lesson'),total=+document.body.getAttribute('data-total')||0,group=document.body.getAttribute('data-group');
+  function count(){return done.filter(function(s){return s.indexOf(group+'/')===0}).length}
+  function show(){var b=document.getElementById('nbs-bar');if(b&&total)b.style.width=Math.min(100,count()/total*100)+'%'}
+  requestAnimationFrame(function(){requestAnimationFrame(show)});
+  var end=document.querySelector('.next');
+  if(me&&end&&'IntersectionObserver' in window){
+    new IntersectionObserver(function(es,o){es.forEach(function(e){if(e.isIntersecting){
+      if(done.indexOf(me)<0){done.push(me);try{localStorage.setItem(KEY,JSON.stringify(done))}catch(err){}show()}
+      o.disconnect()}})},{threshold:.6}).observe(end);
+  }
+})();
+</script>
+<script>
+(function(){
+  var sh=document.getElementById('shell'),KEY='nbs-side-closed',done=[];
+  try{done=JSON.parse(localStorage.getItem('nbs-lessons-done')||'[]')||[]}catch(e){}
+  function marks(){
+    document.querySelectorAll('.side .grp').forEach(function(g){var n=0,a=g.querySelectorAll('a[data-slug]');
+      a.forEach(function(x){var d=done.indexOf(x.dataset.slug)>=0;x.classList.toggle('done',d&&!x.classList.contains('now'));if(d)n++});
+      var c=g.querySelector('.gc');if(c)c.textContent=n+' of '+a.length;});
+  }
+  marks();
+  window.addEventListener('storage',function(){try{done=JSON.parse(localStorage.getItem('nbs-lessons-done')||'[]')||[]}catch(e){}marks()});
+  var closed=false;try{closed=localStorage.getItem(KEY)==='1'}catch(e){}
+  function setClosed(c){closed=c;sh.classList.toggle('closed',c);document.body.classList.toggle('side-closed',c);try{localStorage.setItem(KEY,c?'1':'0')}catch(e){}}
+  if(closed&&innerWidth>860)setClosed(true);
+  document.getElementById('col').addEventListener('click',function(){if(innerWidth<=860){sh.classList.remove('mopen')}else{setClosed(true)}});
+  document.getElementById('mbtn').addEventListener('click',function(){if(innerWidth<=860){sh.classList.add('mopen')}else{setClosed(false)}});
+  document.getElementById('scrim').addEventListener('click',function(){sh.classList.remove('mopen')});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')sh.classList.remove('mopen')});
+  var now=document.querySelector('.side a.now');if(now&&now.scrollIntoView&&innerWidth>860){var s=document.getElementById('side');s.scrollTop=Math.max(0,now.offsetTop-s.clientHeight/2)}
+})();
+</script>
+</body></html>
