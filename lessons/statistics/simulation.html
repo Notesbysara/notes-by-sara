@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="icon" href="/img/favicon.png">
+<meta name="description" content="Simulation: Monte Carlo and bootstrapping: thousands of possible futures. A short lesson from Notes by Sara.">
+<link rel="canonical" href="https://notesbysara.org/lessons/statistics/simulation.html">
+
+<title>Simulation · Notes by Sara</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Forum&family=Poppins:wght@400;500;600&display=swap">
+<style>
+/* Layout: one calm reading column. Three surfaces only: the deep banner, white boxes, and pale green for anything the learner answers. Light only, like the site. */
+:root{
+  color-scheme:light;
+  --ivory:#FFFDF8; --surface:#FFFFFF; --pearl:#F7F2E7; --pale:#EAF4EF;
+  --ink:#1F2A26; --muted:#5A6862; --line:#E6E1D5;
+  --deep:#06352A; --green:#0E7C5A; --green-text:#0B6A4C; --brand:#0B4F3C;
+  --gold:#E3C26F; --gold-text:#8A6A12; --coral:#B4452F; --coral-pale:#FBEDE9;
+  --on-deep:#FFFDF8; --on-deep-muted:#C9D6D0;
+  --display:'Forum',Georgia,'Times New Roman',serif;
+  --body:'Poppins',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --t-body:16px; --t-small:14px; --t-label:12.5px;
+}
+*{box-sizing:border-box}
+body{background:var(--ivory);color:var(--ink);font-family:var(--body);font-size:var(--t-body);line-height:1.75}
+a{color:var(--green-text)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
+.mockbar{background:var(--pearl);color:var(--muted);font-size:var(--t-small);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:8px;text-align:center;border-bottom:1px solid var(--line)}
+.mockbar b{color:var(--gold-text);letter-spacing:.12em;text-transform:uppercase;font-size:var(--t-label);margin-right:6px}
+.page{max-width:720px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px;display:flex;flex-direction:column;gap:40px}
+h1,h2{font-family:var(--display);font-weight:400;line-height:1.15;margin:0;text-wrap:balance}
+h2{font-size:1.7rem;color:var(--brand)}
+p{margin:0}
+.sec{display:flex;flex-direction:column;gap:14px}
+.eyebrow{font-size:var(--t-label);font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--gold-text)}
+.muted{color:var(--muted)}
+.small{font-size:var(--t-small)}
+b{font-weight:600}
+.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* 1. banner */
+.banner{background:var(--deep);color:var(--on-deep);border-radius:18px;padding:26px 26px 22px;display:flex;flex-direction:column;gap:10px}
+.banner .eyebrow{color:var(--gold)}
+.banner h1{font-size:clamp(2rem,6vw,2.6rem)}
+.banner .lead{color:var(--on-deep-muted)}
+.banner .meta{font-size:var(--t-small);color:var(--on-deep-muted);border-top:1px solid rgba(227,194,111,.35);padding-top:10px;display:flex;flex-wrap:wrap;gap:4px 18px}
+.banner .meta b{color:var(--gold);font-weight:600}
+.banner .meta a{color:var(--on-deep)}
+
+/* white box */
+.box{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.svgwrap{overflow-x:auto}
+.svgwrap svg{display:block;width:100%;height:auto;min-width:480px}
+.cap{font-size:var(--t-small);color:var(--muted)}
+
+/* formula */
+.fx{font-family:Georgia,'Times New Roman',serif;font-size:1.8rem;display:flex;align-items:center;justify-content:center;gap:14px}
+.frac{display:inline-flex;flex-direction:column;align-items:center;line-height:1.2}
+.frac span:first-child{border-bottom:2px solid var(--ink);padding:0 8px 2px}
+.frac span:last-child{padding-top:2px}
+.fx i{font-style:italic}
+.fx sup{font-size:.6em}
+.legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:4px 16px;font-size:var(--t-small);color:var(--muted)}
+.legend i{font-family:Georgia,serif;color:var(--ink);font-size:1.05rem;margin-right:6px}
+table{border-collapse:collapse;width:100%}
+td,th{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left}
+th{font-size:var(--t-small);color:var(--muted);font-weight:500}
+td.r,th.r{text-align:right}
+.tw{overflow-x:auto}
+.result{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;border-top:2px solid var(--brand);padding-top:10px}
+.result b{font-family:var(--display);font-weight:400;font-size:1.8rem;color:var(--brand)}
+
+/* pale: anything you answer */
+.ask{background:var(--pale);border-radius:14px;padding:16px 20px;display:flex;flex-direction:column;gap:10px}
+.ask .q{font-weight:500}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opts button{font:inherit;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 14px;cursor:pointer;color:var(--ink);line-height:1.5}
+.opts button:hover{border-color:var(--green)}
+.opts button.right{border-color:var(--green);box-shadow:inset 3px 0 0 var(--green)}
+.opts button.wrong{border-color:var(--coral);box-shadow:inset 3px 0 0 var(--coral)}
+.opts button[disabled]{cursor:default}
+.fb{font-size:var(--t-small);line-height:1.6}
+.fb b{color:var(--green-text)}
+.fb.no b{color:var(--coral)}
+.quiz{display:flex;flex-direction:column;gap:10px}
+.score{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:var(--t-small);color:var(--muted)}
+.score b{color:var(--brand)}
+.btn{font:inherit;font-size:var(--t-small);border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:4px 12px;cursor:pointer;color:var(--ink)}
+
+/* optional extras */
+.extras{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.extras details{border-bottom:1px solid var(--line)}
+.extras summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 4px}
+.extras summary::-webkit-details-marker{display:none}
+.extras summary .t{font-family:var(--display);font-size:1.3rem;color:var(--brand)}
+.extras summary .s{font-size:var(--t-small);color:var(--muted)}
+.extras summary::after{content:"+";font-size:1.4rem;color:var(--gold-text);flex:none;width:20px;text-align:center}
+.extras details[open] summary::after{content:"−"}
+.extras .inner{padding:0 4px 18px;display:flex;flex-direction:column;gap:12px}
+.inputs{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.inputs label{display:flex;flex-direction:column;gap:4px;font-size:var(--t-small);color:var(--muted)}
+.inputs input[type=number]{font:inherit;color:var(--ink);padding:7px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);width:100%}
+.inputs input[type=range]{width:100%;accent-color:var(--green)}
+.calcout{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+.calcout b{font-family:var(--display);font-weight:400;font-size:1.8rem;color:var(--brand)}
+.mist{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px}
+
+/* recap */
+.recap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:center}
+.recap ul{margin:4px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:2px}
+.recap .fx{font-size:1.3rem}
+@media (max-width:560px){.recap{grid-template-columns:1fr}}
+
+/* next */
+.next{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;background:var(--deep);color:var(--on-deep);border-radius:14px;padding:16px 20px;text-decoration:none}
+.next .eyebrow{color:var(--gold)}
+.next .t{font-family:var(--display);font-size:1.35rem}
+.next .arrow{font-size:1.4rem;color:var(--gold)}
+.related{font-size:var(--t-small);color:var(--muted)}
+.related a{margin-right:10px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+
+<style>
+.shell{display:grid;grid-template-columns:290px minmax(0,1fr);align-items:start}
+.shell.closed{grid-template-columns:minmax(0,1fr)}
+.side{position:sticky;top:50px;height:calc(100vh - 50px);overflow:auto;background:#FFFFFF;border-right:1px solid var(--line);padding:14px 14px 28px;display:flex;flex-direction:column;gap:2px;font-size:14px;scrollbar-width:thin}
+.shell.closed .side{display:none}
+.sidehead{display:flex;justify-content:space-between;align-items:center;padding:0 2px 8px;margin-bottom:4px;border-bottom:1px solid var(--line)}
+.allp{font-size:13px;font-weight:500;color:var(--green-text);text-decoration:none}.allp:hover{text-decoration:underline}
+.col{font:inherit;cursor:pointer;border:1px solid var(--line);background:var(--surface);border-radius:8px;color:var(--brand);width:28px;height:28px;display:grid;place-items:center;font-size:15px;line-height:1}
+.col:hover{border-color:var(--brand)}
+.subj{font-family:var(--display);font-size:1.2rem;color:var(--brand);margin:12px 2px 2px}
+.grp{margin-top:8px}
+.gh{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin:0 2px 4px;font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text)}
+.gc{font-size:11.5px;letter-spacing:0;text-transform:none;font-weight:500;color:var(--muted);white-space:nowrap}
+.grp ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:1px}
+.grp li a{display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;align-items:start;padding:6px 8px;border-radius:8px;text-decoration:none;color:var(--ink);line-height:1.35}
+.grp li a:hover{background:var(--pale)}
+.mk{width:22px;height:22px;border-radius:50%;border:1.5px solid #C5D6CC;display:grid;place-items:center;font-size:11px;font-weight:600;color:var(--muted);background:#fff;margin-top:-1px}
+.grp a.done .mk{background:var(--green);border-color:var(--green);color:#fff}
+.grp a.done .tt{color:var(--muted)}
+.grp a.now{background:#EEF4EF;box-shadow:inset 3px 0 0 var(--gold)}
+.grp a.now .mk{background:var(--deep);border-color:var(--gold);color:#fff}
+.grp a.now .tt{color:var(--brand);font-weight:500}
+.shell .page{max-width:none;margin:0;padding-left:clamp(16px,4vw,56px);padding-right:clamp(16px,4vw,56px)}
+.shell .page>*{max-width:900px;width:100%}
+.shell.closed .page>*{margin-inline:auto}
+.menu-btn{display:none;font:inherit;font-size:13px;font-weight:500;color:#06352A;background:#E3C26F;border:0;border-radius:999px;padding:4px 12px;cursor:pointer;white-space:nowrap}
+body.side-closed .menu-btn{display:inline-flex}
+.scrim{display:none}
+@media (max-width:860px){
+ .shell,.shell.closed{grid-template-columns:minmax(0,1fr)}
+ .side,.shell.closed .side{display:flex;position:fixed;top:0;left:0;bottom:0;height:100vh;width:min(300px,86vw);z-index:40;transform:translateX(-105%);transition:transform .25s ease;box-shadow:6px 0 24px rgba(6,53,42,.2)}
+ .shell.mopen .side{transform:none}
+ .menu-btn{display:inline-flex}
+ .scrim{position:fixed;inset:0;background:rgba(6,53,42,.35);z-index:35}.shell.mopen .scrim{display:block}
+ .shell .page>*{margin-inline:auto}
+}
+@media (prefers-reduced-motion:reduce){.side{transition:none!important}}
+@media (max-width:480px){.nbs-strip .prog{display:none}}
+</style>
+</head><body data-lesson="statistics/simulation" data-group="statistics" data-total="22">
+<style>
+body{margin:0}
+.related .rel{margin-right:10px}
+.nbs-strip{position:sticky;top:0;z-index:20;background:#06352A;color:#FFFDF8;display:flex;align-items:center;justify-content:space-between;gap:12px;
+ padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:10px;font-family:'Poppins',system-ui,sans-serif;flex-wrap:wrap}
+.nbs-strip .l{display:flex;align-items:center;gap:12px;min-width:0}
+.nbs-strip img{width:30px;height:30px;border-radius:6px;display:block}
+.nbs-strip .crumb{font-size:14px;color:#C9D6D0}.nbs-strip .crumb a{color:#C9D6D0;text-decoration:none}.nbs-strip .crumb a:hover{color:#fff;text-decoration:underline}
+.nbs-strip .crumb i{font-style:normal;color:#E3C26F;margin:0 5px}.nbs-strip .crumb b{color:#fff;font-weight:500}
+.nbs-strip .prog{display:flex;align-items:center;gap:10px;font-size:13px;color:#C9D6D0}
+.nbs-strip .bar{width:130px;height:5px;border-radius:9px;background:rgba(255,255,255,.18);overflow:hidden}
+.nbs-strip .bar span{display:block;height:100%;width:0;background:#E3C26F;transition:width 1.2s cubic-bezier(.2,.8,.2,1) .2s}
+@media (max-width:560px){.nbs-strip .bar{display:none}.nbs-strip .crumb .mid{display:none}}
+@media (prefers-reduced-motion:reduce){.nbs-strip .bar span{transition:none}}
+</style>
+<header class="nbs-strip"><div class="l"><button type="button" class="menu-btn" id="mbtn" aria-label="Show the lesson list">☰ Lessons</button><a href="https://notesbysara.org/" aria-label="Notes by Sara home"><img src="/img/favicon.png" alt="Notes by Sara"></a><nav class="crumb" aria-label="Breadcrumb"><a href="https://notesbysara.org/notes">Learning path</a><span class="mid"><i>›</i><a href="../index.html#statistics">Statistics</a></span><span><i>›</i><b>Simulation</b></span></nav></div><div class="prog"><span>Lesson 22</span><span class="bar" aria-hidden="true"><span id="nbs-bar"></span></span></div></header>
+
+<style>
+.fx{white-space:nowrap;font-size:clamp(.95rem,4.2vw,1.45rem);gap:10px}
+.fx.wrap{white-space:normal}
+sub,sup{line-height:0}
+.cmp td:first-child{white-space:normal}
+.steps td:first-child{white-space:normal}
+@media (max-width:560px){.steps td{display:block;border:0;padding:2px 0;text-align:left!important;white-space:normal}.steps tr{display:block;border-bottom:1px solid var(--line);padding:8px 0}.steps td.r{font-weight:500}}
+.where{font-size:var(--t-small);color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 8px}
+.chk{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+.simrow{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:8px 0}
+/* section practice */
+.prac{border-top:2px solid var(--gold);border-bottom:1px solid var(--line)}
+.pwrap>summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px 4px}
+.pwrap>summary::-webkit-details-marker{display:none}
+.pwrap>summary .t{font-family:var(--display);font-size:1.6rem;color:var(--brand);line-height:1.3}
+.pwrap>summary .s{font-size:var(--t-small);color:var(--muted)}
+.pwrap>summary::after{content:"+";font-size:1.6rem;color:var(--gold-text);flex:none;width:24px;text-align:center}
+.pwrap[open]>summary::after{content:"−"}
+.pin{padding:0 4px 22px;display:flex;flex-direction:column;gap:14px}
+.prac .intro{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:var(--t-small);color:var(--muted)}
+.prac ol{margin:0;padding:0;list-style:none;counter-reset:p;display:flex;flex-direction:column;gap:12px}
+.prac li{counter-increment:p;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 18px;display:flex;flex-direction:column;gap:8px}
+.prac li>p::before{content:counter(p) ". ";font-weight:600;color:var(--brand)}
+.prac li summary{cursor:pointer;font-size:var(--t-small);color:var(--green-text);font-weight:500;width:max-content}
+.prac .ans{background:var(--pale);border-radius:10px;padding:10px 14px;margin-top:8px;font-size:var(--t-small);line-height:1.65;display:flex;flex-direction:column;gap:4px}
+.prac .tool{font-size:var(--t-label);letter-spacing:.08em;text-transform:uppercase;color:var(--gold-text);font-weight:600}
+
+</style>
+
+<div class="shell" id="shell"><div class="scrim" id="scrim"></div><aside class="side" id="side" aria-label="All lessons"><div class="sidehead"><a href="../index.html" class="allp">All lessons</a><button type="button" class="col" id="col" aria-label="Hide the lesson list" title="Hide the lesson list">«</button></div><p class="subj">Mathematics for Finance</p><div class="grp"><p class="gh"><span>Numbers and percentages</span><span class="gc">0 of 5</span></p><ol><li><a href="../mathematics/numbers-in-finance.html" data-slug="mathematics/numbers-in-finance"><span class="mk">1</span><span class="tt">Numbers in finance</span></a></li><li><a href="../mathematics/percentage-change.html" data-slug="mathematics/percentage-change"><span class="mk">2</span><span class="tt">Percentages and percentage change</span></a></li><li><a href="../mathematics/percentage-traps.html" data-slug="mathematics/percentage-traps"><span class="mk">3</span><span class="tt">Percentage traps</span></a></li><li><a href="../mathematics/ratios.html" data-slug="mathematics/ratios"><span class="mk">4</span><span class="tt">Ratios and proportions</span></a></li><li><a href="../mathematics/weighted-averages.html" data-slug="mathematics/weighted-averages"><span class="mk">5</span><span class="tt">Weighted averages</span></a></li></ol></div><div class="grp"><p class="gh"><span>Growth and equations</span><span class="gc">0 of 7</span></p><ol><li><a href="../mathematics/exponents.html" data-slug="mathematics/exponents"><span class="mk">6</span><span class="tt">Exponents</span></a></li><li><a href="../mathematics/logarithms.html" data-slug="mathematics/logarithms"><span class="mk">7</span><span class="tt">Logarithms</span></a></li><li><a href="../mathematics/linear-equations.html" data-slug="mathematics/linear-equations"><span class="mk">8</span><span class="tt">Linear equations and graphs</span></a></li><li><a href="../mathematics/simultaneous-equations.html" data-slug="mathematics/simultaneous-equations"><span class="mk">9</span><span class="tt">Solving two equations at once</span></a></li><li><a href="../mathematics/reading-formulas.html" data-slug="mathematics/reading-formulas"><span class="mk">10</span><span class="tt">Reading formulas</span></a></li><li><a href="../mathematics/functions.html" data-slug="mathematics/functions"><span class="mk">11</span><span class="tt">Functions</span></a></li><li><a href="../mathematics/rate-and-time.html" data-slug="mathematics/rate-and-time"><span class="mk">12</span><span class="tt">Solving for rate and time</span></a></li></ol></div><div class="grp"><p class="gh"><span>Sequences and series</span><span class="gc">0 of 3</span></p><ol><li><a href="../mathematics/sequences.html" data-slug="mathematics/sequences"><span class="mk">13</span><span class="tt">Arithmetic and geometric sequences</span></a></li><li><a href="../mathematics/summing-a-geometric-series.html" data-slug="mathematics/summing-a-geometric-series"><span class="mk">14</span><span class="tt">Summing a geometric series</span></a></li><li><a href="../mathematics/infinite-series.html" data-slug="mathematics/infinite-series"><span class="mk">15</span><span class="tt">Infinite series</span></a></li></ol></div><div class="grp"><p class="gh"><span>Calculus</span><span class="gc">0 of 6</span></p><ol><li><a href="../mathematics/rate-of-change.html" data-slug="mathematics/rate-of-change"><span class="mk">16</span><span class="tt">Rate of change</span></a></li><li><a href="../mathematics/derivatives.html" data-slug="mathematics/derivatives"><span class="mk">17</span><span class="tt">Derivatives as sensitivity</span></a></li><li><a href="../mathematics/derivative-rules.html" data-slug="mathematics/derivative-rules"><span class="mk">18</span><span class="tt">Derivative rules you need</span></a></li><li><a href="../mathematics/number-e.html" data-slug="mathematics/number-e"><span class="mk">19</span><span class="tt">The number e and continuous growth</span></a></li><li><a href="../mathematics/curvature.html" data-slug="mathematics/curvature"><span class="mk">20</span><span class="tt">Second derivative and curvature</span></a></li><li><a href="../mathematics/optimization.html" data-slug="mathematics/optimization"><span class="mk">21</span><span class="tt">Optimization</span></a></li></ol></div><div class="grp"><p class="gh"><span>Advanced tools</span><span class="gc">0 of 5</span></p><ol><li><a href="../mathematics/partial-derivatives.html" data-slug="mathematics/partial-derivatives"><span class="mk">22</span><span class="tt">Partial derivatives</span></a></li><li><a href="../mathematics/optimization-with-a-limit.html" data-slug="mathematics/optimization-with-a-limit"><span class="mk">23</span><span class="tt">Optimization with a limit</span></a></li><li><a href="../mathematics/taylor-approximations.html" data-slug="mathematics/taylor-approximations"><span class="mk">24</span><span class="tt">Taylor approximations</span></a></li><li><a href="../mathematics/vectors-and-matrices.html" data-slug="mathematics/vectors-and-matrices"><span class="mk">25</span><span class="tt">Vectors and matrices</span></a></li><li><a href="../mathematics/matrix-inverse.html" data-slug="mathematics/matrix-inverse"><span class="mk">26</span><span class="tt">Matrix inverse</span></a></li></ol></div><p class="subj">Statistics for Finance</p><div class="grp"><p class="gh"><span>Describing data</span><span class="gc">0 of 8</span></p><ol><li><a href="mean-median-mode.html" data-slug="statistics/mean-median-mode"><span class="mk">1</span><span class="tt">Mean, median and mode</span></a></li><li><a href="averaging-returns.html" data-slug="statistics/averaging-returns"><span class="mk">2</span><span class="tt">Averaging returns</span></a></li><li><a href="range-and-percentiles.html" data-slug="statistics/range-and-percentiles"><span class="mk">3</span><span class="tt">Range and percentiles</span></a></li><li><a href="standard-deviation.html" data-slug="statistics/standard-deviation"><span class="mk">4</span><span class="tt">Variance and standard deviation</span></a></li><li><a href="skewness.html" data-slug="statistics/skewness"><span class="mk">5</span><span class="tt">Skewness</span></a></li><li><a href="fat-tails.html" data-slug="statistics/fat-tails"><span class="mk">6</span><span class="tt">Fat tails</span></a></li><li><a href="histograms-and-box-plots.html" data-slug="statistics/histograms-and-box-plots"><span class="mk">7</span><span class="tt">Histograms and box plots</span></a></li><li><a href="misleading-charts.html" data-slug="statistics/misleading-charts"><span class="mk">8</span><span class="tt">Misleading charts</span></a></li></ol></div><div class="grp"><p class="gh"><span>Probability</span><span class="gc">0 of 7</span></p><ol><li><a href="probability-basics.html" data-slug="statistics/probability-basics"><span class="mk">9</span><span class="tt">Probability basics</span></a></li><li><a href="conditional-probability.html" data-slug="statistics/conditional-probability"><span class="mk">10</span><span class="tt">Conditional probability</span></a></li><li><a href="bayes-rule.html" data-slug="statistics/bayes-rule"><span class="mk">11</span><span class="tt">Bayes&#x27; rule</span></a></li><li><a href="expected-value.html" data-slug="statistics/expected-value"><span class="mk">12</span><span class="tt">Expected value</span></a></li><li><a href="binomial-distribution.html" data-slug="statistics/binomial-distribution"><span class="mk">13</span><span class="tt">The binomial distribution</span></a></li><li><a href="normal-distribution.html" data-slug="statistics/normal-distribution"><span class="mk">14</span><span class="tt">The normal distribution</span></a></li><li><a href="lognormal-distribution.html" data-slug="statistics/lognormal-distribution"><span class="mk">15</span><span class="tt">The lognormal distribution</span></a></li></ol></div><div class="grp"><p class="gh"><span>Relationships</span><span class="gc">0 of 3</span></p><ol><li><a href="correlation.html" data-slug="statistics/correlation"><span class="mk">16</span><span class="tt">Correlation</span></a></li><li><a href="linear-regression.html" data-slug="statistics/linear-regression"><span class="mk">17</span><span class="tt">Linear regression</span></a></li><li><a href="r-squared.html" data-slug="statistics/r-squared"><span class="mk">18</span><span class="tt">R-squared and residuals</span></a></li></ol></div><div class="grp"><p class="gh"><span>Inference</span><span class="gc">0 of 4</span></p><ol><li><a href="standard-error.html" data-slug="statistics/standard-error"><span class="mk">19</span><span class="tt">Samples and standard error</span></a></li><li><a href="confidence-intervals.html" data-slug="statistics/confidence-intervals"><span class="mk">20</span><span class="tt">Confidence intervals</span></a></li><li><a href="hypothesis-tests.html" data-slug="statistics/hypothesis-tests"><span class="mk">21</span><span class="tt">Hypothesis tests and p-values</span></a></li><li><a href="simulation.html" data-slug="statistics/simulation" class="now" aria-current="page"><span class="mk">22</span><span class="tt">Simulation</span></a></li></ol></div></aside><article class="page">
+
+  <header class="banner">
+    <p class="eyebrow">Statistics for Finance</p>
+    <h1>Simulation</h1>
+    <p class="lead">When the formulas run out, let the computer play out thousands of possible futures and count what happens. That's Monte Carlo simulation. Its cousin, the bootstrap, does the same with your own data.</p>
+    <div class="meta"><span><b>Inference</b> · Lesson 4 of 4 · 6 minutes</span><span>Before this: <a href="standard-error.html">Samples and standard error</a>, <a href="lognormal-distribution.html">The lognormal distribution</a></span></div>
+  </header>
+
+  <section class="sec">
+    <h2>Will the money last?</h2>
+    <p><span class="muted">Example, with made-up numbers.</span> You invest <b>$100,000</b> for 20 years. Each year's log return averages 6% with a standard deviation of 15%. And you plan to take out <b>$5,000</b> at the end of every year. What's the chance you end with less than $200,000? With the withdrawals, there's no neat formula.</p>
+  </section>
+
+  <section class="sec">
+    <h2>The idea</h2>
+    <p><b>Monte Carlo simulation</b> answers it by brute force:</p>
+    <div class="box">
+      <ol class="chk">
+        <li><b>Model</b> one year: draw a random return from the distribution you believe in.</li>
+        <li><b>Play out</b> one path: 20 years of draws, applying your rules (the withdrawals) each year.</li>
+        <li><b>Repeat</b> thousands of times.</li>
+        <li><b>Count</b>: the middle outcome, the bad 5%, the chance of falling short.</li>
+      </ol>
+    </div>
+    <div class="box">
+      <div class="svgwrap"><svg id="fan" viewBox="0 0 600 290" role="img" aria-label="Thirty simulated 20-year paths for $100,000 with no withdrawals, fanning out over time. A thick line shows the median path, ending near $332,000. A shaded band shows the middle 90% of outcomes, from about $110,000 to about $1 million at year 20."></svg></div>
+      <p class="cap">30 of the simulated paths, no withdrawals. The thick line is the middle outcome. The band holds 90% of outcomes.</p>
+    </div>
+    <div class="ask" data-q="c1">
+      <p class="eyebrow">Quick check</p>
+      <p class="q">You run 10,000 simulated paths and 1,800 of them end below your target. What's your estimate of the chance of falling short?</p>
+      <div class="opts">
+        <button type="button" data-ok="1">18%</button>
+        <button type="button" data-ok="0">1.8%</button>
+      </div>
+      <p class="fb" hidden aria-live="polite"></p>
+      <template>Simulation turns chances into counting: 1,800 ÷ 10,000 = 18%.</template>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Worked example: 10,000 paths</h2>
+    <div class="box">
+      <div class="tw"><table class="steps"><tbody>
+        <tr><td><b>No withdrawals</b></td><td class="r num"></td></tr>
+        <tr><td>Middle outcome (median)</td><td class="r num">$331,000</td></tr>
+        <tr><td>Bad 5% ends below</td><td class="r num">$110,000</td></tr>
+        <tr><td>Chance of ending below $200,000</td><td class="r num">22.6%</td></tr>
+        <tr><td><b>With $5,000 taken out each year</b></td><td class="r num"></td></tr>
+        <tr><td>Middle outcome</td><td class="r num">$136,000</td></tr>
+        <tr><td>Chance of ending below $200,000</td><td class="r num">64%</td></tr>
+        <tr><td>Chance of running out of money</td><td class="r num">6.3%</td></tr>
+      </tbody></table></div>
+      <div class="result"><span>Chance of ending below $200,000, with withdrawals</span><b class="num">about 64%</b></div>
+      <p class="small muted">Check: without withdrawals the price is <span class="rel">lognormal</span>, and the exact answers are a $332,000 median and a 22.5% chance of falling short. The simulation lands within a few tenths of a percent. The withdrawals have no such formula, which is where simulation earns its keep.</p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>The bootstrap: simulating from your own data</h2>
+    <p>Monte Carlo needs you to pick a distribution, such as the normal. The <b>bootstrap</b> skips that. Take your 60 actual monthly returns. Draw 60 of them at random, <i>with replacement</i>, so some months repeat and some drop out. Work out the average. Do it 10,000 times. The spread of those averages estimates the <span class="rel">standard error</span>, and the middle 95% of them gives a confidence interval, with no bell-curve assumption. It's handy for awkward numbers, like the Sharpe ratio or a worst drawdown, that have no simple standard error formula.</p>
+  </section>
+
+  <section class="extras" aria-label="Optional extras">
+    <details>
+      <summary><span><span class="t">Try it yourself</span><br><span class="s">Run your own retirement simulation.</span></span></summary>
+      <div class="inner">
+        <div class="inputs">
+          <label for="p0">Starting amount ($)<input type="number" id="p0" value="100000" step="any" min="0"></label>
+          <label for="yr">Years<input type="number" id="yr" value="20" step="1" min="1"></label>
+          <label for="mu">Average log return (%)<input type="number" id="mu" value="6" step="any"></label>
+          <label for="sg">Standard deviation (%)<input type="number" id="sg" value="15" step="any" min="0"></label>
+          <label for="wd">Taken out each year ($)<input type="number" id="wd" value="5000" step="any" min="0"></label>
+          <label for="tg">Target ($)<input type="number" id="tg" value="200000" step="any" min="0"></label>
+        </div>
+        <div class="simrow"><button class="btn" type="button" id="go">Run 5,000 simulations</button><span class="small muted">Each run gives slightly different numbers. That's the randomness.</span></div>
+        <div class="svgwrap"><svg id="mine" viewBox="0 0 600 240" role="img" aria-label="Forty of your simulated paths."></svg></div>
+        <div class="tw"><table class="cmp"><tbody>
+          <tr><td>Middle outcome</td><td class="r num" id="o1"></td></tr>
+          <tr><td>Bad 5% ends below</td><td class="r num" id="o2"></td></tr>
+          <tr><td>Chance of ending below the target</td><td class="r num" id="o3"></td></tr>
+          <tr><td>Chance of running out of money</td><td class="r num" id="o4"></td></tr>
+        </tbody></table></div>
+      </div>
+    </details>
+    <details>
+      <summary><span><span class="t">Common mistakes</span><br><span class="s">Three slips beginners make.</span></span></summary>
+      <div class="inner">
+        <ul class="mist">
+          <li><b>Garbage in, garbage out.</b> A simulation is only as good as its model. Normal returns miss <a href="fat-tails.html">fat tails</a>, so the bad outcomes may be worse than shown.</li>
+          <li><b>Too few runs.</b> With 100 paths, a 5% chance could show as 2% or 9%. The error shrinks like 1 ÷ √(number of runs), so use thousands.</li>
+          <li><b>False precision.</b> "22.6%" sounds exact, but small changes to the average return move it a lot. Try a few assumptions, not just one.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <section class="sec">
+    <div class="box">
+      <p class="eyebrow">Remember</p>
+      <ul class="mist">
+        <li>Monte Carlo: model one step, play out a path, repeat thousands of times, then count.</li>
+        <li>It handles rules no formula can, like withdrawals, but it's only as good as its assumptions.</li>
+        <li>The bootstrap resamples your own data, with replacement, to measure how much an estimate could vary.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Check yourself</h2>
+    <div class="ask quiz">
+      <p class="small muted">Three questions. Try them without scrolling up.</p>
+      <div data-q="q1" data-quiz>
+        <p class="q">1. What makes the bootstrap different from a standard Monte Carlo simulation?</p>
+        <div class="opts">
+          <button type="button" data-ok="0">It uses fewer runs</button>
+          <button type="button" data-ok="1">It resamples your actual data instead of assuming a distribution</button>
+          <button type="button" data-ok="0">It always assumes a normal distribution</button>
+        </div>
+        <p class="fb" hidden aria-live="polite"></p>
+        <template>The bootstrap draws from your own observations, with replacement. Monte Carlo draws from a distribution you chose.</template>
+      </div>
+      <div data-q="q2" data-quiz>
+        <p class="q">2. Why run 10,000 paths rather than 10?</p>
+        <div class="opts">
+          <button type="button" data-ok="1">So the counted chances settle down instead of jumping around</button>
+          <button type="button" data-ok="0">So the model becomes more realistic</button>
+          <button type="button" data-ok="0">Because returns need 10,000 years of data</button>
+        </div>
+        <p class="fb" hidden aria-live="polite"></p>
+        <template>More runs shrink the simulation's own noise. They don't fix a wrong model: that takes better assumptions.</template>
+      </div>
+      <div data-q="q3" data-quiz>
+        <p class="q">3. A simulation assumes normal yearly returns. What's its biggest weakness for planning?</p>
+        <div class="opts">
+          <button type="button" data-ok="0">It can't handle withdrawals</button>
+          <button type="button" data-ok="1">It may understate how often severe crashes happen</button>
+          <button type="button" data-ok="0">It always overstates the middle outcome</button>
+        </div>
+        <p class="fb" hidden aria-live="polite"></p>
+        <template>Real returns have fat tails, so a normal model makes deep crashes look rarer than they are. Handling rules like withdrawals is simulation's strength.</template>
+      </div>
+      <div class="score"><span>Score: <b id="score">0 of 3</b></span><button class="btn" type="button" id="reset">Try again</button></div>
+    </div>
+  </section>
+
+  <section class="prac" aria-label="Section practice">
+    <details class="pwrap">
+      <summary><span><span class="eyebrow">Section practice · optional</span><br><span class="t">Inference</span><br><span class="s">9 mixed problems from lessons 19 to 22 · about 12 minutes</span></span></summary>
+      <div class="pin">
+    <p>The problems aren't labeled with a lesson, so part of the work is choosing the right tool. Work each one on paper, then open the answer.</p>
+    <ol>
+      <li><p>Yearly returns have a standard deviation of 12%. What's the standard error of a 16-year average?</p>
+        <details><summary>Show answer</summary><div class="ans"><span class="tool">Samples and standard error</span><span>12 ÷ √16 = 12 ÷ 4 = <b>3%</b>.</span></div></details></li>
+      <li><p>That 16-year average is 7%. What's a rough range for the true average?</p>
+        <details><summary>Show answer</summary><div class="ans"><span class="tool">Samples and standard error</span><span>7 ± 2 × 3: <b>about 1% to 13%</b>. Sixteen years still leaves a wide range.</span></div></details></li>
+      <li><p>How many years would cut that standard error from 3% to 1%?</p>
+        <details><summary>Show answer</summary><div class="ans"><span class="tool">Samples and standard error</span><span>A third of the error needs 3² = 9 times the data: 16 × 9 = <b>144 years</b>.</span></div></details></li>
+      <li><p>25 months average 0.5% with a standard deviation of 2%. The 95% critical value for 24 degrees of freedom is 2.064. Find the confidence interval. Does it rule out zero?</p>
+        <details><summary>Show answer</summary><div class="ans"><span class="tool">Confidence intervals</span><span>Standard error 2 ÷ 5 = 0.4. Margin 2.064 × 0.4 = 0.83. Interval <b>−0.33% to 1.33%</b>. It includes zero, so <b>no</b>.</span></div></details></li>
+      <li><p>36 months average 1.5% with a standard deviation of 6%. Find the t-statistic against zero. Is it significant at 5%?</p>
+        <details><summary>Show answer</summary><div class="ans"><span class="tool">Hypothesis tests</span><span>Standard error 6 ÷ 6 = 1. <i>t</i> = 1.5 ÷ 1 = <b>1.5</b>. Below about 2 (p ≈ 14%), so <b>not significant</b>.</span></div></details></li>
+      <li><p>A researcher tests 100 trading rules, none with a real edge, at a 5% cut-off. How many should look significant?</p>
+        <details><summary>Show answer</summary><div class="ans"><span class="tool">Hypothesis tests</span><span><b>About 5</b>, all by luck. Picking the best of them is data mining.</span></div></details></li>
+      <li><p>With a million trades, a strategy's edge of 0.001% per trade is significant, with p = 0.04. Should you care?</p>
+        <details><summary>Show answer</summary><div class="ans"><span class="tool">Hypothesis tests</span><span><b>Probably not.</b> Huge samples make tiny effects significant. Trading costs would swamp 0.001%. Significant isn't the same as important.</span></div></details></li>
+      <li><p>Out of 5,000 simulated retirement paths, 600 run out of money. What's the estimated chance of running out?</p>
+        <details><summary>Show answer</summary><div class="ans"><span class="tool">Simulation</span><span>600 ÷ 5,000 = <b>12%</b>.</span></div></details></li>
+      <li><p>Describe how to bootstrap a standard error for the average of 60 monthly returns.</p>
+        <details><summary>Show answer</summary><div class="ans"><span class="tool">Simulation</span><span>Draw 60 returns <b>with replacement</b> from the 60 you have, and take the average. Repeat thousands of times. The <b>standard deviation of those averages</b> is the bootstrap standard error.</span></div></details></li>
+    </ol>
+      </div>
+    </details>
+  </section>
+
+  <section class="sec">
+    <div class="next" style="opacity:.9"><span><span class="eyebrow">Coming soon</span><br><span class="t">More Statistics on the way</span><br><span class="small" style="color:var(--on-deep-muted)">This completes the core path. Try the section practice above while the next topics are written.</span></span></div>
+    <p class="related">Related: <a href="https://notesbysara.org/dictionary/monte-carlo-simulation">Monte Carlo simulation</a><a href="https://notesbysara.org/dictionary/law-of-large-numbers">Law of large numbers</a><a href="https://notesbysara.org/dictionary/confidence-interval">Confidence interval</a><span class="rel">Lognormal distribution</span></p>
+  </section>
+
+</article></div>
+
+<script>
+const NS='http://www.w3.org/2000/svg';
+const el=(n,a={},p)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e};
+const text=(p,x,y,t,a={})=>{const e=el('text',Object.assign({x,y,'font-family':"Poppins,system-ui,sans-serif",'font-size':12,fill:'#5A6862','text-anchor':'middle'},a),p);e.textContent=t;return e};
+let seed=12345;const rnd=()=>{seed=(seed*16807)%2147483647;return seed/2147483647};
+const gauss=(r)=>{let u=0,v=0;while(!u)u=r();while(!v)v=r();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v)};
+const money=v=>v>=1e6?'$'+(v/1e6).toLocaleString('en-US',{maximumFractionDigits:2})+'m':'$'+Math.round(v/1000).toLocaleString('en-US')+'k';
+function frame(s,W,H,T,top){
+  {const raw=top/4,mag=Math.pow(10,Math.floor(Math.log10(raw))),f=raw/mag,st=(f<=1?1:f<=2?2:f<=2.5?2.5:f<=3?3:f<=5?5:10)*mag;top=st*4;}
+  const L=64,R=W-16,Tp=12,B=H-34,X=t=>L+(R-L)*t/T,Y=v=>B-(B-Tp)*Math.min(v,top)/top;
+  el('line',{x1:L,y1:B,x2:R,y2:B,stroke:'#9AA59F'},s);el('line',{x1:L,y1:Tp,x2:L,y2:B,stroke:'#9AA59F'},s);
+  const step=top/4;for(let i=0;i<=4;i++){const v=step*i;el('line',{x1:L,y1:Y(v),x2:R,y2:Y(v),stroke:'#EDF0EC'},s);text(s,L-8,Y(v)+4,money(v),{'text-anchor':'end','font-size':11})}
+  const ts=T<=10?1:T<=40?5:10;for(let t=0;t<=T;t+=ts)text(s,X(t),B+16,t,{'font-size':11});
+  text(s,(L+R)/2,B+31,'Years',{'font-size':11});return{X,Y,L,R,B,Tp};
+}
+(function(){
+  const s=document.getElementById('fan'),T=20,mu=.06,sg=.15,top=1200000,{X,Y}=frame(s,600,290,T,top);
+  const band=[[],[]],med=[];for(let t=0;t<=T;t++){const m=mu*t,sd=sg*Math.sqrt(t);band[0].push(1e5*Math.exp(m-1.645*sd));band[1].push(1e5*Math.exp(m+1.645*sd));med.push(1e5*Math.exp(m))}
+  let d='';for(let t=0;t<=T;t++)d+=(t?'L':'M')+X(t)+','+Y(band[1][t]);for(let t=T;t>=0;t--)d+='L'+X(t)+','+Y(band[0][t]);
+  el('path',{d:d+'Z',fill:'#0E7C5A','fill-opacity':.10},s);
+  for(let k=0;k<30;k++){let v=1e5,p='M'+X(0)+','+Y(v);for(let t=1;t<=T;t++){v*=Math.exp(mu+sg*gauss(rnd));p+='L'+X(t).toFixed(1)+','+Y(v).toFixed(1)}el('path',{d:p,fill:'none',stroke:'#7A8A83','stroke-width':1,'stroke-opacity':.55},s)}
+  el('path',{d:med.map((v,t)=>(t?'L':'M')+X(t)+','+Y(v)).join(''),fill:'none',stroke:'#0B4F3C','stroke-width':3},s);
+  text(s,X(20)-4,Y(med[20])-8,'middle: $332k',{'text-anchor':'end','font-size':11.5,fill:'#0B4F3C','font-weight':600});
+  text(s,X(20)-4,Y(band[0][20])+16,'bad 5%: $110k',{'text-anchor':'end','font-size':11.5,fill:'#B4452F','font-weight':600});
+  text(s,X(13),Y(1150000),'good 5%: $1m and up →',{'text-anchor':'start','font-size':11.5,fill:'#0E7C5A','font-weight':600});
+})();
+
+const answered={},correct={};
+document.querySelectorAll('[data-q]').forEach(box=>{
+  const id=box.dataset.q,fb=box.querySelector('.fb'),tpl=box.querySelector('template');
+  box.querySelectorAll('.opts button').forEach(b=>b.addEventListener('click',()=>{
+    if(answered[id])return;
+    const ok=b.dataset.ok==='1';answered[id]=true;correct[id]=ok;
+    box.querySelectorAll('.opts button').forEach(x=>{x.disabled=true;if(x.dataset.ok==='1')x.classList.add('right')});
+    if(!ok)b.classList.add('wrong');
+    fb.innerHTML='<b>'+(ok?'Right. ':'Not quite. ')+'</b>';fb.appendChild(tpl.content.cloneNode(true));
+    fb.classList.toggle('no',!ok);fb.hidden=false;score();
+  }));
+});
+function score(){document.getElementById('score').textContent=['q1','q2','q3'].filter(k=>correct[k]).length+' of 3'}
+document.getElementById('reset').addEventListener('click',()=>{
+  document.querySelectorAll('[data-quiz]').forEach(box=>{const id=box.dataset.q;delete answered[id];delete correct[id];
+    box.querySelectorAll('.opts button').forEach(x=>{x.disabled=false;x.classList.remove('right','wrong')});
+    const fb=box.querySelector('.fb');fb.hidden=true;fb.innerHTML='';});
+  score();
+});
+const ids=['p0','yr','mu','sg','wd','tg'].map(i=>document.getElementById(i)),mine=document.getElementById('mine');
+const usd=v=>'$'+Math.round(v).toLocaleString('en-US'),pc=v=>(v*100).toLocaleString('en-US',{maximumFractionDigits:1})+'%';
+function sim(){
+  const [p0,y0,mu,sg,wd,tg]=ids.map(i=>+i.value),T=Math.round(y0),o=['o1','o2','o3','o4'].map(i=>document.getElementById(i));mine.innerHTML='';
+  if(!(p0>0)||!(T>=1&&T<=60)||!isFinite(mu)||!(sg>=0)||!(wd>=0)||!(tg>=0)){o.forEach(e=>e.textContent='Check the inputs (1 to 60 years)');return}
+  const N=5000,ends=[],paths=[];let dead=0;const r=Math.random;
+  for(let k=0;k<N;k++){let v=p0,out=false;const keep=k<40,pth=keep?[v]:null;
+    for(let t=1;t<=T;t++){v=v*Math.exp(mu/100+sg/100*gauss(r))-wd;if(v<=0){v=0;out=true}if(keep)pth.push(v)}
+    if(out)dead++;ends.push(v);if(keep)paths.push(pth)}
+  ends.sort((a,b)=>a-b);const med=ends[N/2],p5=ends[Math.floor(N*.05)],below=ends.filter(v=>v<tg).length/N;
+  const top=Math.max(ends[Math.floor(N*.95)],p0)*1.05,{X,Y}=frame(mine,600,240,T,top);
+  paths.forEach(p=>el('path',{d:p.map((v,t)=>(t?'L':'M')+X(t).toFixed(1)+','+Y(v).toFixed(1)).join(''),fill:'none',stroke:'#0E7C5A','stroke-width':1,'stroke-opacity':.45},mine));
+  if(tg>0&&tg<top){el('line',{x1:X(0),y1:Y(tg),x2:X(T),y2:Y(tg),stroke:'#C89B2C','stroke-width':1.8,'stroke-dasharray':'5 3'},mine);text(mine,X(0)+6,Y(tg)-5,'target',{'text-anchor':'start','font-size':11,fill:'#8A6A12','font-weight':600})}
+  o[0].textContent=usd(med);o[1].textContent=usd(p5);o[2].textContent=pc(below);o[3].textContent=pc(dead/N);
+}
+document.getElementById('go').addEventListener('click',sim);sim();
+document.querySelectorAll('a[href="#"]').forEach(a=>a.addEventListener('click',e=>e.preventDefault()));
+</script>
+
+
+<script>
+(function(){
+  var KEY='nbs-lessons-done',done=[];
+  try{done=JSON.parse(localStorage.getItem(KEY)||'[]')||[]}catch(e){}
+  var me=document.body.getAttribute('data-lesson'),total=+document.body.getAttribute('data-total')||0,group=document.body.getAttribute('data-group');
+  function count(){return done.filter(function(s){return s.indexOf(group+'/')===0}).length}
+  function show(){var b=document.getElementById('nbs-bar');if(b&&total)b.style.width=Math.min(100,count()/total*100)+'%'}
+  requestAnimationFrame(function(){requestAnimationFrame(show)});
+  var end=document.querySelector('.next');
+  if(me&&end&&'IntersectionObserver' in window){
+    new IntersectionObserver(function(es,o){es.forEach(function(e){if(e.isIntersecting){
+      if(done.indexOf(me)<0){done.push(me);try{localStorage.setItem(KEY,JSON.stringify(done))}catch(err){}show()}
+      o.disconnect()}})},{threshold:.6}).observe(end);
+  }
+})();
+</script>
+<script>
+(function(){
+  var sh=document.getElementById('shell'),KEY='nbs-side-closed',done=[];
+  try{done=JSON.parse(localStorage.getItem('nbs-lessons-done')||'[]')||[]}catch(e){}
+  function marks(){
+    document.querySelectorAll('.side .grp').forEach(function(g){var n=0,a=g.querySelectorAll('a[data-slug]');
+      a.forEach(function(x){var d=done.indexOf(x.dataset.slug)>=0;x.classList.toggle('done',d&&!x.classList.contains('now'));if(d)n++});
+      var c=g.querySelector('.gc');if(c)c.textContent=n+' of '+a.length;});
+  }
+  marks();
+  window.addEventListener('storage',function(){try{done=JSON.parse(localStorage.getItem('nbs-lessons-done')||'[]')||[]}catch(e){}marks()});
+  var closed=false;try{closed=localStorage.getItem(KEY)==='1'}catch(e){}
+  function setClosed(c){closed=c;sh.classList.toggle('closed',c);document.body.classList.toggle('side-closed',c);try{localStorage.setItem(KEY,c?'1':'0')}catch(e){}}
+  if(closed&&innerWidth>860)setClosed(true);
+  document.getElementById('col').addEventListener('click',function(){if(innerWidth<=860){sh.classList.remove('mopen')}else{setClosed(true)}});
+  document.getElementById('mbtn').addEventListener('click',function(){if(innerWidth<=860){sh.classList.add('mopen')}else{setClosed(false)}});
+  document.getElementById('scrim').addEventListener('click',function(){sh.classList.remove('mopen')});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')sh.classList.remove('mopen')});
+  var now=document.querySelector('.side a.now');if(now&&now.scrollIntoView&&innerWidth>860){var s=document.getElementById('side');s.scrollTop=Math.max(0,now.offsetTop-s.clientHeight/2)}
+})();
+</script>
+</body></html>

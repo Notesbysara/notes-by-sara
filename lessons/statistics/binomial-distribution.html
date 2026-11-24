@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="icon" href="/img/favicon.png">
+<meta name="description" content="The binomial distribution: Counting successes in repeated tries. A short lesson from Notes by Sara.">
+<link rel="canonical" href="https://notesbysara.org/lessons/statistics/binomial-distribution.html">
+
+<title>The binomial distribution · Notes by Sara</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Forum&family=Poppins:wght@400;500;600&display=swap">
+<style>
+/* Layout: one calm reading column. Three surfaces only: the deep banner, white boxes, and pale green for anything the learner answers. Light only, like the site. */
+:root{
+  color-scheme:light;
+  --ivory:#FFFDF8; --surface:#FFFFFF; --pearl:#F7F2E7; --pale:#EAF4EF;
+  --ink:#1F2A26; --muted:#5A6862; --line:#E6E1D5;
+  --deep:#06352A; --green:#0E7C5A; --green-text:#0B6A4C; --brand:#0B4F3C;
+  --gold:#E3C26F; --gold-text:#8A6A12; --coral:#B4452F; --coral-pale:#FBEDE9;
+  --on-deep:#FFFDF8; --on-deep-muted:#C9D6D0;
+  --display:'Forum',Georgia,'Times New Roman',serif;
+  --body:'Poppins',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --t-body:16px; --t-small:14px; --t-label:12.5px;
+}
+*{box-sizing:border-box}
+body{background:var(--ivory);color:var(--ink);font-family:var(--body);font-size:var(--t-body);line-height:1.75}
+a{color:var(--green-text)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
+.mockbar{background:var(--pearl);color:var(--muted);font-size:var(--t-small);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:8px;text-align:center;border-bottom:1px solid var(--line)}
+.mockbar b{color:var(--gold-text);letter-spacing:.12em;text-transform:uppercase;font-size:var(--t-label);margin-right:6px}
+.page{max-width:720px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px;display:flex;flex-direction:column;gap:40px}
+h1,h2{font-family:var(--display);font-weight:400;line-height:1.15;margin:0;text-wrap:balance}
+h2{font-size:1.7rem;color:var(--brand)}
+p{margin:0}
+.sec{display:flex;flex-direction:column;gap:14px}
+.eyebrow{font-size:var(--t-label);font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--gold-text)}
+.muted{color:var(--muted)}
+.small{font-size:var(--t-small)}
+b{font-weight:600}
+.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* 1. banner */
+.banner{background:var(--deep);color:var(--on-deep);border-radius:18px;padding:26px 26px 22px;display:flex;flex-direction:column;gap:10px}
+.banner .eyebrow{color:var(--gold)}
+.banner h1{font-size:clamp(2rem,6vw,2.6rem)}
+.banner .lead{color:var(--on-deep-muted)}
+.banner .meta{font-size:var(--t-small);color:var(--on-deep-muted);border-top:1px solid rgba(227,194,111,.35);padding-top:10px;display:flex;flex-wrap:wrap;gap:4px 18px}
+.banner .meta b{color:var(--gold);font-weight:600}
+.banner .meta a{color:var(--on-deep)}
+
+/* white box */
+.box{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.svgwrap{overflow-x:auto}
+.svgwrap svg{display:block;width:100%;height:auto;min-width:480px}
+.cap{font-size:var(--t-small);color:var(--muted)}
+
+/* formula */
+.fx{font-family:Georgia,'Times New Roman',serif;font-size:1.8rem;display:flex;align-items:center;justify-content:center;gap:14px}
+.frac{display:inline-flex;flex-direction:column;align-items:center;line-height:1.2}
+.frac span:first-child{border-bottom:2px solid var(--ink);padding:0 8px 2px}
+.frac span:last-child{padding-top:2px}
+.fx i{font-style:italic}
+.fx sup{font-size:.6em}
+.legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:4px 16px;font-size:var(--t-small);color:var(--muted)}
+.legend i{font-family:Georgia,serif;color:var(--ink);font-size:1.05rem;margin-right:6px}
+table{border-collapse:collapse;width:100%}
+td,th{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left}
+th{font-size:var(--t-small);color:var(--muted);font-weight:500}
+td.r,th.r{text-align:right}
+.tw{overflow-x:auto}
+.result{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;border-top:2px solid var(--brand);padding-top:10px}
+.result b{font-family:var(--display);font-weight:400;font-size:1.8rem;color:var(--brand)}
+
+/* pale: anything you answer */
+.ask{background:var(--pale);border-radius:14px;padding:16px 20px;display:flex;flex-direction:column;gap:10px}
+.ask .q{font-weight:500}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opts button{font:inherit;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 14px;cursor:pointer;color:var(--ink);line-height:1.5}
+.opts button:hover{border-color:var(--green)}
+.opts button.right{border-color:var(--green);box-shadow:inset 3px 0 0 var(--green)}
+.opts button.wrong{border-color:var(--coral);box-shadow:inset 3px 0 0 var(--coral)}
+.opts button[disabled]{cursor:default}
+.fb{font-size:var(--t-small);line-height:1.6}
+.fb b{color:var(--green-text)}
+.fb.no b{color:var(--coral)}
+.quiz{display:flex;flex-direction:column;gap:10px}
+.score{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:var(--t-small);color:var(--muted)}
+.score b{color:var(--brand)}
+.btn{font:inherit;font-size:var(--t-small);border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:4px 12px;cursor:pointer;color:var(--ink)}
+
+/* optional extras */
+.extras{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.extras details{border-bottom:1px solid var(--line)}
+.extras summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 4px}
+.extras summary::-webkit-details-marker{display:none}
+.extras summary .t{font-family:var(--display);font-size:1.3rem;color:var(--brand)}
+.extras summary .s{font-size:var(--t-small);color:var(--muted)}
+.extras summary::after{content:"+";font-size:1.4rem;color:var(--gold-text);flex:none;width:20px;text-align:center}
+.extras details[open] summary::after{content:"−"}
+.extras .inner{padding:0 4px 18px;display:flex;flex-direction:column;gap:12px}
+.inputs{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.inputs label{display:flex;flex-direction:column;gap:4px;font-size:var(--t-small);color:var(--muted)}
+.inputs input[type=number]{font:inherit;color:var(--ink);padding:7px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);width:100%}
+.inputs input[type=range]{width:100%;accent-color:var(--green)}
+.calcout{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+.calcout b{font-family:var(--display);font-weight:400;font-size:1.8rem;color:var(--brand)}
+.mist{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px}
+
+/* recap */
+.recap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:center}
+.recap ul{margin:4px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:2px}
+.recap .fx{font-size:1.3rem}
+@media (max-width:560px){.recap{grid-template-columns:1fr}}
+
+/* next */
+.next{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;background:var(--deep);color:var(--on-deep);border-radius:14px;padding:16px 20px;text-decoration:none}
+.next .eyebrow{color:var(--gold)}
+.next .t{font-family:var(--display);font-size:1.35rem}
+.next .arrow{font-size:1.4rem;color:var(--gold)}
+.related{font-size:var(--t-small);color:var(--muted)}
+.related a{margin-right:10px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+
+<style>
+.shell{display:grid;grid-template-columns:290px minmax(0,1fr);align-items:start}
+.shell.closed{grid-template-columns:minmax(0,1fr)}
+.side{position:sticky;top:50px;height:calc(100vh - 50px);overflow:auto;background:#FFFFFF;border-right:1px solid var(--line);padding:14px 14px 28px;display:flex;flex-direction:column;gap:2px;font-size:14px;scrollbar-width:thin}
+.shell.closed .side{display:none}
+.sidehead{display:flex;justify-content:space-between;align-items:center;padding:0 2px 8px;margin-bottom:4px;border-bottom:1px solid var(--line)}
+.allp{font-size:13px;font-weight:500;color:var(--green-text);text-decoration:none}.allp:hover{text-decoration:underline}
+.col{font:inherit;cursor:pointer;border:1px solid var(--line);background:var(--surface);border-radius:8px;color:var(--brand);width:28px;height:28px;display:grid;place-items:center;font-size:15px;line-height:1}
+.col:hover{border-color:var(--brand)}
+.subj{font-family:var(--display);font-size:1.2rem;color:var(--brand);margin:12px 2px 2px}
+.grp{margin-top:8px}
+.gh{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin:0 2px 4px;font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text)}
+.gc{font-size:11.5px;letter-spacing:0;text-transform:none;font-weight:500;color:var(--muted);white-space:nowrap}
+.grp ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:1px}
+.grp li a{display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;align-items:start;padding:6px 8px;border-radius:8px;text-decoration:none;color:var(--ink);line-height:1.35}
+.grp li a:hover{background:var(--pale)}
+.mk{width:22px;height:22px;border-radius:50%;border:1.5px solid #C5D6CC;display:grid;place-items:center;font-size:11px;font-weight:600;color:var(--muted);background:#fff;margin-top:-1px}
+.grp a.done .mk{background:var(--green);border-color:var(--green);color:#fff}
+.grp a.done .tt{color:var(--muted)}
+.grp a.now{background:#EEF4EF;box-shadow:inset 3px 0 0 var(--gold)}
+.grp a.now .mk{background:var(--deep);border-color:var(--gold);color:#fff}
+.grp a.now .tt{color:var(--brand);font-weight:500}
+.shell .page{max-width:none;margin:0;padding-left:clamp(16px,4vw,56px);padding-right:clamp(16px,4vw,56px)}
+.shell .page>*{max-width:900px;width:100%}
+.shell.closed .page>*{margin-inline:auto}
+.menu-btn{display:none;font:inherit;font-size:13px;font-weight:500;color:#06352A;background:#E3C26F;border:0;border-radius:999px;padding:4px 12px;cursor:pointer;white-space:nowrap}
+body.side-closed .menu-btn{display:inline-flex}
+.scrim{display:none}
+@media (max-width:860px){
+ .shell,.shell.closed{grid-template-columns:minmax(0,1fr)}
+ .side,.shell.closed .side{display:flex;position:fixed;top:0;left:0;bottom:0;height:100vh;width:min(300px,86vw);z-index:40;transform:translateX(-105%);transition:transform .25s ease;box-shadow:6px 0 24px rgba(6,53,42,.2)}
+ .shell.mopen .side{transform:none}
+ .menu-btn{display:inline-flex}
+ .scrim{position:fixed;inset:0;background:rgba(6,53,42,.35);z-index:35}.shell.mopen .scrim{display:block}
+ .shell .page>*{margin-inline:auto}
+}
+@media (prefers-reduced-motion:reduce){.side{transition:none!important}}
+@media (max-width:480px){.nbs-strip .prog{display:none}}
+</style>
+</head><body data-lesson="statistics/binomial-distribution" data-group="statistics" data-total="22">
+<style>
+body{margin:0}
+.related .rel{margin-right:10px}
+.nbs-strip{position:sticky;top:0;z-index:20;background:#06352A;color:#FFFDF8;display:flex;align-items:center;justify-content:space-between;gap:12px;
+ padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:10px;font-family:'Poppins',system-ui,sans-serif;flex-wrap:wrap}
+.nbs-strip .l{display:flex;align-items:center;gap:12px;min-width:0}
+.nbs-strip img{width:30px;height:30px;border-radius:6px;display:block}
+.nbs-strip .crumb{font-size:14px;color:#C9D6D0}.nbs-strip .crumb a{color:#C9D6D0;text-decoration:none}.nbs-strip .crumb a:hover{color:#fff;text-decoration:underline}
+.nbs-strip .crumb i{font-style:normal;color:#E3C26F;margin:0 5px}.nbs-strip .crumb b{color:#fff;font-weight:500}
+.nbs-strip .prog{display:flex;align-items:center;gap:10px;font-size:13px;color:#C9D6D0}
+.nbs-strip .bar{width:130px;height:5px;border-radius:9px;background:rgba(255,255,255,.18);overflow:hidden}
+.nbs-strip .bar span{display:block;height:100%;width:0;background:#E3C26F;transition:width 1.2s cubic-bezier(.2,.8,.2,1) .2s}
+@media (max-width:560px){.nbs-strip .bar{display:none}.nbs-strip .crumb .mid{display:none}}
+@media (prefers-reduced-motion:reduce){.nbs-strip .bar span{transition:none}}
+</style>
+<header class="nbs-strip"><div class="l"><button type="button" class="menu-btn" id="mbtn" aria-label="Show the lesson list">☰ Lessons</button><a href="https://notesbysara.org/" aria-label="Notes by Sara home"><img src="/img/favicon.png" alt="Notes by Sara"></a><nav class="crumb" aria-label="Breadcrumb"><a href="https://notesbysara.org/notes">Learning path</a><span class="mid"><i>›</i><a href="../index.html#statistics">Statistics</a></span><span><i>›</i><b>The binomial distribution</b></span></nav></div><div class="prog"><span>Lesson 13</span><span class="bar" aria-hidden="true"><span id="nbs-bar"></span></span></div></header>
+
+<style>
+.fx{white-space:nowrap;font-size:clamp(.95rem,4.2vw,1.45rem);gap:10px}
+.fx.wrap{white-space:normal;flex-wrap:wrap;text-align:center;line-height:1.7}
+.fx sup{font-size:.6em;line-height:0}
+sub,sup{line-height:0}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.two .box{gap:6px}.two .k{font-family:var(--display);font-size:1.25rem;color:var(--brand)}
+.cmp td:first-child{white-space:normal}
+.steps td:first-child{white-space:normal}
+@media (max-width:560px){.steps td{display:block;border:0;padding:2px 0;text-align:left!important;white-space:normal}.steps tr{display:block;border-bottom:1px solid var(--line);padding:8px 0}.steps td.r{font-weight:500}}
+.where{font-size:var(--t-small);color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 8px}
+</style>
+
+<div class="shell" id="shell"><div class="scrim" id="scrim"></div><aside class="side" id="side" aria-label="All lessons"><div class="sidehead"><a href="../index.html" class="allp">All lessons</a><button type="button" class="col" id="col" aria-label="Hide the lesson list" title="Hide the lesson list">«</button></div><p class="subj">Mathematics for Finance</p><div class="grp"><p class="gh"><span>Numbers and percentages</span><span class="gc">0 of 5</span></p><ol><li><a href="../mathematics/numbers-in-finance.html" data-slug="mathematics/numbers-in-finance"><span class="mk">1</span><span class="tt">Numbers in finance</span></a></li><li><a href="../mathematics/percentage-change.html" data-slug="mathematics/percentage-change"><span class="mk">2</span><span class="tt">Percentages and percentage change</span></a></li><li><a href="../mathematics/percentage-traps.html" data-slug="mathematics/percentage-traps"><span class="mk">3</span><span class="tt">Percentage traps</span></a></li><li><a href="../mathematics/ratios.html" data-slug="mathematics/ratios"><span class="mk">4</span><span class="tt">Ratios and proportions</span></a></li><li><a href="../mathematics/weighted-averages.html" data-slug="mathematics/weighted-averages"><span class="mk">5</span><span class="tt">Weighted averages</span></a></li></ol></div><div class="grp"><p class="gh"><span>Growth and equations</span><span class="gc">0 of 7</span></p><ol><li><a href="../mathematics/exponents.html" data-slug="mathematics/exponents"><span class="mk">6</span><span class="tt">Exponents</span></a></li><li><a href="../mathematics/logarithms.html" data-slug="mathematics/logarithms"><span class="mk">7</span><span class="tt">Logarithms</span></a></li><li><a href="../mathematics/linear-equations.html" data-slug="mathematics/linear-equations"><span class="mk">8</span><span class="tt">Linear equations and graphs</span></a></li><li><a href="../mathematics/simultaneous-equations.html" data-slug="mathematics/simultaneous-equations"><span class="mk">9</span><span class="tt">Solving two equations at once</span></a></li><li><a href="../mathematics/reading-formulas.html" data-slug="mathematics/reading-formulas"><span class="mk">10</span><span class="tt">Reading formulas</span></a></li><li><a href="../mathematics/functions.html" data-slug="mathematics/functions"><span class="mk">11</span><span class="tt">Functions</span></a></li><li><a href="../mathematics/rate-and-time.html" data-slug="mathematics/rate-and-time"><span class="mk">12</span><span class="tt">Solving for rate and time</span></a></li></ol></div><div class="grp"><p class="gh"><span>Sequences and series</span><span class="gc">0 of 3</span></p><ol><li><a href="../mathematics/sequences.html" data-slug="mathematics/sequences"><span class="mk">13</span><span class="tt">Arithmetic and geometric sequences</span></a></li><li><a href="../mathematics/summing-a-geometric-series.html" data-slug="mathematics/summing-a-geometric-series"><span class="mk">14</span><span class="tt">Summing a geometric series</span></a></li><li><a href="../mathematics/infinite-series.html" data-slug="mathematics/infinite-series"><span class="mk">15</span><span class="tt">Infinite series</span></a></li></ol></div><div class="grp"><p class="gh"><span>Calculus</span><span class="gc">0 of 6</span></p><ol><li><a href="../mathematics/rate-of-change.html" data-slug="mathematics/rate-of-change"><span class="mk">16</span><span class="tt">Rate of change</span></a></li><li><a href="../mathematics/derivatives.html" data-slug="mathematics/derivatives"><span class="mk">17</span><span class="tt">Derivatives as sensitivity</span></a></li><li><a href="../mathematics/derivative-rules.html" data-slug="mathematics/derivative-rules"><span class="mk">18</span><span class="tt">Derivative rules you need</span></a></li><li><a href="../mathematics/number-e.html" data-slug="mathematics/number-e"><span class="mk">19</span><span class="tt">The number e and continuous growth</span></a></li><li><a href="../mathematics/curvature.html" data-slug="mathematics/curvature"><span class="mk">20</span><span class="tt">Second derivative and curvature</span></a></li><li><a href="../mathematics/optimization.html" data-slug="mathematics/optimization"><span class="mk">21</span><span class="tt">Optimization</span></a></li></ol></div><div class="grp"><p class="gh"><span>Advanced tools</span><span class="gc">0 of 5</span></p><ol><li><a href="../mathematics/partial-derivatives.html" data-slug="mathematics/partial-derivatives"><span class="mk">22</span><span class="tt">Partial derivatives</span></a></li><li><a href="../mathematics/optimization-with-a-limit.html" data-slug="mathematics/optimization-with-a-limit"><span class="mk">23</span><span class="tt">Optimization with a limit</span></a></li><li><a href="../mathematics/taylor-approximations.html" data-slug="mathematics/taylor-approximations"><span class="mk">24</span><span class="tt">Taylor approximations</span></a></li><li><a href="../mathematics/vectors-and-matrices.html" data-slug="mathematics/vectors-and-matrices"><span class="mk">25</span><span class="tt">Vectors and matrices</span></a></li><li><a href="../mathematics/matrix-inverse.html" data-slug="mathematics/matrix-inverse"><span class="mk">26</span><span class="tt">Matrix inverse</span></a></li></ol></div><p class="subj">Statistics for Finance</p><div class="grp"><p class="gh"><span>Describing data</span><span class="gc">0 of 8</span></p><ol><li><a href="mean-median-mode.html" data-slug="statistics/mean-median-mode"><span class="mk">1</span><span class="tt">Mean, median and mode</span></a></li><li><a href="averaging-returns.html" data-slug="statistics/averaging-returns"><span class="mk">2</span><span class="tt">Averaging returns</span></a></li><li><a href="range-and-percentiles.html" data-slug="statistics/range-and-percentiles"><span class="mk">3</span><span class="tt">Range and percentiles</span></a></li><li><a href="standard-deviation.html" data-slug="statistics/standard-deviation"><span class="mk">4</span><span class="tt">Variance and standard deviation</span></a></li><li><a href="skewness.html" data-slug="statistics/skewness"><span class="mk">5</span><span class="tt">Skewness</span></a></li><li><a href="fat-tails.html" data-slug="statistics/fat-tails"><span class="mk">6</span><span class="tt">Fat tails</span></a></li><li><a href="histograms-and-box-plots.html" data-slug="statistics/histograms-and-box-plots"><span class="mk">7</span><span class="tt">Histograms and box plots</span></a></li><li><a href="misleading-charts.html" data-slug="statistics/misleading-charts"><span class="mk">8</span><span class="tt">Misleading charts</span></a></li></ol></div><div class="grp"><p class="gh"><span>Probability</span><span class="gc">0 of 7</span></p><ol><li><a href="probability-basics.html" data-slug="statistics/probability-basics"><span class="mk">9</span><span class="tt">Probability basics</span></a></li><li><a href="conditional-probability.html" data-slug="statistics/conditional-probability"><span class="mk">10</span><span class="tt">Conditional probability</span></a></li><li><a href="bayes-rule.html" data-slug="statistics/bayes-rule"><span class="mk">11</span><span class="tt">Bayes&#x27; rule</span></a></li><li><a href="expected-value.html" data-slug="statistics/expected-value"><span class="mk">12</span><span class="tt">Expected value</span></a></li><li><a href="binomial-distribution.html" data-slug="statistics/binomial-distribution" class="now" aria-current="page"><span class="mk">13</span><span class="tt">The binomial distribution</span></a></li><li><a href="normal-distribution.html" data-slug="statistics/normal-distribution"><span class="mk">14</span><span class="tt">The normal distribution</span></a></li><li><a href="lognormal-distribution.html" data-slug="statistics/lognormal-distribution"><span class="mk">15</span><span class="tt">The lognormal distribution</span></a></li></ol></div><div class="grp"><p class="gh"><span>Relationships</span><span class="gc">0 of 3</span></p><ol><li><a href="correlation.html" data-slug="statistics/correlation"><span class="mk">16</span><span class="tt">Correlation</span></a></li><li><a href="linear-regression.html" data-slug="statistics/linear-regression"><span class="mk">17</span><span class="tt">Linear regression</span></a></li><li><a href="r-squared.html" data-slug="statistics/r-squared"><span class="mk">18</span><span class="tt">R-squared and residuals</span></a></li></ol></div><div class="grp"><p class="gh"><span>Inference</span><span class="gc">0 of 4</span></p><ol><li><a href="standard-error.html" data-slug="statistics/standard-error"><span class="mk">19</span><span class="tt">Samples and standard error</span></a></li><li><a href="confidence-intervals.html" data-slug="statistics/confidence-intervals"><span class="mk">20</span><span class="tt">Confidence intervals</span></a></li><li><a href="hypothesis-tests.html" data-slug="statistics/hypothesis-tests"><span class="mk">21</span><span class="tt">Hypothesis tests and p-values</span></a></li><li><a href="simulation.html" data-slug="statistics/simulation"><span class="mk">22</span><span class="tt">Simulation</span></a></li></ol></div></aside><article class="page">
+
+  <header class="banner">
+    <p class="eyebrow">Statistics for Finance</p>
+    <h1>The binomial distribution</h1>
+    <p class="lead">How many of ten loans will default? How many days will a share rise this month? When you count successes in repeated tries, the binomial distribution gives the chance of every possible count.</p>
+    <div class="meta"><span><b>Probability</b> · Lesson 5 of 7 · 6 minutes</span><span>Before this: <a href="probability-basics.html">Probability basics</a>, <a href="expected-value.html">Expected value</a></span></div>
+  </header>
+
+  <section class="sec">
+    <h2>Ten bonds, how many defaults?</h2>
+    <p><span class="muted">Example, with made-up numbers.</span> A fund holds <b>10</b> bonds from unrelated companies. Each has a <b>10%</b> chance of defaulting this year. What is the chance that exactly 2 default? That none do? That 3 or more do?</p>
+  </section>
+
+  <section class="sec">
+    <h2>The idea</h2>
+    <p>The number of defaults is a <b>random variable</b>: a number whose value depends on chance. The list of every possible value and its probability is its <b>probability distribution</b>.</p>
+    <div class="two">
+      <div class="box"><span class="k">Discrete</span><span class="small">Takes separate values you can count: 0, 1, 2 defaults. Each value has its own probability.</span></div>
+      <div class="box"><span class="k">Continuous</span><span class="small">Can take any value in a range, like tomorrow's return of 0.83%. You talk about the chance of a range instead.</span></div>
+    </div>
+    <p>Counting defaults is a classic <b>binomial</b> situation: a fixed number of tries (10 bonds), each with the same chance of "success" (10%), each independent of the others. Here's the whole distribution:</p>
+    <div class="box">
+      <div class="svgwrap"><svg id="bin" viewBox="0 0 600 240" role="img" aria-label="Chance of each number of defaults among 10 bonds: 0 defaults 34.9%, 1 default 38.7%, 2 defaults 19.4%, 3 defaults 5.7%, 4 defaults 1.1%, 5 or more about 0.2%."></svg></div>
+      <p class="cap">One default is the most likely count. Three or more happen about 7% of the time.</p>
+    </div>
+    <div class="box">
+      <div class="fx wrap"><span>P(exactly <i>k</i>) = (ways to choose <i>k</i> of <i>n</i>) × <i>p</i><sup><i>k</i></sup> × (1 − <i>p</i>)<sup><i>n</i> − <i>k</i></sup></span></div>
+      <p class="small muted"><i>p</i><sup><i>k</i></sup> is the chance that <i>k</i> particular bonds default, and (1 − <i>p</i>)<sup><i>n</i> − <i>k</i></sup> that the rest don't. The number of ways to pick which <i>k</i> bonds, written C(<i>n</i>, <i>k</i>), counts all the arrangements. In a spreadsheet: <span class="num">=COMBIN(10,2)</span> gives 45, and <span class="num">=BINOM.DIST(2,10,0.1,FALSE)</span> gives the whole answer.</p>
+    </div>
+    <div class="ask" data-q="c1">
+      <p class="eyebrow">Quick check</p>
+      <p class="q">Which of these is a discrete random variable?</p>
+      <div class="opts">
+        <button type="button" data-ok="1">The number of loans that default this year</button>
+        <button type="button" data-ok="0">Tomorrow's exact return on a share</button>
+      </div>
+      <p class="fb" hidden aria-live="polite"></p>
+      <template>Defaults come in whole numbers you can count. A return can be any value in a range, so it's continuous.</template>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Worked example: exactly 2 defaults</h2>
+    <div class="box">
+      <div class="tw"><table class="steps"><tbody>
+        <tr><td>1. Ways to choose which 2 of 10 default</td><td class="r num">C(10, 2) = 45</td></tr>
+        <tr><td>2. Those 2 default</td><td class="r num">0.1<sup>2</sup> = 0.01</td></tr>
+        <tr><td>3. The other 8 don't</td><td class="r num">0.9<sup>8</sup> = 0.4305</td></tr>
+        <tr><td>4. Multiply</td><td class="r num">45 × 0.01 × 0.4305</td></tr>
+      </tbody></table></div>
+      <div class="result"><span>Chance of exactly 2 defaults</span><b class="num">19.4%</b></div>
+      <p class="small muted">None default: 0.9<sup>10</sup> = 34.9%. Three or more: 1 − (34.9% + 38.7% + 19.4%) = <b>7.0%</b>. The expected number is <i>n</i> × <i>p</i> = 10 × 0.1 = <b>1 default</b>, and the standard deviation is √(<i>n</i> × <i>p</i> × (1 − <i>p</i>)) = 0.95. One warning: if defaults move together, as in a recession, the chance of many at once is far higher than this.</p>
+    </div>
+  </section>
+
+  <section class="extras" aria-label="Optional extras">
+    <details>
+      <summary><span><span class="t">Try it yourself</span><br><span class="s">Choose the tries, the chance and the count.</span></span></summary>
+      <div class="inner">
+        <div class="inputs">
+          <label for="n">Number of tries, <i>n</i><input type="number" id="n" value="10" min="1" max="200" step="1"></label>
+          <label for="p">Chance each time (%)<input type="number" id="p" value="10" min="0" max="100" step="any"></label>
+          <label for="k">Count, <i>k</i><input type="number" id="k" value="2" min="0" step="1"></label>
+        </div>
+        <div class="tw"><table class="cmp"><tbody>
+          <tr><td>Exactly <i>k</i></td><td class="r num" id="e"></td></tr>
+          <tr><td><i>k</i> or more</td><td class="r num" id="m"></td></tr>
+          <tr><td>Expected count · standard deviation</td><td class="r num" id="ms"></td></tr>
+        </tbody></table></div>
+      </div>
+    </details>
+    <details>
+      <summary><span><span class="t">Common mistakes</span><br><span class="s">Three slips beginners make.</span></span></summary>
+      <div class="inner">
+        <ul class="mist">
+          <li><b>Forgetting the number of ways.</b> 0.1<sup>2</sup> × 0.9<sup>8</sup> is the chance for two <i>particular</i> bonds. Multiply by 45 for any two.</li>
+          <li><b>Using it when tries aren't independent.</b> Loans in one town or one industry tend to default together.</li>
+          <li><b>Mixing "exactly" and "at least".</b> "3 or more" means adding up 3, 4, 5, … or, more easily, 1 minus the chance of 0, 1 or 2.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <section class="sec">
+    <div class="box">
+      <p class="eyebrow">Remember</p>
+      <ul class="mist">
+        <li>A random variable is a number set by chance. Its distribution gives the probability of each value.</li>
+        <li>Binomial: <i>n</i> independent tries, same chance <i>p</i>, count the successes.</li>
+        <li>P(exactly <i>k</i>) = C(<i>n</i>, <i>k</i>) × <i>p</i><sup><i>k</i></sup> × (1 − <i>p</i>)<sup><i>n</i> − <i>k</i></sup>. Expected count = <i>n</i> × <i>p</i>.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Check yourself</h2>
+    <div class="ask quiz">
+      <p class="small muted">Three questions. Try them without scrolling up.</p>
+      <div data-q="q1" data-quiz>
+        <p class="q">1. In how many ways can you choose 2 loans out of 5?</p>
+        <div class="opts">
+          <button type="button" data-ok="1">10</button>
+          <button type="button" data-ok="0">20</button>
+          <button type="button" data-ok="0">7</button>
+        </div>
+        <p class="fb" hidden aria-live="polite"></p>
+        <template>C(5, 2) = (5 × 4) ÷ (2 × 1) = 10. 20 counts each pair twice, once in each order.</template>
+      </div>
+      <div data-q="q2" data-quiz>
+        <p class="q">2. A share has a 50% chance of rising each day, independently. What's the chance it rises on exactly 2 of the next 4 days?</p>
+        <div class="opts">
+          <button type="button" data-ok="0">50%</button>
+          <button type="button" data-ok="0">25%</button>
+          <button type="button" data-ok="1">37.5%</button>
+        </div>
+        <p class="fb" hidden aria-live="polite"></p>
+        <template>C(4, 2) = 6 ways, each with chance 0.5<sup>4</sup> = 1/16. So 6/16 = 37.5%.</template>
+      </div>
+      <div data-q="q3" data-quiz>
+        <p class="q">3. A lender has 20 independent loans, each with a 5% chance of default. How many defaults should it expect?</p>
+        <div class="opts">
+          <button type="button" data-ok="1">1</button>
+          <button type="button" data-ok="0">5</button>
+          <button type="button" data-ok="0">0</button>
+        </div>
+        <p class="fb" hidden aria-live="polite"></p>
+        <template><i>n</i> × <i>p</i> = 20 × 0.05 = 1. The most likely single outcome might be 0 or 1, but the long-run average is 1.</template>
+      </div>
+      <div class="score"><span>Score: <b id="score">0 of 3</b></span><button class="btn" type="button" id="reset">Try again</button></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <a href="normal-distribution.html" class="next"><span><span class="eyebrow">Next lesson · Core · 6 minutes</span><br><span class="t">The normal distribution</span><br><span class="small" style="color:var(--on-deep-muted)">The bell curve, its rules of thumb, and where it breaks.</span></span><span class="arrow" aria-hidden="true">→</span></a>
+    <p class="related">Related: <a href="https://notesbysara.org/dictionary/random-variable">Random variable</a><a href="https://notesbysara.org/dictionary/probability-distribution">Probability distribution</a><a href="https://notesbysara.org/dictionary/binomial-option-pricing-model">Binomial option pricing model</a><a href="https://notesbysara.org/dictionary/credit-risk">Default risk</a></p>
+  </section>
+
+</article></div>
+
+<script>
+const NS='http://www.w3.org/2000/svg';
+const el=(n,a={},p)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e};
+const text=(p,x,y,t,a={})=>{const e=el('text',Object.assign({x,y,'font-family':"Poppins,system-ui,sans-serif",'font-size':12,fill:'#5A6862','text-anchor':'middle'},a),p);e.textContent=t;return e};
+const C=(n,k)=>{if(k<0||k>n)return 0;let r=1;for(let i=1;i<=k;i++)r=r*(n-k+i)/i;return r};
+const B=(n,p,k)=>C(n,k)*Math.pow(p,k)*Math.pow(1-p,n-k);
+(function(){
+  const s=document.getElementById('bin'),L=60,R=570,T=20,Bt=190,Y=v=>Bt-(Bt-T)*v/0.45;
+  [0,.1,.2,.3,.4].forEach(v=>{el('line',{x1:L,y1:Y(v),x2:R,y2:Y(v),stroke:'#EFEAE0'},s);text(s,L-8,Y(v)+4,(v*100)+'%',{'text-anchor':'end'})});
+  const vals=[0,1,2,3,4,5].map(k=>k<5?B(10,.1,k):1-[0,1,2,3,4].reduce((a,j)=>a+B(10,.1,j),0));
+  const w=(R-L)/6;
+  vals.forEach((v,i)=>{const x=L+w*i+w*.18,bw=w*.64;
+    el('rect',{x,y:Y(v),width:bw,height:Bt-Y(v),rx:3,fill:i>=3?'#B8892A':'#0E7C5A'},s);
+    text(s,x+bw/2,Y(v)-6,(v*100).toFixed(1)+'%',{'font-weight':600,fill:'#1F2A26','font-size':11.5});
+    text(s,x+bw/2,Bt+18,i<5?String(i):'5+');});
+  text(s,(L+R)/2,Bt+38,'number of defaults out of 10',{'font-size':11.5});
+  text(s,R-4,T+10,'gold: 3 or more, about 7%',{'text-anchor':'end','font-size':11.5,fill:'#8A6A12','font-weight':600});
+})();
+
+const answered={},correct={};
+document.querySelectorAll('[data-q]').forEach(box=>{
+  const id=box.dataset.q,fb=box.querySelector('.fb'),tpl=box.querySelector('template');
+  box.querySelectorAll('.opts button').forEach(b=>b.addEventListener('click',()=>{
+    if(answered[id])return;
+    const ok=b.dataset.ok==='1';answered[id]=true;correct[id]=ok;
+    box.querySelectorAll('.opts button').forEach(x=>{x.disabled=true;if(x.dataset.ok==='1')x.classList.add('right')});
+    if(!ok)b.classList.add('wrong');
+    fb.innerHTML='<b>'+(ok?'Right. ':'Not quite. ')+'</b>';fb.appendChild(tpl.content.cloneNode(true));
+    fb.classList.toggle('no',!ok);fb.hidden=false;score();
+  }));
+});
+function score(){document.getElementById('score').textContent=['q1','q2','q3'].filter(k=>correct[k]).length+' of 3'}
+document.getElementById('reset').addEventListener('click',()=>{
+  document.querySelectorAll('[data-quiz]').forEach(box=>{const id=box.dataset.q;delete answered[id];delete correct[id];
+    box.querySelectorAll('.opts button').forEach(x=>{x.disabled=false;x.classList.remove('right','wrong')});
+    const fb=box.querySelector('.fb');fb.hidden=true;fb.innerHTML='';});
+  score();
+});
+const ni=document.getElementById('n'),pi=document.getElementById('p'),ki=document.getElementById('k');
+const pc=v=>(v*100).toLocaleString('en-US',{maximumFractionDigits:2})+'%';
+function run(){
+  const n=Math.round(+ni.value),p=+pi.value/100,k=Math.round(+ki.value),o=['e','m','ms'].map(i=>document.getElementById(i));
+  if(!(n>=1&&n<=200)||!(p>=0&&p<=1)||!(k>=0)){o.forEach(e=>e.textContent='Check the inputs');return}
+  let m=0;for(let j=k;j<=n;j++)m+=B(n,p,j);
+  o[0].textContent=k>n?'0%':pc(B(n,p,k));o[1].textContent=pc(Math.min(1,m));
+  o[2].textContent=(n*p).toLocaleString('en-US',{maximumFractionDigits:2})+' · '+Math.sqrt(n*p*(1-p)).toLocaleString('en-US',{maximumFractionDigits:2});
+}
+[ni,pi,ki].forEach(i=>i.addEventListener('input',run));run();
+document.querySelectorAll('a[href="#"]').forEach(a=>a.addEventListener('click',e=>e.preventDefault()));
+</script>
+
+
+<script>
+(function(){
+  var KEY='nbs-lessons-done',done=[];
+  try{done=JSON.parse(localStorage.getItem(KEY)||'[]')||[]}catch(e){}
+  var me=document.body.getAttribute('data-lesson'),total=+document.body.getAttribute('data-total')||0,group=document.body.getAttribute('data-group');
+  function count(){return done.filter(function(s){return s.indexOf(group+'/')===0}).length}
+  function show(){var b=document.getElementById('nbs-bar');if(b&&total)b.style.width=Math.min(100,count()/total*100)+'%'}
+  requestAnimationFrame(function(){requestAnimationFrame(show)});
+  var end=document.querySelector('.next');
+  if(me&&end&&'IntersectionObserver' in window){
+    new IntersectionObserver(function(es,o){es.forEach(function(e){if(e.isIntersecting){
+      if(done.indexOf(me)<0){done.push(me);try{localStorage.setItem(KEY,JSON.stringify(done))}catch(err){}show()}
+      o.disconnect()}})},{threshold:.6}).observe(end);
+  }
+})();
+</script>
+<script>
+(function(){
+  var sh=document.getElementById('shell'),KEY='nbs-side-closed',done=[];
+  try{done=JSON.parse(localStorage.getItem('nbs-lessons-done')||'[]')||[]}catch(e){}
+  function marks(){
+    document.querySelectorAll('.side .grp').forEach(function(g){var n=0,a=g.querySelectorAll('a[data-slug]');
+      a.forEach(function(x){var d=done.indexOf(x.dataset.slug)>=0;x.classList.toggle('done',d&&!x.classList.contains('now'));if(d)n++});
+      var c=g.querySelector('.gc');if(c)c.textContent=n+' of '+a.length;});
+  }
+  marks();
+  window.addEventListener('storage',function(){try{done=JSON.parse(localStorage.getItem('nbs-lessons-done')||'[]')||[]}catch(e){}marks()});
+  var closed=false;try{closed=localStorage.getItem(KEY)==='1'}catch(e){}
+  function setClosed(c){closed=c;sh.classList.toggle('closed',c);document.body.classList.toggle('side-closed',c);try{localStorage.setItem(KEY,c?'1':'0')}catch(e){}}
+  if(closed&&innerWidth>860)setClosed(true);
+  document.getElementById('col').addEventListener('click',function(){if(innerWidth<=860){sh.classList.remove('mopen')}else{setClosed(true)}});
+  document.getElementById('mbtn').addEventListener('click',function(){if(innerWidth<=860){sh.classList.add('mopen')}else{setClosed(false)}});
+  document.getElementById('scrim').addEventListener('click',function(){sh.classList.remove('mopen')});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')sh.classList.remove('mopen')});
+  var now=document.querySelector('.side a.now');if(now&&now.scrollIntoView&&innerWidth>860){var s=document.getElementById('side');s.scrollTop=Math.max(0,now.offsetTop-s.clientHeight/2)}
+})();
+</script>
+</body></html>
