@@ -167,6 +167,8 @@ body.side-closed .fab{display:grid;place-items:center}
 <style>
 body{margin:0}
 .related .rel{margin-right:10px}
+.related a,.related .rel{display:inline-block}
+@media (max-width:480px){b.num{white-space:normal}}
 .nbs-strip{position:sticky;top:0;z-index:20;background:#06352A;color:#FFFDF8;display:flex;align-items:center;justify-content:space-between;gap:12px;
  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:10px;font-family:'Poppins',system-ui,sans-serif;flex-wrap:wrap}
 .nbs-strip .l{display:flex;align-items:center;gap:12px;min-width:0}
@@ -297,7 +299,7 @@ svg .lb{font:600 13px var(--body)}
       <div class="legend2"><span><i style="background:var(--gold);opacity:.6"></i>Payment as written</span><span><i style="background:var(--green)"></i>Value today at 5%</span></div>
       <p class="cap">Ohtani's contract as a timeline, in $ millions. Each green bar is that year's payment discounted at 5% to the signing date (approximate: payments assumed at year-end).</p>
     </div>
-    <p>Added up at 5%, the 20 payments are worth about $338 million at signing. At 8% they are worth about $225 million. MLB's $460 million uses its own rules, discounting each year's deferral back to the season it was earned rather than to the signing day. <b>A present value is always "as of" a date and "at" a rate.</b> Change either and the number changes.</p>
+    <p>Added up at 5%, the 20 payments are worth about $338 million at signing. At 8% they are worth about $225 million. MLB's $460 million comes from the method set out in baseball's labor agreement, so it differs from a simple calculation like this one. <b>A present value is always "as of" a date and "at" a rate.</b> Change either and the number changes.</p>
 
     <div class="guess" id="g">
       <p class="q">At 6%, which is worth more today: $100,000 now, or $20,000 a year for six years starting next year ($120,000 in total)?</p>

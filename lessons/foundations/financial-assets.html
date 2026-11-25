@@ -167,6 +167,8 @@ body.side-closed .fab{display:grid;place-items:center}
 <style>
 body{margin:0}
 .related .rel{margin-right:10px}
+.related a,.related .rel{display:inline-block}
+@media (max-width:480px){b.num{white-space:normal}}
 .nbs-strip{position:sticky;top:0;z-index:20;background:#06352A;color:#FFFDF8;display:flex;align-items:center;justify-content:space-between;gap:12px;
  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:10px;font-family:'Poppins',system-ui,sans-serif;flex-wrap:wrap}
 .nbs-strip .l{display:flex;align-items:center;gap:12px;min-width:0}
@@ -296,7 +298,7 @@ svg .lb{font:600 14px var(--body)}
     <p>Same company, same collapse. <b>What separated them was the kind of claim they held.</b></p>
 
     <p><b>Real assets produce things; financial assets are claims on what they produce.</b> GM's factories, land and designs are real assets. Its bonds and shares are financial assets: rights to part of the cash those factories generate.</p>
-    <p><b>Every financial asset is someone else's liability.</b> Your deposit is a debt of your bank; a bond is a debt of its issuer. Add up the whole economy and financial assets and liabilities cancel out. The wealth underneath is the real assets.</p>
+    <p><b>Every financial asset is a claim on someone else:</b> a debt they owe, or a share of what they own. Your deposit is a debt of your bank; a bond is a debt of its issuer; a share is a claim on a company's profits. Net all these claims across the whole economy and they cancel out. The wealth underneath is the real assets.</p>
 
     <p><b>The four you will meet most often:</b></p>
     <div class="assets">
@@ -323,6 +325,7 @@ svg .lb{font:600 14px var(--body)}
         <li><span class="n">4</span><div><b>Common shareholders</b><span>Everything that is left, which may be nothing</span></div></li>
       </ol>
       <p class="qends" style="margin:8px 0 0">Paid last</p>
+      <p class="cap" style="margin-top:8px">Simplified. In a real bankruptcy, some claims rank ahead of bondholders, such as the costs of the bankruptcy itself, unpaid wages and taxes.</p>
     </div>
 
     <p><b>Being last in line is what gives shareholders the unlimited upside.</b> Bondholders accept a capped return in exchange for being paid first. Move the slider to see how one year's profit is split <span class="note">(illustrative figures, before tax)</span>:</p>

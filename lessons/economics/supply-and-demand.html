@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="icon" href="/img/favicon.png">
+<meta name="description" content="Supply and demand: How buyers and sellers set a price. A short lesson from Notes by Sara.">
+<link rel="canonical" href="https://notesbysara.org/lessons/economics/supply-and-demand.html">
+
+<title>Supply and demand · Notes by Sara</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Forum&family=Poppins:wght@400;500;600&display=swap">
+<style>
+/* Layout: one calm reading column. Three surfaces only: the deep banner, white boxes, and pale green for anything the learner answers. Light only, like the site. */
+:root{
+  color-scheme:light;
+  --ivory:#FFFDF8; --surface:#FFFFFF; --pearl:#F7F2E7; --pale:#EAF4EF;
+  --ink:#1F2A26; --muted:#5A6862; --line:#E6E1D5;
+  --deep:#06352A; --green:#0E7C5A; --green-text:#0B6A4C; --brand:#0B4F3C;
+  --gold:#E3C26F; --gold-text:#8A6A12; --coral:#B4452F; --coral-pale:#FBEDE9;
+  --on-deep:#FFFDF8; --on-deep-muted:#C9D6D0;
+  --display:'Forum',Georgia,'Times New Roman',serif;
+  --body:'Poppins',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --t-body:16px; --t-small:14px; --t-label:12.5px;
+}
+*{box-sizing:border-box}
+body{background:var(--ivory);color:var(--ink);font-family:var(--body);font-size:var(--t-body);line-height:1.75}
+a{color:var(--green-text)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
+.mockbar{background:var(--pearl);color:var(--muted);font-size:var(--t-small);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:8px;text-align:center;border-bottom:1px solid var(--line)}
+.mockbar b{color:var(--gold-text);letter-spacing:.12em;text-transform:uppercase;font-size:var(--t-label);margin-right:6px}
+.page{max-width:720px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px;display:flex;flex-direction:column;gap:40px}
+h1,h2{font-family:var(--display);font-weight:400;line-height:1.15;margin:0;text-wrap:balance}
+h2{font-size:1.7rem;color:var(--brand)}
+p{margin:0}
+.sec{display:flex;flex-direction:column;gap:14px}
+.eyebrow{font-size:var(--t-label);font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--gold-text)}
+.muted{color:var(--muted)}
+.small{font-size:var(--t-small)}
+b{font-weight:600}
+.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* 1. banner */
+.banner{background:var(--deep);color:var(--on-deep);border-radius:18px;padding:26px 26px 22px;display:flex;flex-direction:column;gap:10px}
+.banner .eyebrow{color:var(--gold)}
+.banner h1{font-size:clamp(2rem,6vw,2.6rem)}
+.banner .lead{color:var(--on-deep-muted)}
+.banner .meta{font-size:var(--t-small);color:var(--on-deep-muted);border-top:1px solid rgba(227,194,111,.35);padding-top:10px;display:flex;flex-wrap:wrap;gap:4px 18px}
+.banner .meta b{color:var(--gold);font-weight:600}
+.banner .meta a{color:var(--on-deep)}
+
+/* white box */
+.box{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.svgwrap{overflow-x:auto}
+.svgwrap svg{display:block;width:100%;height:auto;min-width:480px}
+.cap{font-size:var(--t-small);color:var(--muted)}
+
+/* formula */
+.fx{font-family:Georgia,'Times New Roman',serif;font-size:1.8rem;display:flex;align-items:center;justify-content:center;gap:14px}
+.frac{display:inline-flex;flex-direction:column;align-items:center;line-height:1.2}
+.frac span:first-child{border-bottom:2px solid var(--ink);padding:0 8px 2px}
+.frac span:last-child{padding-top:2px}
+.fx i{font-style:italic}
+.fx sup{font-size:.6em}
+.legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:4px 16px;font-size:var(--t-small);color:var(--muted)}
+.legend i{font-family:Georgia,serif;color:var(--ink);font-size:1.05rem;margin-right:6px}
+table{border-collapse:collapse;width:100%}
+td,th{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left}
+th{font-size:var(--t-small);color:var(--muted);font-weight:500}
+td.r,th.r{text-align:right}
+.tw{overflow-x:auto}
+.result{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;border-top:2px solid var(--brand);padding-top:10px}
+.result b{font-family:var(--display);font-weight:400;font-size:1.8rem;color:var(--brand)}
+
+/* pale: anything you answer */
+.ask{background:var(--pale);border-radius:14px;padding:16px 20px;display:flex;flex-direction:column;gap:10px}
+.ask .q{font-weight:500}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opts button{font:inherit;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 14px;cursor:pointer;color:var(--ink);line-height:1.5}
+.opts button:hover{border-color:var(--green)}
+.opts button.right{border-color:var(--green);box-shadow:inset 3px 0 0 var(--green)}
+.opts button.wrong{border-color:var(--coral);box-shadow:inset 3px 0 0 var(--coral)}
+.opts button[disabled]{cursor:default}
+.fb{font-size:var(--t-small);line-height:1.6}
+.fb b{color:var(--green-text)}
+.fb.no b{color:var(--coral)}
+.quiz{display:flex;flex-direction:column;gap:10px}
+.score{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:var(--t-small);color:var(--muted)}
+.score b{color:var(--brand)}
+.btn{font:inherit;font-size:var(--t-small);border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:4px 12px;cursor:pointer;color:var(--ink)}
+
+/* optional extras */
+.extras{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.extras details{border-bottom:1px solid var(--line)}
+.extras summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 4px}
+.extras summary::-webkit-details-marker{display:none}
+.extras summary .t{font-family:var(--display);font-size:1.3rem;color:var(--brand)}
+.extras summary .s{font-size:var(--t-small);color:var(--muted)}
+.extras summary::after{content:"+";font-size:1.4rem;color:var(--gold-text);flex:none;width:20px;text-align:center}
+.extras details[open] summary::after{content:"−"}
+.extras .inner{padding:0 4px 18px;display:flex;flex-direction:column;gap:12px}
+.inputs{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.inputs label{display:flex;flex-direction:column;gap:4px;font-size:var(--t-small);color:var(--muted)}
+.inputs input[type=number]{font:inherit;color:var(--ink);padding:7px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);width:100%}
+.inputs input[type=range]{width:100%;accent-color:var(--green)}
+.calcout{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+.calcout b{font-family:var(--display);font-weight:400;font-size:1.8rem;color:var(--brand)}
+.mist{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px}
+
+/* recap */
+.recap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:center}
+.recap ul{margin:4px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:2px}
+.recap .fx{font-size:1.3rem}
+@media (max-width:560px){.recap{grid-template-columns:1fr}}
+
+/* next */
+.next{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;background:var(--deep);color:var(--on-deep);border-radius:14px;padding:16px 20px;text-decoration:none}
+.next .eyebrow{color:var(--gold)}
+.next .t{font-family:var(--display);font-size:1.35rem}
+.next .arrow{font-size:1.4rem;color:var(--gold)}
+.related{font-size:var(--t-small);color:var(--muted)}
+.related a{margin-right:10px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+
+<style>
+.shell{display:grid;grid-template-columns:290px minmax(0,1fr);align-items:start}
+.shell.closed{grid-template-columns:minmax(0,1fr)}
+.side{position:sticky;top:50px;height:calc(100vh - 50px);overflow:auto;background:#FFFFFF;border-right:1px solid var(--line);padding:14px 14px 28px;display:flex;flex-direction:column;gap:2px;font-size:14px;scrollbar-width:thin}
+.shell.closed .side{display:none}
+.sidehead{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:0 2px 10px;margin-bottom:4px;border-bottom:1px solid var(--line)}
+.tog{font:inherit;font-size:13px;font-weight:600;color:#06352A;background:#E3C26F;border:0;border-radius:999px;padding:5px 13px;cursor:pointer;line-height:1.4}.tog:hover{background:#EBCF86}
+.sw{display:flex;gap:5px;flex-wrap:wrap}.sw a{font-size:12px;border:1px solid var(--line);border-radius:999px;padding:3px 10px;background:#fff;color:var(--ink);text-decoration:none}.sw a:hover{border-color:var(--brand)}.sw a.on{background:var(--deep);color:#fff;border-color:var(--deep)}
+.subj{font-family:var(--display);font-size:1.2rem;color:var(--brand);margin:8px 2px 2px}.subj a{color:inherit;text-decoration:none}.subj a:hover{text-decoration:underline}
+.grp{margin-top:8px}
+.gh{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin:0 2px 4px;font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text)}
+.gc{font-size:11.5px;letter-spacing:0;text-transform:none;font-weight:500;color:var(--muted);white-space:nowrap}
+.grp ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:1px}
+.grp li a{display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;align-items:start;padding:6px 8px;border-radius:8px;text-decoration:none;color:var(--ink);line-height:1.35}
+.grp li a:hover{background:var(--pale)}
+.mk{width:22px;height:22px;border-radius:50%;border:1.5px solid #C5D6CC;display:grid;place-items:center;font-size:11px;font-weight:600;color:var(--muted);background:#fff;margin-top:-1px}
+.grp a.done .mk{background:var(--green);border-color:var(--green);color:#fff}
+.grp a.done .tt{color:var(--muted)}
+.grp a.now{background:#EEF4EF;box-shadow:inset 3px 0 0 var(--gold)}
+.grp a.now .mk{background:var(--deep);border-color:var(--gold);color:#fff}
+.grp a.now .tt{color:var(--brand);font-weight:500}
+.shell .page{max-width:none;margin:0;padding-left:clamp(16px,4vw,56px);padding-right:clamp(16px,4vw,56px)}
+.shell .page>*{max-width:900px;width:100%}
+.shell.closed .page>*{margin-inline:auto}
+.shell.closed .page{padding-left:max(64px,clamp(16px,4vw,56px))}
+.fab{display:none;position:fixed;top:calc(var(--sh,50px) + 12px);left:max(12px,env(safe-area-inset-left,0px));z-index:30;width:38px;height:38px;border:0;border-radius:10px;background:#E3C26F;color:#06352A;font-size:18px;line-height:1;cursor:pointer;box-shadow:0 2px 8px rgba(6,53,42,.18)}
+.fab:hover{background:#EBCF86}
+body.side-closed .fab{display:grid;place-items:center}
+.scrim{display:none}
+@media (max-width:860px){
+ .shell,.shell.closed{grid-template-columns:minmax(0,1fr)}
+ .side,.shell.closed .side{display:flex;position:fixed;top:0;left:0;bottom:0;height:100vh;width:min(300px,86vw);z-index:40;transform:translateX(-105%);transition:transform .25s ease;box-shadow:6px 0 24px rgba(6,53,42,.2)}
+ .shell.mopen .side{transform:none}
+ .fab{display:grid;place-items:center}
+ .shell .page{padding-left:max(64px,env(safe-area-inset-left,0px))}
+ .scrim{position:fixed;inset:0;background:rgba(6,53,42,.35);z-index:35}.shell.mopen .scrim{display:block}
+ .shell .page>*{margin-inline:auto}
+}
+@media (prefers-reduced-motion:reduce){.side{transition:none!important}}
+@media (max-width:480px){.nbs-strip .prog{display:none}}
+</style>
+</head><body data-lesson="economics/supply-and-demand" data-group="economics" data-total="5">
+<style>
+body{margin:0}
+.related .rel{margin-right:10px}
+.related a,.related .rel{display:inline-block}
+@media (max-width:480px){b.num{white-space:normal}}
+.nbs-strip{position:sticky;top:0;z-index:20;background:#06352A;color:#FFFDF8;display:flex;align-items:center;justify-content:space-between;gap:12px;
+ padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:10px;font-family:'Poppins',system-ui,sans-serif;flex-wrap:wrap}
+.nbs-strip .l{display:flex;align-items:center;gap:12px;min-width:0}
+.nbs-strip img{width:30px;height:30px;border-radius:6px;display:block}
+.nbs-strip .crumb{font-size:14px;color:#C9D6D0}.nbs-strip .crumb a{color:#C9D6D0;text-decoration:none}.nbs-strip .crumb a:hover{color:#fff;text-decoration:underline}
+.nbs-strip .crumb i{font-style:normal;color:#E3C26F;margin:0 5px}.nbs-strip .crumb b{color:#fff;font-weight:500}
+.nbs-strip .prog{display:flex;align-items:center;gap:10px;font-size:13px;color:#C9D6D0}
+.nbs-strip .bar{width:130px;height:5px;border-radius:9px;background:rgba(255,255,255,.18);overflow:hidden}
+.nbs-strip .bar span{display:block;height:100%;width:0;background:#E3C26F;transition:width 1.2s cubic-bezier(.2,.8,.2,1) .2s}
+@media (max-width:560px){.nbs-strip .bar{display:none}.nbs-strip .crumb .mid{display:none}}
+@media (prefers-reduced-motion:reduce){.nbs-strip .bar span{transition:none}}
+</style>
+<header class="nbs-strip"><div class="l"><a href="https://notesbysara.org/" aria-label="Notes by Sara home"><img src="/img/favicon.png" alt="Notes by Sara"></a><nav class="crumb" aria-label="Breadcrumb"><span><a href="/lessons/index.html">Prerequisites</a></span><span class="mid"><i>›</i><a href="/lessons/economics/index.html">Economics</a></span><span><i>›</i><b>Supply and demand</b></span></nav></div><div class="prog"><span>Lesson 1</span><span class="bar" aria-hidden="true"><span id="nbs-bar"></span></span></div></header>
+
+<style>
+.page .plain{background:var(--pale);border-left:4px solid var(--green);border-radius:10px;padding:18px 22px;margin:8px 0 6px}
+.page .plain p{font-size:1.12rem;line-height:1.65;margin:0;max-width:none}
+.page .plain .eyebrow{font-size:var(--t-label);margin:0 0 6px}
+.prose p{max-width:68ch;line-height:1.75}
+.prose{display:flex;flex-direction:column;gap:12px}
+.prose p{margin:0}
+svg .ax{font:13px var(--body);fill:var(--muted)}
+svg .lb{font:600 14px var(--body)}
+.calc{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:end}
+.calc label{display:flex;flex-direction:column;gap:4px;font-size:var(--t-small);color:var(--muted)}
+.calc input{font:inherit;font-size:1rem;width:120px;padding:7px 9px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)}
+.calc .out{font-size:1.05rem}
+.calc .out b{font-size:1.35rem;color:var(--green-text)}
+.pvt td.r,.pvt th.r{text-align:right;white-space:nowrap}
+.pvt tr.tot td{font-weight:600;border-top:2px solid var(--line)}
+.pvsvg svg{min-width:0!important;width:100%}
+@media (max-width:560px){.pvt td,.pvt th{padding-left:6px;padding-right:6px;font-size:12.5px;padding-left:4px;padding-right:4px}.pvt th{white-space:normal}}
+.hook{font-size:1.06rem}
+.src{font-size:var(--t-label);color:var(--muted)}
+.guess{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.guess .q{font-weight:500;margin:0 0 12px}
+.guess .opts{display:flex!important;flex-direction:row!important;flex-wrap:wrap;gap:8px;grid-template-columns:none}
+.guess .opts button{width:auto!important;flex:0 0 auto;min-width:84px;text-align:center}
+.guess .opts button{font:inherit;padding:8px 16px;border-radius:999px;border:1px solid var(--line);background:var(--ivory);color:var(--ink);cursor:pointer}
+.guess .opts button.pick{border-color:var(--green);background:var(--pale)}
+.guess .opts button.ans{border-color:var(--green);background:var(--green);color:#fff}
+.guess .fb{margin:12px 0 0}
+.guess .skip{font-size:var(--t-small);background:none;border:0;color:var(--green-text);text-decoration:underline;cursor:pointer;padding:0;margin-top:10px;font-family:inherit}
+.pro{background:var(--pearl);border-radius:12px;padding:20px 22px}
+.pro .eyebrow{margin:0 0 10px}
+.pro dl{margin:0;display:grid;grid-template-columns:minmax(0,11rem) minmax(0,1fr);gap:10px 18px}
+.pro dt{font-weight:600}
+.pro dd{margin:0;line-height:1.6}
+@media (max-width:560px){.pro dl{grid-template-columns:1fr;gap:2px}.pro dd{margin-bottom:10px}}
+.life{border-left:4px solid var(--gold);padding:4px 0 4px 18px}
+.life .eyebrow{margin:0 0 6px}
+.keep{font-family:var(--display);font-size:1.3rem;line-height:1.4;color:var(--brand);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:14px 0;margin:14px 0 4px;text-align:center}
+.prose p b{font-weight:600;color:var(--ink)}
+.prose p.aside{font-size:var(--t-small);color:var(--muted);border-left:2px solid var(--line);padding-left:12px}
+.duo{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:stretch;margin:4px 0 6px}
+.duo>div:not(.or){background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;display:flex;flex-direction:column;gap:4px}
+.duo .big{font-family:var(--display);font-size:1.9rem;color:var(--brand);line-height:1.1}
+.duo span:not(.big){font-size:var(--t-small);color:var(--muted)}
+.duo .or{align-self:center;font-size:var(--t-small);color:var(--muted)}
+.three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:2px 0 6px}
+.three>div{background:var(--pearl);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.three span{font-size:var(--t-small);color:var(--muted);line-height:1.5}
+@media (max-width:560px){.duo{grid-template-columns:1fr}.duo .or{text-align:center}.three{grid-template-columns:1fr}}
+.note{font-size:var(--t-small);color:var(--muted)}
+.flow text{font-family:var(--body)}
+.flow .bx{fill:var(--surface);stroke:var(--line);stroke-width:1.5}
+.flow .bxd{fill:var(--deep)}
+.flow .t1{font:600 16px var(--body);fill:var(--ink)}
+.flow .t2{font:13.5px var(--body);fill:var(--muted)}
+.flow .w1{font:600 16px var(--body);fill:var(--on-deep)}
+.flow .w2{font:13.5px var(--body);fill:var(--on-deep-muted)}
+.flow .lab{font:600 12.5px var(--body);letter-spacing:.08em;fill:var(--gold-text)}
+.four{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:2px 0 6px}
+.four>div{background:var(--pearl);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.four span{font-size:var(--t-small);color:var(--muted);line-height:1.5}
+.branches{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.branches>div{border-top:3px solid var(--green);background:var(--surface);border-radius:0 0 10px 10px;padding:12px 14px;display:flex;flex-direction:column;gap:4px;box-shadow:0 0 0 1px var(--line) inset}
+.branches span{font-size:var(--t-small);color:var(--muted);line-height:1.5}
+@media (max-width:560px){.four,.branches{grid-template-columns:1fr}}
+.fx>span{display:inline-flex;align-items:center;gap:10px;white-space:nowrap}
+.fx .frac{align-items:stretch;text-align:center}
+@media (max-width:560px){.fx{font-size:1.1rem}.fx>span{gap:6px}}
+.guess .opts button{white-space:normal;max-width:100%}
+</style><style>
+.sdwrap svg{min-width:0!important;width:100%}
+svg .ax{font:13px var(--body);fill:var(--muted)}
+svg .lb{font:600 14px var(--body)}
+.legend2{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:var(--t-small);color:var(--muted);margin-top:6px}
+.legend2 i{display:inline-block;width:18px;height:4px;border-radius:2px;margin-right:6px;vertical-align:3px}
+.pair2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.pair2>div{background:var(--pearl);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.pair2 span{font-size:var(--t-small);color:var(--muted);line-height:1.5}
+@media (max-width:560px){.pair2{grid-template-columns:1fr}}
+</style><div class="shell" id="shell"><div class="scrim" id="scrim"></div><button type="button" class="fab" id="mbtn" aria-label="Show the lesson list">☰</button><aside class="side" id="side" aria-label="Lessons in this subject"><div class="sidehead"><button type="button" class="tog" id="col" aria-label="Hide the lesson list">☰ Hide lessons</button><nav class="sw" aria-label="Subjects"><a href="/lessons/mathematics/index.html">Math</a><a href="/lessons/statistics/index.html">Stats</a><a href="/lessons/accounting/index.html">Accounting</a><a href="/lessons/economics/index.html" class="on">Economics</a></nav></div><p class="subj"><a href="/lessons/economics/index.html">Economics for Finance</a></p><div class="grp"><p class="gh"><span>Markets and prices</span><span class="gc">0 of 3</span></p><ol><li><a href="/lessons/economics/supply-and-demand.html" data-slug="economics/supply-and-demand" class="now" aria-current="page"><span class="mk">1</span><span class="tt">Supply and demand</span></a></li><li><a href="/lessons/economics/elasticity.html" data-slug="economics/elasticity"><span class="mk">2</span><span class="tt">Elasticity</span></a></li><li><a href="/lessons/economics/competition-and-market-power.html" data-slug="economics/competition-and-market-power"><span class="mk">3</span><span class="tt">Competition and market power</span></a></li></ol></div><div class="grp"><p class="gh"><span>The economy</span><span class="gc">0 of 2</span></p><ol><li><a href="/lessons/economics/gdp-and-growth.html" data-slug="economics/gdp-and-growth"><span class="mk">4</span><span class="tt">GDP and growth</span></a></li><li><a href="/lessons/economics/unemployment.html" data-slug="economics/unemployment"><span class="mk">5</span><span class="tt">Unemployment</span></a></li></ol></div></aside><article class="page">
+
+  <header class="banner">
+    <p class="eyebrow">Economics for Finance</p>
+    <h1>Supply and demand</h1>
+    <p class="lead">How buyers and sellers together set a price, and why prices jump when something shifts on either side.</p>
+    <div class="meta"><span><b>Markets and prices</b> · Lesson 1 of 3 · 6 minutes</span><span>Before this: <a href="../mathematics/linear-equations.html">Linear equations and graphs</a></span></div>
+  </header>
+
+  <div class="plain">
+    <p class="eyebrow">In plain words</p>
+    <p>Buyers want more of something when it is cheap. Sellers offer more when the price is high. The market price settles where the amount buyers want matches the amount sellers offer. When something changes how much people want or how much can be made, the price moves.</p>
+  </div>
+
+  <section class="sec prose">
+    <p class="hook">In 2022, bird flu swept through American poultry farms, and over 44 million egg-laying hens were lost. The average price of a dozen large eggs in US cities:</p>
+    <div class="duo">
+      <div><span class="big">$1.93</span><span>January 2022</span></div>
+      <div class="or">→</div>
+      <div><span class="big">$4.82</span><span>January 2023, a record at the time</span></div>
+    </div>
+    <p class="src">Sources: <a href="https://www.foxnews.com/food-drink/egg-prices-hit-record-high">US Bureau of Labor Statistics, via Fox News</a>; <a href="https://foxbusiness.com/lifestyle/surging-egg-prices-giving-rise-plant-based-alternatives">USDA, via Fox Business</a>.</p>
+    <p><b>The main driver was supply: fewer eggs were available while people still wanted roughly as many.</b> That is supply and demand at work. Not everyone saw it as the whole story: in January 2023 the farm group Farm Action asked the US Federal Trade Commission to investigate the largest producers for price gouging. The largest producer, Cal-Maine Foods, pointed to bird flu and higher production costs.</p>
+    <p class="src">Source: <a href="https://m.investing.com/news/stock-market-news/high-egg-prices-should-be-investigated-us-farm-group-says-2985018?ampMode=1">Reuters, via Investing.com</a>.</p>
+
+    <p><b>Demand is how much buyers want at each possible price.</b> At lower prices people buy more, partly because the item is better value against alternatives and partly because their money goes further. Plotted with price up the side, the demand curve slopes down.</p>
+    <p><b>Supply is how much sellers offer at each possible price.</b> Higher prices make it worth producing more, and draw in sellers who could not cover their costs before. The supply curve slopes up.</p>
+    <p><b>The market price sits where the two curves cross.</b> Above it, sellers offer more than buyers want, and the surplus pushes the price down. Below it, buyers want more than is on offer, and the shortage pushes it up. This crossing point is called equilibrium.</p>
+
+    <div class="box">
+      <div class="svgwrap sdwrap"><svg id="sd" viewBox="0 0 600 330" role="img" aria-label="Supply and demand chart. Moving the slider shifts supply to the left, raising the equilibrium price and lowering the quantity."></svg></div>
+      <div class="legend2"><span><i style="background:var(--green)"></i>Demand</span><span><i style="background:var(--muted)"></i>Supply before</span><span><i style="background:var(--coral)"></i>Supply after the shock</span></div>
+      <div class="calc" style="margin-top:6px">
+        <label style="flex:1;min-width:220px">Supply shock: share of supply lost <input id="k" type="range" min="0" max="40" step="1" value="0" style="accent-color:var(--green);width:min(260px,100%)"></label>
+        <p class="out">Price: <b id="pp"></b><br><span class="note" id="ps"></span></p>
+      </div>
+      <p class="cap">Illustrative market. Losing supply shifts the supply curve left: at every price, less is offered.</p>
+    </div>
+
+    <p><b>Separate a move along a curve from a shift of the whole curve.</b> A change in the price itself moves buyers and sellers along their curves. A change in anything else shifts a curve:</p>
+    <div class="pair2">
+      <div><b>Demand shifts with</b><span>Incomes, tastes, the prices of substitutes and complements, the number of buyers, and expectations about future prices.</span></div>
+      <div><b>Supply shifts with</b><span>Input costs, technology, the number of producers, taxes and regulation, and disruptions such as weather or disease.</span></div>
+    </div>
+
+    <div class="guess" id="g">
+      <p class="q">Bird flu cut the number of laying hens by roughly a tenth, yet egg prices rose by about 150%. Why did the price rise so much more than supply fell?</p>
+      <div class="opts"><button type="button">Producers simply raised prices</button><button type="button">Demand for eggs rose sharply</button><button type="button" data-a>Buyers kept buying eggs even at high prices</button><button type="button">The government set a higher price</button></div>
+      <p class="fb" hidden></p>
+    </div>
+
+    <p><b>The same logic prices everything in finance.</b> A share price is where buyers and sellers balance. An interest rate is the price at which the supply of savings meets the demand for loans. A currency's value reflects demand for it against supply. When a price moves, the first question is which side shifted, and why.</p>
+
+    <p><b>Back to eggs.</b> As farmers rebuilt their flocks, supply recovered and the price fell back. By May 2023, a dozen cost $2.67 on average. Nothing about demand had changed much; the supply curve had moved back.</p>
+    <p class="src">May 2023 price: <a href="https://noticias.foxnews.com/food-drink/egg-prices-hit-record-high">US Bureau of Labor Statistics, via Fox News</a>.</p>
+  </section>
+
+  <section class="sec">
+    <div class="pro">
+      <p class="eyebrow">How professionals use it</p>
+      <dl>
+        <dt>Commodity traders</dt><dd>Track harvests, weather, inventories and demand to anticipate shifts in supply or demand before prices react.</dd>
+        <dt>Equity analysts</dt><dd>Forecast a company's prices and sales volumes by asking how supply and demand in its market will change.</dd>
+        <dt>Company pricing teams</dt><dd>Set prices by estimating how much customers will buy at each level, and what competitors will supply.</dd>
+      </dl>
+    </div>
+  </section>
+
+  <section class="sec prose">
+    <div class="life">
+      <p class="eyebrow">In everyday terms</p>
+      <p>When a price spikes after a disaster, a bad harvest or a sudden craze, ask whether the cause is temporary. Supply shocks often reverse as producers recover.</p>
+      <p><b>Prices are signals: a high price tells producers to make more and buyers to use less.</b></p>
+    </div>
+    <p class="keep">A price is where what buyers want meets what sellers offer.</p>
+  </section>
+
+  <a class="next" href="elasticity.html"><span class="eyebrow">Next</span><span class="t">Elasticity</span><span class="arrow">→</span></a>
+
+  <nav class="related">Related: <a href="../mathematics/linear-equations.html">Linear equations and graphs</a> · <a href="/lessons/foundations/what-sets-interest-rates.html">What sets interest rates</a> · <a href="/lessons/foundations/financial-markets.html">Financial markets</a></nav>
+</article></div>
+
+<script>
+(function(){
+  const g=document.getElementById('g'),fb=g.querySelector('.fb');
+  g.querySelectorAll('.opts button').forEach(b=>b.addEventListener('click',()=>{
+    g.querySelectorAll('.opts button').forEach(x=>{x.disabled=true;if(x.hasAttribute('data-a'))x.classList.add('ans')});
+    if(!b.hasAttribute('data-a'))b.classList.add('pick');
+    fb.hidden=false;
+    fb.innerHTML=(b.hasAttribute('data-a')?'Right. ':'')+'<b>Buyers kept buying.</b> Eggs have few close substitutes, so people cut back only a little as the price rose. When demand barely responds to price, a small fall in supply needs a big price rise to bring buying down to what is available. That responsiveness is called elasticity, the subject of the next lesson.';
+  }));
+  // Demand: Q = 170 - 10P (fairly steep). Supply: Q = 100(1-k) ... baseline Q = 100 + 25P - shift
+  const W=600,H=330,L=56,R=20,T=16,B=48,QM=220,PM=7;
+  const X=q=>L+(W-L-R)*q/QM, Y=p=>T+(H-T-B)*(1-p/PM);
+  const svg=document.getElementById('sd');
+  const line=(q1,p1,q2,p2,c,w,d)=>`<line x1="${X(q1).toFixed(1)}" y1="${Y(p1).toFixed(1)}" x2="${X(q2).toFixed(1)}" y2="${Y(p2).toFixed(1)}" stroke="${c}" stroke-width="${w}" ${d?'stroke-dasharray="6 5"':''}/>`;
+  function draw(k){
+    const s=150*k; // units lost
+    const P0=2,Q0=150,P=(70+s)/35,Q=170-10*P;
+    let o='';
+    for(let p=0;p<=PM;p++){o+=`<line x1="${L}" x2="${W-R}" y1="${Y(p)}" y2="${Y(p)}" stroke="var(--line)"/><text x="${L-8}" y="${Y(p)+4}" text-anchor="end" class="ax">$${p}</text>`;}
+    for(let q=0;q<=200;q+=50){o+=`<text x="${X(q)}" y="${H-B+18}" text-anchor="middle" class="ax">${q}</text>`;}
+    o+=`<text x="${(L+W-R)/2}" y="${H-8}" text-anchor="middle" class="ax">Quantity (millions of dozens a month, illustrative)</text>`;
+    o+=line(170,0,100,PM,'var(--green)',3);
+    o+=`<text x="${X(104)}" y="${Y(6.7)}" class="lb" fill="var(--green-text)">Demand</text>`;
+    // supply baseline Q=100+25P for P 0..(QM-100)/25 -> up to 4.8
+    o+=line(100,0,220,4.8,'var(--muted)',2.5,k>0);
+    if(k>0){o+=line(100-s,0,220-s,4.8,'var(--coral)',3);}
+    o+=line(0,P,Q,P,'var(--gold-text)',1.2,true)+line(Q,0,Q,P,'var(--gold-text)',1.2,true);
+    o+=`<circle cx="${X(Q)}" cy="${Y(P)}" r="6" fill="var(--deep)"/>`;
+    if(k>0)o+=`<circle cx="${X(Q0)}" cy="${Y(P0)}" r="5" fill="none" stroke="var(--muted)" stroke-width="2"/>`;
+    svg.innerHTML=o;
+    document.getElementById('pp').textContent='$'+P.toFixed(2);
+    document.getElementById('ps').textContent=k>0?`Supply cut ${Math.round(k*100)}%: price up ${Math.round((P/P0-1)*100)}%, quantity bought down ${Math.round((1-Q/Q0)*100)}%.`:'Before any shock: $2.00, 150 bought.';
+  }
+  const k=document.getElementById('k');k.addEventListener('input',()=>draw(k.value/100));draw(0);
+})();
+</script>
+
+
+<script>
+(function(){
+  var KEY='nbs-lessons-done',done=[];
+  try{done=JSON.parse(localStorage.getItem(KEY)||'[]')||[]}catch(e){}
+  var me=document.body.getAttribute('data-lesson'),total=+document.body.getAttribute('data-total')||0,group=document.body.getAttribute('data-group');
+  function count(){return done.filter(function(s){return s.indexOf(group+'/')===0}).length}
+  function show(){var b=document.getElementById('nbs-bar');if(b&&total)b.style.width=Math.min(100,count()/total*100)+'%'}
+  requestAnimationFrame(function(){requestAnimationFrame(show)});
+  var end=document.querySelector('.next');
+  if(me&&end&&'IntersectionObserver' in window){
+    new IntersectionObserver(function(es,o){es.forEach(function(e){if(e.isIntersecting){
+      if(done.indexOf(me)<0){done.push(me);try{localStorage.setItem(KEY,JSON.stringify(done))}catch(err){}show()}
+      o.disconnect()}})},{threshold:.6}).observe(end);
+  }
+})();
+</script>
+<script>
+(function(){
+  var sh=document.getElementById('shell'),KEY='nbs-side-closed',done=[];
+  try{done=JSON.parse(localStorage.getItem('nbs-lessons-done')||'[]')||[]}catch(e){}
+  function marks(){
+    document.querySelectorAll('.side .grp').forEach(function(g){var n=0,a=g.querySelectorAll('a[data-slug]');
+      a.forEach(function(x){var d=done.indexOf(x.dataset.slug)>=0;x.classList.toggle('done',d&&!x.classList.contains('now'));if(d)n++});
+      var c=g.querySelector('.gc');if(c)c.textContent=n+' of '+a.length;});
+  }
+  marks();
+  window.addEventListener('storage',function(){try{done=JSON.parse(localStorage.getItem('nbs-lessons-done')||'[]')||[]}catch(e){}marks()});
+  var closed=false;try{closed=localStorage.getItem(KEY)==='1'}catch(e){}
+  function setClosed(c){closed=c;sh.classList.toggle('closed',c);document.body.classList.toggle('side-closed',c);try{localStorage.setItem(KEY,c?'1':'0')}catch(e){}}
+  if(closed&&innerWidth>860)setClosed(true);
+  document.getElementById('col').addEventListener('click',function(){if(innerWidth<=860){sh.classList.remove('mopen')}else{setClosed(true)}});
+  document.getElementById('mbtn').addEventListener('click',function(){if(innerWidth<=860){sh.classList.add('mopen')}else{setClosed(false)}});
+  function sh_h(){var st=document.querySelector('.nbs-strip');if(st)document.documentElement.style.setProperty('--sh',st.offsetHeight+'px')}
+  sh_h();addEventListener('resize',sh_h);
+  document.getElementById('scrim').addEventListener('click',function(){sh.classList.remove('mopen')});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')sh.classList.remove('mopen')});
+  var now=document.querySelector('.side a.now');if(now&&now.scrollIntoView&&innerWidth>860){var s=document.getElementById('side');s.scrollTop=Math.max(0,now.offsetTop-s.clientHeight/2)}
+})();
+</script>
+</body></html>
