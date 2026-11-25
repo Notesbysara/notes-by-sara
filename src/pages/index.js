@@ -43,7 +43,7 @@ const doors = [
 ];
 
 const subjects = [
-  {name: 'Foundations'},
+  {name: 'Foundations', live: true, to: 'pathname:///lessons/foundations/index.html', status: '21 lessons · Start →'},
   {name: 'Personal Finance'},
   {name: 'Financial Statement Analysis'},
   {name: 'Corporate Finance'},
@@ -327,7 +327,7 @@ function LearningPath() {
                   <Link to={s.to} className={styles.stageLive}>
                     <span className={styles.stageNum} aria-hidden="true">{i + 1}</span>
                     <span className={styles.stageName}>{s.name}</span>
-                    <span className={styles.stageStatusLive}>Open now</span>
+                    <span className={styles.stageStatusLive}>{s.status || 'Open now'}</span>
                   </Link>
                 ) : (
                   <div className={styles.stageSoon}>

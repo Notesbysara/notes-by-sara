@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Link from '@docusaurus/Link';
 import {SUBJECTS, ALL_NOTES, COURSES, noteLabel} from './catalog';
 import styles from './LearningPath.module.css';
@@ -95,14 +95,20 @@ function RouteArt() {
 
 export default function LearningPath() {
   const [goal, setGoal] = useState(null);
-  const [open, setOpen] = useState(-1);
+  const [open, setOpen] = useState(0);
+  const [done, setDone] = useState([]);
+  useEffect(() => {
+    try {
+      setDone(JSON.parse(localStorage.getItem('nbs-lessons-done') || '[]') || []);
+    } catch (e) {}
+  }, []);
 
   const course = COURSES[0];
-  // The first published note, or lesson 1 of the course while no notes are published yet.
+  // The first published note, or Foundations lesson 1 while no notes are published yet.
   const next = ALL_NOTES[0] || {
-    title: 'Numbers in finance',
-    blurb: 'The first prerequisite lesson: units, brackets, rounding and big numbers. About five minutes.',
-    to: 'pathname:///lessons/mathematics/numbers-in-finance.html',
+    title: 'What finance is and how the system works',
+    blurb: 'Foundations, lesson 1: savers, borrowers and the two routes money takes between them. About six minutes.',
+    to: 'pathname:///lessons/foundations/what-finance-is.html',
   };
   const currentGoal = GOALS.find((g) => g.id === goal);
 
@@ -167,9 +173,13 @@ export default function LearningPath() {
         <div className={styles.thenLabel}>The subjects, in order</div>
         <ol className={styles.stepper}>
           {SUBJECTS.map((s, i) => {
-            const live = s.notes.length > 0;
+            const live = s.notes.length > 0 || Boolean(s.page);
             const isOpen = open === i;
-            const status = live ? 'Open now' : 'Coming soon';
+            const lessonsDone = s.page ? s.lessons.filter((l) => done.includes(s.group + '/' + l[0])).length : 0;
+            const nextLesson = s.page ? s.lessons.find((l) => !done.includes(s.group + '/' + l[0])) : null;
+            const status = s.page
+              ? `${s.lessons.length} lessons · ${s.sections.length} sections` + (lessonsDone ? ` · ${lessonsDone} of ${s.lessons.length} done` : '')
+              : live ? 'Open now' : 'Coming soon';
             const panelId = 'subject-panel-' + i;
             return (
               <li key={s.name} className={styles.stage}>
@@ -190,6 +200,39 @@ export default function LearningPath() {
                     <span className={styles.toggle}>{isOpen ? 'Hide' : 'Show'}</span>
                   </button>
                   <div id={panelId} className={styles.panel} hidden={!isOpen}>
+                    {s.page ? (
+                      <>
+                        <div
+                          role="progressbar"
+                          aria-label={`${s.name} progress`}
+                          aria-valuemin={0}
+                          aria-valuemax={s.lessons.length}
+                          aria-valuenow={lessonsDone}
+                          style={{height: 6, borderRadius: 6, background: '#E5E9E3', overflow: 'hidden'}}>
+                          <div style={{height: '100%', width: `${(lessonsDone / s.lessons.length) * 100}%`, background: '#0E7C5A'}} />
+                        </div>
+                        <div className={styles.panelLabel}>Sections</div>
+                        <div className={styles.pills}>
+                          {s.sections.map((sec) => (
+                            <span key={sec.name} className={styles.pill}>
+                              {sec.name} · {sec.count} lessons
+                            </span>
+                          ))}
+                        </div>
+                        <div style={{display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center'}}>
+                          {nextLesson ? (
+                            <a href={`/lessons/${s.group}/${nextLesson[0]}.html`} className={styles.readBtn}>
+                              {lessonsDone ? 'Continue' : 'Start'}: {s.lessons.indexOf(nextLesson) + 1}. {nextLesson[1]} →
+                            </a>
+                          ) : null}
+                          <a href={s.page} className={styles.courseLink}>
+                            Open {s.name} →
+                          </a>
+                        </div>
+                        <div className={styles.small}>Need the math, statistics or accounting first? See Prerequisites above.</div>
+                      </>
+                    ) : (
+                    <>
                     <div className={styles.panelLabel}>What it covers</div>
                     <div className={styles.pills}>
                       {s.covers.map((c) => (
@@ -227,6 +270,8 @@ export default function LearningPath() {
                       <div className={styles.soon}>
                         Notes for this subject are not published yet. They follow the subjects above, in order.
                       </div>
+                    )}
+                    </>
                     )}
                   </div>
                 </div>
