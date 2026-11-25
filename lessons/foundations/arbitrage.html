@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="icon" href="/img/favicon.png">
+<meta name="description" content="Arbitrage and the law of one price: Replication and the limits of arbitrage. A short lesson from Notes by Sara.">
+<link rel="canonical" href="https://notesbysara.org/lessons/foundations/arbitrage.html">
+
+<title>Arbitrage and the law of one price · Notes by Sara</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Forum&family=Poppins:wght@400;500;600&display=swap">
+<style>
+/* Layout: one calm reading column. Three surfaces only: the deep banner, white boxes, and pale green for anything the learner answers. Light only, like the site. */
+:root{
+  color-scheme:light;
+  --ivory:#FFFDF8; --surface:#FFFFFF; --pearl:#F7F2E7; --pale:#EAF4EF;
+  --ink:#1F2A26; --muted:#5A6862; --line:#E6E1D5;
+  --deep:#06352A; --green:#0E7C5A; --green-text:#0B6A4C; --brand:#0B4F3C;
+  --gold:#E3C26F; --gold-text:#8A6A12; --coral:#B4452F; --coral-pale:#FBEDE9;
+  --on-deep:#FFFDF8; --on-deep-muted:#C9D6D0;
+  --display:'Forum',Georgia,'Times New Roman',serif;
+  --body:'Poppins',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --t-body:16px; --t-small:14px; --t-label:12.5px;
+}
+*{box-sizing:border-box}
+body{background:var(--ivory);color:var(--ink);font-family:var(--body);font-size:var(--t-body);line-height:1.75}
+a{color:var(--green-text)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
+.mockbar{background:var(--pearl);color:var(--muted);font-size:var(--t-small);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:8px;text-align:center;border-bottom:1px solid var(--line)}
+.mockbar b{color:var(--gold-text);letter-spacing:.12em;text-transform:uppercase;font-size:var(--t-label);margin-right:6px}
+.page{max-width:720px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px;display:flex;flex-direction:column;gap:40px}
+h1,h2{font-family:var(--display);font-weight:400;line-height:1.15;margin:0;text-wrap:balance}
+h2{font-size:1.7rem;color:var(--brand)}
+p{margin:0}
+.sec{display:flex;flex-direction:column;gap:14px}
+.eyebrow{font-size:var(--t-label);font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--gold-text)}
+.muted{color:var(--muted)}
+.small{font-size:var(--t-small)}
+b{font-weight:600}
+.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* 1. banner */
+.banner{background:var(--deep);color:var(--on-deep);border-radius:18px;padding:26px 26px 22px;display:flex;flex-direction:column;gap:10px}
+.banner .eyebrow{color:var(--gold)}
+.banner h1{font-size:clamp(2rem,6vw,2.6rem)}
+.banner .lead{color:var(--on-deep-muted)}
+.banner .meta{font-size:var(--t-small);color:var(--on-deep-muted);border-top:1px solid rgba(227,194,111,.35);padding-top:10px;display:flex;flex-wrap:wrap;gap:4px 18px}
+.banner .meta b{color:var(--gold);font-weight:600}
+.banner .meta a{color:var(--on-deep)}
+
+/* white box */
+.box{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.svgwrap{overflow-x:auto}
+.svgwrap svg{display:block;width:100%;height:auto;min-width:480px}
+.cap{font-size:var(--t-small);color:var(--muted)}
+
+/* formula */
+.fx{font-family:Georgia,'Times New Roman',serif;font-size:1.8rem;display:flex;align-items:center;justify-content:center;gap:14px}
+.frac{display:inline-flex;flex-direction:column;align-items:center;line-height:1.2}
+.frac span:first-child{border-bottom:2px solid var(--ink);padding:0 8px 2px}
+.frac span:last-child{padding-top:2px}
+.fx i{font-style:italic}
+.fx sup{font-size:.6em}
+.legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:4px 16px;font-size:var(--t-small);color:var(--muted)}
+.legend i{font-family:Georgia,serif;color:var(--ink);font-size:1.05rem;margin-right:6px}
+table{border-collapse:collapse;width:100%}
+td,th{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left}
+th{font-size:var(--t-small);color:var(--muted);font-weight:500}
+td.r,th.r{text-align:right}
+.tw{overflow-x:auto}
+.result{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;border-top:2px solid var(--brand);padding-top:10px}
+.result b{font-family:var(--display);font-weight:400;font-size:1.8rem;color:var(--brand)}
+
+/* pale: anything you answer */
+.ask{background:var(--pale);border-radius:14px;padding:16px 20px;display:flex;flex-direction:column;gap:10px}
+.ask .q{font-weight:500}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opts button{font:inherit;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 14px;cursor:pointer;color:var(--ink);line-height:1.5}
+.opts button:hover{border-color:var(--green)}
+.opts button.right{border-color:var(--green);box-shadow:inset 3px 0 0 var(--green)}
+.opts button.wrong{border-color:var(--coral);box-shadow:inset 3px 0 0 var(--coral)}
+.opts button[disabled]{cursor:default}
+.fb{font-size:var(--t-small);line-height:1.6}
+.fb b{color:var(--green-text)}
+.fb.no b{color:var(--coral)}
+.quiz{display:flex;flex-direction:column;gap:10px}
+.score{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:var(--t-small);color:var(--muted)}
+.score b{color:var(--brand)}
+.btn{font:inherit;font-size:var(--t-small);border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:4px 12px;cursor:pointer;color:var(--ink)}
+
+/* optional extras */
+.extras{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.extras details{border-bottom:1px solid var(--line)}
+.extras summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 4px}
+.extras summary::-webkit-details-marker{display:none}
+.extras summary .t{font-family:var(--display);font-size:1.3rem;color:var(--brand)}
+.extras summary .s{font-size:var(--t-small);color:var(--muted)}
+.extras summary::after{content:"+";font-size:1.4rem;color:var(--gold-text);flex:none;width:20px;text-align:center}
+.extras details[open] summary::after{content:"−"}
+.extras .inner{padding:0 4px 18px;display:flex;flex-direction:column;gap:12px}
+.inputs{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.inputs label{display:flex;flex-direction:column;gap:4px;font-size:var(--t-small);color:var(--muted)}
+.inputs input[type=number]{font:inherit;color:var(--ink);padding:7px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);width:100%}
+.inputs input[type=range]{width:100%;accent-color:var(--green)}
+.calcout{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+.calcout b{font-family:var(--display);font-weight:400;font-size:1.8rem;color:var(--brand)}
+.mist{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px}
+
+/* recap */
+.recap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:center}
+.recap ul{margin:4px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:2px}
+.recap .fx{font-size:1.3rem}
+@media (max-width:560px){.recap{grid-template-columns:1fr}}
+
+/* next */
+.next{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;background:var(--deep);color:var(--on-deep);border-radius:14px;padding:16px 20px;text-decoration:none}
+.next .eyebrow{color:var(--gold)}
+.next .t{font-family:var(--display);font-size:1.35rem}
+.next .arrow{font-size:1.4rem;color:var(--gold)}
+.related{font-size:var(--t-small);color:var(--muted)}
+.related a{margin-right:10px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+
+<style>
+.shell{display:grid;grid-template-columns:290px minmax(0,1fr);align-items:start}
+.shell.closed{grid-template-columns:minmax(0,1fr)}
+.side{position:sticky;top:50px;height:calc(100vh - 50px);overflow:auto;background:#FFFFFF;border-right:1px solid var(--line);padding:14px 14px 28px;display:flex;flex-direction:column;gap:2px;font-size:14px;scrollbar-width:thin}
+.shell.closed .side{display:none}
+.sidehead{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:0 2px 10px;margin-bottom:4px;border-bottom:1px solid var(--line)}
+.tog{font:inherit;font-size:13px;font-weight:600;color:#06352A;background:#E3C26F;border:0;border-radius:999px;padding:5px 13px;cursor:pointer;line-height:1.4}.tog:hover{background:#EBCF86}
+.sw{display:flex;gap:5px;flex-wrap:wrap}.sw a{font-size:12px;border:1px solid var(--line);border-radius:999px;padding:3px 10px;background:#fff;color:var(--ink);text-decoration:none}.sw a:hover{border-color:var(--brand)}.sw a.on{background:var(--deep);color:#fff;border-color:var(--deep)}
+.subj{font-family:var(--display);font-size:1.2rem;color:var(--brand);margin:8px 2px 2px}.subj a{color:inherit;text-decoration:none}.subj a:hover{text-decoration:underline}
+.grp{margin-top:8px}
+.gh{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin:0 2px 4px;font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text)}
+.gc{font-size:11.5px;letter-spacing:0;text-transform:none;font-weight:500;color:var(--muted);white-space:nowrap}
+.grp ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:1px}
+.grp li a{display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;align-items:start;padding:6px 8px;border-radius:8px;text-decoration:none;color:var(--ink);line-height:1.35}
+.grp li a:hover{background:var(--pale)}
+.mk{width:22px;height:22px;border-radius:50%;border:1.5px solid #C5D6CC;display:grid;place-items:center;font-size:11px;font-weight:600;color:var(--muted);background:#fff;margin-top:-1px}
+.grp a.done .mk{background:var(--green);border-color:var(--green);color:#fff}
+.grp a.done .tt{color:var(--muted)}
+.grp a.now{background:#EEF4EF;box-shadow:inset 3px 0 0 var(--gold)}
+.grp a.now .mk{background:var(--deep);border-color:var(--gold);color:#fff}
+.grp a.now .tt{color:var(--brand);font-weight:500}
+.shell .page{max-width:none;margin:0;padding-left:clamp(16px,4vw,56px);padding-right:clamp(16px,4vw,56px)}
+.shell .page>*{max-width:900px;width:100%}
+.shell.closed .page>*{margin-inline:auto}
+.shell.closed .page{padding-left:max(64px,clamp(16px,4vw,56px))}
+.fab{display:none;position:fixed;top:calc(var(--sh,50px) + 12px);left:max(12px,env(safe-area-inset-left,0px));z-index:30;width:38px;height:38px;border:0;border-radius:10px;background:#E3C26F;color:#06352A;font-size:18px;line-height:1;cursor:pointer;box-shadow:0 2px 8px rgba(6,53,42,.18)}
+.fab:hover{background:#EBCF86}
+body.side-closed .fab{display:grid;place-items:center}
+.scrim{display:none}
+@media (max-width:860px){
+ .shell,.shell.closed{grid-template-columns:minmax(0,1fr)}
+ .side,.shell.closed .side{display:flex;position:fixed;top:0;left:0;bottom:0;height:100vh;width:min(300px,86vw);z-index:40;transform:translateX(-105%);transition:transform .25s ease;box-shadow:6px 0 24px rgba(6,53,42,.2)}
+ .shell.mopen .side{transform:none}
+ .fab{display:grid;place-items:center}
+ .shell .page{padding-left:max(64px,env(safe-area-inset-left,0px))}
+ .scrim{position:fixed;inset:0;background:rgba(6,53,42,.35);z-index:35}.shell.mopen .scrim{display:block}
+ .shell .page>*{margin-inline:auto}
+}
+@media (prefers-reduced-motion:reduce){.side{transition:none!important}}
+@media (max-width:480px){.nbs-strip .prog{display:none}}
+</style>
+</head><body data-lesson="foundations/arbitrage" data-group="foundations" data-total="21">
+<style>
+body{margin:0}
+.related .rel{margin-right:10px}
+.nbs-strip{position:sticky;top:0;z-index:20;background:#06352A;color:#FFFDF8;display:flex;align-items:center;justify-content:space-between;gap:12px;
+ padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:10px;font-family:'Poppins',system-ui,sans-serif;flex-wrap:wrap}
+.nbs-strip .l{display:flex;align-items:center;gap:12px;min-width:0}
+.nbs-strip img{width:30px;height:30px;border-radius:6px;display:block}
+.nbs-strip .crumb{font-size:14px;color:#C9D6D0}.nbs-strip .crumb a{color:#C9D6D0;text-decoration:none}.nbs-strip .crumb a:hover{color:#fff;text-decoration:underline}
+.nbs-strip .crumb i{font-style:normal;color:#E3C26F;margin:0 5px}.nbs-strip .crumb b{color:#fff;font-weight:500}
+.nbs-strip .prog{display:flex;align-items:center;gap:10px;font-size:13px;color:#C9D6D0}
+.nbs-strip .bar{width:130px;height:5px;border-radius:9px;background:rgba(255,255,255,.18);overflow:hidden}
+.nbs-strip .bar span{display:block;height:100%;width:0;background:#E3C26F;transition:width 1.2s cubic-bezier(.2,.8,.2,1) .2s}
+@media (max-width:560px){.nbs-strip .bar{display:none}.nbs-strip .crumb .mid{display:none}}
+@media (prefers-reduced-motion:reduce){.nbs-strip .bar span{transition:none}}
+</style>
+<header class="nbs-strip"><div class="l"><a href="https://notesbysara.org/" aria-label="Notes by Sara home"><img src="/img/favicon.png" alt="Notes by Sara"></a><nav class="crumb" aria-label="Breadcrumb"><span><a href="https://notesbysara.org/notes">Learning path</a></span><span class="mid"><i>›</i><a href="/lessons/foundations/index.html">Foundations</a></span><span><i>›</i><b>Arbitrage and the law of one price</b></span></nav></div><div class="prog"><span>Lesson 18</span><span class="bar" aria-hidden="true"><span id="nbs-bar"></span></span></div></header>
+
+<style>
+.page .plain{background:var(--pale);border-left:4px solid var(--green);border-radius:10px;padding:18px 22px;margin:8px 0 6px}
+.page .plain p{font-size:1.12rem;line-height:1.65;margin:0;max-width:none}
+.page .plain .eyebrow{font-size:var(--t-label);margin:0 0 6px}
+.prose p{max-width:68ch;line-height:1.75}
+.prose{display:flex;flex-direction:column;gap:12px}
+.prose p{margin:0}
+svg .ax{font:13px var(--body);fill:var(--muted)}
+svg .lb{font:600 14px var(--body)}
+.calc{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:end}
+.calc label{display:flex;flex-direction:column;gap:4px;font-size:var(--t-small);color:var(--muted)}
+.calc input{font:inherit;font-size:1rem;width:120px;padding:7px 9px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)}
+.calc .out{font-size:1.05rem}
+.calc .out b{font-size:1.35rem;color:var(--green-text)}
+.pvt td.r,.pvt th.r{text-align:right;white-space:nowrap}
+.pvt tr.tot td{font-weight:600;border-top:2px solid var(--line)}
+.pvsvg svg{min-width:0!important;width:100%}
+@media (max-width:560px){.pvt td,.pvt th{padding-left:6px;padding-right:6px;font-size:12.5px;padding-left:4px;padding-right:4px}.pvt th{white-space:normal}}
+.hook{font-size:1.06rem}
+.src{font-size:var(--t-label);color:var(--muted)}
+.guess{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.guess .q{font-weight:500;margin:0 0 12px}
+.guess .opts{display:flex!important;flex-direction:row!important;flex-wrap:wrap;gap:8px;grid-template-columns:none}
+.guess .opts button{width:auto!important;flex:0 0 auto;min-width:84px;text-align:center}
+.guess .opts button{font:inherit;padding:8px 16px;border-radius:999px;border:1px solid var(--line);background:var(--ivory);color:var(--ink);cursor:pointer}
+.guess .opts button.pick{border-color:var(--green);background:var(--pale)}
+.guess .opts button.ans{border-color:var(--green);background:var(--green);color:#fff}
+.guess .fb{margin:12px 0 0}
+.guess .skip{font-size:var(--t-small);background:none;border:0;color:var(--green-text);text-decoration:underline;cursor:pointer;padding:0;margin-top:10px;font-family:inherit}
+.pro{background:var(--pearl);border-radius:12px;padding:20px 22px}
+.pro .eyebrow{margin:0 0 10px}
+.pro dl{margin:0;display:grid;grid-template-columns:minmax(0,11rem) minmax(0,1fr);gap:10px 18px}
+.pro dt{font-weight:600}
+.pro dd{margin:0;line-height:1.6}
+@media (max-width:560px){.pro dl{grid-template-columns:1fr;gap:2px}.pro dd{margin-bottom:10px}}
+.life{border-left:4px solid var(--gold);padding:4px 0 4px 18px}
+.life .eyebrow{margin:0 0 6px}
+.keep{font-family:var(--display);font-size:1.3rem;line-height:1.4;color:var(--brand);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:14px 0;margin:14px 0 4px;text-align:center}
+.prose p b{font-weight:600;color:var(--ink)}
+.prose p.aside{font-size:var(--t-small);color:var(--muted);border-left:2px solid var(--line);padding-left:12px}
+.duo{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:stretch;margin:4px 0 6px}
+.duo>div:not(.or){background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;display:flex;flex-direction:column;gap:4px}
+.duo .big{font-family:var(--display);font-size:1.9rem;color:var(--brand);line-height:1.1}
+.duo span:not(.big){font-size:var(--t-small);color:var(--muted)}
+.duo .or{align-self:center;font-size:var(--t-small);color:var(--muted)}
+.three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:2px 0 6px}
+.three>div{background:var(--pearl);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.three span{font-size:var(--t-small);color:var(--muted);line-height:1.5}
+@media (max-width:560px){.duo{grid-template-columns:1fr}.duo .or{text-align:center}.three{grid-template-columns:1fr}}
+.note{font-size:var(--t-small);color:var(--muted)}
+.flow text{font-family:var(--body)}
+.flow .bx{fill:var(--surface);stroke:var(--line);stroke-width:1.5}
+.flow .bxd{fill:var(--deep)}
+.flow .t1{font:600 16px var(--body);fill:var(--ink)}
+.flow .t2{font:13.5px var(--body);fill:var(--muted)}
+.flow .w1{font:600 16px var(--body);fill:var(--on-deep)}
+.flow .w2{font:13.5px var(--body);fill:var(--on-deep-muted)}
+.flow .lab{font:600 12.5px var(--body);letter-spacing:.08em;fill:var(--gold-text)}
+.four{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:2px 0 6px}
+.four>div{background:var(--pearl);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.four span{font-size:var(--t-small);color:var(--muted);line-height:1.5}
+.branches{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.branches>div{border-top:3px solid var(--green);background:var(--surface);border-radius:0 0 10px 10px;padding:12px 14px;display:flex;flex-direction:column;gap:4px;box-shadow:0 0 0 1px var(--line) inset}
+.branches span{font-size:var(--t-small);color:var(--muted);line-height:1.5}
+@media (max-width:560px){.four,.branches{grid-template-columns:1fr}}
+.fx>span{display:inline-flex;align-items:center;gap:10px;white-space:nowrap}
+.fx .frac{align-items:stretch;text-align:center}
+@media (max-width:560px){.fx{font-size:1.1rem}.fx>span{gap:6px}}
+.guess .opts button{white-space:normal;max-width:100%}
+</style><style>
+.chsvg svg{min-width:0!important;width:100%}
+svg .ax{font:13px var(--body);fill:var(--muted)}
+.legend2{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:var(--t-small);color:var(--muted);margin-top:6px}
+.legend2 i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.pvt td.r,.pvt th.r{text-align:right;white-space:nowrap}
+.pvt th.r{white-space:normal}
+.fx>span{display:inline-flex;align-items:center;gap:10px;white-space:nowrap}
+.fx .frac{align-items:stretch;text-align:center}
+svg .lb{font:600 13px var(--body)}
+/* section practice */
+.prac{border-top:2px solid var(--gold);border-bottom:1px solid var(--line)}
+.pwrap>summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px 4px}
+.pwrap>summary::-webkit-details-marker{display:none}
+.pwrap>summary .t{font-family:var(--display);font-size:1.6rem;color:var(--brand);line-height:1.3}
+.pwrap>summary .s{font-size:var(--t-small);color:var(--muted)}
+.pwrap>summary::after{content:"+";font-size:1.6rem;color:var(--gold-text);flex:none;width:24px;text-align:center}
+.pwrap[open]>summary::after{content:"−"}
+.pin{padding:0 4px 22px;display:flex;flex-direction:column;gap:14px}
+.prac .intro{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:var(--t-small);color:var(--muted)}
+.prac ol{margin:0;padding:0;list-style:none;counter-reset:p;display:flex;flex-direction:column;gap:12px}
+.prac li{counter-increment:p;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 18px;display:flex;flex-direction:column;gap:8px}
+.prac li>p::before{content:counter(p) ". ";font-weight:600;color:var(--brand)}
+.prac li summary{cursor:pointer;font-size:var(--t-small);color:var(--green-text);font-weight:500;width:max-content}
+.prac .ans{background:var(--pale);border-radius:10px;padding:10px 14px;margin-top:8px;font-size:var(--t-small);line-height:1.65;display:flex;flex-direction:column;gap:4px}
+.prac .tool{font-size:var(--t-label);letter-spacing:.08em;text-transform:uppercase;color:var(--gold-text);font-weight:600}
+
+.prac .eyebrow{margin:0}
+.pair2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.pair2>div{background:var(--pearl);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.pair2 span{font-size:var(--t-small);color:var(--muted);line-height:1.5}
+@media (max-width:560px){.pair2{grid-template-columns:1fr}}
+</style>
+<div class="shell" id="shell"><div class="scrim" id="scrim"></div><button type="button" class="fab" id="mbtn" aria-label="Show the lesson list">☰</button><aside class="side" id="side" aria-label="Lessons in Foundations"><div class="sidehead"><button type="button" class="tog" id="col" aria-label="Hide the lesson list">☰ Hide lessons</button><nav class="sw" aria-label="Sections"><a href="/lessons/foundations/index.html" class="on">Foundations</a><a href="/lessons/index.html">Prerequisites</a></nav></div><p class="subj"><a href="/lessons/foundations/index.html">Foundations</a></p><div class="grp"><p class="gh"><span>Money and markets</span><span class="gc">0 of 5</span></p><ol><li><a href="/lessons/foundations/what-finance-is.html" data-slug="foundations/what-finance-is"><span class="mk">1</span><span class="tt">What finance is and how the system works</span></a></li><li><a href="/lessons/foundations/financial-assets.html" data-slug="foundations/financial-assets"><span class="mk">2</span><span class="tt">Financial assets</span></a></li><li><a href="/lessons/foundations/financial-markets.html" data-slug="foundations/financial-markets"><span class="mk">3</span><span class="tt">Financial markets</span></a></li><li><a href="/lessons/foundations/what-an-interest-rate-is.html" data-slug="foundations/what-an-interest-rate-is"><span class="mk">4</span><span class="tt">What an interest rate is</span></a></li><li><a href="/lessons/foundations/what-sets-interest-rates.html" data-slug="foundations/what-sets-interest-rates"><span class="mk">5</span><span class="tt">What sets interest rates</span></a></li></ol></div><div class="grp"><p class="gh"><span>Time value of money</span><span class="gc">0 of 8</span></p><ol><li><a href="/lessons/foundations/future-value-and-compounding.html" data-slug="foundations/future-value-and-compounding"><span class="mk">6</span><span class="tt">Future value and compounding</span></a></li><li><a href="/lessons/foundations/present-value-and-discounting.html" data-slug="foundations/present-value-and-discounting"><span class="mk">7</span><span class="tt">Present value and discounting</span></a></li><li><a href="/lessons/foundations/annuities-and-loan-payments.html" data-slug="foundations/annuities-and-loan-payments"><span class="mk">8</span><span class="tt">Annuities and loan payments</span></a></li><li><a href="/lessons/foundations/perpetuities.html" data-slug="foundations/perpetuities"><span class="mk">9</span><span class="tt">Perpetuities and growing perpetuities</span></a></li><li><a href="/lessons/foundations/stated-vs-effective-rates.html" data-slug="foundations/stated-vs-effective-rates"><span class="mk">10</span><span class="tt">Stated vs effective rates</span></a></li><li><a href="/lessons/foundations/uneven-and-growing-cash-flows.html" data-slug="foundations/uneven-and-growing-cash-flows"><span class="mk">11</span><span class="tt">Uneven and growing cash flows</span></a></li><li><a href="/lessons/foundations/net-present-value.html" data-slug="foundations/net-present-value"><span class="mk">12</span><span class="tt">Net present value</span></a></li><li><a href="/lessons/foundations/irr-and-payback.html" data-slug="foundations/irr-and-payback"><span class="mk">13</span><span class="tt">IRR and payback</span></a></li></ol></div><div class="grp"><p class="gh"><span>Risk and return</span><span class="gc">0 of 5</span></p><ol><li><a href="/lessons/foundations/risk-and-return.html" data-slug="foundations/risk-and-return"><span class="mk">14</span><span class="tt">The risk and return trade-off</span></a></li><li><a href="/lessons/foundations/measuring-return.html" data-slug="foundations/measuring-return"><span class="mk">15</span><span class="tt">Measuring return</span></a></li><li><a href="/lessons/foundations/measuring-risk.html" data-slug="foundations/measuring-risk"><span class="mk">16</span><span class="tt">Measuring risk</span></a></li><li><a href="/lessons/foundations/diversification.html" data-slug="foundations/diversification"><span class="mk">17</span><span class="tt">Diversification</span></a></li><li><a href="/lessons/foundations/arbitrage.html" data-slug="foundations/arbitrage" class="now" aria-current="page"><span class="mk">18</span><span class="tt">Arbitrage and the law of one price</span></a></li></ol></div><div class="grp"><p class="gh"><span>Ethics and trust</span><span class="gc">0 of 3</span></p><ol><li><a href="/lessons/foundations/why-trust-matters.html" data-slug="foundations/why-trust-matters"><span class="mk">19</span><span class="tt">Why trust holds the system together</span></a></li><li><a href="/lessons/foundations/conflicts-of-interest.html" data-slug="foundations/conflicts-of-interest"><span class="mk">20</span><span class="tt">Conflicts of interest and fiduciary duty</span></a></li><li><a href="/lessons/foundations/professional-standards.html" data-slug="foundations/professional-standards"><span class="mk">21</span><span class="tt">Professional standards, inside information and gray areas</span></a></li></ol></div></aside><article class="page">
+
+  <header class="banner">
+    <p class="eyebrow">Foundations · Risk and return</p>
+    <h1>Arbitrage and the law of one price</h1>
+    <p class="lead">Why identical things should cost the same, how traders profit when they don't, and what stops them from closing every gap.</p>
+    <div class="meta"><span><b>Risk and return</b> · Lesson 5 of 5 · 6 minutes</span><span>Before this: <a href="/lessons/foundations/present-value-and-discounting.html">Present value and discounting</a>, <a href="/lessons/foundations/financial-markets.html">Financial markets</a></span></div>
+  </header>
+
+  <div class="plain">
+    <p class="eyebrow">In plain words</p>
+    <p>If the same thing sells for two different prices, you could buy it where it is cheap and sell it where it is dear, and pocket the difference with no risk. That is arbitrage. Traders hunt for these gaps, and their buying and selling pushes the two prices back together.</p>
+  </div>
+
+  <section class="sec prose">
+    <p class="hook">On March 2, 2000, the technology company 3Com sold a small part of its subsidiary Palm to the public, and announced that each 3Com share would later receive about 1.5 Palm shares. At the close that day:</p>
+    <div class="duo">
+      <div><span class="big">$95.06</span><span>one Palm share, bought directly</span></div>
+      <div class="or">vs</div>
+      <div><span class="big">$54.54</span><span>one Palm share, bought through 3Com: $81.81 ÷ 1.5, with the rest of 3Com thrown in free</span></div>
+    </div>
+    <p class="src">Sources: <a href="https://www.nber.org/papers/w8987.pdf">Lamont (NBER)</a>, <a href="https://www.chicagobooth.edu/review/can-market-add-and-subtract">Chicago Booth Review</a>.</p>
+    <p>The market was valuing everything 3Com owned apart from Palm at about minus $22 billion. <b>Identical claims on the same Palm shares had two very different prices.</b> Why that gap could exist, and why it eventually closed, is the subject of this lesson.</p>
+
+    <p><b>The law of one price says identical assets must trade at the same price.</b> If they don't, an <b>arbitrage</b> exists: a trade that makes a profit with no risk and no money of your own. Buy the cheap one, sell the expensive one at the same moment, and the difference is yours whatever happens next.</p>
+    <p><b>Arbitrage is what enforces the law.</b> Buying the cheap asset pushes its price up; selling the dear one pushes its price down. Traders keep doing it until the gap is smaller than the cost of trading. That is why, most of the time, prices of equivalent things line up closely.</p>
+
+    <p><b>Assets don't have to look identical to be equivalent.</b> If a package of other assets produces exactly the same cash flows, it must cost the same. This is called <b>replication</b>. A two-year bond pays $50 after one year and $1,050 after two. Zero-coupon bonds, which pay a single amount, are priced at $0.96 for each $1 due in one year and $0.91 for each $1 due in two <span class="note">(illustrative figures)</span>:</p>
+    <div class="box"><div class="tw"><table class="pvt">
+      <thead><tr><th>Cash flow</th><th class="r">Zero price per $1</th><th class="r">Cost to replicate</th></tr></thead>
+      <tbody>
+        <tr><td>$50 in year 1</td><td class="r">$0.96</td><td class="r">$48.00</td></tr>
+        <tr><td>$1,050 in year 2</td><td class="r">$0.91</td><td class="r">$955.50</td></tr>
+        <tr class="tot"><td>The whole bond</td><td class="r"></td><td class="r">$1,003.50</td></tr>
+      </tbody>
+    </table></div></div>
+    <p>The bond must trade at $1,003.50. At any other price, an arbitrage exists.</p>
+
+    <div class="guess" id="g">
+      <p class="q">The coupon bond is trading at $995, while the package of zeros costs $1,003.50. What does an arbitrageur do?</p>
+      <div class="opts"><button type="button" data-a>Buy the bond, sell the zeros</button><button type="button">Sell the bond, buy the zeros</button><button type="button">Buy both</button><button type="button">Nothing: the gap is too small</button></div>
+      <p class="fb" hidden></p>
+    </div>
+
+    <p><b>Arbitrage has limits.</b> In practice, gaps can survive when closing them is costly or risky:</p>
+    <div class="pair2">
+      <div><b>Trading costs</b><span>Commissions, spreads and taxes mean a gap smaller than these costs is not worth closing.</span></div>
+      <div><b>Short-selling limits</b><span>Selling the expensive asset usually means borrowing it first. If it cannot be borrowed, the trade cannot be done.</span></div>
+      <div><b>The gap can widen</b><span>A mispricing can grow before it shrinks. Traders who borrowed to bet on it may be forced out at a loss.</span></div>
+      <div><b>It may not be identical</b><span>Many "arbitrages" carry a hidden difference, such as a deal that might fall through. Those are bets, not arbitrage.</span></div>
+    </div>
+
+    <p><b>Back to Palm.</b> The obvious trade was to buy 3Com and sell Palm short. But so few Palm shares were available that they were very hard to borrow, and borrowing them was expensive. The gap narrowed slowly over the following months, rather than disappearing in minutes.</p>
+  </section>
+
+  <section class="sec">
+    <div class="pro">
+      <p class="eyebrow">How professionals use it</p>
+      <dl>
+        <dt>Derivatives traders</dt><dd>Price futures and options by replication: the derivative must cost the same as the package of assets that copies its payoff.</dd>
+        <dt>ETF market makers</dt><dd>Keep an exchange-traded fund's price close to the value of its holdings by creating or redeeming shares whenever the two drift apart.</dd>
+        <dt>Currency traders</dt><dd>Check that exchange rates between three currencies are consistent, and trade instantly when they are not.</dd>
+        <dt>Bond traders</dt><dd>Compare each bond with the package of zero-coupon bonds that replicates it, buying the cheap side and selling the dear.</dd>
+      </dl>
+    </div>
+  </section>
+
+  <section class="sec prose">
+    <div class="life">
+      <p class="eyebrow">In everyday terms</p>
+      <p>Real arbitrage is rare and fleeting, because thousands of professionals are looking for it with fast computers.</p>
+      <p><b>When something is sold as a risk-free profit, look for the risk or cost that has not been mentioned.</b></p>
+    </div>
+    <p class="keep">Two prices for one thing don't last, unless something blocks the trade.</p>
+  </section>
+
+  <section class="prac" aria-label="Section practice">
+    <details class="pwrap">
+      <summary><span><span class="eyebrow">Section practice · optional</span><br><span class="t">Risk and return</span><br><span class="s">8 mixed problems from lessons 14 to 18 · about 15 minutes</span></span></summary>
+      <div class="pin">
+    <p>The problems aren't labeled with a lesson, so part of the work is choosing the right idea. Work each one on paper, then open the answer.</p>
+    <ol>
+      <li><p>The risk-free rate is 3.5% and investors want a 6% premium for a stock's risk. What return do they require, and what is $1,000 expected in one year worth today?</p>
+        <details><summary>Show answer</summary><div class="ans"><span class="tool">The risk and return trade-off</span><span>3.5% + 6% = <b>9.5%</b>. 1,000 ÷ 1.095 = <b>$913</b>.</span></div></details></li>
+      <li><p>One investment pays $500 for certain. Another pays $0 or $1,000 with equal chances. Which costs more today, and why?</p>
+        <details><summary>Show answer</summary><div class="ans"><span class="tool">The risk and return trade-off</span><span><b>The certain one.</b> Both have an expected payoff of $500, but investors demand a lower price, and so a higher expected return, for the risky one.</span></div></details></li>
+      <li><p>You buy a share for $80, receive $2 of dividends and sell it for $86 two years later. What is the holding period return, and the annual return?</p>
+        <details><summary>Show answer</summary><div class="ans"><span class="tool">Measuring return</span><span>(86 − 80 + 2) ÷ 80 = <b>10%</b>. Annual: 1.10<sup>1/2</sup> − 1 = <b>4.88%</b>.</span></div></details></li>
+      <li><p>A fund returns +30% then −20%. What are its arithmetic and geometric average returns?</p>
+        <details><summary>Show answer</summary><div class="ans"><span class="tool">Measuring return</span><span>Arithmetic: (30 − 20) ÷ 2 = <b>5%</b>. Geometric: (1.3 × 0.8)<sup>1/2</sup> − 1 = <b>1.98%</b>.</span></div></details></li>
+      <li><p>An asset's monthly volatility is 5%. Roughly what is its annual volatility?</p>
+        <details><summary>Show answer</summary><div class="ans"><span class="tool">Measuring risk</span><span>5% × √12 = <b>17.3%</b>.</span></div></details></li>
+      <li><p>A portfolio falls 40% from its peak. What gain does it need to recover, and how long would that take at 8% a year?</p>
+        <details><summary>Show answer</summary><div class="ans"><span class="tool">Measuring risk</span><span>1 ÷ 0.6 − 1 = <b>66.7%</b>. ln(1/0.6) ÷ ln(1.08) ≈ <b>6.6 years</b>.</span></div></details></li>
+      <li><p>Two assets have volatilities of 30% and 10% and are uncorrelated. Held half and half, what is the portfolio's volatility? Compare it with the simple average of the two.</p>
+        <details><summary>Show answer</summary><div class="ans"><span class="tool">Diversification</span><span>√(0.25 × 0.09 + 0.25 × 0.01) = <b>15.8%</b>, against a simple average of 20%.</span></div></details></li>
+      <li><p>The same share trades at $40.00 in New York and the equivalent of $40.30 in London. Each trade costs $0.10 per share. Is there an arbitrage, and what is the profit per share?</p>
+        <details><summary>Show answer</summary><div class="ans"><span class="tool">Arbitrage and the law of one price</span><span><b>Yes.</b> Buy in New York, sell in London: $0.30 gap − $0.20 of costs = <b>$0.10 a share</b>.</span></div></details></li>
+    </ol>
+      </div>
+    </details>
+  </section>
+
+
+  <a class="next" href="/lessons/foundations/why-trust-matters.html"><span class="eyebrow">Next</span><span class="t">Why trust holds the system together</span><span class="arrow">→</span></a>
+
+  <nav class="related">Related: <a href="/lessons/foundations/present-value-and-discounting.html">Present value and discounting</a> · <a href="/lessons/foundations/financial-markets.html">Financial markets</a> · <a href="/lessons/foundations/financial-assets.html">Financial assets</a></nav>
+</article></div>
+
+<script>
+(function(){
+  const g=document.getElementById('g'),fb=g.querySelector('.fb');
+  g.querySelectorAll('.opts button').forEach(b=>b.addEventListener('click',()=>{
+    g.querySelectorAll('.opts button').forEach(x=>{x.disabled=true;if(x.hasAttribute('data-a'))x.classList.add('ans')});
+    if(!b.hasAttribute('data-a'))b.classList.add('pick');
+    fb.hidden=false;
+    fb.innerHTML=(b.hasAttribute('data-a')?'Right. ':'')+'<b>Buy the cheap bond and sell the expensive zeros.</b> You receive $1,003.50, pay $995, and keep $8.50. The bond\'s payments exactly cover what you owe on the zeros, so there is no risk left.';
+  }));
+})();
+</script>
+
+
+<script>
+(function(){
+  var KEY='nbs-lessons-done',done=[];
+  try{done=JSON.parse(localStorage.getItem(KEY)||'[]')||[]}catch(e){}
+  var me=document.body.getAttribute('data-lesson'),total=+document.body.getAttribute('data-total')||0,group=document.body.getAttribute('data-group');
+  function count(){return done.filter(function(s){return s.indexOf(group+'/')===0}).length}
+  function show(){var b=document.getElementById('nbs-bar');if(b&&total)b.style.width=Math.min(100,count()/total*100)+'%'}
+  requestAnimationFrame(function(){requestAnimationFrame(show)});
+  var end=document.querySelector('.next');
+  if(me&&end&&'IntersectionObserver' in window){
+    new IntersectionObserver(function(es,o){es.forEach(function(e){if(e.isIntersecting){
+      if(done.indexOf(me)<0){done.push(me);try{localStorage.setItem(KEY,JSON.stringify(done))}catch(err){}show()}
+      o.disconnect()}})},{threshold:.6}).observe(end);
+  }
+})();
+</script>
+<script>
+(function(){
+  var sh=document.getElementById('shell'),KEY='nbs-side-closed',done=[];
+  try{done=JSON.parse(localStorage.getItem('nbs-lessons-done')||'[]')||[]}catch(e){}
+  function marks(){
+    document.querySelectorAll('.side .grp').forEach(function(g){var n=0,a=g.querySelectorAll('a[data-slug]');
+      a.forEach(function(x){var d=done.indexOf(x.dataset.slug)>=0;x.classList.toggle('done',d&&!x.classList.contains('now'));if(d)n++});
+      var c=g.querySelector('.gc');if(c)c.textContent=n+' of '+a.length;});
+  }
+  marks();
+  window.addEventListener('storage',function(){try{done=JSON.parse(localStorage.getItem('nbs-lessons-done')||'[]')||[]}catch(e){}marks()});
+  var closed=false;try{closed=localStorage.getItem(KEY)==='1'}catch(e){}
+  function setClosed(c){closed=c;sh.classList.toggle('closed',c);document.body.classList.toggle('side-closed',c);try{localStorage.setItem(KEY,c?'1':'0')}catch(e){}}
+  if(closed&&innerWidth>860)setClosed(true);
+  document.getElementById('col').addEventListener('click',function(){if(innerWidth<=860){sh.classList.remove('mopen')}else{setClosed(true)}});
+  document.getElementById('mbtn').addEventListener('click',function(){if(innerWidth<=860){sh.classList.add('mopen')}else{setClosed(false)}});
+  function sh_h(){var st=document.querySelector('.nbs-strip');if(st)document.documentElement.style.setProperty('--sh',st.offsetHeight+'px')}
+  sh_h();addEventListener('resize',sh_h);
+  document.getElementById('scrim').addEventListener('click',function(){sh.classList.remove('mopen')});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')sh.classList.remove('mopen')});
+  var now=document.querySelector('.side a.now');if(now&&now.scrollIntoView&&innerWidth>860){var s=document.getElementById('side');s.scrollTop=Math.max(0,now.offsetTop-s.clientHeight/2)}
+})();
+</script>
+</body></html>
