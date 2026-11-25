@@ -5,6 +5,7 @@ import Head from '@docusaurus/Head';
 import Heading from '@theme/Heading';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import styles from './index.module.css';
+import Prerequisites from '../components/Prerequisites';
 
 // Update these two numbers when you add dictionary terms or formulas.
 const DICTIONARY_TERMS = 1725;
@@ -42,7 +43,6 @@ const doors = [
 ];
 
 const subjects = [
-  {name: 'Free course: Financial Data-to-Insight', live: true, to: '/courses/financial-data-to-insight'},
   {name: 'Foundations'},
   {name: 'Personal Finance'},
   {name: 'Financial Statement Analysis'},
@@ -304,9 +304,11 @@ function LearningPath() {
         <div className={styles.sectionHead}>
           <Heading as="h2" className={styles.sectionTitle}>The learning path</Heading>
           <p className={styles.sectionLead}>
-            Start with the free course, then work forward. Each subject opens as its notes are published.
+            Brush up on the prerequisites you need, then work through the subjects in order. Each subject opens as its notes are published.
           </p>
         </div>
+        <Prerequisites />
+        <h3 className={styles.bandTitle}>The learning path</h3>
         <div ref={ref} className={`${styles.path} ${cls}`}>
           <div className={styles.rail} aria-hidden="true">
             <div className={styles.railLine} />
@@ -337,6 +339,19 @@ function LearningPath() {
               </div>
             ))}
           </div>
+        </div>
+        <div className={styles.coursesBand}>
+          <div className={styles.bandHead}>
+            <h3 className={styles.bandTitle}>Courses</h3>
+            <span className={styles.bandLead}>Hands-on, with a real-company project.</span>
+          </div>
+          <Link to="/courses/financial-data-to-insight" className={styles.courseCard}>
+            <span className={styles.courseText}>
+              <span className={styles.courseName}>Free course: Financial Data-to-Insight</span>
+              <span className={styles.courseBlurb}>Twelve short lessons and one real-company project. Free, no account needed.</span>
+            </span>
+            <span className={styles.courseGo}>Open the course →</span>
+          </Link>
         </div>
         <div className={styles.centerLink}>
           <Link to="/notes">See the learning path</Link>

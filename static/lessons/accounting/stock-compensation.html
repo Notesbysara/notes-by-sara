@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="icon" href="/img/favicon.png">
+<meta name="description" content="Stock compensation and dilution: Paying in shares and what it costs owners. A short lesson from Notes by Sara.">
+<link rel="canonical" href="https://notesbysara.org/lessons/accounting/stock-compensation.html">
+
+<title>Stock compensation and dilution · Notes by Sara</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Forum&family=Poppins:wght@400;500;600&display=swap">
+<style>
+/* Layout: one calm reading column. Three surfaces only: the deep banner, white boxes, and pale green for anything the learner answers. Light only, like the site. */
+:root{
+  color-scheme:light;
+  --ivory:#FFFDF8; --surface:#FFFFFF; --pearl:#F7F2E7; --pale:#EAF4EF;
+  --ink:#1F2A26; --muted:#5A6862; --line:#E6E1D5;
+  --deep:#06352A; --green:#0E7C5A; --green-text:#0B6A4C; --brand:#0B4F3C;
+  --gold:#E3C26F; --gold-text:#8A6A12; --coral:#B4452F; --coral-pale:#FBEDE9;
+  --on-deep:#FFFDF8; --on-deep-muted:#C9D6D0;
+  --display:'Forum',Georgia,'Times New Roman',serif;
+  --body:'Poppins',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --t-body:16px; --t-small:14px; --t-label:12.5px;
+}
+*{box-sizing:border-box}
+body{background:var(--ivory);color:var(--ink);font-family:var(--body);font-size:var(--t-body);line-height:1.75}
+a{color:var(--green-text)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
+.mockbar{background:var(--pearl);color:var(--muted);font-size:var(--t-small);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:8px;text-align:center;border-bottom:1px solid var(--line)}
+.mockbar b{color:var(--gold-text);letter-spacing:.12em;text-transform:uppercase;font-size:var(--t-label);margin-right:6px}
+.page{max-width:720px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px;display:flex;flex-direction:column;gap:40px}
+h1,h2{font-family:var(--display);font-weight:400;line-height:1.15;margin:0;text-wrap:balance}
+h2{font-size:1.7rem;color:var(--brand)}
+p{margin:0}
+.sec{display:flex;flex-direction:column;gap:14px}
+.eyebrow{font-size:var(--t-label);font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--gold-text)}
+.muted{color:var(--muted)}
+.small{font-size:var(--t-small)}
+b{font-weight:600}
+.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* 1. banner */
+.banner{background:var(--deep);color:var(--on-deep);border-radius:18px;padding:26px 26px 22px;display:flex;flex-direction:column;gap:10px}
+.banner .eyebrow{color:var(--gold)}
+.banner h1{font-size:clamp(2rem,6vw,2.6rem)}
+.banner .lead{color:var(--on-deep-muted)}
+.banner .meta{font-size:var(--t-small);color:var(--on-deep-muted);border-top:1px solid rgba(227,194,111,.35);padding-top:10px;display:flex;flex-wrap:wrap;gap:4px 18px}
+.banner .meta b{color:var(--gold);font-weight:600}
+.banner .meta a{color:var(--on-deep)}
+
+/* white box */
+.box{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.svgwrap{overflow-x:auto}
+.svgwrap svg{display:block;width:100%;height:auto;min-width:480px}
+.cap{font-size:var(--t-small);color:var(--muted)}
+
+/* formula */
+.fx{font-family:Georgia,'Times New Roman',serif;font-size:1.8rem;display:flex;align-items:center;justify-content:center;gap:14px}
+.frac{display:inline-flex;flex-direction:column;align-items:center;line-height:1.2}
+.frac span:first-child{border-bottom:2px solid var(--ink);padding:0 8px 2px}
+.frac span:last-child{padding-top:2px}
+.fx i{font-style:italic}
+.fx sup{font-size:.6em}
+.legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:4px 16px;font-size:var(--t-small);color:var(--muted)}
+.legend i{font-family:Georgia,serif;color:var(--ink);font-size:1.05rem;margin-right:6px}
+table{border-collapse:collapse;width:100%}
+td,th{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left}
+th{font-size:var(--t-small);color:var(--muted);font-weight:500}
+td.r,th.r{text-align:right}
+.tw{overflow-x:auto}
+.result{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;border-top:2px solid var(--brand);padding-top:10px}
+.result b{font-family:var(--display);font-weight:400;font-size:1.8rem;color:var(--brand)}
+
+/* pale: anything you answer */
+.ask{background:var(--pale);border-radius:14px;padding:16px 20px;display:flex;flex-direction:column;gap:10px}
+.ask .q{font-weight:500}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opts button{font:inherit;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 14px;cursor:pointer;color:var(--ink);line-height:1.5}
+.opts button:hover{border-color:var(--green)}
+.opts button.right{border-color:var(--green);box-shadow:inset 3px 0 0 var(--green)}
+.opts button.wrong{border-color:var(--coral);box-shadow:inset 3px 0 0 var(--coral)}
+.opts button[disabled]{cursor:default}
+.fb{font-size:var(--t-small);line-height:1.6}
+.fb b{color:var(--green-text)}
+.fb.no b{color:var(--coral)}
+.quiz{display:flex;flex-direction:column;gap:10px}
+.score{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:var(--t-small);color:var(--muted)}
+.score b{color:var(--brand)}
+.btn{font:inherit;font-size:var(--t-small);border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:4px 12px;cursor:pointer;color:var(--ink)}
+
+/* optional extras */
+.extras{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.extras details{border-bottom:1px solid var(--line)}
+.extras summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 4px}
+.extras summary::-webkit-details-marker{display:none}
+.extras summary .t{font-family:var(--display);font-size:1.3rem;color:var(--brand)}
+.extras summary .s{font-size:var(--t-small);color:var(--muted)}
+.extras summary::after{content:"+";font-size:1.4rem;color:var(--gold-text);flex:none;width:20px;text-align:center}
+.extras details[open] summary::after{content:"−"}
+.extras .inner{padding:0 4px 18px;display:flex;flex-direction:column;gap:12px}
+.inputs{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.inputs label{display:flex;flex-direction:column;gap:4px;font-size:var(--t-small);color:var(--muted)}
+.inputs input[type=number]{font:inherit;color:var(--ink);padding:7px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);width:100%}
+.inputs input[type=range]{width:100%;accent-color:var(--green)}
+.calcout{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+.calcout b{font-family:var(--display);font-weight:400;font-size:1.8rem;color:var(--brand)}
+.mist{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px}
+
+/* recap */
+.recap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:center}
+.recap ul{margin:4px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:2px}
+.recap .fx{font-size:1.3rem}
+@media (max-width:560px){.recap{grid-template-columns:1fr}}
+
+/* next */
+.next{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;background:var(--deep);color:var(--on-deep);border-radius:14px;padding:16px 20px;text-decoration:none}
+.next .eyebrow{color:var(--gold)}
+.next .t{font-family:var(--display);font-size:1.35rem}
+.next .arrow{font-size:1.4rem;color:var(--gold)}
+.related{font-size:var(--t-small);color:var(--muted)}
+.related a{margin-right:10px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+
+<style>
+.shell{display:grid;grid-template-columns:290px minmax(0,1fr);align-items:start}
+.shell.closed{grid-template-columns:minmax(0,1fr)}
+.side{position:sticky;top:50px;height:calc(100vh - 50px);overflow:auto;background:#FFFFFF;border-right:1px solid var(--line);padding:14px 14px 28px;display:flex;flex-direction:column;gap:2px;font-size:14px;scrollbar-width:thin}
+.shell.closed .side{display:none}
+.sidehead{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:0 2px 10px;margin-bottom:4px;border-bottom:1px solid var(--line)}
+.tog{font:inherit;font-size:13px;font-weight:600;color:#06352A;background:#E3C26F;border:0;border-radius:999px;padding:5px 13px;cursor:pointer;line-height:1.4}.tog:hover{background:#EBCF86}
+.sw{display:flex;gap:5px;flex-wrap:wrap}.sw a{font-size:12px;border:1px solid var(--line);border-radius:999px;padding:3px 10px;background:#fff;color:var(--ink);text-decoration:none}.sw a:hover{border-color:var(--brand)}.sw a.on{background:var(--deep);color:#fff;border-color:var(--deep)}
+.subj{font-family:var(--display);font-size:1.2rem;color:var(--brand);margin:8px 2px 2px}.subj a{color:inherit;text-decoration:none}.subj a:hover{text-decoration:underline}
+.grp{margin-top:8px}
+.gh{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin:0 2px 4px;font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text)}
+.gc{font-size:11.5px;letter-spacing:0;text-transform:none;font-weight:500;color:var(--muted);white-space:nowrap}
+.grp ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:1px}
+.grp li a{display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;align-items:start;padding:6px 8px;border-radius:8px;text-decoration:none;color:var(--ink);line-height:1.35}
+.grp li a:hover{background:var(--pale)}
+.mk{width:22px;height:22px;border-radius:50%;border:1.5px solid #C5D6CC;display:grid;place-items:center;font-size:11px;font-weight:600;color:var(--muted);background:#fff;margin-top:-1px}
+.grp a.done .mk{background:var(--green);border-color:var(--green);color:#fff}
+.grp a.done .tt{color:var(--muted)}
+.grp a.now{background:#EEF4EF;box-shadow:inset 3px 0 0 var(--gold)}
+.grp a.now .mk{background:var(--deep);border-color:var(--gold);color:#fff}
+.grp a.now .tt{color:var(--brand);font-weight:500}
+.shell .page{max-width:none;margin:0;padding-left:clamp(16px,4vw,56px);padding-right:clamp(16px,4vw,56px)}
+.shell .page>*{max-width:900px;width:100%}
+.shell.closed .page>*{margin-inline:auto}
+.shell.closed .page{padding-left:max(64px,clamp(16px,4vw,56px))}
+.fab{display:none;position:fixed;top:calc(var(--sh,50px) + 12px);left:max(12px,env(safe-area-inset-left,0px));z-index:30;width:38px;height:38px;border:0;border-radius:10px;background:#E3C26F;color:#06352A;font-size:18px;line-height:1;cursor:pointer;box-shadow:0 2px 8px rgba(6,53,42,.18)}
+.fab:hover{background:#EBCF86}
+body.side-closed .fab{display:grid;place-items:center}
+.scrim{display:none}
+@media (max-width:860px){
+ .shell,.shell.closed{grid-template-columns:minmax(0,1fr)}
+ .side,.shell.closed .side{display:flex;position:fixed;top:0;left:0;bottom:0;height:100vh;width:min(300px,86vw);z-index:40;transform:translateX(-105%);transition:transform .25s ease;box-shadow:6px 0 24px rgba(6,53,42,.2)}
+ .shell.mopen .side{transform:none}
+ .fab{display:grid;place-items:center}
+ .shell .page{padding-left:max(64px,env(safe-area-inset-left,0px))}
+ .scrim{position:fixed;inset:0;background:rgba(6,53,42,.35);z-index:35}.shell.mopen .scrim{display:block}
+ .shell .page>*{margin-inline:auto}
+}
+@media (prefers-reduced-motion:reduce){.side{transition:none!important}}
+@media (max-width:480px){.nbs-strip .prog{display:none}}
+</style>
+</head><body data-lesson="accounting/stock-compensation" data-group="accounting" data-total="19">
+<style>
+body{margin:0}
+.related .rel{margin-right:10px}
+.nbs-strip{position:sticky;top:0;z-index:20;background:#06352A;color:#FFFDF8;display:flex;align-items:center;justify-content:space-between;gap:12px;
+ padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:10px;font-family:'Poppins',system-ui,sans-serif;flex-wrap:wrap}
+.nbs-strip .l{display:flex;align-items:center;gap:12px;min-width:0}
+.nbs-strip img{width:30px;height:30px;border-radius:6px;display:block}
+.nbs-strip .crumb{font-size:14px;color:#C9D6D0}.nbs-strip .crumb a{color:#C9D6D0;text-decoration:none}.nbs-strip .crumb a:hover{color:#fff;text-decoration:underline}
+.nbs-strip .crumb i{font-style:normal;color:#E3C26F;margin:0 5px}.nbs-strip .crumb b{color:#fff;font-weight:500}
+.nbs-strip .prog{display:flex;align-items:center;gap:10px;font-size:13px;color:#C9D6D0}
+.nbs-strip .bar{width:130px;height:5px;border-radius:9px;background:rgba(255,255,255,.18);overflow:hidden}
+.nbs-strip .bar span{display:block;height:100%;width:0;background:#E3C26F;transition:width 1.2s cubic-bezier(.2,.8,.2,1) .2s}
+@media (max-width:560px){.nbs-strip .bar{display:none}.nbs-strip .crumb .mid{display:none}}
+@media (prefers-reduced-motion:reduce){.nbs-strip .bar span{transition:none}}
+</style>
+<header class="nbs-strip"><div class="l"><a href="https://notesbysara.org/" aria-label="Notes by Sara home"><img src="/img/favicon.png" alt="Notes by Sara"></a><nav class="crumb" aria-label="Breadcrumb"><span><a href="/lessons/index.html">Prerequisites</a></span><span class="mid"><i>›</i><a href="/lessons/accounting/index.html">Financial Accounting</a></span><span><i>›</i><b>Stock compensation and dilution</b></span></nav></div><div class="prog"><span>Lesson 18</span><span class="bar" aria-hidden="true"><span id="nbs-bar"></span></span></div></header>
+
+<style>
+.fx{white-space:nowrap;font-size:clamp(.95rem,4.2vw,1.45rem);gap:10px}
+.fx.wrap{white-space:normal}
+.cmp td:first-child{white-space:normal}
+.steps td:first-child{white-space:normal}
+@media (max-width:560px){.steps td{display:block;border:0;padding:2px 0;text-align:left!important;white-space:normal}.steps tr{display:block;border-bottom:1px solid var(--line);padding:8px 0}.steps td.r{font-weight:500}}
+.where{font-size:var(--t-small);color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 8px}
+</style>
+
+<div class="shell" id="shell"><div class="scrim" id="scrim"></div><button type="button" class="fab" id="mbtn" aria-label="Show the lesson list">☰</button><aside class="side" id="side" aria-label="Lessons in this subject"><div class="sidehead"><button type="button" class="tog" id="col" aria-label="Hide the lesson list">☰ Hide lessons</button><nav class="sw" aria-label="Subjects"><a href="/lessons/mathematics/index.html">Math</a><a href="/lessons/statistics/index.html">Stats</a><a href="/lessons/accounting/index.html" class="on">Accounting</a></nav></div><p class="subj"><a href="/lessons/accounting/index.html">Financial Accounting</a></p><div class="grp"><p class="gh"><span>The system</span><span class="gc">0 of 3</span></p><ol><li><a href="/lessons/accounting/accounting-equation.html" data-slug="accounting/accounting-equation"><span class="mk">1</span><span class="tt">The accounting equation</span></a></li><li><a href="/lessons/accounting/double-entry-bookkeeping.html" data-slug="accounting/double-entry-bookkeeping"><span class="mk">2</span><span class="tt">Double-entry bookkeeping</span></a></li><li><a href="/lessons/accounting/accrual-vs-cash.html" data-slug="accounting/accrual-vs-cash"><span class="mk">3</span><span class="tt">Accrual vs cash accounting</span></a></li></ol></div><div class="grp"><p class="gh"><span>The three statements</span><span class="gc">0 of 4</span></p><ol><li><a href="/lessons/accounting/income-statement.html" data-slug="accounting/income-statement"><span class="mk">4</span><span class="tt">The income statement</span></a></li><li><a href="/lessons/accounting/balance-sheet.html" data-slug="accounting/balance-sheet"><span class="mk">5</span><span class="tt">The balance sheet</span></a></li><li><a href="/lessons/accounting/cash-flow-statement.html" data-slug="accounting/cash-flow-statement"><span class="mk">6</span><span class="tt">The cash flow statement</span></a></li><li><a href="/lessons/accounting/statements-link.html" data-slug="accounting/statements-link"><span class="mk">7</span><span class="tt">How the statements link</span></a></li></ol></div><div class="grp"><p class="gh"><span>Key accounts</span><span class="gc">0 of 7</span></p><ol><li><a href="/lessons/accounting/revenue-recognition.html" data-slug="accounting/revenue-recognition"><span class="mk">8</span><span class="tt">Revenue recognition</span></a></li><li><a href="/lessons/accounting/receivables.html" data-slug="accounting/receivables"><span class="mk">9</span><span class="tt">Receivables</span></a></li><li><a href="/lessons/accounting/inventory.html" data-slug="accounting/inventory"><span class="mk">10</span><span class="tt">Inventory</span></a></li><li><a href="/lessons/accounting/long-lived-assets.html" data-slug="accounting/long-lived-assets"><span class="mk">11</span><span class="tt">Long-lived assets and depreciation</span></a></li><li><a href="/lessons/accounting/intangible-assets.html" data-slug="accounting/intangible-assets"><span class="mk">12</span><span class="tt">Intangible assets</span></a></li><li><a href="/lessons/accounting/liabilities-provisions.html" data-slug="accounting/liabilities-provisions"><span class="mk">13</span><span class="tt">Liabilities and provisions</span></a></li><li><a href="/lessons/accounting/leases.html" data-slug="accounting/leases"><span class="mk">14</span><span class="tt">Leases</span></a></li></ol></div><div class="grp"><p class="gh"><span>Advanced topics</span><span class="gc">0 of 5</span></p><ol><li><a href="/lessons/accounting/deferred-taxes.html" data-slug="accounting/deferred-taxes"><span class="mk">15</span><span class="tt">Deferred taxes</span></a></li><li><a href="/lessons/accounting/consolidation.html" data-slug="accounting/consolidation"><span class="mk">16</span><span class="tt">Consolidation</span></a></li><li><a href="/lessons/accounting/equity-method.html" data-slug="accounting/equity-method"><span class="mk">17</span><span class="tt">Associates and the equity method</span></a></li><li><a href="/lessons/accounting/stock-compensation.html" data-slug="accounting/stock-compensation" class="now" aria-current="page"><span class="mk">18</span><span class="tt">Stock compensation and dilution</span></a></li><li><a href="/lessons/accounting/pensions.html" data-slug="accounting/pensions"><span class="mk">19</span><span class="tt">Pensions</span></a></li></ol></div></aside><article class="page">
+
+  <header class="banner">
+    <p class="eyebrow">Financial Accounting</p>
+    <h1>Stock compensation and dilution</h1>
+    <p class="lead">Many companies pay staff partly in shares. No cash leaves, but it's still a cost: it's expensed over time, and each new share gives existing owners a smaller slice.</p>
+    <div class="meta"><span><b>Advanced topics</b> · Lesson 4 of 5 · 6 minutes</span><span>Before this: <a href="income-statement.html">The income statement</a></span></div>
+  </header>
+
+  <section class="sec">
+    <h2>Paying with shares instead of cash</h2>
+    <p><span class="muted">Example, with made-up numbers.</span> To keep its managers, Brewline grants them <b>1 million restricted shares</b>, worth $20 each, that they receive only if they stay 4 years. Earlier it also gave out <b>2 million options</b> to buy shares at $15. Brewline's shares now trade at $25. What does this cost Brewline's shareholders?</p>
+  </section>
+
+  <section class="sec">
+    <h2>The idea</h2>
+    <div class="box">
+      <div class="tw"><table><tbody>
+        <tr><td><b>Restricted stock units (RSUs)</b></td><td class="r">Shares given for free once the employee has stayed long enough. That waiting period is called <b>vesting</b></td></tr>
+        <tr><td><b>Stock options</b></td><td class="r">The right to buy shares at a fixed price, the <b>strike</b>. Worth something only if the share price rises above it</td></tr>
+        <tr><td><b>The expense</b></td><td class="r">The award's fair value on the grant date, spread evenly over the vesting period. It's a non-cash cost, so the cash flow statement adds it back</td></tr>
+        <tr><td><b>The dilution</b></td><td class="r">New shares mean each existing share owns less. <b>Diluted EPS</b> counts the shares these awards could create</td></tr>
+      </tbody></table></div>
+    </div>
+    <p>Options don't add their full count to diluted shares. The <b>treasury stock method</b> assumes the company uses the cash employees pay on exercise to buy shares back at today's price. Only the difference counts.</p>
+    <div class="box">
+      <div class="svgwrap"><svg id="dl" viewBox="0 0 600 220" role="img" aria-label="Share count: 100 million basic shares, plus 0.8 million net from options and 1 million from restricted shares, 101.8 million diluted. Earnings per share falls from $1.95 basic to $1.92 diluted."></svg></div>
+      <p class="cap">The awards add 1.8 million shares, 1.8% more, so the same $195 million of profit is shared more thinly. The added shares are drawn larger than scale so they're visible.</p>
+    </div>
+    <div class="ask" data-q="c1">
+      <p class="eyebrow">Quick check</p>
+      <p class="q">Why does the cash flow statement add stock compensation back to net income?</p>
+      <div class="opts">
+        <button type="button" data-ok="1">It was an expense, but no cash was paid</button>
+        <button type="button" data-ok="0">Because it isn't a real cost</button>
+      </div>
+      <p class="fb" hidden aria-live="polite"></p>
+      <template>Like depreciation, it lowers profit without cash leaving. It's still a real cost, paid by shareholders through dilution instead of cash.</template>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Worked example: Brewline's awards</h2>
+    <div class="box">
+      <div class="tw"><table class="steps"><tbody>
+        <tr><td>1. RSU expense: 1m × $20, over 4 years</td><td class="r num">$5m a year</td></tr>
+        <tr><td>2. Options: cash from exercise, 2m × $15</td><td class="r num">$30m</td></tr>
+        <tr><td>3. Shares bought back with it at $25</td><td class="r num">30 ÷ 25 = 1.2m</td></tr>
+        <tr><td>4. Net new shares from options</td><td class="r num">2.0 − 1.2 = 0.8m</td></tr>
+        <tr><td>5. Diluted shares: 100 + 0.8 + 1.0</td><td class="r num">101.8m</td></tr>
+        <tr><td>6. Diluted EPS: 195 ÷ 101.8</td><td class="r num">$1.92</td></tr>
+      </tbody></table></div>
+      <div class="result"><span>EPS, basic vs diluted</span><b class="num">$1.95 vs $1.92</b></div>
+      <p class="small muted">Many companies report "adjusted" profit that leaves out stock compensation. Brewline's $5 million is small here, but at some technology companies it's a large share of costs. Treat it as a real expense when you compare them.</p>
+    </div>
+  </section>
+
+  <section class="extras" aria-label="Optional extras">
+    <details>
+      <summary><span><span class="t">Try it yourself</span><br><span class="s">Diluted shares and EPS with the treasury stock method.</span></span></summary>
+      <div class="inner">
+        <div class="inputs">
+          <label for="ni">Net income<input type="number" id="ni" value="195" step="any"></label>
+          <label for="bs">Basic shares<input type="number" id="bs" value="100" step="any" min="0"></label>
+          <label for="op">Options<input type="number" id="op" value="2" step="any" min="0"></label>
+          <label for="sk">Strike price<input type="number" id="sk" value="15" step="any" min="0"></label>
+          <label for="px">Share price<input type="number" id="px" value="25" step="any" min="0"></label>
+          <label for="ru">Restricted shares<input type="number" id="ru" value="1" step="any" min="0"></label>
+        </div>
+        <div class="tw"><table class="cmp"><tbody>
+          <tr><td>Net new shares from options</td><td class="r num" id="o1"></td></tr>
+          <tr><td>Diluted shares</td><td class="r num" id="o2"></td></tr>
+          <tr><td>EPS: basic · diluted</td><td class="r num" id="o3"></td></tr>
+        </tbody></table></div>
+      </div>
+    </details>
+    <details>
+      <summary><span><span class="t">Common mistakes</span><br><span class="s">Three slips beginners make.</span></span></summary>
+      <div class="inner">
+        <ul class="mist">
+          <li><b>Accepting "adjusted" profit at face value.</b> Leaving out stock compensation makes profit look higher. The cost is real, only paid in shares.</li>
+          <li><b>Forgetting buybacks cost cash.</b> Companies often buy back shares to cancel out dilution. That spending is the cash cost of the stock pay.</li>
+          <li><b>Counting every option.</b> Options with a strike above the share price wouldn't be exercised, so they're left out of diluted shares.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <section class="sec">
+    <div class="box">
+      <p class="eyebrow">Remember</p>
+      <ul class="mist">
+        <li>Stock compensation is expensed at grant-date fair value over the vesting period. No cash, but a real cost.</li>
+        <li>Treasury stock method: net new shares = options − (options × strike ÷ share price).</li>
+        <li>Diluted EPS = net income ÷ (basic shares + net new shares from awards).</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Check yourself</h2>
+    <div class="ask quiz">
+      <p class="small muted">Three questions. Try them without scrolling up.</p>
+      <div data-q="q1" data-quiz>
+        <p class="q">1. RSUs worth $12 million at grant vest over 3 years. What's the yearly expense?</p>
+        <div class="opts">
+          <button type="button" data-ok="1">$4 million</button>
+          <button type="button" data-ok="0">$12 million in year 1</button>
+          <button type="button" data-ok="0">Nothing, no cash is paid</button>
+        </div>
+        <p class="fb" hidden aria-live="polite"></p>
+        <template>12 ÷ 3 = $4 million a year over the vesting period.</template>
+      </div>
+      <div data-q="q2" data-quiz>
+        <p class="q">2. There are 1 million options with a $40 strike. The share price is $50. How many net new shares count toward diluted EPS?</p>
+        <div class="opts">
+          <button type="button" data-ok="0">1 million</button>
+          <button type="button" data-ok="1">0.2 million</button>
+          <button type="button" data-ok="0">0.8 million</button>
+        </div>
+        <p class="fb" hidden aria-live="polite"></p>
+        <template>Cash from exercise $40 million buys back 0.8 million shares at $50. Net new: 1 − 0.8 = 0.2 million.</template>
+      </div>
+      <div data-q="q3" data-quiz>
+        <p class="q">3. Options have a $30 strike, but the shares trade at $25. Do they count in diluted shares?</p>
+        <div class="opts">
+          <button type="button" data-ok="0">Yes, all of them</button>
+          <button type="button" data-ok="1">No, they're out of the money</button>
+          <button type="button" data-ok="0">Yes, but only half</button>
+        </div>
+        <p class="fb" hidden aria-live="polite"></p>
+        <template>Nobody pays $30 for a $25 share, so these options would raise EPS if counted. They're left out.</template>
+      </div>
+      <div class="score"><span>Score: <b id="score">0 of 3</b></span><button class="btn" type="button" id="reset">Try again</button></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <a href="pensions.html" class="next"><span><span class="eyebrow">Next lesson · Advanced · 6 minutes</span><br><span class="t">Pensions</span><br><span class="small" style="color:var(--on-deep-muted)">Promises to pay staff in retirement, and the debt they create.</span></span><span class="arrow" aria-hidden="true">→</span></a>
+    <p class="related">Related: <span class="rel">Stock-based compensation</span><a href="https://notesbysara.org/dictionary/dilution">Dilution</a><a href="https://notesbysara.org/dictionary/earnings-per-share">Diluted earnings per share</a><a href="https://notesbysara.org/dictionary/restricted-stock-unit">Restricted stock unit</a></p>
+  </section>
+
+</article></div>
+
+<script>
+const NS='http://www.w3.org/2000/svg';
+const el=(n,a={},p)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e};
+const text=(p,x,y,t,a={})=>{const e=el('text',Object.assign({x,y,'font-family':"Poppins,system-ui,sans-serif",'font-size':12,fill:'#5A6862','text-anchor':'middle'},a),p);e.textContent=t;return e};
+(function(){
+  const s=document.getElementById('dl'),L=150,R=470;
+  const row=(y,lab,parts,eps)=>{text(s,L-12,y+20,lab,{'text-anchor':'end','font-weight':600,fill:'#1F2A26'});let x=L;
+    parts.forEach(([v,c,t,w])=>{el('rect',{x,y,width:w,height:30,rx:4,fill:c},s);if(t)text(s,x+w/2,y+20,t,{fill:'#fff','font-weight':700,'font-size':12});x+=w+2;});
+    text(s,x+10,y+20,eps,{'text-anchor':'start','font-size':13,'font-weight':700,fill:'#0B4F3C'});};
+  row(40,'Basic',[[100,'#0B4F3C','100m shares',260]],'EPS $1.95');
+  row(100,'Diluted',[[100,'#0B4F3C','100m shares',260],[0.8,'#C89B2C','',22],[1,'#B4452F','',27]],'EPS $1.92');
+  text(s,L+260+13,92,'+0.8m',{'font-size':11,fill:'#8A6A12','font-weight':600});text(s,L+260+38,150,'+1.0m',{'font-size':11,fill:'#B4452F','font-weight':600});
+  el('rect',{x:L,y:178,width:12,height:12,rx:2,fill:'#C89B2C'},s);text(s,L+18,188,'net shares from options',{'text-anchor':'start','font-size':11});
+  el('rect',{x:L+180,y:178,width:12,height:12,rx:2,fill:'#B4452F'},s);text(s,L+198,188,'restricted shares',{'text-anchor':'start','font-size':11});
+  text(s,L,24,'Same $195 million of profit, more shares',{'text-anchor':'start','font-size':12,'font-weight':600,fill:'#3F4B46'});
+})();
+
+const answered={},correct={};
+document.querySelectorAll('[data-q]').forEach(box=>{
+  const id=box.dataset.q,fb=box.querySelector('.fb'),tpl=box.querySelector('template');
+  box.querySelectorAll('.opts button').forEach(b=>b.addEventListener('click',()=>{
+    if(answered[id])return;
+    const ok=b.dataset.ok==='1';answered[id]=true;correct[id]=ok;
+    box.querySelectorAll('.opts button').forEach(x=>{x.disabled=true;if(x.dataset.ok==='1')x.classList.add('right')});
+    if(!ok)b.classList.add('wrong');
+    fb.innerHTML='<b>'+(ok?'Right. ':'Not quite. ')+'</b>';fb.appendChild(tpl.content.cloneNode(true));
+    fb.classList.toggle('no',!ok);fb.hidden=false;score();
+  }));
+});
+function score(){document.getElementById('score').textContent=['q1','q2','q3'].filter(k=>correct[k]).length+' of 3'}
+document.getElementById('reset').addEventListener('click',()=>{
+  document.querySelectorAll('[data-quiz]').forEach(box=>{const id=box.dataset.q;delete answered[id];delete correct[id];
+    box.querySelectorAll('.opts button').forEach(x=>{x.disabled=false;x.classList.remove('right','wrong')});
+    const fb=box.querySelector('.fb');fb.hidden=true;fb.innerHTML='';});
+  score();
+});
+const ids=['ni','bs','op','sk','px','ru'].map(i=>document.getElementById(i)),f=v=>v.toLocaleString('en-US',{maximumFractionDigits:3});
+function run(){const [ni,bs,op,sk,px,ru]=ids.map(i=>+i.value),o=['o1','o2','o3'].map(i=>document.getElementById(i));
+  if(!isFinite(ni)||!(bs>0)||!(op>=0)||!(sk>=0)||!(px>0)||!(ru>=0)){o.forEach(e=>e.textContent='Check the inputs');return}
+  const net=px>sk?op-op*sk/px:0,ds=bs+net+ru;o[0].textContent=px>sk?f(net):'0 (out of the money)';o[1].textContent=f(ds);
+  o[2].textContent='$'+(ni/bs).toFixed(2)+' · $'+(ni/ds).toFixed(2);}
+ids.forEach(i=>i.addEventListener('input',run));run();
+document.querySelectorAll('a[href="#"]').forEach(a=>a.addEventListener('click',e=>e.preventDefault()));
+</script>
+
+
+<script>
+(function(){
+  var KEY='nbs-lessons-done',done=[];
+  try{done=JSON.parse(localStorage.getItem(KEY)||'[]')||[]}catch(e){}
+  var me=document.body.getAttribute('data-lesson'),total=+document.body.getAttribute('data-total')||0,group=document.body.getAttribute('data-group');
+  function count(){return done.filter(function(s){return s.indexOf(group+'/')===0}).length}
+  function show(){var b=document.getElementById('nbs-bar');if(b&&total)b.style.width=Math.min(100,count()/total*100)+'%'}
+  requestAnimationFrame(function(){requestAnimationFrame(show)});
+  var end=document.querySelector('.next');
+  if(me&&end&&'IntersectionObserver' in window){
+    new IntersectionObserver(function(es,o){es.forEach(function(e){if(e.isIntersecting){
+      if(done.indexOf(me)<0){done.push(me);try{localStorage.setItem(KEY,JSON.stringify(done))}catch(err){}show()}
+      o.disconnect()}})},{threshold:.6}).observe(end);
+  }
+})();
+</script>
+<script>
+(function(){
+  var sh=document.getElementById('shell'),KEY='nbs-side-closed',done=[];
+  try{done=JSON.parse(localStorage.getItem('nbs-lessons-done')||'[]')||[]}catch(e){}
+  function marks(){
+    document.querySelectorAll('.side .grp').forEach(function(g){var n=0,a=g.querySelectorAll('a[data-slug]');
+      a.forEach(function(x){var d=done.indexOf(x.dataset.slug)>=0;x.classList.toggle('done',d&&!x.classList.contains('now'));if(d)n++});
+      var c=g.querySelector('.gc');if(c)c.textContent=n+' of '+a.length;});
+  }
+  marks();
+  window.addEventListener('storage',function(){try{done=JSON.parse(localStorage.getItem('nbs-lessons-done')||'[]')||[]}catch(e){}marks()});
+  var closed=false;try{closed=localStorage.getItem(KEY)==='1'}catch(e){}
+  function setClosed(c){closed=c;sh.classList.toggle('closed',c);document.body.classList.toggle('side-closed',c);try{localStorage.setItem(KEY,c?'1':'0')}catch(e){}}
+  if(closed&&innerWidth>860)setClosed(true);
+  document.getElementById('col').addEventListener('click',function(){if(innerWidth<=860){sh.classList.remove('mopen')}else{setClosed(true)}});
+  document.getElementById('mbtn').addEventListener('click',function(){if(innerWidth<=860){sh.classList.add('mopen')}else{setClosed(false)}});
+  function sh_h(){var st=document.querySelector('.nbs-strip');if(st)document.documentElement.style.setProperty('--sh',st.offsetHeight+'px')}
+  sh_h();addEventListener('resize',sh_h);
+  document.getElementById('scrim').addEventListener('click',function(){sh.classList.remove('mopen')});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')sh.classList.remove('mopen')});
+  var now=document.querySelector('.side a.now');if(now&&now.scrollIntoView&&innerWidth>860){var s=document.getElementById('side');s.scrollTop=Math.max(0,now.offsetTop-s.clientHeight/2)}
+})();
+</script>
+</body></html>

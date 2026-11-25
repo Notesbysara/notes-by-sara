@@ -2,13 +2,14 @@ import React, {useState} from 'react';
 import Link from '@docusaurus/Link';
 import {SUBJECTS, ALL_NOTES, COURSES, noteLabel} from './catalog';
 import styles from './LearningPath.module.css';
+import Prerequisites from '../Prerequisites';
 
 const GOALS = [
   {
     id: 'new',
     label: 'I am new to finance',
     advice:
-      'Start with Foundations below. Its first lesson, Numbers in finance, takes about five minutes. Then work down the subjects in order, as their notes are published.',
+      'Start with the prerequisites you need: short lessons on math, statistics and accounting, about five minutes each. Then work down the subjects in order from Foundations, as their notes are published.',
     open: 0,
   },
   {
@@ -98,7 +99,11 @@ export default function LearningPath() {
 
   const course = COURSES[0];
   // The first published note, or lesson 1 of the course while no notes are published yet.
-  const next = ALL_NOTES[0] || course.lessons.find((n) => /topic 1 of/i.test(n.meta || '')) || course.lessons[0];
+  const next = ALL_NOTES[0] || {
+    title: 'Numbers in finance',
+    blurb: 'The first prerequisite lesson: units, brackets, rounding and big numbers. About five minutes.',
+    to: 'pathname:///lessons/mathematics/numbers-in-finance.html',
+  };
   const currentGoal = GOALS.find((g) => g.id === goal);
 
   function pickGoal(g) {
@@ -113,8 +118,8 @@ export default function LearningPath() {
           <div className={styles.eyebrow}>Finance learning path</div>
           <h1 className={styles.h1}>What should I learn next?</h1>
           <p className={styles.lead}>
-            One route through finance, in order. It starts with Foundations, short lessons on the math and statistics
-            finance uses, then the subjects up to Derivatives. Looking for one term? Use the <Link to="/dictionary">Financial Dictionary</Link>.
+            One route through finance, in order, from Foundations to Derivatives. Short prerequisite lessons cover the
+            math, statistics and accounting it builds on. Looking for one term? Use the <Link to="/dictionary">Financial Dictionary</Link>.
           </p>
         </div>
         <RouteArt />
@@ -158,6 +163,7 @@ export default function LearningPath() {
         </div>
 
         <div className={styles.main}>
+        <Prerequisites compact title="Prerequisites" lead="3 subjects · 67 short lessons" />
         <div className={styles.thenLabel}>The subjects, in order</div>
         <ol className={styles.stepper}>
           {SUBJECTS.map((s, i) => {

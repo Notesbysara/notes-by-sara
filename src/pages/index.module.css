@@ -378,3 +378,19 @@
 @media (max-width: 996px) {
   .stageNum { display: none; }
 }
+
+/* Learning path section: prerequisites band, path title, courses band */
+.bandTitle { margin: 0 0 14px; font-family: 'Forum', Georgia, serif; font-weight: 400; font-size: 26px; color: #06352A; text-align: left; }
+.bandHead { display: flex; justify-content: space-between; align-items: baseline; gap: 6px 14px; flex-wrap: wrap; }
+.bandHead .bandTitle { margin: 0; }
+.bandLead { font-size: 14px; color: #4f625a; }
+.coursesBand { display: flex; flex-direction: column; gap: 12px; margin-top: 36px; }
+.courseCard {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 14px; padding: 20px 22px; border-radius: 16px;
+  background: #06352A; color: #ffffff; text-decoration: none; border: 1px solid #06352A; transition: border-color 0.2s;
+}
+.courseCard:hover { border-color: #E3C26F; color: #ffffff; text-decoration: none; }
+.courseText { flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+.courseName { font-family: 'Forum', Georgia, serif; font-size: 24px; line-height: 1.25; }
+.courseBlurb { font-size: 14px; color: #C9D8D0; }
+.courseGo { background: #E3C26F; color: #06352A; border-radius: 999px; padding: 8px 18px; font-weight: 600; font-size: 14px; white-space: nowrap; }

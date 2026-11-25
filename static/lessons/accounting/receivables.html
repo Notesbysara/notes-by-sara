@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="icon" href="/img/favicon.png">
+<meta name="description" content="Receivables: Credit sales and customers who never pay. A short lesson from Notes by Sara.">
+<link rel="canonical" href="https://notesbysara.org/lessons/accounting/receivables.html">
+
+<title>Receivables · Notes by Sara</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Forum&family=Poppins:wght@400;500;600&display=swap">
+<style>
+/* Layout: one calm reading column. Three surfaces only: the deep banner, white boxes, and pale green for anything the learner answers. Light only, like the site. */
+:root{
+  color-scheme:light;
+  --ivory:#FFFDF8; --surface:#FFFFFF; --pearl:#F7F2E7; --pale:#EAF4EF;
+  --ink:#1F2A26; --muted:#5A6862; --line:#E6E1D5;
+  --deep:#06352A; --green:#0E7C5A; --green-text:#0B6A4C; --brand:#0B4F3C;
+  --gold:#E3C26F; --gold-text:#8A6A12; --coral:#B4452F; --coral-pale:#FBEDE9;
+  --on-deep:#FFFDF8; --on-deep-muted:#C9D6D0;
+  --display:'Forum',Georgia,'Times New Roman',serif;
+  --body:'Poppins',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --t-body:16px; --t-small:14px; --t-label:12.5px;
+}
+*{box-sizing:border-box}
+body{background:var(--ivory);color:var(--ink);font-family:var(--body);font-size:var(--t-body);line-height:1.75}
+a{color:var(--green-text)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
+.mockbar{background:var(--pearl);color:var(--muted);font-size:var(--t-small);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:8px;text-align:center;border-bottom:1px solid var(--line)}
+.mockbar b{color:var(--gold-text);letter-spacing:.12em;text-transform:uppercase;font-size:var(--t-label);margin-right:6px}
+.page{max-width:720px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px;display:flex;flex-direction:column;gap:40px}
+h1,h2{font-family:var(--display);font-weight:400;line-height:1.15;margin:0;text-wrap:balance}
+h2{font-size:1.7rem;color:var(--brand)}
+p{margin:0}
+.sec{display:flex;flex-direction:column;gap:14px}
+.eyebrow{font-size:var(--t-label);font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--gold-text)}
+.muted{color:var(--muted)}
+.small{font-size:var(--t-small)}
+b{font-weight:600}
+.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* 1. banner */
+.banner{background:var(--deep);color:var(--on-deep);border-radius:18px;padding:26px 26px 22px;display:flex;flex-direction:column;gap:10px}
+.banner .eyebrow{color:var(--gold)}
+.banner h1{font-size:clamp(2rem,6vw,2.6rem)}
+.banner .lead{color:var(--on-deep-muted)}
+.banner .meta{font-size:var(--t-small);color:var(--on-deep-muted);border-top:1px solid rgba(227,194,111,.35);padding-top:10px;display:flex;flex-wrap:wrap;gap:4px 18px}
+.banner .meta b{color:var(--gold);font-weight:600}
+.banner .meta a{color:var(--on-deep)}
+
+/* white box */
+.box{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.svgwrap{overflow-x:auto}
+.svgwrap svg{display:block;width:100%;height:auto;min-width:480px}
+.cap{font-size:var(--t-small);color:var(--muted)}
+
+/* formula */
+.fx{font-family:Georgia,'Times New Roman',serif;font-size:1.8rem;display:flex;align-items:center;justify-content:center;gap:14px}
+.frac{display:inline-flex;flex-direction:column;align-items:center;line-height:1.2}
+.frac span:first-child{border-bottom:2px solid var(--ink);padding:0 8px 2px}
+.frac span:last-child{padding-top:2px}
+.fx i{font-style:italic}
+.fx sup{font-size:.6em}
+.legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:4px 16px;font-size:var(--t-small);color:var(--muted)}
+.legend i{font-family:Georgia,serif;color:var(--ink);font-size:1.05rem;margin-right:6px}
+table{border-collapse:collapse;width:100%}
+td,th{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left}
+th{font-size:var(--t-small);color:var(--muted);font-weight:500}
+td.r,th.r{text-align:right}
+.tw{overflow-x:auto}
+.result{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;border-top:2px solid var(--brand);padding-top:10px}
+.result b{font-family:var(--display);font-weight:400;font-size:1.8rem;color:var(--brand)}
+
+/* pale: anything you answer */
+.ask{background:var(--pale);border-radius:14px;padding:16px 20px;display:flex;flex-direction:column;gap:10px}
+.ask .q{font-weight:500}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opts button{font:inherit;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 14px;cursor:pointer;color:var(--ink);line-height:1.5}
+.opts button:hover{border-color:var(--green)}
+.opts button.right{border-color:var(--green);box-shadow:inset 3px 0 0 var(--green)}
+.opts button.wrong{border-color:var(--coral);box-shadow:inset 3px 0 0 var(--coral)}
+.opts button[disabled]{cursor:default}
+.fb{font-size:var(--t-small);line-height:1.6}
+.fb b{color:var(--green-text)}
+.fb.no b{color:var(--coral)}
+.quiz{display:flex;flex-direction:column;gap:10px}
+.score{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:var(--t-small);color:var(--muted)}
+.score b{color:var(--brand)}
+.btn{font:inherit;font-size:var(--t-small);border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:4px 12px;cursor:pointer;color:var(--ink)}
+
+/* optional extras */
+.extras{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.extras details{border-bottom:1px solid var(--line)}
+.extras summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 4px}
+.extras summary::-webkit-details-marker{display:none}
+.extras summary .t{font-family:var(--display);font-size:1.3rem;color:var(--brand)}
+.extras summary .s{font-size:var(--t-small);color:var(--muted)}
+.extras summary::after{content:"+";font-size:1.4rem;color:var(--gold-text);flex:none;width:20px;text-align:center}
+.extras details[open] summary::after{content:"−"}
+.extras .inner{padding:0 4px 18px;display:flex;flex-direction:column;gap:12px}
+.inputs{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.inputs label{display:flex;flex-direction:column;gap:4px;font-size:var(--t-small);color:var(--muted)}
+.inputs input[type=number]{font:inherit;color:var(--ink);padding:7px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);width:100%}
+.inputs input[type=range]{width:100%;accent-color:var(--green)}
+.calcout{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+.calcout b{font-family:var(--display);font-weight:400;font-size:1.8rem;color:var(--brand)}
+.mist{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px}
+
+/* recap */
+.recap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:center}
+.recap ul{margin:4px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:2px}
+.recap .fx{font-size:1.3rem}
+@media (max-width:560px){.recap{grid-template-columns:1fr}}
+
+/* next */
+.next{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;background:var(--deep);color:var(--on-deep);border-radius:14px;padding:16px 20px;text-decoration:none}
+.next .eyebrow{color:var(--gold)}
+.next .t{font-family:var(--display);font-size:1.35rem}
+.next .arrow{font-size:1.4rem;color:var(--gold)}
+.related{font-size:var(--t-small);color:var(--muted)}
+.related a{margin-right:10px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+
+<style>
+.shell{display:grid;grid-template-columns:290px minmax(0,1fr);align-items:start}
+.shell.closed{grid-template-columns:minmax(0,1fr)}
+.side{position:sticky;top:50px;height:calc(100vh - 50px);overflow:auto;background:#FFFFFF;border-right:1px solid var(--line);padding:14px 14px 28px;display:flex;flex-direction:column;gap:2px;font-size:14px;scrollbar-width:thin}
+.shell.closed .side{display:none}
+.sidehead{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:0 2px 10px;margin-bottom:4px;border-bottom:1px solid var(--line)}
+.tog{font:inherit;font-size:13px;font-weight:600;color:#06352A;background:#E3C26F;border:0;border-radius:999px;padding:5px 13px;cursor:pointer;line-height:1.4}.tog:hover{background:#EBCF86}
+.sw{display:flex;gap:5px;flex-wrap:wrap}.sw a{font-size:12px;border:1px solid var(--line);border-radius:999px;padding:3px 10px;background:#fff;color:var(--ink);text-decoration:none}.sw a:hover{border-color:var(--brand)}.sw a.on{background:var(--deep);color:#fff;border-color:var(--deep)}
+.subj{font-family:var(--display);font-size:1.2rem;color:var(--brand);margin:8px 2px 2px}.subj a{color:inherit;text-decoration:none}.subj a:hover{text-decoration:underline}
+.grp{margin-top:8px}
+.gh{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin:0 2px 4px;font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text)}
+.gc{font-size:11.5px;letter-spacing:0;text-transform:none;font-weight:500;color:var(--muted);white-space:nowrap}
+.grp ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:1px}
+.grp li a{display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;align-items:start;padding:6px 8px;border-radius:8px;text-decoration:none;color:var(--ink);line-height:1.35}
+.grp li a:hover{background:var(--pale)}
+.mk{width:22px;height:22px;border-radius:50%;border:1.5px solid #C5D6CC;display:grid;place-items:center;font-size:11px;font-weight:600;color:var(--muted);background:#fff;margin-top:-1px}
+.grp a.done .mk{background:var(--green);border-color:var(--green);color:#fff}
+.grp a.done .tt{color:var(--muted)}
+.grp a.now{background:#EEF4EF;box-shadow:inset 3px 0 0 var(--gold)}
+.grp a.now .mk{background:var(--deep);border-color:var(--gold);color:#fff}
+.grp a.now .tt{color:var(--brand);font-weight:500}
+.shell .page{max-width:none;margin:0;padding-left:clamp(16px,4vw,56px);padding-right:clamp(16px,4vw,56px)}
+.shell .page>*{max-width:900px;width:100%}
+.shell.closed .page>*{margin-inline:auto}
+.shell.closed .page{padding-left:max(64px,clamp(16px,4vw,56px))}
+.fab{display:none;position:fixed;top:calc(var(--sh,50px) + 12px);left:max(12px,env(safe-area-inset-left,0px));z-index:30;width:38px;height:38px;border:0;border-radius:10px;background:#E3C26F;color:#06352A;font-size:18px;line-height:1;cursor:pointer;box-shadow:0 2px 8px rgba(6,53,42,.18)}
+.fab:hover{background:#EBCF86}
+body.side-closed .fab{display:grid;place-items:center}
+.scrim{display:none}
+@media (max-width:860px){
+ .shell,.shell.closed{grid-template-columns:minmax(0,1fr)}
+ .side,.shell.closed .side{display:flex;position:fixed;top:0;left:0;bottom:0;height:100vh;width:min(300px,86vw);z-index:40;transform:translateX(-105%);transition:transform .25s ease;box-shadow:6px 0 24px rgba(6,53,42,.2)}
+ .shell.mopen .side{transform:none}
+ .fab{display:grid;place-items:center}
+ .shell .page{padding-left:max(64px,env(safe-area-inset-left,0px))}
+ .scrim{position:fixed;inset:0;background:rgba(6,53,42,.35);z-index:35}.shell.mopen .scrim{display:block}
+ .shell .page>*{margin-inline:auto}
+}
+@media (prefers-reduced-motion:reduce){.side{transition:none!important}}
+@media (max-width:480px){.nbs-strip .prog{display:none}}
+</style>
+</head><body data-lesson="accounting/receivables" data-group="accounting" data-total="19">
+<style>
+body{margin:0}
+.related .rel{margin-right:10px}
+.nbs-strip{position:sticky;top:0;z-index:20;background:#06352A;color:#FFFDF8;display:flex;align-items:center;justify-content:space-between;gap:12px;
+ padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:10px;font-family:'Poppins',system-ui,sans-serif;flex-wrap:wrap}
+.nbs-strip .l{display:flex;align-items:center;gap:12px;min-width:0}
+.nbs-strip img{width:30px;height:30px;border-radius:6px;display:block}
+.nbs-strip .crumb{font-size:14px;color:#C9D6D0}.nbs-strip .crumb a{color:#C9D6D0;text-decoration:none}.nbs-strip .crumb a:hover{color:#fff;text-decoration:underline}
+.nbs-strip .crumb i{font-style:normal;color:#E3C26F;margin:0 5px}.nbs-strip .crumb b{color:#fff;font-weight:500}
+.nbs-strip .prog{display:flex;align-items:center;gap:10px;font-size:13px;color:#C9D6D0}
+.nbs-strip .bar{width:130px;height:5px;border-radius:9px;background:rgba(255,255,255,.18);overflow:hidden}
+.nbs-strip .bar span{display:block;height:100%;width:0;background:#E3C26F;transition:width 1.2s cubic-bezier(.2,.8,.2,1) .2s}
+@media (max-width:560px){.nbs-strip .bar{display:none}.nbs-strip .crumb .mid{display:none}}
+@media (prefers-reduced-motion:reduce){.nbs-strip .bar span{transition:none}}
+</style>
+<header class="nbs-strip"><div class="l"><a href="https://notesbysara.org/" aria-label="Notes by Sara home"><img src="/img/favicon.png" alt="Notes by Sara"></a><nav class="crumb" aria-label="Breadcrumb"><span><a href="/lessons/index.html">Prerequisites</a></span><span class="mid"><i>›</i><a href="/lessons/accounting/index.html">Financial Accounting</a></span><span><i>›</i><b>Receivables</b></span></nav></div><div class="prog"><span>Lesson 9</span><span class="bar" aria-hidden="true"><span id="nbs-bar"></span></span></div></header>
+
+<style>
+.fx{white-space:nowrap;font-size:clamp(.95rem,4.2vw,1.45rem);gap:10px}
+.fx.wrap{white-space:normal}
+.cmp td:first-child{white-space:normal}
+.where{font-size:var(--t-small);color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 8px}
+.istmt td.r{white-space:nowrap}
+.istmt tr.sub td{font-weight:700;border-top:2px solid var(--line)}
+.istmt tr.hd td{font-weight:700}
+.je .cr{padding-left:1.5em}
+.je tr.jh td{padding-top:12px;color:var(--muted);font-size:var(--t-small);border-bottom:0}
+.je tr:not(.jh) td{padding-top:2px;padding-bottom:2px}
+.inputs.four{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:560px){.inputs.four{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.subh{font-size:var(--t-small);color:var(--muted);margin:12px 0 4px;font-weight:600}
+</style>
+
+<div class="shell" id="shell"><div class="scrim" id="scrim"></div><button type="button" class="fab" id="mbtn" aria-label="Show the lesson list">☰</button><aside class="side" id="side" aria-label="Lessons in this subject"><div class="sidehead"><button type="button" class="tog" id="col" aria-label="Hide the lesson list">☰ Hide lessons</button><nav class="sw" aria-label="Subjects"><a href="/lessons/mathematics/index.html">Math</a><a href="/lessons/statistics/index.html">Stats</a><a href="/lessons/accounting/index.html" class="on">Accounting</a></nav></div><p class="subj"><a href="/lessons/accounting/index.html">Financial Accounting</a></p><div class="grp"><p class="gh"><span>The system</span><span class="gc">0 of 3</span></p><ol><li><a href="/lessons/accounting/accounting-equation.html" data-slug="accounting/accounting-equation"><span class="mk">1</span><span class="tt">The accounting equation</span></a></li><li><a href="/lessons/accounting/double-entry-bookkeeping.html" data-slug="accounting/double-entry-bookkeeping"><span class="mk">2</span><span class="tt">Double-entry bookkeeping</span></a></li><li><a href="/lessons/accounting/accrual-vs-cash.html" data-slug="accounting/accrual-vs-cash"><span class="mk">3</span><span class="tt">Accrual vs cash accounting</span></a></li></ol></div><div class="grp"><p class="gh"><span>The three statements</span><span class="gc">0 of 4</span></p><ol><li><a href="/lessons/accounting/income-statement.html" data-slug="accounting/income-statement"><span class="mk">4</span><span class="tt">The income statement</span></a></li><li><a href="/lessons/accounting/balance-sheet.html" data-slug="accounting/balance-sheet"><span class="mk">5</span><span class="tt">The balance sheet</span></a></li><li><a href="/lessons/accounting/cash-flow-statement.html" data-slug="accounting/cash-flow-statement"><span class="mk">6</span><span class="tt">The cash flow statement</span></a></li><li><a href="/lessons/accounting/statements-link.html" data-slug="accounting/statements-link"><span class="mk">7</span><span class="tt">How the statements link</span></a></li></ol></div><div class="grp"><p class="gh"><span>Key accounts</span><span class="gc">0 of 7</span></p><ol><li><a href="/lessons/accounting/revenue-recognition.html" data-slug="accounting/revenue-recognition"><span class="mk">8</span><span class="tt">Revenue recognition</span></a></li><li><a href="/lessons/accounting/receivables.html" data-slug="accounting/receivables" class="now" aria-current="page"><span class="mk">9</span><span class="tt">Receivables</span></a></li><li><a href="/lessons/accounting/inventory.html" data-slug="accounting/inventory"><span class="mk">10</span><span class="tt">Inventory</span></a></li><li><a href="/lessons/accounting/long-lived-assets.html" data-slug="accounting/long-lived-assets"><span class="mk">11</span><span class="tt">Long-lived assets and depreciation</span></a></li><li><a href="/lessons/accounting/intangible-assets.html" data-slug="accounting/intangible-assets"><span class="mk">12</span><span class="tt">Intangible assets</span></a></li><li><a href="/lessons/accounting/liabilities-provisions.html" data-slug="accounting/liabilities-provisions"><span class="mk">13</span><span class="tt">Liabilities and provisions</span></a></li><li><a href="/lessons/accounting/leases.html" data-slug="accounting/leases"><span class="mk">14</span><span class="tt">Leases</span></a></li></ol></div><div class="grp"><p class="gh"><span>Advanced topics</span><span class="gc">0 of 5</span></p><ol><li><a href="/lessons/accounting/deferred-taxes.html" data-slug="accounting/deferred-taxes"><span class="mk">15</span><span class="tt">Deferred taxes</span></a></li><li><a href="/lessons/accounting/consolidation.html" data-slug="accounting/consolidation"><span class="mk">16</span><span class="tt">Consolidation</span></a></li><li><a href="/lessons/accounting/equity-method.html" data-slug="accounting/equity-method"><span class="mk">17</span><span class="tt">Associates and the equity method</span></a></li><li><a href="/lessons/accounting/stock-compensation.html" data-slug="accounting/stock-compensation"><span class="mk">18</span><span class="tt">Stock compensation and dilution</span></a></li><li><a href="/lessons/accounting/pensions.html" data-slug="accounting/pensions"><span class="mk">19</span><span class="tt">Pensions</span></a></li></ol></div></aside><article class="page">
+
+  <header class="banner">
+    <p class="eyebrow">Financial Accounting</p>
+    <h1>Receivables</h1>
+    <p class="lead">When a company sells on credit, it records the sale before the cash arrives. Some customers never pay, so accounting sets aside an estimate for that loss up front.</p>
+    <div class="meta"><span><b>Key accounts</b> · Lesson 2 of 7 · 5 minutes</span><span>Before this: <a href="revenue-recognition.html">Revenue recognition</a></span></div>
+  </header>
+
+  <section class="sec">
+    <h2>$32 million owed. How much will actually come in?</h2>
+    <p><span class="muted">Example, with made-up numbers.</span> Brewline's wholesale arm sells beans to offices and hotels, who pay 30 days later. At year end, customers owe <b>$32 million</b>. A few are already late, and one hasn't paid in four months. What should the balance sheet show?</p>
+  </section>
+
+  <section class="sec">
+    <h2>The idea</h2>
+    <p>A credit sale creates an <b>account receivable</b>: Dr Accounts receivable, Cr Revenue. Since some will never be collected, the company estimates the likely loss and records it in the same period as the sale, following the matching principle:</p>
+    <div class="box">
+      <div class="tw"><table><tbody>
+        <tr><td><b>Allowance for doubtful accounts</b></td><td class="r">An estimate of receivables that won't be paid. It sits under receivables and reduces them</td></tr>
+        <tr><td><b>Bad debt expense</b></td><td class="r">The cost of topping the allowance up to the right size, charged on the income statement</td></tr>
+        <tr><td><b>Write-off</b></td><td class="r">Removing a specific debt once it's clearly lost. It uses up allowance already set aside</td></tr>
+      </tbody></table></div>
+    </div>
+    <p>A common way to size the allowance is an <b>aging schedule</b>: the older a debt, the less likely it's paid.</p>
+    <div class="box">
+      <div class="svgwrap"><svg id="ag" viewBox="0 0 600 250" role="img" aria-label="Receivables by age, in $ millions, with the expected loss shaded. Not yet due: 25, expected loss 1%, 0.25. Up to 30 days late: 4, 5%, 0.20. 31 to 90 days late: 2, 30%, 0.60. Over 90 days late: 1, 95%, 0.95. Total allowance 2.0."></svg></div>
+      <p class="cap">Most money owed is recent and safe. The small, old balances carry most of the expected loss.</p>
+    </div>
+    <div class="ask" data-q="c1">
+      <p class="eyebrow">Quick check</p>
+      <p class="q">A customer owing $0.5 million goes bust and the debt is written off against the allowance. What happens to net income this year?</p>
+      <div class="opts">
+        <button type="button" data-ok="1">Nothing: the loss was already estimated</button>
+        <button type="button" data-ok="0">It falls by $0.5 million</button>
+      </div>
+      <p class="fb" hidden aria-live="polite"></p>
+      <template>The write-off is Dr Allowance, Cr Accounts receivable. Both sit on the balance sheet, so net receivables and profit don't change. The expense hit when the allowance was built.</template>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Worked example: Brewline's year end</h2>
+    <div class="box">
+      <div class="tw"><table class="istmt"><tbody>
+        <tr class="hd"><td>Age, $m</td><td class="r">Owed</td><td class="r">Rate</td><td class="r">Allowance</td></tr>
+        <tr><td>Not due</td><td class="r num">25</td><td class="r num">1%</td><td class="r num">0.25</td></tr>
+        <tr><td>1–30 days late</td><td class="r num">4</td><td class="r num">5%</td><td class="r num">0.20</td></tr>
+        <tr><td>31–90 days late</td><td class="r num">2</td><td class="r num">30%</td><td class="r num">0.60</td></tr>
+        <tr><td>90+ days late</td><td class="r num">1</td><td class="r num">95%</td><td class="r num">0.95</td></tr>
+        <tr class="sub"><td>Total</td><td class="r num">32</td><td></td><td class="r num">2.00</td></tr>
+      </tbody></table></div>
+      <div class="result"><span>Balance sheet: receivables, net</span><b class="num">32 − 2 = $30 million</b></div>
+      <div class="tw"><table class="je"><tbody>
+        <tr><td><b>Entry</b></td><td class="r"><b>Debit</b></td><td class="r"><b>Credit</b></td></tr>
+        <tr class="jh"><td colspan="3">The allowance was 1.2 before this review. Top it up to 2.0</td></tr>
+        <tr><td>Dr Bad debt expense</td><td class="r num">0.8</td><td></td></tr>
+        <tr><td><span class="cr">Cr Allowance for doubtful accounts</span></td><td></td><td class="r num">0.8</td></tr>
+      </tbody></table></div>
+      <p class="small muted">The $30 million matches Brewline's balance sheet in lesson 5. <b>Receivable days</b> measures how fast customers pay: receivables ÷ revenue × 365 = 30 ÷ 1,000 × 365 ≈ <b>11 days</b>. That's low because most coffee is paid for at the counter. A business selling mainly on credit often runs 30 to 60 days.</p>
+    </div>
+  </section>
+
+  <section class="extras" aria-label="Optional extras">
+    <details>
+      <summary><span><span class="t">Try it yourself</span><br><span class="s">Build an aging schedule and see receivable days.</span></span></summary>
+      <div class="inner">
+        <p class="subh">Amount owed in each age band</p>
+        <div class="inputs four">
+          <label for="a1">Not yet due<input type="number" id="a1" value="25" step="any" min="0"></label>
+          <label for="a2">Up to 30 days<input type="number" id="a2" value="4" step="any" min="0"></label>
+          <label for="a3">31 to 90 days<input type="number" id="a3" value="2" step="any" min="0"></label>
+          <label for="a4">Over 90 days<input type="number" id="a4" value="1" step="any" min="0"></label>
+        </div>
+        <p class="subh">Expected loss rate (%)</p>
+        <div class="inputs four">
+          <label for="p1">Not yet due<input type="number" id="p1" value="1" step="any" min="0" max="100"></label>
+          <label for="p2">Up to 30 days<input type="number" id="p2" value="5" step="any" min="0" max="100"></label>
+          <label for="p3">31 to 90 days<input type="number" id="p3" value="30" step="any" min="0" max="100"></label>
+          <label for="p4">Over 90 days<input type="number" id="p4" value="95" step="any" min="0" max="100"></label>
+        </div>
+        <div class="inputs">
+          <label for="rv">Yearly revenue<input type="number" id="rv" value="1000" step="any" min="0"></label>
+          <label for="ob">Allowance before review<input type="number" id="ob" value="1.2" step="any" min="0"></label>
+        </div>
+        <div class="tw"><table class="cmp"><tbody>
+          <tr><td>Allowance needed</td><td class="r num" id="o1"></td></tr>
+          <tr><td>Receivables, net</td><td class="r num" id="o2"></td></tr>
+          <tr><td>Bad debt expense this period</td><td class="r num" id="o3"></td></tr>
+          <tr><td>Receivable days</td><td class="r num" id="o4"></td></tr>
+        </tbody></table></div>
+      </div>
+    </details>
+    <details>
+      <summary><span><span class="t">Common mistakes</span><br><span class="s">Three slips beginners make.</span></span></summary>
+      <div class="inner">
+        <ul class="mist">
+          <li><b>Treating the write-off as the expense.</b> Under the allowance method, the cost hits when the estimate is made, not when a debt is finally written off.</li>
+          <li><b>Missing a shrinking allowance.</b> Cutting the allowance boosts profit. If late debts grow while the allowance shrinks, ask why.</li>
+          <li><b>Ignoring receivable days.</b> When receivables grow faster than sales, customers may be paying slower, or sales may be pushed through on easy terms.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <section class="sec">
+    <div class="box">
+      <p class="eyebrow">Remember</p>
+      <ul class="mist">
+        <li>Credit sales create receivables. The allowance for doubtful accounts estimates what won't be paid.</li>
+        <li>Bad debt expense tops the allowance up. A write-off then uses it, with no new expense.</li>
+        <li>Receivable days = receivables ÷ revenue × 365: how long customers take to pay.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Check yourself</h2>
+    <div class="ask quiz">
+      <p class="small muted">Three questions. Try them without scrolling up.</p>
+      <div data-q="q1" data-quiz>
+        <p class="q">1. Receivables are $60 million and yearly revenue is $365 million. What are receivable days?</p>
+        <div class="opts">
+          <button type="button" data-ok="0">16 days</button>
+          <button type="button" data-ok="1">60 days</button>
+          <button type="button" data-ok="0">6 days</button>
+        </div>
+        <p class="fb" hidden aria-live="polite"></p>
+        <template>60 ÷ 365 × 365 = 60 days. Revenue of $365 million is $1 million a day, so $60 million is 60 days of sales.</template>
+      </div>
+      <div data-q="q2" data-quiz>
+        <p class="q">2. The aging schedule says the allowance should be $3 million. It's currently $1 million. What's the bad debt expense?</p>
+        <div class="opts">
+          <button type="button" data-ok="1">$2 million</button>
+          <button type="button" data-ok="0">$3 million</button>
+          <button type="button" data-ok="0">$4 million</button>
+        </div>
+        <p class="fb" hidden aria-live="polite"></p>
+        <template>The expense is only the top-up: 3 − 1 = $2 million.</template>
+      </div>
+      <div data-q="q3" data-quiz>
+        <p class="q">3. A $0.4 million debt is written off against the allowance. What happens to net receivables?</p>
+        <div class="opts">
+          <button type="button" data-ok="0">Fall $0.4 million</button>
+          <button type="button" data-ok="1">No change</button>
+          <button type="button" data-ok="0">Rise $0.4 million</button>
+        </div>
+        <p class="fb" hidden aria-live="polite"></p>
+        <template>Gross receivables and the allowance both fall $0.4 million, so the net figure stays the same.</template>
+      </div>
+      <div class="score"><span>Score: <b id="score">0 of 3</b></span><button class="btn" type="button" id="reset">Try again</button></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <a href="inventory.html" class="next"><span><span class="eyebrow">Next lesson · Core · 6 minutes</span><br><span class="t">Inventory</span><br><span class="small" style="color:var(--on-deep-muted)">FIFO, weighted average and LIFO, and why the choice changes profit.</span></span><span class="arrow" aria-hidden="true">→</span></a>
+    <p class="related">Related: <a href="https://notesbysara.org/dictionary/accounts-receivable">Accounts receivable</a><a href="https://notesbysara.org/dictionary/allowance-for-doubtful-accounts">Allowance for doubtful accounts</a><a href="https://notesbysara.org/dictionary/bad-debt">Bad debt</a><a href="https://notesbysara.org/dictionary/days-sales-outstanding">Days sales outstanding</a></p>
+  </section>
+
+</article></div>
+
+<script>
+const NS='http://www.w3.org/2000/svg';
+const el=(n,a={},p)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e};
+const text=(p,x,y,t,a={})=>{const e=el('text',Object.assign({x,y,'font-family':"Poppins,system-ui,sans-serif",'font-size':12,fill:'#5A6862','text-anchor':'middle'},a),p);e.textContent=t;return e};
+(function(){
+  const s=document.getElementById('ag'),rows=[['Not yet due',25,.01],['Up to 30 days late',4,.05],['31 to 90 days late',2,.30],['Over 90 days late',1,.95]];
+  const L=150,R=400,X=v=>L+(R-L)*v/25;
+  rows.forEach(([n,v,p],i)=>{const y=24+i*46,h=26;text(s,L-10,y+h/2+4,n,{'text-anchor':'end','font-weight':600,fill:'#1F2A26'});
+    el('rect',{x:L,y,width:X(v)-L,height:h,rx:4,fill:'#0E7C5A','fill-opacity':.35},s);
+    const lw=Math.max((X(v)-L)*p,3);el('rect',{x:L,y,width:lw,height:h,rx:4,fill:'#B4452F'},s);
+    text(s,X(v)+8,y+h/2+4,'$'+v+'m · '+Math.round(p*100)+'% → $'+(v*p).toFixed(2)+'m',{'text-anchor':'start','font-size':11.5,fill:'#3F4B46'});});
+  el('rect',{x:L,y:212,width:14,height:12,rx:2,fill:'#0E7C5A','fill-opacity':.35},s);text(s,L+20,222,'expected to be paid',{'text-anchor':'start','font-size':11});
+  el('rect',{x:L+170,y:212,width:14,height:12,rx:2,fill:'#B4452F'},s);text(s,L+190,222,'expected loss: allowance $2.0m',{'text-anchor':'start','font-size':11,'font-weight':600,fill:'#B4452F'});
+})();
+
+const answered={},correct={};
+document.querySelectorAll('[data-q]').forEach(box=>{
+  const id=box.dataset.q,fb=box.querySelector('.fb'),tpl=box.querySelector('template');
+  box.querySelectorAll('.opts button').forEach(b=>b.addEventListener('click',()=>{
+    if(answered[id])return;
+    const ok=b.dataset.ok==='1';answered[id]=true;correct[id]=ok;
+    box.querySelectorAll('.opts button').forEach(x=>{x.disabled=true;if(x.dataset.ok==='1')x.classList.add('right')});
+    if(!ok)b.classList.add('wrong');
+    fb.innerHTML='<b>'+(ok?'Right. ':'Not quite. ')+'</b>';fb.appendChild(tpl.content.cloneNode(true));
+    fb.classList.toggle('no',!ok);fb.hidden=false;score();
+  }));
+});
+function score(){document.getElementById('score').textContent=['q1','q2','q3'].filter(k=>correct[k]).length+' of 3'}
+document.getElementById('reset').addEventListener('click',()=>{
+  document.querySelectorAll('[data-quiz]').forEach(box=>{const id=box.dataset.q;delete answered[id];delete correct[id];
+    box.querySelectorAll('.opts button').forEach(x=>{x.disabled=false;x.classList.remove('right','wrong')});
+    const fb=box.querySelector('.fb');fb.hidden=true;fb.innerHTML='';});
+  score();
+});
+const ids=['a1','a2','a3','a4','p1','p2','p3','p4','rv','ob'].map(i=>document.getElementById(i)),f=v=>(v<0?'−':'')+Math.abs(v).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+function run(){
+  const v=ids.map(i=>+i.value),o=['o1','o2','o3','o4'].map(i=>document.getElementById(i));
+  if(v.some(x=>!isFinite(x)||x<0)||v.slice(4,8).some(x=>x>100)){o.forEach(e=>e.textContent='Check the inputs');return}
+  const gross=v[0]+v[1]+v[2]+v[3],al=v[0]*v[4]/100+v[1]*v[5]/100+v[2]*v[6]/100+v[3]*v[7]/100,net=gross-al,exp=al-v[9];
+  o[0].textContent=f(al);o[1].textContent=f(net);o[2].textContent=exp>=0?f(exp):f(exp)+' (a release: profit rises)';
+  o[3].textContent=v[8]>0?(net/v[8]*365).toFixed(1)+' days':'Enter revenue';
+}
+ids.forEach(i=>i.addEventListener('input',run));run();
+document.querySelectorAll('a[href="#"]').forEach(a=>a.addEventListener('click',e=>e.preventDefault()));
+</script>
+
+
+<script>
+(function(){
+  var KEY='nbs-lessons-done',done=[];
+  try{done=JSON.parse(localStorage.getItem(KEY)||'[]')||[]}catch(e){}
+  var me=document.body.getAttribute('data-lesson'),total=+document.body.getAttribute('data-total')||0,group=document.body.getAttribute('data-group');
+  function count(){return done.filter(function(s){return s.indexOf(group+'/')===0}).length}
+  function show(){var b=document.getElementById('nbs-bar');if(b&&total)b.style.width=Math.min(100,count()/total*100)+'%'}
+  requestAnimationFrame(function(){requestAnimationFrame(show)});
+  var end=document.querySelector('.next');
+  if(me&&end&&'IntersectionObserver' in window){
+    new IntersectionObserver(function(es,o){es.forEach(function(e){if(e.isIntersecting){
+      if(done.indexOf(me)<0){done.push(me);try{localStorage.setItem(KEY,JSON.stringify(done))}catch(err){}show()}
+      o.disconnect()}})},{threshold:.6}).observe(end);
+  }
+})();
+</script>
+<script>
+(function(){
+  var sh=document.getElementById('shell'),KEY='nbs-side-closed',done=[];
+  try{done=JSON.parse(localStorage.getItem('nbs-lessons-done')||'[]')||[]}catch(e){}
+  function marks(){
+    document.querySelectorAll('.side .grp').forEach(function(g){var n=0,a=g.querySelectorAll('a[data-slug]');
+      a.forEach(function(x){var d=done.indexOf(x.dataset.slug)>=0;x.classList.toggle('done',d&&!x.classList.contains('now'));if(d)n++});
+      var c=g.querySelector('.gc');if(c)c.textContent=n+' of '+a.length;});
+  }
+  marks();
+  window.addEventListener('storage',function(){try{done=JSON.parse(localStorage.getItem('nbs-lessons-done')||'[]')||[]}catch(e){}marks()});
+  var closed=false;try{closed=localStorage.getItem(KEY)==='1'}catch(e){}
+  function setClosed(c){closed=c;sh.classList.toggle('closed',c);document.body.classList.toggle('side-closed',c);try{localStorage.setItem(KEY,c?'1':'0')}catch(e){}}
+  if(closed&&innerWidth>860)setClosed(true);
+  document.getElementById('col').addEventListener('click',function(){if(innerWidth<=860){sh.classList.remove('mopen')}else{setClosed(true)}});
+  document.getElementById('mbtn').addEventListener('click',function(){if(innerWidth<=860){sh.classList.add('mopen')}else{setClosed(false)}});
+  function sh_h(){var st=document.querySelector('.nbs-strip');if(st)document.documentElement.style.setProperty('--sh',st.offsetHeight+'px')}
+  sh_h();addEventListener('resize',sh_h);
+  document.getElementById('scrim').addEventListener('click',function(){sh.classList.remove('mopen')});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')sh.classList.remove('mopen')});
+  var now=document.querySelector('.side a.now');if(now&&now.scrollIntoView&&innerWidth>860){var s=document.getElementById('side');s.scrollTop=Math.max(0,now.offsetTop-s.clientHeight/2)}
+})();
+</script>
+</body></html>
