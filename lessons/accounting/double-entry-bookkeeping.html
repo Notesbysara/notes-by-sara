@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="icon" href="/img/favicon.png">
+<meta name="description" content="Double-entry bookkeeping: Debits, credits and the trial balance. A short lesson from Notes by Sara.">
+<link rel="canonical" href="https://notesbysara.org/lessons/accounting/double-entry-bookkeeping.html">
+
+<title>Double-entry bookkeeping · Notes by Sara</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Forum&family=Poppins:wght@400;500;600&display=swap">
+<style>
+/* Layout: one calm reading column. Three surfaces only: the deep banner, white boxes, and pale green for anything the learner answers. Light only, like the site. */
+:root{
+  color-scheme:light;
+  --ivory:#FFFDF8; --surface:#FFFFFF; --pearl:#F7F2E7; --pale:#EAF4EF;
+  --ink:#1F2A26; --muted:#5A6862; --line:#E6E1D5;
+  --deep:#06352A; --green:#0E7C5A; --green-text:#0B6A4C; --brand:#0B4F3C;
+  --gold:#E3C26F; --gold-text:#8A6A12; --coral:#B4452F; --coral-pale:#FBEDE9;
+  --on-deep:#FFFDF8; --on-deep-muted:#C9D6D0;
+  --display:'Forum',Georgia,'Times New Roman',serif;
+  --body:'Poppins',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --t-body:16px; --t-small:14px; --t-label:12.5px;
+}
+*{box-sizing:border-box}
+body{background:var(--ivory);color:var(--ink);font-family:var(--body);font-size:var(--t-body);line-height:1.75}
+a{color:var(--green-text)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
+.mockbar{background:var(--pearl);color:var(--muted);font-size:var(--t-small);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:8px;text-align:center;border-bottom:1px solid var(--line)}
+.mockbar b{color:var(--gold-text);letter-spacing:.12em;text-transform:uppercase;font-size:var(--t-label);margin-right:6px}
+.page{max-width:720px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px;display:flex;flex-direction:column;gap:40px}
+h1,h2{font-family:var(--display);font-weight:400;line-height:1.15;margin:0;text-wrap:balance}
+h2{font-size:1.7rem;color:var(--brand)}
+p{margin:0}
+.sec{display:flex;flex-direction:column;gap:14px}
+.eyebrow{font-size:var(--t-label);font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--gold-text)}
+.muted{color:var(--muted)}
+.small{font-size:var(--t-small)}
+b{font-weight:600}
+.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* 1. banner */
+.banner{background:var(--deep);color:var(--on-deep);border-radius:18px;padding:26px 26px 22px;display:flex;flex-direction:column;gap:10px}
+.banner .eyebrow{color:var(--gold)}
+.banner h1{font-size:clamp(2rem,6vw,2.6rem)}
+.banner .lead{color:var(--on-deep-muted)}
+.banner .meta{font-size:var(--t-small);color:var(--on-deep-muted);border-top:1px solid rgba(227,194,111,.35);padding-top:10px;display:flex;flex-wrap:wrap;gap:4px 18px}
+.banner .meta b{color:var(--gold);font-weight:600}
+.banner .meta a{color:var(--on-deep)}
+
+/* white box */
+.box{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.svgwrap{overflow-x:auto}
+.svgwrap svg{display:block;width:100%;height:auto;min-width:480px}
+.cap{font-size:var(--t-small);color:var(--muted)}
+
+/* formula */
+.fx{font-family:Georgia,'Times New Roman',serif;font-size:1.8rem;display:flex;align-items:center;justify-content:center;gap:14px}
+.frac{display:inline-flex;flex-direction:column;align-items:center;line-height:1.2}
+.frac span:first-child{border-bottom:2px solid var(--ink);padding:0 8px 2px}
+.frac span:last-child{padding-top:2px}
+.fx i{font-style:italic}
+.fx sup{font-size:.6em}
+.legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:4px 16px;font-size:var(--t-small);color:var(--muted)}
+.legend i{font-family:Georgia,serif;color:var(--ink);font-size:1.05rem;margin-right:6px}
+table{border-collapse:collapse;width:100%}
+td,th{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left}
+th{font-size:var(--t-small);color:var(--muted);font-weight:500}
+td.r,th.r{text-align:right}
+.tw{overflow-x:auto}
+.result{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;border-top:2px solid var(--brand);padding-top:10px}
+.result b{font-family:var(--display);font-weight:400;font-size:1.8rem;color:var(--brand)}
+
+/* pale: anything you answer */
+.ask{background:var(--pale);border-radius:14px;padding:16px 20px;display:flex;flex-direction:column;gap:10px}
+.ask .q{font-weight:500}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opts button{font:inherit;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 14px;cursor:pointer;color:var(--ink);line-height:1.5}
+.opts button:hover{border-color:var(--green)}
+.opts button.right{border-color:var(--green);box-shadow:inset 3px 0 0 var(--green)}
+.opts button.wrong{border-color:var(--coral);box-shadow:inset 3px 0 0 var(--coral)}
+.opts button[disabled]{cursor:default}
+.fb{font-size:var(--t-small);line-height:1.6}
+.fb b{color:var(--green-text)}
+.fb.no b{color:var(--coral)}
+.quiz{display:flex;flex-direction:column;gap:10px}
+.score{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:var(--t-small);color:var(--muted)}
+.score b{color:var(--brand)}
+.btn{font:inherit;font-size:var(--t-small);border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:4px 12px;cursor:pointer;color:var(--ink)}
+
+/* optional extras */
+.extras{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.extras details{border-bottom:1px solid var(--line)}
+.extras summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 4px}
+.extras summary::-webkit-details-marker{display:none}
+.extras summary .t{font-family:var(--display);font-size:1.3rem;color:var(--brand)}
+.extras summary .s{font-size:var(--t-small);color:var(--muted)}
+.extras summary::after{content:"+";font-size:1.4rem;color:var(--gold-text);flex:none;width:20px;text-align:center}
+.extras details[open] summary::after{content:"−"}
+.extras .inner{padding:0 4px 18px;display:flex;flex-direction:column;gap:12px}
+.inputs{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.inputs label{display:flex;flex-direction:column;gap:4px;font-size:var(--t-small);color:var(--muted)}
+.inputs input[type=number]{font:inherit;color:var(--ink);padding:7px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);width:100%}
+.inputs input[type=range]{width:100%;accent-color:var(--green)}
+.calcout{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+.calcout b{font-family:var(--display);font-weight:400;font-size:1.8rem;color:var(--brand)}
+.mist{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px}
+
+/* recap */
+.recap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:center}
+.recap ul{margin:4px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:2px}
+.recap .fx{font-size:1.3rem}
+@media (max-width:560px){.recap{grid-template-columns:1fr}}
+
+/* next */
+.next{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;background:var(--deep);color:var(--on-deep);border-radius:14px;padding:16px 20px;text-decoration:none}
+.next .eyebrow{color:var(--gold)}
+.next .t{font-family:var(--display);font-size:1.35rem}
+.next .arrow{font-size:1.4rem;color:var(--gold)}
+.related{font-size:var(--t-small);color:var(--muted)}
+.related a{margin-right:10px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+
+<style>
+.shell{display:grid;grid-template-columns:290px minmax(0,1fr);align-items:start}
+.shell.closed{grid-template-columns:minmax(0,1fr)}
+.side{position:sticky;top:50px;height:calc(100vh - 50px);overflow:auto;background:#FFFFFF;border-right:1px solid var(--line);padding:14px 14px 28px;display:flex;flex-direction:column;gap:2px;font-size:14px;scrollbar-width:thin}
+.shell.closed .side{display:none}
+.sidehead{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:0 2px 10px;margin-bottom:4px;border-bottom:1px solid var(--line)}
+.tog{font:inherit;font-size:13px;font-weight:600;color:#06352A;background:#E3C26F;border:0;border-radius:999px;padding:5px 13px;cursor:pointer;line-height:1.4}.tog:hover{background:#EBCF86}
+.sw{display:flex;gap:5px;flex-wrap:wrap}.sw a{font-size:12px;border:1px solid var(--line);border-radius:999px;padding:3px 10px;background:#fff;color:var(--ink);text-decoration:none}.sw a:hover{border-color:var(--brand)}.sw a.on{background:var(--deep);color:#fff;border-color:var(--deep)}
+.subj{font-family:var(--display);font-size:1.2rem;color:var(--brand);margin:8px 2px 2px}.subj a{color:inherit;text-decoration:none}.subj a:hover{text-decoration:underline}
+.grp{margin-top:8px}
+.gh{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin:0 2px 4px;font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text)}
+.gc{font-size:11.5px;letter-spacing:0;text-transform:none;font-weight:500;color:var(--muted);white-space:nowrap}
+.grp ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:1px}
+.grp li a{display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;align-items:start;padding:6px 8px;border-radius:8px;text-decoration:none;color:var(--ink);line-height:1.35}
+.grp li a:hover{background:var(--pale)}
+.mk{width:22px;height:22px;border-radius:50%;border:1.5px solid #C5D6CC;display:grid;place-items:center;font-size:11px;font-weight:600;color:var(--muted);background:#fff;margin-top:-1px}
+.grp a.done .mk{background:var(--green);border-color:var(--green);color:#fff}
+.grp a.done .tt{color:var(--muted)}
+.grp a.now{background:#EEF4EF;box-shadow:inset 3px 0 0 var(--gold)}
+.grp a.now .mk{background:var(--deep);border-color:var(--gold);color:#fff}
+.grp a.now .tt{color:var(--brand);font-weight:500}
+.shell .page{max-width:none;margin:0;padding-left:clamp(16px,4vw,56px);padding-right:clamp(16px,4vw,56px)}
+.shell .page>*{max-width:900px;width:100%}
+.shell.closed .page>*{margin-inline:auto}
+.shell.closed .page{padding-left:max(64px,clamp(16px,4vw,56px))}
+.fab{display:none;position:fixed;top:calc(var(--sh,50px) + 12px);left:max(12px,env(safe-area-inset-left,0px));z-index:30;width:38px;height:38px;border:0;border-radius:10px;background:#E3C26F;color:#06352A;font-size:18px;line-height:1;cursor:pointer;box-shadow:0 2px 8px rgba(6,53,42,.18)}
+.fab:hover{background:#EBCF86}
+body.side-closed .fab{display:grid;place-items:center}
+.scrim{display:none}
+@media (max-width:860px){
+ .shell,.shell.closed{grid-template-columns:minmax(0,1fr)}
+ .side,.shell.closed .side{display:flex;position:fixed;top:0;left:0;bottom:0;height:100vh;width:min(300px,86vw);z-index:40;transform:translateX(-105%);transition:transform .25s ease;box-shadow:6px 0 24px rgba(6,53,42,.2)}
+ .shell.mopen .side{transform:none}
+ .fab{display:grid;place-items:center}
+ .shell .page{padding-left:max(64px,env(safe-area-inset-left,0px))}
+ .scrim{position:fixed;inset:0;background:rgba(6,53,42,.35);z-index:35}.shell.mopen .scrim{display:block}
+ .shell .page>*{margin-inline:auto}
+}
+@media (prefers-reduced-motion:reduce){.side{transition:none!important}}
+@media (max-width:480px){.nbs-strip .prog{display:none}}
+</style>
+</head><body data-lesson="accounting/double-entry-bookkeeping" data-group="accounting" data-total="19">
+<style>
+body{margin:0}
+.related .rel{margin-right:10px}
+.nbs-strip{position:sticky;top:0;z-index:20;background:#06352A;color:#FFFDF8;display:flex;align-items:center;justify-content:space-between;gap:12px;
+ padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:10px;font-family:'Poppins',system-ui,sans-serif;flex-wrap:wrap}
+.nbs-strip .l{display:flex;align-items:center;gap:12px;min-width:0}
+.nbs-strip img{width:30px;height:30px;border-radius:6px;display:block}
+.nbs-strip .crumb{font-size:14px;color:#C9D6D0}.nbs-strip .crumb a{color:#C9D6D0;text-decoration:none}.nbs-strip .crumb a:hover{color:#fff;text-decoration:underline}
+.nbs-strip .crumb i{font-style:normal;color:#E3C26F;margin:0 5px}.nbs-strip .crumb b{color:#fff;font-weight:500}
+.nbs-strip .prog{display:flex;align-items:center;gap:10px;font-size:13px;color:#C9D6D0}
+.nbs-strip .bar{width:130px;height:5px;border-radius:9px;background:rgba(255,255,255,.18);overflow:hidden}
+.nbs-strip .bar span{display:block;height:100%;width:0;background:#E3C26F;transition:width 1.2s cubic-bezier(.2,.8,.2,1) .2s}
+@media (max-width:560px){.nbs-strip .bar{display:none}.nbs-strip .crumb .mid{display:none}}
+@media (prefers-reduced-motion:reduce){.nbs-strip .bar span{transition:none}}
+</style>
+<header class="nbs-strip"><div class="l"><a href="https://notesbysara.org/" aria-label="Notes by Sara home"><img src="/img/favicon.png" alt="Notes by Sara"></a><nav class="crumb" aria-label="Breadcrumb"><span><a href="/lessons/index.html">Prerequisites</a></span><span class="mid"><i>›</i><a href="/lessons/accounting/index.html">Financial Accounting</a></span><span><i>›</i><b>Double-entry bookkeeping</b></span></nav></div><div class="prog"><span>Lesson 2</span><span class="bar" aria-hidden="true"><span id="nbs-bar"></span></span></div></header>
+
+<style>
+.fx{white-space:nowrap;font-size:clamp(.95rem,4.2vw,1.45rem);gap:10px}
+.fx.wrap{white-space:normal}
+.cmp td:first-child{white-space:normal}
+.steps td:first-child{white-space:normal}
+@media (max-width:560px){.steps td{display:block;border:0;padding:2px 0;text-align:left!important;white-space:normal}.steps tr{display:block;border-bottom:1px solid var(--line);padding:8px 0}.steps td.r{font-weight:500}}
+.where{font-size:var(--t-small);color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 8px}
+.je td{vertical-align:top}
+.je .cr{padding-left:1.5em}
+.je tr.jh td{padding-top:12px;color:var(--muted);font-size:var(--t-small);border-bottom:0}
+.je tr:not(.jh) td{padding-top:2px;padding-bottom:2px}
+.inputs select{width:100%;font:inherit;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--card,#fff);color:inherit}
+.inputs .full{grid-column:1/-1}
+.jfb{margin-top:10px;font-size:var(--t-small)}
+.jfb.ok b{color:var(--deep,#0B4F3C)}
+.jfb.no b{color:#B4452F}
+.jrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+</style>
+
+<div class="shell" id="shell"><div class="scrim" id="scrim"></div><button type="button" class="fab" id="mbtn" aria-label="Show the lesson list">☰</button><aside class="side" id="side" aria-label="Lessons in this subject"><div class="sidehead"><button type="button" class="tog" id="col" aria-label="Hide the lesson list">☰ Hide lessons</button><nav class="sw" aria-label="Subjects"><a href="/lessons/mathematics/index.html">Math</a><a href="/lessons/statistics/index.html">Stats</a><a href="/lessons/accounting/index.html" class="on">Accounting</a></nav></div><p class="subj"><a href="/lessons/accounting/index.html">Financial Accounting</a></p><div class="grp"><p class="gh"><span>The system</span><span class="gc">0 of 3</span></p><ol><li><a href="/lessons/accounting/accounting-equation.html" data-slug="accounting/accounting-equation"><span class="mk">1</span><span class="tt">The accounting equation</span></a></li><li><a href="/lessons/accounting/double-entry-bookkeeping.html" data-slug="accounting/double-entry-bookkeeping" class="now" aria-current="page"><span class="mk">2</span><span class="tt">Double-entry bookkeeping</span></a></li><li><a href="/lessons/accounting/accrual-vs-cash.html" data-slug="accounting/accrual-vs-cash"><span class="mk">3</span><span class="tt">Accrual vs cash accounting</span></a></li></ol></div><div class="grp"><p class="gh"><span>The three statements</span><span class="gc">0 of 4</span></p><ol><li><a href="/lessons/accounting/income-statement.html" data-slug="accounting/income-statement"><span class="mk">4</span><span class="tt">The income statement</span></a></li><li><a href="/lessons/accounting/balance-sheet.html" data-slug="accounting/balance-sheet"><span class="mk">5</span><span class="tt">The balance sheet</span></a></li><li><a href="/lessons/accounting/cash-flow-statement.html" data-slug="accounting/cash-flow-statement"><span class="mk">6</span><span class="tt">The cash flow statement</span></a></li><li><a href="/lessons/accounting/statements-link.html" data-slug="accounting/statements-link"><span class="mk">7</span><span class="tt">How the statements link</span></a></li></ol></div><div class="grp"><p class="gh"><span>Key accounts</span><span class="gc">0 of 7</span></p><ol><li><a href="/lessons/accounting/revenue-recognition.html" data-slug="accounting/revenue-recognition"><span class="mk">8</span><span class="tt">Revenue recognition</span></a></li><li><a href="/lessons/accounting/receivables.html" data-slug="accounting/receivables"><span class="mk">9</span><span class="tt">Receivables</span></a></li><li><a href="/lessons/accounting/inventory.html" data-slug="accounting/inventory"><span class="mk">10</span><span class="tt">Inventory</span></a></li><li><a href="/lessons/accounting/long-lived-assets.html" data-slug="accounting/long-lived-assets"><span class="mk">11</span><span class="tt">Long-lived assets and depreciation</span></a></li><li><a href="/lessons/accounting/intangible-assets.html" data-slug="accounting/intangible-assets"><span class="mk">12</span><span class="tt">Intangible assets</span></a></li><li><a href="/lessons/accounting/liabilities-provisions.html" data-slug="accounting/liabilities-provisions"><span class="mk">13</span><span class="tt">Liabilities and provisions</span></a></li><li><a href="/lessons/accounting/leases.html" data-slug="accounting/leases"><span class="mk">14</span><span class="tt">Leases</span></a></li></ol></div><div class="grp"><p class="gh"><span>Advanced topics</span><span class="gc">0 of 5</span></p><ol><li><a href="/lessons/accounting/deferred-taxes.html" data-slug="accounting/deferred-taxes"><span class="mk">15</span><span class="tt">Deferred taxes</span></a></li><li><a href="/lessons/accounting/consolidation.html" data-slug="accounting/consolidation"><span class="mk">16</span><span class="tt">Consolidation</span></a></li><li><a href="/lessons/accounting/equity-method.html" data-slug="accounting/equity-method"><span class="mk">17</span><span class="tt">Associates and the equity method</span></a></li><li><a href="/lessons/accounting/stock-compensation.html" data-slug="accounting/stock-compensation"><span class="mk">18</span><span class="tt">Stock compensation and dilution</span></a></li><li><a href="/lessons/accounting/pensions.html" data-slug="accounting/pensions"><span class="mk">19</span><span class="tt">Pensions</span></a></li></ol></div></aside><article class="page">
+
+  <header class="banner">
+    <p class="eyebrow">Financial Accounting</p>
+    <h1>Double-entry bookkeeping</h1>
+    <p class="lead">Every transaction is written twice: once as a debit, once as a credit, for the same amount. That simple rule keeps the accounting equation balanced and lets you check the books.</p>
+    <div class="meta"><span><b>The system</b> · Lesson 2 of 3 · 6 minutes</span><span>Before this: <a href="accounting-equation.html">The accounting equation</a></span></div>
+  </header>
+
+  <section class="sec">
+    <h2>How does the coffee cart keep track?</h2>
+    <p><span class="muted">Example, with made-up numbers.</span> In the last lesson, the coffee cart made five transactions and we tracked the totals by hand. A real business makes thousands a month. It needs a system that records each one the same way and can prove nothing was missed.</p>
+  </section>
+
+  <section class="sec">
+    <h2>The idea</h2>
+    <p>Each account has two sides. The left side is called <b>debit</b> (Dr) and the right side <b>credit</b> (Cr). Neither means good or bad. Which side makes an account go up depends on its type:</p>
+    <div class="box">
+      <div class="tw"><table><tbody>
+        <tr><td><b>Debit increases</b></td><td class="r">Assets, expenses, dividends</td></tr>
+        <tr><td><b>Credit increases</b></td><td class="r">Liabilities, equity, revenue</td></tr>
+      </tbody></table></div>
+      <p class="small muted">Memory aid: <b>DEA</b> on the left, <b>LER</b> on the right ("DEALER"). Revenue is a credit because it raises equity. Expenses are debits because they lower it.</p>
+    </div>
+    <p>Every transaction becomes a <b>journal entry</b> with at least one debit and one credit, and the debits always equal the credits. The entries are then sorted into a <b>ledger</b>, one page per account, often drawn as a <b>T-account</b>:</p>
+    <div class="box">
+      <div class="svgwrap"><svg id="ta" viewBox="0 0 600 230" role="img" aria-label="Two T-accounts. Cash: debits of 10,000, 5,000 and 3,000 on the left, a credit of 8,000 on the right, balance 10,000 debit. Inventory: debit of 1,000 on the left, credit of 600 on the right, balance 400 debit."></svg></div>
+      <p class="cap">Two ledger accounts from the coffee cart. Add each side, and the difference is the balance.</p>
+    </div>
+    <div class="ask" data-q="c1">
+      <p class="eyebrow">Quick check</p>
+      <p class="q">The cart pays $400 of wages in cash. What's the entry?</p>
+      <div class="opts">
+        <button type="button" data-ok="1">Dr Wages expense 400, Cr Cash 400</button>
+        <button type="button" data-ok="0">Dr Cash 400, Cr Wages expense 400</button>
+      </div>
+      <p class="fb" hidden aria-live="polite"></p>
+      <template>An expense goes up, so it's debited. Cash, an asset, goes down, so it's credited.</template>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Worked example: the coffee cart's journal</h2>
+    <div class="box">
+      <div class="tw"><table class="je"><tbody>
+        <tr><td><b>Entry</b></td><td class="r"><b>Debit</b></td><td class="r"><b>Credit</b></td></tr>
+        <tr class="jh"><td colspan="3">1. Owner puts in $10,000</td></tr>
+        <tr><td>Dr Cash</td><td class="r num">10,000</td><td></td></tr>
+        <tr><td><span class="cr">Cr Owner's capital</span></td><td></td><td class="r num">10,000</td></tr>
+        <tr class="jh"><td colspan="3">2. Borrow $5,000</td></tr>
+        <tr><td>Dr Cash</td><td class="r num">5,000</td><td></td></tr>
+        <tr><td><span class="cr">Cr Bank loan</span></td><td></td><td class="r num">5,000</td></tr>
+        <tr class="jh"><td colspan="3">3. Buy the machine for cash</td></tr>
+        <tr><td>Dr Equipment</td><td class="r num">8,000</td><td></td></tr>
+        <tr><td><span class="cr">Cr Cash</span></td><td></td><td class="r num">8,000</td></tr>
+        <tr class="jh"><td colspan="3">4. Buy beans on credit</td></tr>
+        <tr><td>Dr Inventory</td><td class="r num">1,000</td><td></td></tr>
+        <tr><td><span class="cr">Cr Accounts payable</span></td><td></td><td class="r num">1,000</td></tr>
+        <tr class="jh"><td colspan="3">5a. Sell coffee for cash</td></tr>
+        <tr><td>Dr Cash</td><td class="r num">3,000</td><td></td></tr>
+        <tr><td><span class="cr">Cr Revenue</span></td><td></td><td class="r num">3,000</td></tr>
+        <tr class="jh"><td colspan="3">5b. Beans used up</td></tr>
+        <tr><td>Dr Cost of goods sold</td><td class="r num">600</td><td></td></tr>
+        <tr><td><span class="cr">Cr Inventory</span></td><td></td><td class="r num">600</td></tr>
+      </tbody></table></div>
+      <p class="small muted">Credits are indented, by tradition. The sale is two entries: one for the money coming in, one for the beans going out.</p>
+    </div>
+    <p>Finally, list every account's balance in a <b>trial balance</b>. If the debits and credits were entered correctly, the two columns match:</p>
+    <div class="box">
+      <div class="tw"><table><tbody>
+        <tr><td><b>Account</b></td><td class="r"><b>Debit</b></td><td class="r"><b>Credit</b></td></tr>
+        <tr><td>Cash</td><td class="r num">10,000</td><td></td></tr>
+        <tr><td>Equipment</td><td class="r num">8,000</td><td></td></tr>
+        <tr><td>Inventory</td><td class="r num">400</td><td></td></tr>
+        <tr><td>Cost of goods sold</td><td class="r num">600</td><td></td></tr>
+        <tr><td>Owner's capital</td><td></td><td class="r num">10,000</td></tr>
+        <tr><td>Bank loan</td><td></td><td class="r num">5,000</td></tr>
+        <tr><td>Accounts payable</td><td></td><td class="r num">1,000</td></tr>
+        <tr><td>Revenue</td><td></td><td class="r num">3,000</td></tr>
+      </tbody></table></div>
+      <div class="result"><span>Total debits = total credits</span><b class="num">19,000 = 19,000</b></div>
+      <p class="small muted">The totals are $19,000, not the $18,400 of assets, because revenue and cost of goods sold are still listed separately. When the period closes, they combine into the $2,400 profit inside equity.</p>
+    </div>
+  </section>
+
+  <section class="extras" aria-label="Optional extras">
+    <details>
+      <summary><span><span class="t">Try it yourself</span><br><span class="s">Pick the debit and credit for each transaction.</span></span></summary>
+      <div class="inner">
+        <div class="inputs">
+          <label for="tx" class="full">Transaction<select id="tx"></select></label>
+          <label for="dr">Debit<select id="dr"></select></label>
+          <label for="cr">Credit<select id="cr"></select></label>
+        </div>
+        <div class="jrow"><button class="btn" type="button" id="chk">Check my entry</button><button class="btn" type="button" id="nx">Next transaction</button></div>
+        <p class="jfb" id="jfb" aria-live="polite"></p>
+      </div>
+    </details>
+    <details>
+      <summary><span><span class="t">Common mistakes</span><br><span class="s">Three slips beginners make.</span></span></summary>
+      <div class="inner">
+        <ul class="mist">
+          <li><b>Reading debit as bad.</b> A debit just means the left side. Debiting cash means cash went up.</li>
+          <li><b>Using your bank's wording.</b> When your bank "credits" your account, it's recording a liability on <i>its</i> books: it owes you more. On your books, that cash is a debit.</li>
+          <li><b>Trusting a balanced trial balance too much.</b> It catches one-sided or unequal entries. It won't catch a missing transaction or an amount put in the wrong account.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <section class="sec">
+    <div class="box">
+      <p class="eyebrow">Remember</p>
+      <ul class="mist">
+        <li>Debit is the left side, credit the right. Assets and expenses rise with debits. Liabilities, equity and revenue rise with credits.</li>
+        <li>Every journal entry has equal debits and credits.</li>
+        <li>Journal → ledger (T-accounts) → trial balance, where total debits must equal total credits.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Check yourself</h2>
+    <div class="ask quiz">
+      <p class="small muted">Three questions. Try them without scrolling up.</p>
+      <div data-q="q1" data-quiz>
+        <p class="q">1. A company buys $2,000 of equipment and will pay next month. What's the entry?</p>
+        <div class="opts">
+          <button type="button" data-ok="0">Dr Equipment, Cr Cash</button>
+          <button type="button" data-ok="1">Dr Equipment, Cr Accounts payable</button>
+          <button type="button" data-ok="0">Dr Accounts payable, Cr Equipment</button>
+        </div>
+        <p class="fb" hidden aria-live="polite"></p>
+        <template>The asset rises (debit) and so does the amount owed (credit). No cash has moved yet.</template>
+      </div>
+      <div data-q="q2" data-quiz>
+        <p class="q">2. Which of these increases with a credit?</p>
+        <div class="opts">
+          <button type="button" data-ok="0">Rent expense</button>
+          <button type="button" data-ok="1">Sales revenue</button>
+          <button type="button" data-ok="0">Inventory</button>
+        </div>
+        <p class="fb" hidden aria-live="polite"></p>
+        <template>Revenue raises equity, so it's a credit. Expenses and assets rise with debits.</template>
+      </div>
+      <div data-q="q3" data-quiz>
+        <p class="q">3. A trial balance shows debits of $50,000 and credits of $49,100. What does that tell you?</p>
+        <div class="opts">
+          <button type="button" data-ok="1">An entry was recorded wrongly, and the gap is $900</button>
+          <button type="button" data-ok="0">The company made a $900 profit</button>
+          <button type="button" data-ok="0">Nothing, small gaps are normal</button>
+        </div>
+        <p class="fb" hidden aria-live="polite"></p>
+        <template>Correct entries always balance, so any gap means an error to find: a one-sided entry, a typo or a figure in the wrong column.</template>
+      </div>
+      <div class="score"><span>Score: <b id="score">0 of 3</b></span><button class="btn" type="button" id="reset">Try again</button></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <a href="accrual-vs-cash.html" class="next"><span><span class="eyebrow">Next lesson · Foundation · 6 minutes</span><br><span class="t">Accrual vs cash accounting</span><br><span class="small" style="color:var(--on-deep-muted)">Why profit and cash are not the same thing.</span></span><span class="arrow" aria-hidden="true">→</span></a>
+    <p class="related">Related: <a href="https://notesbysara.org/dictionary/double-entry-bookkeeping">Double-entry bookkeeping</a><a href="https://notesbysara.org/dictionary/accounting-equation">Accounting equation</a><a href="https://notesbysara.org/dictionary/accounts-payable">Accounts payable</a><a href="inventory.html">Inventory</a></p>
+  </section>
+
+</article></div>
+
+<script>
+const NS='http://www.w3.org/2000/svg';
+const el=(n,a={},p)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e};
+const text=(p,x,y,t,a={})=>{const e=el('text',Object.assign({x,y,'font-family':"Poppins,system-ui,sans-serif",'font-size':12,fill:'#5A6862','text-anchor':'middle'},a),p);e.textContent=t;return e};
+function tacct(s,x,w,name,dr,cr){
+  const mid=x+w/2,T=34;text(s,mid,20,name,{'font-size':14,'font-weight':700,fill:'#1F2A26'});
+  el('line',{x1:x,y1:T,x2:x+w,y2:T,stroke:'#3F4B46','stroke-width':2},s);
+  const rows=Math.max(dr.length,cr.length),B=T+18+rows*24;el('line',{x1:mid,y1:T,x2:mid,y2:B+40,stroke:'#3F4B46','stroke-width':2},s);
+  text(s,x+6,T+16,'Debit',{'text-anchor':'start','font-size':11,fill:'#0E7C5A','font-weight':600});text(s,x+w-6,T+16,'Credit',{'text-anchor':'end','font-size':11,fill:'#B4452F','font-weight':600});
+  dr.forEach(([l,v],i)=>{text(s,x+6,T+38+i*24,l,{'text-anchor':'start','font-size':11});text(s,mid-8,T+38+i*24,v.toLocaleString('en-US'),{'text-anchor':'end','font-size':13,'font-weight':600,fill:'#1F2A26'})});
+  cr.forEach(([l,v],i)=>{text(s,mid+8,T+38+i*24,v.toLocaleString('en-US'),{'text-anchor':'start','font-size':13,'font-weight':600,fill:'#1F2A26'});text(s,x+w-6,T+38+i*24,l,{'text-anchor':'end','font-size':11})});
+  const sd=dr.reduce((a,b)=>a+b[1],0),sc=cr.reduce((a,b)=>a+b[1],0);
+  el('line',{x1:x,y1:B,x2:x+w,y2:B,stroke:'#9AA59F'},s);
+  text(s,mid-8,B+18,sd.toLocaleString('en-US'),{'text-anchor':'end','font-size':12,fill:'#3F4B46'});text(s,mid+8,B+18,sc.toLocaleString('en-US'),{'text-anchor':'start','font-size':12,fill:'#3F4B46'});
+  text(s,mid,B+58,'Balance: '+(sd-sc).toLocaleString('en-US')+' debit',{'font-size':12.5,'font-weight':700,fill:'#0B4F3C'});
+}
+(function(){const s=document.getElementById('ta');
+  tacct(s,20,270,'Cash',[['1. owner',10000],['2. loan',5000],['5a. sales',3000]],[['3. machine',8000]]);
+  tacct(s,320,260,'Inventory',[['4. beans',1000]],[['5b. used',600]]);})();
+
+const answered={},correct={};
+document.querySelectorAll('[data-q]').forEach(box=>{
+  const id=box.dataset.q,fb=box.querySelector('.fb'),tpl=box.querySelector('template');
+  box.querySelectorAll('.opts button').forEach(b=>b.addEventListener('click',()=>{
+    if(answered[id])return;
+    const ok=b.dataset.ok==='1';answered[id]=true;correct[id]=ok;
+    box.querySelectorAll('.opts button').forEach(x=>{x.disabled=true;if(x.dataset.ok==='1')x.classList.add('right')});
+    if(!ok)b.classList.add('wrong');
+    fb.innerHTML='<b>'+(ok?'Right. ':'Not quite. ')+'</b>';fb.appendChild(tpl.content.cloneNode(true));
+    fb.classList.toggle('no',!ok);fb.hidden=false;score();
+  }));
+});
+function score(){document.getElementById('score').textContent=['q1','q2','q3'].filter(k=>correct[k]).length+' of 3'}
+document.getElementById('reset').addEventListener('click',()=>{
+  document.querySelectorAll('[data-quiz]').forEach(box=>{const id=box.dataset.q;delete answered[id];delete correct[id];
+    box.querySelectorAll('.opts button').forEach(x=>{x.disabled=false;x.classList.remove('right','wrong')});
+    const fb=box.querySelector('.fb');fb.hidden=true;fb.innerHTML='';});
+  score();
+});
+const ACC=['Cash','Inventory','Equipment','Accounts payable','Bank loan','Owner’s capital','Revenue','Wages expense','Rent expense','Accounts receivable'];
+const T=[['Pay $1,200 rent in cash','Rent expense','Cash','The expense rises (debit) and cash falls (credit).'],
+ ['Sell $500 of coffee to an office, paid next month','Accounts receivable','Revenue','The customer now owes you (an asset, debit) and revenue rises (credit).'],
+ ['Receive the $500 from the office','Cash','Accounts receivable','Cash rises (debit) and the amount owed to you falls (credit). No new revenue: it was counted when you sold.'],
+ ['Owner puts in another $2,000','Cash','Owner’s capital','Cash rises (debit) and the owner’s claim, equity, rises (credit).'],
+ ['Repay $1,000 of the bank loan','Bank loan','Cash','The liability falls (debit) and cash falls (credit).'],
+ ['Buy $300 of cups on credit','Inventory','Accounts payable','Stock rises (debit) and the amount you owe rises (credit).'],
+ ['Pay $800 of wages','Wages expense','Cash','The expense rises (debit) and cash falls (credit).']];
+const sx=document.getElementById('tx'),sd=document.getElementById('dr'),sc=document.getElementById('cr'),fb=document.getElementById('jfb');
+T.forEach((t,i)=>{const o=document.createElement('option');o.value=i;o.textContent=t[0];sx.appendChild(o)});
+[sd,sc].forEach(s=>{const o=document.createElement('option');o.value='';o.textContent='Choose an account';s.appendChild(o);ACC.forEach(a=>{const p=document.createElement('option');p.value=a;p.textContent=a;s.appendChild(p)})});
+const clear=()=>{sd.value='';sc.value='';fb.textContent='';fb.className='jfb'};
+sx.addEventListener('change',clear);
+document.getElementById('chk').addEventListener('click',()=>{const t=T[+sx.value];
+  if(!sd.value||!sc.value){fb.className='jfb';fb.textContent='Choose a debit and a credit first.';return}
+  const ok=sd.value===t[1]&&sc.value===t[2];fb.className='jfb '+(ok?'ok':'no');
+  fb.innerHTML=ok?'<b>Right.</b> '+t[3]:'<b>Not quite.</b> The entry is Dr '+t[1]+', Cr '+t[2]+'. '+t[3];});
+document.getElementById('nx').addEventListener('click',()=>{sx.value=(+sx.value+1)%T.length;clear()});
+document.querySelectorAll('a[href="#"]').forEach(a=>a.addEventListener('click',e=>e.preventDefault()));
+</script>
+
+
+<script>
+(function(){
+  var KEY='nbs-lessons-done',done=[];
+  try{done=JSON.parse(localStorage.getItem(KEY)||'[]')||[]}catch(e){}
+  var me=document.body.getAttribute('data-lesson'),total=+document.body.getAttribute('data-total')||0,group=document.body.getAttribute('data-group');
+  function count(){return done.filter(function(s){return s.indexOf(group+'/')===0}).length}
+  function show(){var b=document.getElementById('nbs-bar');if(b&&total)b.style.width=Math.min(100,count()/total*100)+'%'}
+  requestAnimationFrame(function(){requestAnimationFrame(show)});
+  var end=document.querySelector('.next');
+  if(me&&end&&'IntersectionObserver' in window){
+    new IntersectionObserver(function(es,o){es.forEach(function(e){if(e.isIntersecting){
+      if(done.indexOf(me)<0){done.push(me);try{localStorage.setItem(KEY,JSON.stringify(done))}catch(err){}show()}
+      o.disconnect()}})},{threshold:.6}).observe(end);
+  }
+})();
+</script>
+<script>
+(function(){
+  var sh=document.getElementById('shell'),KEY='nbs-side-closed',done=[];
+  try{done=JSON.parse(localStorage.getItem('nbs-lessons-done')||'[]')||[]}catch(e){}
+  function marks(){
+    document.querySelectorAll('.side .grp').forEach(function(g){var n=0,a=g.querySelectorAll('a[data-slug]');
+      a.forEach(function(x){var d=done.indexOf(x.dataset.slug)>=0;x.classList.toggle('done',d&&!x.classList.contains('now'));if(d)n++});
+      var c=g.querySelector('.gc');if(c)c.textContent=n+' of '+a.length;});
+  }
+  marks();
+  window.addEventListener('storage',function(){try{done=JSON.parse(localStorage.getItem('nbs-lessons-done')||'[]')||[]}catch(e){}marks()});
+  var closed=false;try{closed=localStorage.getItem(KEY)==='1'}catch(e){}
+  function setClosed(c){closed=c;sh.classList.toggle('closed',c);document.body.classList.toggle('side-closed',c);try{localStorage.setItem(KEY,c?'1':'0')}catch(e){}}
+  if(closed&&innerWidth>860)setClosed(true);
+  document.getElementById('col').addEventListener('click',function(){if(innerWidth<=860){sh.classList.remove('mopen')}else{setClosed(true)}});
+  document.getElementById('mbtn').addEventListener('click',function(){if(innerWidth<=860){sh.classList.add('mopen')}else{setClosed(false)}});
+  function sh_h(){var st=document.querySelector('.nbs-strip');if(st)document.documentElement.style.setProperty('--sh',st.offsetHeight+'px')}
+  sh_h();addEventListener('resize',sh_h);
+  document.getElementById('scrim').addEventListener('click',function(){sh.classList.remove('mopen')});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')sh.classList.remove('mopen')});
+  var now=document.querySelector('.side a.now');if(now&&now.scrollIntoView&&innerWidth>860){var s=document.getElementById('side');s.scrollTop=Math.max(0,now.offsetTop-s.clientHeight/2)}
+})();
+</script>
+</body></html>
