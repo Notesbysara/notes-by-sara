@@ -9,7 +9,7 @@ const GOALS = [
     id: 'new',
     label: 'I am new to finance',
     advice:
-      'Start with the prerequisites you need: short lessons on math, statistics and accounting, about five minutes each. Then work down the subjects in order from Foundations, as their notes are published.',
+      'Start with the prerequisites you need: short lessons on math, statistics, accounting and economics, about five minutes each. Then start the learning path at Foundations.',
     open: 0,
   },
   {
@@ -125,7 +125,7 @@ export default function LearningPath() {
           <h1 className={styles.h1}>What should I learn next?</h1>
           <p className={styles.lead}>
             One route through finance, in order, from Foundations to Derivatives. Short prerequisite lessons cover the
-            math, statistics and accounting it builds on. Looking for one term? Use the <Link to="/dictionary">Financial Dictionary</Link>.
+            math, statistics, accounting and economics it builds on. Looking for one term? Use the <Link to="/dictionary">Financial Dictionary</Link>.
           </p>
         </div>
         <RouteArt />
@@ -169,7 +169,7 @@ export default function LearningPath() {
         </div>
 
         <div className={styles.main}>
-        <Prerequisites compact title="Prerequisites" lead="3 subjects · 67 short lessons" />
+        <Prerequisites compact title="Prerequisites" lead="4 subjects · 72 short lessons" />
         <div className={styles.thenLabel}>The subjects, in order</div>
         <ol className={styles.stepper}>
           {SUBJECTS.map((s, i) => {
@@ -229,7 +229,7 @@ export default function LearningPath() {
                             Open {s.name} →
                           </a>
                         </div>
-                        <div className={styles.small}>Need the math, statistics or accounting first? See Prerequisites above.</div>
+                        <div className={styles.small}>Need the math, statistics, accounting or economics first? See Prerequisites above.</div>
                       </>
                     ) : (
                     <>

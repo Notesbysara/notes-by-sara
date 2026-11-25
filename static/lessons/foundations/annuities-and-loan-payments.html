@@ -167,6 +167,8 @@ body.side-closed .fab{display:grid;place-items:center}
 <style>
 body{margin:0}
 .related .rel{margin-right:10px}
+.related a,.related .rel{display:inline-block}
+@media (max-width:480px){b.num{white-space:normal}}
 .nbs-strip{position:sticky;top:0;z-index:20;background:#06352A;color:#FFFDF8;display:flex;align-items:center;justify-content:space-between;gap:12px;
  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:10px;font-family:'Poppins',system-ui,sans-serif;flex-wrap:wrap}
 .nbs-strip .l{display:flex;align-items:center;gap:12px;min-width:0}
@@ -271,13 +273,13 @@ svg .ax{font:13px var(--body);fill:var(--muted)}
   </div>
 
   <section class="sec prose">
-    <p class="hook">The average 30-year fixed mortgage rate in the US hit a record low of 2.65% in January 2021. By October 2023 it had passed 8%. On the same $400,000 loan, that is the difference between:</p>
+    <p class="hook">The average 30-year fixed mortgage rate in the US hit a record low of 2.65% in January 2021. By October 2023 it was close to 8%. On the same $400,000 loan, that is the difference between:</p>
     <div class="duo">
       <div><span class="big">$1,612 a month</span><span>at 2.65%, about $180,000 of interest over 30 years</span></div>
       <div class="or">vs</div>
       <div><span class="big">$2,935 a month</span><span>at 8%, about $657,000 of interest over 30 years</span></div>
     </div>
-    <p class="src">Rates: <a href="https://www.cleveland19.com/bankrate-article/2026/08/12/mortgage-rate-history-1972-2026/">Bankrate, mortgage rate history</a>. Payments calculated with the formula below.</p>
+    <p class="src">Rates: <a href="https://www.cleveland19.com/bankrate-article/2026/08/12/mortgage-rate-history-1972-2026/">Bankrate, mortgage rate history</a>, drawing on Freddie Mac and Bankrate survey data. Payments calculated with the formula below.</p>
     <p>The house is the same. <b>The rate nearly doubled the monthly payment and more than tripled the total interest.</b> Both numbers come from one formula.</p>
 
     <p><b>An annuity is a fixed payment repeated at regular intervals for a set period.</b> Its value today is the present value of every payment, added up. Because each payment is discounted by one more factor of (1 + r), the sum is a geometric series, and it collapses into a single expression:</p>

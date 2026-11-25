@@ -146,6 +146,7 @@ export const PREREQS = [
   {group: 'mathematics', name: 'Mathematics for Finance', to: '/lessons/mathematics/index.html', lessons: 26, sections: 5, desc: 'Numbers, growth, calculus and matrices'},
   {group: 'statistics', name: 'Statistics for Finance', to: '/lessons/statistics/index.html', lessons: 22, sections: 4, desc: 'Data, probability, relationships and inference'},
   {group: 'accounting', name: 'Financial Accounting', to: '/lessons/accounting/index.html', lessons: 19, sections: 4, desc: 'The three statements and the key accounts'},
+  {group: 'economics', name: 'Economics for Finance', to: '/lessons/economics/index.html', lessons: 5, sections: 2, desc: 'Markets, the economy, money and policy'},
 ];
 
 export const SUBJECTS = [

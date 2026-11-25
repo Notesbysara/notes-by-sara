@@ -167,6 +167,8 @@ body.side-closed .fab{display:grid;place-items:center}
 <style>
 body{margin:0}
 .related .rel{margin-right:10px}
+.related a,.related .rel{display:inline-block}
+@media (max-width:480px){b.num{white-space:normal}}
 .nbs-strip{position:sticky;top:0;z-index:20;background:#06352A;color:#FFFDF8;display:flex;align-items:center;justify-content:space-between;gap:12px;
  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:10px;font-family:'Poppins',system-ui,sans-serif;flex-wrap:wrap}
 .nbs-strip .l{display:flex;align-items:center;gap:12px;min-width:0}
@@ -331,7 +333,7 @@ svg .lb{font:600 14px var(--body)}
       <p class="eyebrow">How professionals use it</p>
       <dl>
         <dt>Central bankers</dt><dd>Judge whether policy is tight or loose by the real rate, not the nominal one. A 5% rate with 6% inflation is still loose.</dd>
-        <dt>Bond investors</dt><dd>Compare ordinary government bonds with inflation-protected ones. The gap between their yields shows the inflation the market expects.</dd>
+        <dt>Bond investors</dt><dd>Compare ordinary government bonds with inflation-protected ones. The gap between their yields roughly shows the inflation the market expects.</dd>
         <dt>Lenders</dt><dd>Build expected inflation into every loan rate, and use variable rates when they cannot predict it.</dd>
         <dt>Pension and endowment managers</dt><dd>Set their targets in real terms, because their promises have to be met in future prices.</dd>
       </dl>
