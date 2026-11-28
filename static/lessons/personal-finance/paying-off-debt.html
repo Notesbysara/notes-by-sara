@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="icon" href="/img/favicon.png">
+<meta name="description" content="Unemployment: Who counts, how the rate works, and its traps. A short lesson from Notes by Sara.">
+<link rel="canonical" href="https://notesbysara.org/lessons/economics/unemployment.html">
+
+<title>Paying off debt · Notes by Sara</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Forum&family=Poppins:wght@400;500;600&display=swap">
+<style>
+/* Layout: one calm reading column. Three surfaces only: the deep banner, white boxes, and pale green for anything the learner answers. Light only, like the site. */
+:root{
+  color-scheme:light;
+  --ivory:#FFFDF8; --surface:#FFFFFF; --pearl:#F7F2E7; --pale:#EAF4EF;
+  --ink:#1F2A26; --muted:#5A6862; --line:#E6E1D5;
+  --deep:#06352A; --green:#0E7C5A; --green-text:#0B6A4C; --brand:#0B4F3C;
+  --gold:#E3C26F; --gold-text:#8A6A12; --coral:#B4452F; --coral-pale:#FBEDE9;
+  --on-deep:#FFFDF8; --on-deep-muted:#C9D6D0;
+  --display:'Forum',Georgia,'Times New Roman',serif;
+  --body:'Poppins',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --t-body:16px; --t-small:14px; --t-label:12.5px;
+}
+*{box-sizing:border-box}
+body{background:var(--ivory);color:var(--ink);font-family:var(--body);font-size:var(--t-body);line-height:1.75}
+a{color:var(--green-text)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
+.mockbar{background:var(--pearl);color:var(--muted);font-size:var(--t-small);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:8px;text-align:center;border-bottom:1px solid var(--line)}
+.mockbar b{color:var(--gold-text);letter-spacing:.12em;text-transform:uppercase;font-size:var(--t-label);margin-right:6px}
+.page{max-width:720px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px;display:flex;flex-direction:column;gap:40px}
+h1,h2{font-family:var(--display);font-weight:400;line-height:1.15;margin:0;text-wrap:balance}
+h2{font-size:1.7rem;color:var(--brand)}
+p{margin:0}
+.sec{display:flex;flex-direction:column;gap:14px}
+.eyebrow{font-size:var(--t-label);font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--gold-text)}
+.muted{color:var(--muted)}
+.small{font-size:var(--t-small)}
+b{font-weight:600}
+.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* 1. banner */
+.banner{background:var(--deep);color:var(--on-deep);border-radius:18px;padding:26px 26px 22px;display:flex;flex-direction:column;gap:10px}
+.banner .eyebrow{color:var(--gold)}
+.banner h1{font-size:clamp(2rem,6vw,2.6rem)}
+.banner .lead{color:var(--on-deep-muted)}
+.banner .meta{font-size:var(--t-small);color:var(--on-deep-muted);border-top:1px solid rgba(227,194,111,.35);padding-top:10px;display:flex;flex-wrap:wrap;gap:4px 18px}
+.banner .meta b{color:var(--gold);font-weight:600}
+.banner .meta a{color:var(--on-deep)}
+
+/* white box */
+.box{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.svgwrap{overflow-x:auto}
+.svgwrap svg{display:block;width:100%;height:auto;min-width:480px}
+.cap{font-size:var(--t-small);color:var(--muted)}
+
+/* formula */
+.fx{font-family:Georgia,'Times New Roman',serif;font-size:1.8rem;display:flex;align-items:center;justify-content:center;gap:14px}
+.frac{display:inline-flex;flex-direction:column;align-items:center;line-height:1.2}
+.frac span:first-child{border-bottom:2px solid var(--ink);padding:0 8px 2px}
+.frac span:last-child{padding-top:2px}
+.fx i{font-style:italic}
+.fx sup{font-size:.6em}
+.legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:4px 16px;font-size:var(--t-small);color:var(--muted)}
+.legend i{font-family:Georgia,serif;color:var(--ink);font-size:1.05rem;margin-right:6px}
+table{border-collapse:collapse;width:100%}
+td,th{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left}
+th{font-size:var(--t-small);color:var(--muted);font-weight:500}
+td.r,th.r{text-align:right}
+.tw{overflow-x:auto}
+.result{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;border-top:2px solid var(--brand);padding-top:10px}
+.result b{font-family:var(--display);font-weight:400;font-size:1.8rem;color:var(--brand)}
+
+/* pale: anything you answer */
+.ask{background:var(--pale);border-radius:14px;padding:16px 20px;display:flex;flex-direction:column;gap:10px}
+.ask .q{font-weight:500}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opts button{font:inherit;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 14px;cursor:pointer;color:var(--ink);line-height:1.5}
+.opts button:hover{border-color:var(--green)}
+.opts button.right{border-color:var(--green);box-shadow:inset 3px 0 0 var(--green)}
+.opts button.wrong{border-color:var(--coral);box-shadow:inset 3px 0 0 var(--coral)}
+.opts button[disabled]{cursor:default}
+.fb{font-size:var(--t-small);line-height:1.6}
+.fb b{color:var(--green-text)}
+.fb.no b{color:var(--coral)}
+.quiz{display:flex;flex-direction:column;gap:10px}
+.score{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:var(--t-small);color:var(--muted)}
+.score b{color:var(--brand)}
+.btn{font:inherit;font-size:var(--t-small);border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:4px 12px;cursor:pointer;color:var(--ink)}
+
+/* optional extras */
+.extras{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.extras details{border-bottom:1px solid var(--line)}
+.extras summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 4px}
+.extras summary::-webkit-details-marker{display:none}
+.extras summary .t{font-family:var(--display);font-size:1.3rem;color:var(--brand)}
+.extras summary .s{font-size:var(--t-small);color:var(--muted)}
+.extras summary::after{content:"+";font-size:1.4rem;color:var(--gold-text);flex:none;width:20px;text-align:center}
+.extras details[open] summary::after{content:"−"}
+.extras .inner{padding:0 4px 18px;display:flex;flex-direction:column;gap:12px}
+.inputs{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.inputs label{display:flex;flex-direction:column;gap:4px;font-size:var(--t-small);color:var(--muted)}
+.inputs input[type=number]{font:inherit;color:var(--ink);padding:7px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);width:100%}
+.inputs input[type=range]{width:100%;accent-color:var(--green)}
+.calcout{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+.calcout b{font-family:var(--display);font-weight:400;font-size:1.8rem;color:var(--brand)}
+.mist{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px}
+
+/* recap */
+.recap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:center}
+.recap ul{margin:4px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:2px}
+.recap .fx{font-size:1.3rem}
+@media (max-width:560px){.recap{grid-template-columns:1fr}}
+
+/* next */
+.next{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;background:var(--deep);color:var(--on-deep);border-radius:14px;padding:16px 20px;text-decoration:none}
+.next .eyebrow{color:var(--gold)}
+.next .t{font-family:var(--display);font-size:1.35rem}
+.next .arrow{font-size:1.4rem;color:var(--gold)}
+.related{font-size:var(--t-small);color:var(--muted)}
+.related a{margin-right:10px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+
+<style>
+.shell{display:grid;grid-template-columns:290px minmax(0,1fr);align-items:start}
+.shell.closed{grid-template-columns:minmax(0,1fr)}
+.side{position:sticky;top:50px;height:calc(100vh - 50px);overflow:auto;background:#FFFFFF;border-right:1px solid var(--line);padding:14px 14px 28px;display:flex;flex-direction:column;gap:2px;font-size:14px;scrollbar-width:thin}
+.shell.closed .side{display:none}
+.sidehead{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:0 2px 10px;margin-bottom:4px;border-bottom:1px solid var(--line)}
+.tog{font:inherit;font-size:13px;font-weight:600;color:#06352A;background:#E3C26F;border:0;border-radius:999px;padding:5px 13px;cursor:pointer;line-height:1.4}.tog:hover{background:#EBCF86}
+.sw{display:flex;gap:5px;flex-wrap:wrap}.sw a{font-size:12px;border:1px solid var(--line);border-radius:999px;padding:3px 10px;background:#fff;color:var(--ink);text-decoration:none}.sw a:hover{border-color:var(--brand)}.sw a.on{background:var(--deep);color:#fff;border-color:var(--deep)}
+.subj{font-family:var(--display);font-size:1.2rem;color:var(--brand);margin:8px 2px 2px}.subj a{color:inherit;text-decoration:none}.subj a:hover{text-decoration:underline}
+.grp{margin-top:8px}
+.gh{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin:0 2px 4px;font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text)}
+.gc{font-size:11.5px;letter-spacing:0;text-transform:none;font-weight:500;color:var(--muted);white-space:nowrap}
+.grp ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:1px}
+.grp li a{display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;align-items:start;padding:6px 8px;border-radius:8px;text-decoration:none;color:var(--ink);line-height:1.35}
+.grp li a:hover{background:var(--pale)}
+.mk{width:22px;height:22px;border-radius:50%;border:1.5px solid #C5D6CC;display:grid;place-items:center;font-size:11px;font-weight:600;color:var(--muted);background:#fff;margin-top:-1px}
+.grp a.done .mk{background:var(--green);border-color:var(--green);color:#fff}
+.grp a.done .tt{color:var(--muted)}
+.grp a.now{background:#EEF4EF;box-shadow:inset 3px 0 0 var(--gold)}
+.grp a.now .mk{background:var(--deep);border-color:var(--gold);color:#fff}
+.grp a.now .tt{color:var(--brand);font-weight:500}
+.shell .page{max-width:none;margin:0;padding-left:clamp(16px,4vw,56px);padding-right:clamp(16px,4vw,56px)}
+.shell .page>*{max-width:900px;width:100%}
+.shell.closed .page>*{margin-inline:auto}
+.shell.closed .page{padding-left:max(64px,clamp(16px,4vw,56px))}
+.fab{display:none;position:fixed;top:calc(var(--sh,50px) + 12px);left:max(12px,env(safe-area-inset-left,0px));z-index:30;width:38px;height:38px;border:0;border-radius:10px;background:#E3C26F;color:#06352A;font-size:18px;line-height:1;cursor:pointer;box-shadow:0 2px 8px rgba(6,53,42,.18)}
+.fab:hover{background:#EBCF86}
+body.side-closed .fab{display:grid;place-items:center}
+.scrim{display:none}
+@media (max-width:860px){
+ .shell,.shell.closed{grid-template-columns:minmax(0,1fr)}
+ .side,.shell.closed .side{display:flex;position:fixed;top:0;left:0;bottom:0;height:100vh;width:min(300px,86vw);z-index:40;transform:translateX(-105%);transition:transform .25s ease;box-shadow:6px 0 24px rgba(6,53,42,.2)}
+ .shell.mopen .side{transform:none}
+ .fab{display:grid;place-items:center}
+ .shell .page{padding-left:max(64px,env(safe-area-inset-left,0px))}
+ .scrim{position:fixed;inset:0;background:rgba(6,53,42,.35);z-index:35}.shell.mopen .scrim{display:block}
+ .shell .page>*{margin-inline:auto}
+}
+@media (prefers-reduced-motion:reduce){.side{transition:none!important}}
+@media (max-width:480px){.nbs-strip .prog{display:none}}
+</style>
+</head><body data-lesson="personal-finance/paying-off-debt" data-group="personal-finance" data-total="30">
+<style>
+body{margin:0}
+.related .rel{margin-right:10px}
+.related a,.related .rel{display:inline-block}
+@media (max-width:480px){b.num{white-space:normal}}
+.nbs-strip{position:sticky;top:0;z-index:20;background:#06352A;color:#FFFDF8;display:flex;align-items:center;justify-content:space-between;gap:12px;
+ padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:10px;font-family:'Poppins',system-ui,sans-serif;flex-wrap:wrap}
+.nbs-strip .l{display:flex;align-items:center;gap:12px;min-width:0}
+.nbs-strip img{width:30px;height:30px;border-radius:6px;display:block}
+.nbs-strip .crumb{font-size:14px;color:#C9D6D0}.nbs-strip .crumb a{color:#C9D6D0;text-decoration:none}.nbs-strip .crumb a:hover{color:#fff;text-decoration:underline}
+.nbs-strip .crumb i{font-style:normal;color:#E3C26F;margin:0 5px}.nbs-strip .crumb b{color:#fff;font-weight:500}
+.nbs-strip .prog{display:flex;align-items:center;gap:10px;font-size:13px;color:#C9D6D0}
+.nbs-strip .bar{width:130px;height:5px;border-radius:9px;background:rgba(255,255,255,.18);overflow:hidden}
+.nbs-strip .bar span{display:block;height:100%;width:0;background:#E3C26F;transition:width 1.2s cubic-bezier(.2,.8,.2,1) .2s}
+@media (max-width:560px){.nbs-strip .bar{display:none}.nbs-strip .crumb .mid{display:none}}
+@media (prefers-reduced-motion:reduce){.nbs-strip .bar span{transition:none}}
+</style>
+<header class="nbs-strip"><div class="l"><a href="https://notesbysara.org/" aria-label="Notes by Sara home"><img src="/img/favicon.png" alt="Notes by Sara"></a><nav class="crumb" aria-label="Breadcrumb"><span><a href="https://notesbysara.org/notes">Learning path</a></span><span class="mid"><i>›</i><a href="/lessons/personal-finance/index.html">Personal Finance</a></span><span><i>›</i><b>Paying off debt</b></span></nav></div><div class="prog"><span>Lesson 11</span><span class="bar" aria-hidden="true"><span id="nbs-bar"></span></span></div></header>
+
+<style>
+.page .plain{background:var(--pale);border-left:4px solid var(--green);border-radius:10px;padding:18px 22px;margin:8px 0 6px}
+.page .plain p{font-size:1.12rem;line-height:1.65;margin:0;max-width:none}
+.page .plain .eyebrow{font-size:var(--t-label);margin:0 0 6px}
+.prose p{max-width:68ch;line-height:1.75}
+.prose{display:flex;flex-direction:column;gap:12px}
+.prose p{margin:0}
+svg .ax{font:13px var(--body);fill:var(--muted)}
+svg .lb{font:600 14px var(--body)}
+.calc{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:end}
+.calc label{display:flex;flex-direction:column;gap:4px;font-size:var(--t-small);color:var(--muted)}
+.calc input{font:inherit;font-size:1rem;width:120px;padding:7px 9px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)}
+.calc .out{font-size:1.05rem}
+.calc .out b{font-size:1.35rem;color:var(--green-text)}
+.pvt td.r,.pvt th.r{text-align:right;white-space:nowrap}
+.pvt tr.tot td{font-weight:600;border-top:2px solid var(--line)}
+.pvsvg svg{min-width:0!important;width:100%}
+@media (max-width:560px){.pvt td,.pvt th{padding-left:6px;padding-right:6px;font-size:12.5px;padding-left:4px;padding-right:4px}.pvt th{white-space:normal}}
+.hook{font-size:1.06rem}
+.src{font-size:var(--t-label);color:var(--muted)}
+.guess{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.guess .q{font-weight:500;margin:0 0 12px}
+.guess .opts{display:flex!important;flex-direction:row!important;flex-wrap:wrap;gap:8px;grid-template-columns:none}
+.guess .opts button{width:auto!important;flex:0 0 auto;min-width:84px;text-align:center}
+.guess .opts button{font:inherit;padding:8px 16px;border-radius:999px;border:1px solid var(--line);background:var(--ivory);color:var(--ink);cursor:pointer}
+.guess .opts button.pick{border-color:var(--green);background:var(--pale)}
+.guess .opts button.ans{border-color:var(--green);background:var(--green);color:#fff}
+.guess .fb{margin:12px 0 0}
+.guess .skip{font-size:var(--t-small);background:none;border:0;color:var(--green-text);text-decoration:underline;cursor:pointer;padding:0;margin-top:10px;font-family:inherit}
+.pro{background:var(--pearl);border-radius:12px;padding:20px 22px}
+.pro .eyebrow{margin:0 0 10px}
+.pro dl{margin:0;display:grid;grid-template-columns:minmax(0,11rem) minmax(0,1fr);gap:10px 18px}
+.pro dt{font-weight:600}
+.pro dd{margin:0;line-height:1.6}
+@media (max-width:560px){.pro dl{grid-template-columns:1fr;gap:2px}.pro dd{margin-bottom:10px}}
+.life{border-left:4px solid var(--gold);padding:4px 0 4px 18px}
+.life .eyebrow{margin:0 0 6px}
+.keep{font-family:var(--display);font-size:1.3rem;line-height:1.4;color:var(--brand);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:14px 0;margin:14px 0 4px;text-align:center}
+.prose p b{font-weight:600;color:var(--ink)}
+.prose p.aside{font-size:var(--t-small);color:var(--muted);border-left:2px solid var(--line);padding-left:12px}
+.duo{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:stretch;margin:4px 0 6px}
+.duo>div:not(.or){background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;display:flex;flex-direction:column;gap:4px}
+.duo .big{font-family:var(--display);font-size:1.9rem;color:var(--brand);line-height:1.1}
+.duo span:not(.big){font-size:var(--t-small);color:var(--muted)}
+.duo .or{align-self:center;font-size:var(--t-small);color:var(--muted)}
+.three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:2px 0 6px}
+.three>div{background:var(--pearl);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.three span{font-size:var(--t-small);color:var(--muted);line-height:1.5}
+@media (max-width:560px){.duo{grid-template-columns:1fr}.duo .or{text-align:center}.three{grid-template-columns:1fr}}
+.note{font-size:var(--t-small);color:var(--muted)}
+.flow text{font-family:var(--body)}
+.flow .bx{fill:var(--surface);stroke:var(--line);stroke-width:1.5}
+.flow .bxd{fill:var(--deep)}
+.flow .t1{font:600 16px var(--body);fill:var(--ink)}
+.flow .t2{font:13.5px var(--body);fill:var(--muted)}
+.flow .w1{font:600 16px var(--body);fill:var(--on-deep)}
+.flow .w2{font:13.5px var(--body);fill:var(--on-deep-muted)}
+.flow .lab{font:600 12.5px var(--body);letter-spacing:.08em;fill:var(--gold-text)}
+.four{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:2px 0 6px}
+.four>div{background:var(--pearl);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.four span{font-size:var(--t-small);color:var(--muted);line-height:1.5}
+.branches{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.branches>div{border-top:3px solid var(--green);background:var(--surface);border-radius:0 0 10px 10px;padding:12px 14px;display:flex;flex-direction:column;gap:4px;box-shadow:0 0 0 1px var(--line) inset}
+.branches span{font-size:var(--t-small);color:var(--muted);line-height:1.5}
+@media (max-width:560px){.four,.branches{grid-template-columns:1fr}}
+.fx>span{display:inline-flex;align-items:center;gap:10px;white-space:nowrap}
+.fx .frac{align-items:stretch;text-align:center}
+@media (max-width:560px){.fx{font-size:1.1rem}.fx>span{gap:6px}}
+.guess .opts button{white-space:normal;max-width:100%}
+</style><style>
+.chsvg svg{min-width:0!important;width:100%}
+svg .ax{font:13px var(--body);fill:var(--muted)}
+.legend2{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:var(--t-small);color:var(--muted);margin-top:6px}
+.legend2 i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.pvt td.r,.pvt th.r{text-align:right;white-space:nowrap}
+.pvt th.r{white-space:normal}
+.fx>span{display:inline-flex;align-items:center;gap:10px;white-space:nowrap}
+.fx .frac{align-items:stretch;text-align:center}
+svg .lb{font:600 13px var(--body)}
+/* section practice */
+.prac{border-top:2px solid var(--gold);border-bottom:1px solid var(--line)}
+.pwrap>summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px 4px}
+.pwrap>summary::-webkit-details-marker{display:none}
+.pwrap>summary .t{font-family:var(--display);font-size:1.6rem;color:var(--brand);line-height:1.3}
+.pwrap>summary .s{font-size:var(--t-small);color:var(--muted)}
+.pwrap>summary::after{content:"+";font-size:1.6rem;color:var(--gold-text);flex:none;width:24px;text-align:center}
+.pwrap[open]>summary::after{content:"−"}
+.pin{padding:0 4px 22px;display:flex;flex-direction:column;gap:14px}
+.prac .intro{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:var(--t-small);color:var(--muted)}
+.prac ol{margin:0;padding:0;list-style:none;counter-reset:p;display:flex;flex-direction:column;gap:12px}
+.prac li{counter-increment:p;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 18px;display:flex;flex-direction:column;gap:8px}
+.prac li>p::before{content:counter(p) ". ";font-weight:600;color:var(--brand)}
+.prac li summary{cursor:pointer;font-size:var(--t-small);color:var(--green-text);font-weight:500;width:max-content}
+.prac .ans{background:var(--pale);border-radius:10px;padding:10px 14px;margin-top:8px;font-size:var(--t-small);line-height:1.65;display:flex;flex-direction:column;gap:4px}
+.prac .tool{font-size:var(--t-label);letter-spacing:.08em;text-transform:uppercase;color:var(--gold-text);font-weight:600}
+
+.prac .eyebrow{margin:0}
+.pair2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.pair2>div{background:var(--pearl);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.pair2 span{font-size:var(--t-small);color:var(--muted);line-height:1.5}
+@media (max-width:560px){.pair2{grid-template-columns:1fr}}
+</style>
+<style>
+.four{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.four>div{background:var(--pearl);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.four span{font-size:var(--t-small);color:var(--muted);line-height:1.5}
+.mkt td,.mkt th{font-size:var(--t-small);vertical-align:top;line-height:1.45}
+.mkt td:first-child{min-width:9rem}
+@media (max-width:560px){.four{grid-template-columns:1fr}
+.mkt thead{display:none}.mkt,.mkt tbody,.mkt tr,.mkt td{display:block;width:100%}
+.mkt tr{border-bottom:1px solid var(--line);padding:10px 0}.mkt td{border:0!important;padding:2px 0!important;min-width:0!important}
+.mkt td[data-l]:not([data-l=""])::before{content:attr(data-l) ": ";color:var(--muted)}
+.mkt td:first-child{font-size:1rem}}
+</style>
+<style>
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:2px 0 4px}
+.steps>div{background:var(--pearl);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.steps .n{width:26px;height:26px;border-radius:50%;background:var(--brand);color:#fff;font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center;margin-bottom:4px}
+.steps span:not(.n){font-size:var(--t-small);color:var(--muted);line-height:1.5}
+.stack{display:flex;height:46px;border-radius:8px;overflow:hidden;gap:2px}
+.stack span{display:flex;align-items:center;padding:0 12px;color:#fff;font-size:var(--t-small);white-space:nowrap;overflow:hidden;min-width:0}
+.stack b{margin-right:6px;color:#fff}
+.slip{display:flex;flex-direction:column;font-size:var(--t-small);margin-bottom:14px}
+.slip .row{display:flex;justify-content:space-between;gap:12px;padding:7px 2px;border-bottom:1px solid var(--line)}
+.slip .row b{font-variant-numeric:tabular-nums;white-space:nowrap}
+.slip .top{font-weight:600}
+.slip .net{border-bottom:0;border-top:2px solid var(--ink);font-weight:600;font-size:var(--t-body)}
+.slip .net b{color:var(--green-text)}
+.calc{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:end}
+.calc label{display:flex;flex-direction:column;gap:4px;font-size:var(--t-small);color:var(--muted);min-width:0;max-width:100%}
+.calc input,.calc select{font:inherit;font-size:1rem;padding:7px 9px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);max-width:100%}
+.calc input{width:120px}
+.calc .out{font-size:1.05rem;flex-basis:100%}
+.calc .out b{font-size:1.35rem;color:var(--green-text)}
+.legend2{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:var(--t-small);color:var(--muted);margin-top:6px}
+.legend2 i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.src{font-size:var(--t-label);color:var(--muted)}
+.note{font-size:var(--t-small);color:var(--muted)}
+.tw table{font-size:var(--t-small)}
+@media (max-width:560px){.steps{grid-template-columns:1fr}}
+</style>
+
+<div class="shell" id="shell"><div class="scrim" id="scrim"></div><button type="button" class="fab" id="mbtn" aria-label="Show the lesson list">☰</button><aside class="side" id="side" aria-label="Lessons in this subject"><div class="sidehead"><button type="button" class="tog" id="col" aria-label="Hide the lesson list">☰ Hide lessons</button><nav class="sw" aria-label="Sections"><a href="/lessons/personal-finance/index.html" class="on">Personal Finance</a><a href="/lessons/foundations/index.html">Foundations</a><a href="/lessons/index.html">Prerequisites</a></nav></div><p class="subj"><a href="/lessons/personal-finance/index.html">Personal Finance</a></p><div class="grp"><p class="gh"><span>Everyday money</span><span class="gc">0 of 7</span></p><ol><li><a href="/lessons/personal-finance/income-and-paychecks.html" data-slug="personal-finance/income-and-paychecks"><span class="mk">1</span><span class="tt">Income and paychecks</span></a></li><li><a href="/lessons/personal-finance/budgeting.html" data-slug="personal-finance/budgeting"><span class="mk">2</span><span class="tt">Budgeting</span></a></li><li><a href="/lessons/personal-finance/saving-and-goals.html" data-slug="personal-finance/saving-and-goals"><span class="mk">3</span><span class="tt">Saving and goals</span></a></li><li><a href="/lessons/personal-finance/emergency-fund.html" data-slug="personal-finance/emergency-fund"><span class="mk">4</span><span class="tt">Emergency fund</span></a></li><li><a href="/lessons/personal-finance/banking-basics.html" data-slug="personal-finance/banking-basics"><span class="mk">5</span><span class="tt">Banking basics</span></a></li><li><a href="/lessons/personal-finance/personal-taxes.html" data-slug="personal-finance/personal-taxes"><span class="mk">6</span><span class="tt">Personal taxes</span></a></li><li><a href="/lessons/personal-finance/personal-financial-statements.html" data-slug="personal-finance/personal-financial-statements"><span class="mk">7</span><span class="tt">Your personal financial statements</span></a></li></ol></div><div class="grp"><p class="gh"><span>Borrowing</span><span class="gc">0 of 4</span></p><ol><li><a href="/lessons/personal-finance/credit-scores.html" data-slug="personal-finance/credit-scores"><span class="mk">8</span><span class="tt">Credit scores</span></a></li><li><a href="/lessons/personal-finance/credit-cards.html" data-slug="personal-finance/credit-cards"><span class="mk">9</span><span class="tt">Credit cards</span></a></li><li><a href="/lessons/personal-finance/loans-and-mortgages.html" data-slug="personal-finance/loans-and-mortgages"><span class="mk">10</span><span class="tt">Loans and mortgages</span></a></li><li><a href="/lessons/personal-finance/paying-off-debt.html" data-slug="personal-finance/paying-off-debt" class="now" aria-current="page"><span class="mk">11</span><span class="tt">Paying off debt</span></a></li></ol></div><div class="grp"><p class="gh"><span>Investing</span><span class="gc">0 of 5</span></p><ol><li><a href="/lessons/personal-finance/why-invest.html" data-slug="personal-finance/why-invest"><span class="mk">12</span><span class="tt">Why invest</span></a></li><li><a href="/lessons/personal-finance/index-funds-and-etfs.html" data-slug="personal-finance/index-funds-and-etfs"><span class="mk">13</span><span class="tt">Index funds and ETFs</span></a></li><li><a href="/lessons/personal-finance/asset-allocation-by-goal.html" data-slug="personal-finance/asset-allocation-by-goal"><span class="mk">14</span><span class="tt">Asset allocation by goal</span></a></li><li><a href="/lessons/personal-finance/taxes-and-your-investments.html" data-slug="personal-finance/taxes-and-your-investments"><span class="mk">15</span><span class="tt">Taxes and your investments</span></a></li><li><a href="/lessons/personal-finance/common-investing-mistakes.html" data-slug="personal-finance/common-investing-mistakes"><span class="mk">16</span><span class="tt">Common investing mistakes</span></a></li></ol></div><div class="grp"><p class="gh"><span>Retirement</span><span class="gc">0 of 4</span></p><ol><li><a href="/lessons/personal-finance/retirement-accounts.html" data-slug="personal-finance/retirement-accounts"><span class="mk">17</span><span class="tt">Retirement accounts</span></a></li><li><a href="/lessons/personal-finance/how-much-you-need-for-retirement.html" data-slug="personal-finance/how-much-you-need-for-retirement"><span class="mk">18</span><span class="tt">How much you need for retirement</span></a></li><li><a href="/lessons/personal-finance/public-pensions.html" data-slug="personal-finance/public-pensions"><span class="mk">19</span><span class="tt">Public pensions</span></a></li><li><a href="/lessons/personal-finance/retirement-income.html" data-slug="personal-finance/retirement-income"><span class="mk">20</span><span class="tt">Retirement income</span></a></li></ol></div><div class="grp"><p class="gh"><span>Protection</span><span class="gc">0 of 3</span></p><ol><li><a href="/lessons/personal-finance/insurance-for-households.html" data-slug="personal-finance/insurance-for-households"><span class="mk">21</span><span class="tt">Insurance for households</span></a></li><li><a href="/lessons/personal-finance/how-much-insurance-you-need.html" data-slug="personal-finance/how-much-insurance-you-need"><span class="mk">22</span><span class="tt">How much insurance you need</span></a></li><li><a href="/lessons/personal-finance/long-term-care.html" data-slug="personal-finance/long-term-care"><span class="mk">23</span><span class="tt">Long-term care</span></a></li></ol></div><div class="grp"><p class="gh"><span>Life goals</span><span class="gc">0 of 3</span></p><ol><li><a href="/lessons/personal-finance/funding-education.html" data-slug="personal-finance/funding-education"><span class="mk">24</span><span class="tt">Funding education</span></a></li><li><a href="/lessons/personal-finance/big-life-decisions.html" data-slug="personal-finance/big-life-decisions"><span class="mk">25</span><span class="tt">Big life decisions</span></a></li><li><a href="/lessons/personal-finance/working-with-financial-professionals.html" data-slug="personal-finance/working-with-financial-professionals"><span class="mk">26</span><span class="tt">Working with financial professionals</span></a></li></ol></div><div class="grp"><p class="gh"><span>Estate and giving</span><span class="gc">0 of 2</span></p><ol><li><a href="/lessons/personal-finance/estate-planning.html" data-slug="personal-finance/estate-planning"><span class="mk">27</span><span class="tt">Estate planning</span></a></li><li><a href="/lessons/personal-finance/charitable-giving.html" data-slug="personal-finance/charitable-giving"><span class="mk">28</span><span class="tt">Charitable giving</span></a></li></ol></div><div class="grp"><p class="gh"><span>Money psychology</span><span class="gc">0 of 2</span></p><ol><li><a href="/lessons/personal-finance/your-money-mindset.html" data-slug="personal-finance/your-money-mindset"><span class="mk">29</span><span class="tt">Your money mindset</span></a></li><li><a href="/lessons/personal-finance/changing-money-behavior.html" data-slug="personal-finance/changing-money-behavior"><span class="mk">30</span><span class="tt">Changing money behavior</span></a></li></ol></div></aside><article class="page">
+
+  <header class="banner">
+    <p class="eyebrow">Personal Finance · Borrowing</p>
+    <h1>Paying off debt</h1>
+    <p class="lead">How to build a plan to get out of debt: listing what you owe, deciding which debts come first, the avalanche and snowball methods, ways to lower the interest rate, and where to get free help when payments are no longer manageable.</p>
+    <div class="meta"><span><b>Borrowing</b> · Lesson 4 of 4 · 8 minutes</span><span>Before this: <a href="/lessons/personal-finance/loans-and-mortgages.html">Loans and mortgages</a></span></div>
+  </header>
+
+  <div class="plain">
+    <p class="eyebrow">In plain words</p>
+    <p>Write down every debt with its balance, interest rate and minimum payment. Keep up the minimum on all of them, and put every extra dollar on one debt at a time. Paying the highest interest rate first costs the least; paying the smallest balance first gives quicker wins. Either works if you stick to it and stop borrowing more.</p>
+  </div>
+
+  <section class="sec prose">
+    <p class="hook">Debt is a normal part of household finances, but falling behind is becoming more common in the US:</p>
+    <div class="duo">
+      <div><span class="big">$1.29 trillion</span><span>US credit card balances at the end of September 2026, a record, within $19.1 trillion of total household debt</span></div>
+      <div class="or">and</div>
+      <div><span class="big">5.0%</span><span>of US household debt was in some stage of delinquency, up from 4.7% three months earlier</span></div>
+    </div>
+    <p class="src">Source: <a href="https://bankingjournal.aba.com/2026/11/new-york-fed-total-household-debt-reached-19-1t-in-q3/">ABA Banking Journal, on the New York Fed's Household Debt and Credit Report</a>.</p>
+
+    <p><b>Start with a complete list.</b> For each debt, write the balance, the interest rate (the APR), the minimum monthly payment and the due date. Include everything: cards, store cards, buy now, pay later plans, car loans, student loans, money owed to family. Then add up the minimums and compare them with your budget. The amount left after essentials and minimums is what you have to pay down debt faster.</p>
+
+    <p><b>Some debts come first, whatever their interest rate.</b> Missing rent or mortgage payments can cost you your home, and unpaid energy bills, taxes or court fines can lead to disconnection or legal action. UK debt charities call these priority debts and advise dealing with them before credit cards and personal loans. The same order makes sense everywhere: protect your home, essential services and anything that can lead to legal action, then keep up at least the minimums on everything else, so you avoid late fees and damage to your credit record.</p>
+    <p class="src">Source: <a href="https://www.stepchange.org/Infographics/Prioritydebts.aspx">StepChange</a>.</p>
+
+    <p><b>Then choose one debt to attack.</b> Pay the minimum on all the others and put every spare dollar on the target. When it is paid off, move its whole payment to the next one, so the amount you put toward debt keeps growing. There are two ways to choose the order:</p>
+    <div class="duo">
+      <div><span class="big">Avalanche</span><span>Highest interest rate first. Each extra dollar removes the most expensive debt, so it costs the least in total interest.</span></div>
+      <div class="or">or</div>
+      <div><span class="big">Snowball</span><span>Smallest balance first. You clear whole debts sooner, which cuts the number of bills and keeps you motivated.</span></div>
+    </div>
+
+    <div class="guess" id="g">
+      <p class="q">You owe a $1,500 personal loan at 9%, a $6,000 credit card at 24% and a $9,000 car loan at 7%, and can pay $800 a month in total. Which order pays the least interest? (illustrative figures)</p>
+      <div class="opts"><button type="button">Personal loan first, because it is smallest</button><button type="button" data-a>Credit card first, because its rate is highest</button><button type="button">Car loan first, because it is largest</button></div>
+      <p class="fb" hidden></p>
+    </div>
+
+    <p><b>The cheapest method is not always the one people finish.</b> In a study of thousands of people in debt settlement programs, Kellogg School researchers David Gal and Blakeley McShane found that those who paid off more of their individual debts, the "small victories" approach, were more likely to clear their entire balance, even though paying the highest rates first would have cost less. If you know you will stick to the plan, use the avalanche. If motivation is the problem, the snowball can be worth the extra interest, which is often small.</p>
+    <p class="src">Source: <a href="https://www.kellogg.northwestern.edu/news_articles/2012/snowball-approach.aspx?1=1">Kellogg School of Management</a>.</p>
+
+    <p><b>Compare the two with your own debts.</b> The minimums here stay fixed for simplicity; on real cards they fall as the balance falls.</p>
+    <div class="box">
+      <div class="tw"><table class="dt">
+        <thead><tr><th>#</th><th>Balance</th><th>Rate (%)</th><th>Minimum</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td><input id="b0" type="number" value="1500" min="0" step="100"></td><td><input id="r0" type="number" value="9" min="0" step="0.5"></td><td><input id="m0" type="number" value="60" min="0" step="5"></td></tr>
+          <tr><td>2</td><td><input id="b1" type="number" value="6000" min="0" step="100"></td><td><input id="r1" type="number" value="24" min="0" step="0.5"></td><td><input id="m1" type="number" value="180" min="0" step="5"></td></tr>
+          <tr><td>3</td><td><input id="b2" type="number" value="9000" min="0" step="100"></td><td><input id="r2" type="number" value="7" min="0" step="0.5"></td><td><input id="m2" type="number" value="280" min="0" step="5"></td></tr>
+        </tbody>
+      </table></div>
+      <div class="calc">
+        <label>Total paid toward debt each month<input id="bud" type="number" value="800" min="0" step="50"></label>
+        <p class="out" id="res"></p>
+      </div>
+    </div>
+
+    <p><b>Lowering the interest rate speeds up either method.</b> A few common ways, each with a catch:</p>
+    <div class="four">
+      <div><b>Ask your lender</b><span>Card issuers sometimes cut the rate for customers who ask, especially those with a good payment record. It costs nothing to try.</span></div>
+      <div><b>Balance transfer</b><span>Some cards offer 0% on transferred balances for a set period, usually for a one-off fee. It only helps if you clear the balance before the offer ends and stop using the old card.</span></div>
+      <div><b>Consolidation loan</b><span>One personal loan at a lower rate replaces several card balances. It works only if the cards are not then run up again.</span></div>
+      <div><b>Use savings</b><span>Cash earning a few percent can clear debt costing 20% or more. Keep a small emergency fund, though, or the next surprise goes back on the card.</span></div>
+    </div>
+    <p>Avoid moving unsecured debt, like credit cards, into a loan secured on your home. The rate may be lower, but if you cannot pay, the home is now at risk.</p>
+
+    <p><b>If the minimums are already more than you can pay, get help early.</b> Lenders are usually more flexible before you fall far behind, and free, independent advice exists in most countries:</p>
+    <div class="four">
+      <div><b>United Kingdom</b><span>Free debt advice is available from charities such as StepChange, National Debtline and Citizens Advice, and through the government-backed MoneyHelper service.</span></div>
+      <div><b>United States</b><span>Nonprofit credit counseling agencies can review your budget and may set up a debt management plan with lower rates. The FTC also suggests contacting card companies directly to negotiate a lower rate or a realistic payment plan.</span></div>
+      <div><b>Taiwan</b><span>Under the Consumer Debt Clearance Act, people struggling with unsecured bank debt can apply for pre-negotiation with their largest bank creditor, which can lead to a longer repayment plan at a lower rate. Court-supervised rehabilitation or liquidation is available if that fails.</span></div>
+      <div><b>India</b><span>Talk to the lender first about restructuring or a revised schedule, and use the bank's grievance process or the RBI's ombudsman scheme if you are treated unfairly.</span></div>
+    </div>
+    <p class="src">Sources: <a href="https://england.shelter.org.uk/professional_resources/legal/debt/debt_and_money_advice/where_to_get_debt_and_money_advice">Shelter England</a>; <a href="https://abc7ny.com/story/americans-credit-card-debt-reaches-13-trillion/20033749/">ABC7, on FTC guidance</a>; <a href="https://www.cbc.gov.tw/en/public/Attachment/931716211071.pdf">Central Bank of the Republic of China (Taiwan)</a>; <a href="https://www.taishinbank.com.tw/TSB/fanGroup-serviceLink/other-links/debt-negotiation/Consumer-Debt-Clearance-Regulations">Taishin Bank</a>.</p>
+    <p>Be careful with companies that charge to "settle" or "fix" your debts. Paid debt settlement often tells you to stop paying, which brings fees, interest and damage to your credit record while the company negotiates, and taxes may be due on forgiven debt in some countries. Taiwan's banks warn against unlicensed agents offering to arrange debt negotiation, and UK charities point out that free advice is available, so there is no need to pay for it.</p>
+    <p class="src">Sources: <a href="https://www.sc.com/content/dam/sc/tw/zh_tw/regulatory-announcement/docs/tw-deferred-payment.pdf">Standard Chartered Taiwan</a>; <a href="https://www.independentage.org/information/money/help-if-youre-debt">Independent Age</a>.</p>
+
+    <p><b>Fix the cause, or the debt comes back.</b> Paying off a card and then filling it again is common. While you pay down debt, take cards out of online shopping accounts, keep a small emergency fund for surprises, and check the budget each month. Once the debts are gone, redirect the same monthly payment to savings and investing, the subject of the next section.</p>
+  </section>
+
+  <section class="sec prose">
+    <div class="pro">
+      <p class="eyebrow">How professionals use it</p>
+      <dl>
+        <dt>Debt advisers</dt><dd>List a client's debts by priority, build a budget, and negotiate payment plans or formal solutions with creditors.</dd>
+        <dt>Financial planners</dt><dd>Decide with clients when to pay down debt and when to save or invest instead, by comparing the debt's interest rate with expected returns.</dd>
+        <dt>Collections teams</dt><dd>Work with borrowers who have fallen behind to agree on affordable repayment plans before accounts are written off.</dd>
+        <dt>Regulators</dt><dd>Set rules on how lenders treat borrowers in difficulty and police paid debt services that charge high fees.</dd>
+      </dl>
+    </div>
+    <p class="keep">Protect the essentials, pay every minimum, then put every extra dollar on one debt at a time until all of them are gone.</p>
+  </section>
+
+  <section class="prac" aria-label="Section practice">
+    <details class="pwrap">
+      <summary><span><span class="eyebrow">Section practice · optional</span><br><span class="t">Borrowing</span><br><span class="s">8 mixed problems from lessons 8 to 11 · about 15 minutes</span></span></summary>
+      <div class="pin">
+    <p>The problems aren't labeled with a lesson, so part of the work is choosing the right idea. Work each one on paper, then open the answer. All figures are illustrative unless a country's actual rules are named.</p>
+    <ol>
+      <li><p>You have two credit cards: one with a $4,000 limit and a $1,500 balance, the other with a $6,000 limit and a $1,000 balance. What is your credit utilization? What happens to it if you close the card with the $6,000 limit after paying it off?</p>
+        <details><summary>Show answer</summary><div class="ans"><span class="tool">Credit scores</span><span>$2,500 ÷ $10,000 = <b>25%</b>. After paying off and closing the $6,000 card, the remaining $1,500 is on a $4,000 limit: <b>37.5%</b>, higher, even though you owe less.</span></div></details></li>
+      <li><p>In one month you check your own credit score three times and apply for two new store cards. Which of these can lower your score?</p>
+        <details><summary>Show answer</summary><div class="ans"><span class="tool">Credit scores</span><span>Only the <b>two applications</b>. Each usually adds a hard inquiry. Checking your own score is a soft inquiry and never affects it.</span></div></details></li>
+      <li><p>You carry a $2,000 card balance at 24% a year. Roughly how much interest does one month add?</p>
+        <details><summary>Show answer</summary><div class="ans"><span class="tool">Credit cards</span><span>24% ÷ 12 = 2% a month, so about <b>$40</b>.</span></div></details></li>
+      <li><p>Your statement shows $900. You pay $900 by the due date. On most cards, how much interest do you pay on those purchases? What if you had paid $850?</p>
+        <details><summary>Show answer</summary><div class="ans"><span class="tool">Credit cards</span><span><b>None</b>, because the full statement balance was paid within the interest-free period. Paying $850 means interest starts on the unpaid amount, and on many cards you also lose the interest-free period on new purchases until you pay in full again.</span></div></details></li>
+      <li><p>A $20,000 car loan is repaid monthly over 5 years at 6% a year. What is the monthly payment and the total interest?</p>
+        <details><summary>Show answer</summary><div class="ans"><span class="tool">Loans and mortgages</span><span>Payment = 20,000 × 0.005 ÷ (1 − 1.005<sup>−60</sup>) ≈ <b>$386.66</b>. Total paid $23,199, so interest ≈ <b>$3,199</b>.</span></div></details></li>
+      <li><p>You buy a $400,000 home with a $60,000 down payment. What is the loan-to-value ratio, and why might a $80,000 down payment get you a better rate?</p>
+        <details><summary>Show answer</summary><div class="ans"><span class="tool">Loans and mortgages</span><span>$340,000 ÷ $400,000 = <b>85% LTV</b>. With $80,000 down it is 80%. Lenders often charge more, or require mortgage insurance, above about 80%, because there is less cushion if prices fall.</span></div></details></li>
+      <li><p>A $200,000 variable-rate mortgage with 25 years left has its rate rise from 5% to 7%. Roughly how much does the monthly payment change?</p>
+        <details><summary>Show answer</summary><div class="ans"><span class="tool">Loans and mortgages</span><span>From about $1,169 to about $1,414, a rise of about <b>$244 a month</b>, or 21%, for a 2-point rise in the rate.</span></div></details></li>
+      <li><p>You owe a store card of $800 at 29%, a credit card of $4,000 at 22%, and a student loan of $12,000 at 5%. In what order do the avalanche and snowball methods pay them? Before either, what must you keep paying?</p>
+        <details><summary>Show answer</summary><div class="ans"><span class="tool">Paying off debt</span><span>Here both give the <b>same order</b>: store card, credit card, student loan, because the smallest balance also has the highest rate. Before either, keep up <b>rent or mortgage, essential bills and the minimum on every debt</b>.</span></div></details></li>
+    </ol>
+      </div>
+    </details>
+  </section>
+
+
+  <a class="next" href="/lessons/personal-finance/why-invest.html"><span class="eyebrow">Borrowing complete · Next</span><span class="t">Why invest</span><span class="arrow">→</span></a>
+
+  <nav class="related">Related: <a href="/lessons/personal-finance/credit-cards.html">Credit cards</a> · <a href="/lessons/personal-finance/budgeting.html">Budgeting</a> · <a href="/lessons/personal-finance/emergency-fund.html">Emergency fund</a></nav>
+</article></div>
+<script>
+(function(){
+  const g=document.getElementById('g'),fb=g.querySelector('.fb');
+  g.querySelectorAll('.opts button').forEach(b=>b.addEventListener('click',()=>{
+    g.querySelectorAll('.opts button').forEach(x=>{x.disabled=true;if(x.hasAttribute('data-a'))x.classList.add('ans')});
+    if(!b.hasAttribute('data-a'))b.classList.add('pick');
+    fb.hidden=false;
+    fb.innerHTML=(b.hasAttribute('data-a')?'Right. ':'')+'<b>The credit card first.</b> Paying the highest rate first costs about $1,965 in interest; paying the smallest balance first costs about $2,180. Both finish in 24 months here. But the snowball clears its first debt in month 5, while the avalanche takes until month 16, and for many people that early win is what keeps them going.';
+  }));
+  const $=id=>document.getElementById(id),v=id=>Math.max(0,+$(id).value||0);
+  function sim(D,budget,key){
+    D=D.map(d=>({...d}));let m=0,I=0,first=null;
+    while(D.some(d=>d.b>0.005)&&m<600){m++;
+      D.forEach(d=>{if(d.b>0){const i=d.b*d.r/1200;d.b+=i;I+=i}});
+      let left=budget;
+      D.forEach(d=>{if(d.b>0){const p=Math.min(d.m,d.b,Math.max(left,0));d.b-=p;left-=p}});
+      D.filter(d=>d.b>0).sort(key).forEach(d=>{const p=Math.min(Math.max(left,0),d.b);d.b-=p;left-=p});
+      if(first===null&&D.some(d=>d.b<=0.005))first=m;
+    }
+    return m>=600?null:{m,I,first};
+  }
+  const f=x=>'$'+Math.round(x).toLocaleString('en-US');
+  const dur=m=>{const y=Math.floor(m/12),mo=m%12;return (y?y+(y===1?' year':' years'):'')+(y&&mo?' ':'')+(mo?mo+(mo===1?' month':' months'):'')};
+  function u(){
+    const D=[0,1,2].map(i=>({b:v('b'+i),r:v('r'+i),m:v('m'+i)})).filter(d=>d.b>0);
+    const bud=v('bud'),mins=D.reduce((s,d)=>s+Math.min(d.m,d.b),0);
+    if(bud<mins){$('res').innerHTML='Your budget is below the total of the minimums ('+f(mins)+'). Start with the priority debts and get free advice.';return}
+    const a=sim(D,bud,(x,y)=>y.r-x.r),s=sim(D,bud,(x,y)=>x.b-y.b);
+    if(!a||!s){$('res').innerHTML='At this budget the debts are not paid off within 50 years. Try a larger monthly amount.';return}
+    $('res').innerHTML='Avalanche: debt-free in <b>'+dur(a.m)+'</b> · interest <b>'+f(a.I)+'</b> · first debt gone in month '+a.first+'<br>Snowball: debt-free in <b>'+dur(s.m)+'</b> · interest <b>'+f(s.I)+'</b> · first debt gone in month '+s.first;
+  }
+  ['b0','r0','m0','b1','r1','m1','b2','r2','m2','bud'].forEach(id=>$(id).addEventListener('input',u));u();
+})();
+</script>
+<script>
+(function(){
+  var KEY='nbs-lessons-done',done=[];
+  try{done=JSON.parse(localStorage.getItem(KEY)||'[]')||[]}catch(e){}
+  var me=document.body.getAttribute('data-lesson'),total=+document.body.getAttribute('data-total')||0,group=document.body.getAttribute('data-group');
+  function count(){return done.filter(function(s){return s.indexOf(group+'/')===0}).length}
+  function show(){var b=document.getElementById('nbs-bar');if(b&&total)b.style.width=Math.min(100,count()/total*100)+'%'}
+  requestAnimationFrame(function(){requestAnimationFrame(show)});
+  var end=document.querySelector('.next');
+  if(me&&end&&'IntersectionObserver' in window){
+    new IntersectionObserver(function(es,o){es.forEach(function(e){if(e.isIntersecting){
+      if(done.indexOf(me)<0){done.push(me);try{localStorage.setItem(KEY,JSON.stringify(done))}catch(err){}show()}
+      o.disconnect()}})},{threshold:.6}).observe(end);
+  }
+})();
+</script>
+<script>
+(function(){
+  var sh=document.getElementById('shell'),KEY='nbs-side-closed',done=[];
+  try{done=JSON.parse(localStorage.getItem('nbs-lessons-done')||'[]')||[]}catch(e){}
+  function marks(){
+    document.querySelectorAll('.side .grp').forEach(function(g){var n=0,a=g.querySelectorAll('a[data-slug]');
+      a.forEach(function(x){var d=done.indexOf(x.dataset.slug)>=0;x.classList.toggle('done',d&&!x.classList.contains('now'));if(d)n++});
+      var c=g.querySelector('.gc');if(c)c.textContent=n+' of '+a.length;});
+  }
+  marks();
+  window.addEventListener('storage',function(){try{done=JSON.parse(localStorage.getItem('nbs-lessons-done')||'[]')||[]}catch(e){}marks()});
+  var closed=false;try{closed=localStorage.getItem(KEY)==='1'}catch(e){}
+  function setClosed(c){closed=c;sh.classList.toggle('closed',c);document.body.classList.toggle('side-closed',c);try{localStorage.setItem(KEY,c?'1':'0')}catch(e){}}
+  if(closed&&innerWidth>860)setClosed(true);
+  document.getElementById('col').addEventListener('click',function(){if(innerWidth<=860){sh.classList.remove('mopen')}else{setClosed(true)}});
+  document.getElementById('mbtn').addEventListener('click',function(){if(innerWidth<=860){sh.classList.add('mopen')}else{setClosed(false)}});
+  function sh_h(){var st=document.querySelector('.nbs-strip');if(st)document.documentElement.style.setProperty('--sh',st.offsetHeight+'px')}
+  sh_h();addEventListener('resize',sh_h);
+  document.getElementById('scrim').addEventListener('click',function(){sh.classList.remove('mopen')});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')sh.classList.remove('mopen')});
+  var now=document.querySelector('.side a.now');if(now&&now.scrollIntoView&&innerWidth>860){var s=document.getElementById('side');s.scrollTop=Math.max(0,now.offsetTop-s.clientHeight/2)}
+})();
+</script>
+</body></html>

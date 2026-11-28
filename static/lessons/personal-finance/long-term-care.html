@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="icon" href="/img/favicon.png">
+<meta name="description" content="Unemployment: Who counts, how the rate works, and its traps. A short lesson from Notes by Sara.">
+<link rel="canonical" href="https://notesbysara.org/lessons/economics/unemployment.html">
+
+<title>Long-term care · Notes by Sara</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Forum&family=Poppins:wght@400;500;600&display=swap">
+<style>
+/* Layout: one calm reading column. Three surfaces only: the deep banner, white boxes, and pale green for anything the learner answers. Light only, like the site. */
+:root{
+  color-scheme:light;
+  --ivory:#FFFDF8; --surface:#FFFFFF; --pearl:#F7F2E7; --pale:#EAF4EF;
+  --ink:#1F2A26; --muted:#5A6862; --line:#E6E1D5;
+  --deep:#06352A; --green:#0E7C5A; --green-text:#0B6A4C; --brand:#0B4F3C;
+  --gold:#E3C26F; --gold-text:#8A6A12; --coral:#B4452F; --coral-pale:#FBEDE9;
+  --on-deep:#FFFDF8; --on-deep-muted:#C9D6D0;
+  --display:'Forum',Georgia,'Times New Roman',serif;
+  --body:'Poppins',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --t-body:16px; --t-small:14px; --t-label:12.5px;
+}
+*{box-sizing:border-box}
+body{background:var(--ivory);color:var(--ink);font-family:var(--body);font-size:var(--t-body);line-height:1.75}
+a{color:var(--green-text)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
+.mockbar{background:var(--pearl);color:var(--muted);font-size:var(--t-small);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:8px;text-align:center;border-bottom:1px solid var(--line)}
+.mockbar b{color:var(--gold-text);letter-spacing:.12em;text-transform:uppercase;font-size:var(--t-label);margin-right:6px}
+.page{max-width:720px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px;display:flex;flex-direction:column;gap:40px}
+h1,h2{font-family:var(--display);font-weight:400;line-height:1.15;margin:0;text-wrap:balance}
+h2{font-size:1.7rem;color:var(--brand)}
+p{margin:0}
+.sec{display:flex;flex-direction:column;gap:14px}
+.eyebrow{font-size:var(--t-label);font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--gold-text)}
+.muted{color:var(--muted)}
+.small{font-size:var(--t-small)}
+b{font-weight:600}
+.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* 1. banner */
+.banner{background:var(--deep);color:var(--on-deep);border-radius:18px;padding:26px 26px 22px;display:flex;flex-direction:column;gap:10px}
+.banner .eyebrow{color:var(--gold)}
+.banner h1{font-size:clamp(2rem,6vw,2.6rem)}
+.banner .lead{color:var(--on-deep-muted)}
+.banner .meta{font-size:var(--t-small);color:var(--on-deep-muted);border-top:1px solid rgba(227,194,111,.35);padding-top:10px;display:flex;flex-wrap:wrap;gap:4px 18px}
+.banner .meta b{color:var(--gold);font-weight:600}
+.banner .meta a{color:var(--on-deep)}
+
+/* white box */
+.box{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.svgwrap{overflow-x:auto}
+.svgwrap svg{display:block;width:100%;height:auto;min-width:480px}
+.cap{font-size:var(--t-small);color:var(--muted)}
+
+/* formula */
+.fx{font-family:Georgia,'Times New Roman',serif;font-size:1.8rem;display:flex;align-items:center;justify-content:center;gap:14px}
+.frac{display:inline-flex;flex-direction:column;align-items:center;line-height:1.2}
+.frac span:first-child{border-bottom:2px solid var(--ink);padding:0 8px 2px}
+.frac span:last-child{padding-top:2px}
+.fx i{font-style:italic}
+.fx sup{font-size:.6em}
+.legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:4px 16px;font-size:var(--t-small);color:var(--muted)}
+.legend i{font-family:Georgia,serif;color:var(--ink);font-size:1.05rem;margin-right:6px}
+table{border-collapse:collapse;width:100%}
+td,th{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left}
+th{font-size:var(--t-small);color:var(--muted);font-weight:500}
+td.r,th.r{text-align:right}
+.tw{overflow-x:auto}
+.result{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;border-top:2px solid var(--brand);padding-top:10px}
+.result b{font-family:var(--display);font-weight:400;font-size:1.8rem;color:var(--brand)}
+
+/* pale: anything you answer */
+.ask{background:var(--pale);border-radius:14px;padding:16px 20px;display:flex;flex-direction:column;gap:10px}
+.ask .q{font-weight:500}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opts button{font:inherit;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 14px;cursor:pointer;color:var(--ink);line-height:1.5}
+.opts button:hover{border-color:var(--green)}
+.opts button.right{border-color:var(--green);box-shadow:inset 3px 0 0 var(--green)}
+.opts button.wrong{border-color:var(--coral);box-shadow:inset 3px 0 0 var(--coral)}
+.opts button[disabled]{cursor:default}
+.fb{font-size:var(--t-small);line-height:1.6}
+.fb b{color:var(--green-text)}
+.fb.no b{color:var(--coral)}
+.quiz{display:flex;flex-direction:column;gap:10px}
+.score{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:var(--t-small);color:var(--muted)}
+.score b{color:var(--brand)}
+.btn{font:inherit;font-size:var(--t-small);border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:4px 12px;cursor:pointer;color:var(--ink)}
+
+/* optional extras */
+.extras{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.extras details{border-bottom:1px solid var(--line)}
+.extras summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 4px}
+.extras summary::-webkit-details-marker{display:none}
+.extras summary .t{font-family:var(--display);font-size:1.3rem;color:var(--brand)}
+.extras summary .s{font-size:var(--t-small);color:var(--muted)}
+.extras summary::after{content:"+";font-size:1.4rem;color:var(--gold-text);flex:none;width:20px;text-align:center}
+.extras details[open] summary::after{content:"−"}
+.extras .inner{padding:0 4px 18px;display:flex;flex-direction:column;gap:12px}
+.inputs{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.inputs label{display:flex;flex-direction:column;gap:4px;font-size:var(--t-small);color:var(--muted)}
+.inputs input[type=number]{font:inherit;color:var(--ink);padding:7px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);width:100%}
+.inputs input[type=range]{width:100%;accent-color:var(--green)}
+.calcout{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+.calcout b{font-family:var(--display);font-weight:400;font-size:1.8rem;color:var(--brand)}
+.mist{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px}
+
+/* recap */
+.recap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:center}
+.recap ul{margin:4px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:2px}
+.recap .fx{font-size:1.3rem}
+@media (max-width:560px){.recap{grid-template-columns:1fr}}
+
+/* next */
+.next{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;background:var(--deep);color:var(--on-deep);border-radius:14px;padding:16px 20px;text-decoration:none}
+.next .eyebrow{color:var(--gold)}
+.next .t{font-family:var(--display);font-size:1.35rem}
+.next .arrow{font-size:1.4rem;color:var(--gold)}
+.related{font-size:var(--t-small);color:var(--muted)}
+.related a{margin-right:10px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+
+<style>
+.shell{display:grid;grid-template-columns:290px minmax(0,1fr);align-items:start}
+.shell.closed{grid-template-columns:minmax(0,1fr)}
+.side{position:sticky;top:50px;height:calc(100vh - 50px);overflow:auto;background:#FFFFFF;border-right:1px solid var(--line);padding:14px 14px 28px;display:flex;flex-direction:column;gap:2px;font-size:14px;scrollbar-width:thin}
+.shell.closed .side{display:none}
+.sidehead{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:0 2px 10px;margin-bottom:4px;border-bottom:1px solid var(--line)}
+.tog{font:inherit;font-size:13px;font-weight:600;color:#06352A;background:#E3C26F;border:0;border-radius:999px;padding:5px 13px;cursor:pointer;line-height:1.4}.tog:hover{background:#EBCF86}
+.sw{display:flex;gap:5px;flex-wrap:wrap}.sw a{font-size:12px;border:1px solid var(--line);border-radius:999px;padding:3px 10px;background:#fff;color:var(--ink);text-decoration:none}.sw a:hover{border-color:var(--brand)}.sw a.on{background:var(--deep);color:#fff;border-color:var(--deep)}
+.subj{font-family:var(--display);font-size:1.2rem;color:var(--brand);margin:8px 2px 2px}.subj a{color:inherit;text-decoration:none}.subj a:hover{text-decoration:underline}
+.grp{margin-top:8px}
+.gh{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin:0 2px 4px;font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text)}
+.gc{font-size:11.5px;letter-spacing:0;text-transform:none;font-weight:500;color:var(--muted);white-space:nowrap}
+.grp ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:1px}
+.grp li a{display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;align-items:start;padding:6px 8px;border-radius:8px;text-decoration:none;color:var(--ink);line-height:1.35}
+.grp li a:hover{background:var(--pale)}
+.mk{width:22px;height:22px;border-radius:50%;border:1.5px solid #C5D6CC;display:grid;place-items:center;font-size:11px;font-weight:600;color:var(--muted);background:#fff;margin-top:-1px}
+.grp a.done .mk{background:var(--green);border-color:var(--green);color:#fff}
+.grp a.done .tt{color:var(--muted)}
+.grp a.now{background:#EEF4EF;box-shadow:inset 3px 0 0 var(--gold)}
+.grp a.now .mk{background:var(--deep);border-color:var(--gold);color:#fff}
+.grp a.now .tt{color:var(--brand);font-weight:500}
+.shell .page{max-width:none;margin:0;padding-left:clamp(16px,4vw,56px);padding-right:clamp(16px,4vw,56px)}
+.shell .page>*{max-width:900px;width:100%}
+.shell.closed .page>*{margin-inline:auto}
+.shell.closed .page{padding-left:max(64px,clamp(16px,4vw,56px))}
+.fab{display:none;position:fixed;top:calc(var(--sh,50px) + 12px);left:max(12px,env(safe-area-inset-left,0px));z-index:30;width:38px;height:38px;border:0;border-radius:10px;background:#E3C26F;color:#06352A;font-size:18px;line-height:1;cursor:pointer;box-shadow:0 2px 8px rgba(6,53,42,.18)}
+.fab:hover{background:#EBCF86}
+body.side-closed .fab{display:grid;place-items:center}
+.scrim{display:none}
+@media (max-width:860px){
+ .shell,.shell.closed{grid-template-columns:minmax(0,1fr)}
+ .side,.shell.closed .side{display:flex;position:fixed;top:0;left:0;bottom:0;height:100vh;width:min(300px,86vw);z-index:40;transform:translateX(-105%);transition:transform .25s ease;box-shadow:6px 0 24px rgba(6,53,42,.2)}
+ .shell.mopen .side{transform:none}
+ .fab{display:grid;place-items:center}
+ .shell .page{padding-left:max(64px,env(safe-area-inset-left,0px))}
+ .scrim{position:fixed;inset:0;background:rgba(6,53,42,.35);z-index:35}.shell.mopen .scrim{display:block}
+ .shell .page>*{margin-inline:auto}
+}
+@media (prefers-reduced-motion:reduce){.side{transition:none!important}}
+@media (max-width:480px){.nbs-strip .prog{display:none}}
+</style>
+</head><body data-lesson="personal-finance/long-term-care" data-group="personal-finance" data-total="30">
+<style>
+body{margin:0}
+.related .rel{margin-right:10px}
+.related a,.related .rel{display:inline-block}
+@media (max-width:480px){b.num{white-space:normal}}
+.nbs-strip{position:sticky;top:0;z-index:20;background:#06352A;color:#FFFDF8;display:flex;align-items:center;justify-content:space-between;gap:12px;
+ padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:10px;font-family:'Poppins',system-ui,sans-serif;flex-wrap:wrap}
+.nbs-strip .l{display:flex;align-items:center;gap:12px;min-width:0}
+.nbs-strip img{width:30px;height:30px;border-radius:6px;display:block}
+.nbs-strip .crumb{font-size:14px;color:#C9D6D0}.nbs-strip .crumb a{color:#C9D6D0;text-decoration:none}.nbs-strip .crumb a:hover{color:#fff;text-decoration:underline}
+.nbs-strip .crumb i{font-style:normal;color:#E3C26F;margin:0 5px}.nbs-strip .crumb b{color:#fff;font-weight:500}
+.nbs-strip .prog{display:flex;align-items:center;gap:10px;font-size:13px;color:#C9D6D0}
+.nbs-strip .bar{width:130px;height:5px;border-radius:9px;background:rgba(255,255,255,.18);overflow:hidden}
+.nbs-strip .bar span{display:block;height:100%;width:0;background:#E3C26F;transition:width 1.2s cubic-bezier(.2,.8,.2,1) .2s}
+@media (max-width:560px){.nbs-strip .bar{display:none}.nbs-strip .crumb .mid{display:none}}
+@media (prefers-reduced-motion:reduce){.nbs-strip .bar span{transition:none}}
+</style>
+<header class="nbs-strip"><div class="l"><a href="https://notesbysara.org/" aria-label="Notes by Sara home"><img src="/img/favicon.png" alt="Notes by Sara"></a><nav class="crumb" aria-label="Breadcrumb"><span><a href="https://notesbysara.org/notes">Learning path</a></span><span class="mid"><i>›</i><a href="/lessons/personal-finance/index.html">Personal Finance</a></span><span><i>›</i><b>Long-term care</b></span></nav></div><div class="prog"><span>Lesson 23</span><span class="bar" aria-hidden="true"><span id="nbs-bar"></span></span></div></header>
+
+<style>
+.page .plain{background:var(--pale);border-left:4px solid var(--green);border-radius:10px;padding:18px 22px;margin:8px 0 6px}
+.page .plain p{font-size:1.12rem;line-height:1.65;margin:0;max-width:none}
+.page .plain .eyebrow{font-size:var(--t-label);margin:0 0 6px}
+.prose p{max-width:68ch;line-height:1.75}
+.prose{display:flex;flex-direction:column;gap:12px}
+.prose p{margin:0}
+svg .ax{font:13px var(--body);fill:var(--muted)}
+svg .lb{font:600 14px var(--body)}
+.calc{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:end}
+.calc label{display:flex;flex-direction:column;gap:4px;font-size:var(--t-small);color:var(--muted)}
+.calc input{font:inherit;font-size:1rem;width:120px;padding:7px 9px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)}
+.calc .out{font-size:1.05rem}
+.calc .out b{font-size:1.35rem;color:var(--green-text)}
+.pvt td.r,.pvt th.r{text-align:right;white-space:nowrap}
+.pvt tr.tot td{font-weight:600;border-top:2px solid var(--line)}
+.pvsvg svg{min-width:0!important;width:100%}
+@media (max-width:560px){.pvt td,.pvt th{padding-left:6px;padding-right:6px;font-size:12.5px;padding-left:4px;padding-right:4px}.pvt th{white-space:normal}}
+.hook{font-size:1.06rem}
+.src{font-size:var(--t-label);color:var(--muted)}
+.guess{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.guess .q{font-weight:500;margin:0 0 12px}
+.guess .opts{display:flex!important;flex-direction:row!important;flex-wrap:wrap;gap:8px;grid-template-columns:none}
+.guess .opts button{width:auto!important;flex:0 0 auto;min-width:84px;text-align:center}
+.guess .opts button{font:inherit;padding:8px 16px;border-radius:999px;border:1px solid var(--line);background:var(--ivory);color:var(--ink);cursor:pointer}
+.guess .opts button.pick{border-color:var(--green);background:var(--pale)}
+.guess .opts button.ans{border-color:var(--green);background:var(--green);color:#fff}
+.guess .fb{margin:12px 0 0}
+.guess .skip{font-size:var(--t-small);background:none;border:0;color:var(--green-text);text-decoration:underline;cursor:pointer;padding:0;margin-top:10px;font-family:inherit}
+.pro{background:var(--pearl);border-radius:12px;padding:20px 22px}
+.pro .eyebrow{margin:0 0 10px}
+.pro dl{margin:0;display:grid;grid-template-columns:minmax(0,11rem) minmax(0,1fr);gap:10px 18px}
+.pro dt{font-weight:600}
+.pro dd{margin:0;line-height:1.6}
+@media (max-width:560px){.pro dl{grid-template-columns:1fr;gap:2px}.pro dd{margin-bottom:10px}}
+.life{border-left:4px solid var(--gold);padding:4px 0 4px 18px}
+.life .eyebrow{margin:0 0 6px}
+.keep{font-family:var(--display);font-size:1.3rem;line-height:1.4;color:var(--brand);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:14px 0;margin:14px 0 4px;text-align:center}
+.prose p b{font-weight:600;color:var(--ink)}
+.prose p.aside{font-size:var(--t-small);color:var(--muted);border-left:2px solid var(--line);padding-left:12px}
+.duo{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:stretch;margin:4px 0 6px}
+.duo>div:not(.or){background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;display:flex;flex-direction:column;gap:4px}
+.duo .big{font-family:var(--display);font-size:1.9rem;color:var(--brand);line-height:1.1}
+.duo span:not(.big){font-size:var(--t-small);color:var(--muted)}
+.duo .or{align-self:center;font-size:var(--t-small);color:var(--muted)}
+.three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:2px 0 6px}
+.three>div{background:var(--pearl);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.three span{font-size:var(--t-small);color:var(--muted);line-height:1.5}
+@media (max-width:560px){.duo{grid-template-columns:1fr}.duo .or{text-align:center}.three{grid-template-columns:1fr}}
+.note{font-size:var(--t-small);color:var(--muted)}
+.flow text{font-family:var(--body)}
+.flow .bx{fill:var(--surface);stroke:var(--line);stroke-width:1.5}
+.flow .bxd{fill:var(--deep)}
+.flow .t1{font:600 16px var(--body);fill:var(--ink)}
+.flow .t2{font:13.5px var(--body);fill:var(--muted)}
+.flow .w1{font:600 16px var(--body);fill:var(--on-deep)}
+.flow .w2{font:13.5px var(--body);fill:var(--on-deep-muted)}
+.flow .lab{font:600 12.5px var(--body);letter-spacing:.08em;fill:var(--gold-text)}
+.four{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:2px 0 6px}
+.four>div{background:var(--pearl);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.four span{font-size:var(--t-small);color:var(--muted);line-height:1.5}
+.branches{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.branches>div{border-top:3px solid var(--green);background:var(--surface);border-radius:0 0 10px 10px;padding:12px 14px;display:flex;flex-direction:column;gap:4px;box-shadow:0 0 0 1px var(--line) inset}
+.branches span{font-size:var(--t-small);color:var(--muted);line-height:1.5}
+@media (max-width:560px){.four,.branches{grid-template-columns:1fr}}
+.fx>span{display:inline-flex;align-items:center;gap:10px;white-space:nowrap}
+.fx .frac{align-items:stretch;text-align:center}
+@media (max-width:560px){.fx{font-size:1.1rem}.fx>span{gap:6px}}
+.guess .opts button{white-space:normal;max-width:100%}
+</style><style>
+.chsvg svg{min-width:0!important;width:100%}
+svg .ax{font:13px var(--body);fill:var(--muted)}
+.legend2{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:var(--t-small);color:var(--muted);margin-top:6px}
+.legend2 i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.pvt td.r,.pvt th.r{text-align:right;white-space:nowrap}
+.pvt th.r{white-space:normal}
+.fx>span{display:inline-flex;align-items:center;gap:10px;white-space:nowrap}
+.fx .frac{align-items:stretch;text-align:center}
+svg .lb{font:600 13px var(--body)}
+/* section practice */
+.prac{border-top:2px solid var(--gold);border-bottom:1px solid var(--line)}
+.pwrap>summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px 4px}
+.pwrap>summary::-webkit-details-marker{display:none}
+.pwrap>summary .t{font-family:var(--display);font-size:1.6rem;color:var(--brand);line-height:1.3}
+.pwrap>summary .s{font-size:var(--t-small);color:var(--muted)}
+.pwrap>summary::after{content:"+";font-size:1.6rem;color:var(--gold-text);flex:none;width:24px;text-align:center}
+.pwrap[open]>summary::after{content:"−"}
+.pin{padding:0 4px 22px;display:flex;flex-direction:column;gap:14px}
+.prac .intro{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:var(--t-small);color:var(--muted)}
+.prac ol{margin:0;padding:0;list-style:none;counter-reset:p;display:flex;flex-direction:column;gap:12px}
+.prac li{counter-increment:p;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 18px;display:flex;flex-direction:column;gap:8px}
+.prac li>p::before{content:counter(p) ". ";font-weight:600;color:var(--brand)}
+.prac li summary{cursor:pointer;font-size:var(--t-small);color:var(--green-text);font-weight:500;width:max-content}
+.prac .ans{background:var(--pale);border-radius:10px;padding:10px 14px;margin-top:8px;font-size:var(--t-small);line-height:1.65;display:flex;flex-direction:column;gap:4px}
+.prac .tool{font-size:var(--t-label);letter-spacing:.08em;text-transform:uppercase;color:var(--gold-text);font-weight:600}
+
+.prac .eyebrow{margin:0}
+.pair2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.pair2>div{background:var(--pearl);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.pair2 span{font-size:var(--t-small);color:var(--muted);line-height:1.5}
+@media (max-width:560px){.pair2{grid-template-columns:1fr}}
+</style>
+<style>
+.four{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.four>div{background:var(--pearl);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.four span{font-size:var(--t-small);color:var(--muted);line-height:1.5}
+.mkt td,.mkt th{font-size:var(--t-small);vertical-align:top;line-height:1.45}
+.mkt td:first-child{min-width:9rem}
+@media (max-width:560px){.four{grid-template-columns:1fr}
+.mkt thead{display:none}.mkt,.mkt tbody,.mkt tr,.mkt td{display:block;width:100%}
+.mkt tr{border-bottom:1px solid var(--line);padding:10px 0}.mkt td{border:0!important;padding:2px 0!important;min-width:0!important}
+.mkt td[data-l]:not([data-l=""])::before{content:attr(data-l) ": ";color:var(--muted)}
+.mkt td:first-child{font-size:1rem}}
+</style>
+<style>
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:2px 0 4px}
+.steps>div{background:var(--pearl);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.steps .n{width:26px;height:26px;border-radius:50%;background:var(--brand);color:#fff;font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center;margin-bottom:4px}
+.steps span:not(.n){font-size:var(--t-small);color:var(--muted);line-height:1.5}
+.stack{display:flex;height:46px;border-radius:8px;overflow:hidden;gap:2px}
+.stack span{display:flex;align-items:center;padding:0 12px;color:#fff;font-size:var(--t-small);white-space:nowrap;overflow:hidden;min-width:0}
+.stack b{margin-right:6px;color:#fff}
+.slip{display:flex;flex-direction:column;font-size:var(--t-small);margin-bottom:14px}
+.slip .row{display:flex;justify-content:space-between;gap:12px;padding:7px 2px;border-bottom:1px solid var(--line)}
+.slip .row b{font-variant-numeric:tabular-nums;white-space:nowrap}
+.slip .top{font-weight:600}
+.slip .net{border-bottom:0;border-top:2px solid var(--ink);font-weight:600;font-size:var(--t-body)}
+.slip .net b{color:var(--green-text)}
+.calc{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:end}
+.calc label{display:flex;flex-direction:column;gap:4px;font-size:var(--t-small);color:var(--muted);min-width:0;max-width:100%}
+.calc input,.calc select{font:inherit;font-size:1rem;padding:7px 9px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);max-width:100%}
+.calc input{width:120px}
+.calc .out{font-size:1.05rem;flex-basis:100%}
+.calc .out b{font-size:1.35rem;color:var(--green-text)}
+.legend2{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:var(--t-small);color:var(--muted);margin-top:6px}
+.legend2 i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.src{font-size:var(--t-label);color:var(--muted)}
+.note{font-size:var(--t-small);color:var(--muted)}
+.tw table{font-size:var(--t-small)}
+@media (max-width:560px){.steps{grid-template-columns:1fr}}
+</style>
+
+<div class="shell" id="shell"><div class="scrim" id="scrim"></div><button type="button" class="fab" id="mbtn" aria-label="Show the lesson list">☰</button><aside class="side" id="side" aria-label="Lessons in this subject"><div class="sidehead"><button type="button" class="tog" id="col" aria-label="Hide the lesson list">☰ Hide lessons</button><nav class="sw" aria-label="Sections"><a href="/lessons/personal-finance/index.html" class="on">Personal Finance</a><a href="/lessons/foundations/index.html">Foundations</a><a href="/lessons/index.html">Prerequisites</a></nav></div><p class="subj"><a href="/lessons/personal-finance/index.html">Personal Finance</a></p><div class="grp"><p class="gh"><span>Everyday money</span><span class="gc">0 of 7</span></p><ol><li><a href="/lessons/personal-finance/income-and-paychecks.html" data-slug="personal-finance/income-and-paychecks"><span class="mk">1</span><span class="tt">Income and paychecks</span></a></li><li><a href="/lessons/personal-finance/budgeting.html" data-slug="personal-finance/budgeting"><span class="mk">2</span><span class="tt">Budgeting</span></a></li><li><a href="/lessons/personal-finance/saving-and-goals.html" data-slug="personal-finance/saving-and-goals"><span class="mk">3</span><span class="tt">Saving and goals</span></a></li><li><a href="/lessons/personal-finance/emergency-fund.html" data-slug="personal-finance/emergency-fund"><span class="mk">4</span><span class="tt">Emergency fund</span></a></li><li><a href="/lessons/personal-finance/banking-basics.html" data-slug="personal-finance/banking-basics"><span class="mk">5</span><span class="tt">Banking basics</span></a></li><li><a href="/lessons/personal-finance/personal-taxes.html" data-slug="personal-finance/personal-taxes"><span class="mk">6</span><span class="tt">Personal taxes</span></a></li><li><a href="/lessons/personal-finance/personal-financial-statements.html" data-slug="personal-finance/personal-financial-statements"><span class="mk">7</span><span class="tt">Your personal financial statements</span></a></li></ol></div><div class="grp"><p class="gh"><span>Borrowing</span><span class="gc">0 of 4</span></p><ol><li><a href="/lessons/personal-finance/credit-scores.html" data-slug="personal-finance/credit-scores"><span class="mk">8</span><span class="tt">Credit scores</span></a></li><li><a href="/lessons/personal-finance/credit-cards.html" data-slug="personal-finance/credit-cards"><span class="mk">9</span><span class="tt">Credit cards</span></a></li><li><a href="/lessons/personal-finance/loans-and-mortgages.html" data-slug="personal-finance/loans-and-mortgages"><span class="mk">10</span><span class="tt">Loans and mortgages</span></a></li><li><a href="/lessons/personal-finance/paying-off-debt.html" data-slug="personal-finance/paying-off-debt"><span class="mk">11</span><span class="tt">Paying off debt</span></a></li></ol></div><div class="grp"><p class="gh"><span>Investing</span><span class="gc">0 of 5</span></p><ol><li><a href="/lessons/personal-finance/why-invest.html" data-slug="personal-finance/why-invest"><span class="mk">12</span><span class="tt">Why invest</span></a></li><li><a href="/lessons/personal-finance/index-funds-and-etfs.html" data-slug="personal-finance/index-funds-and-etfs"><span class="mk">13</span><span class="tt">Index funds and ETFs</span></a></li><li><a href="/lessons/personal-finance/asset-allocation-by-goal.html" data-slug="personal-finance/asset-allocation-by-goal"><span class="mk">14</span><span class="tt">Asset allocation by goal</span></a></li><li><a href="/lessons/personal-finance/taxes-and-your-investments.html" data-slug="personal-finance/taxes-and-your-investments"><span class="mk">15</span><span class="tt">Taxes and your investments</span></a></li><li><a href="/lessons/personal-finance/common-investing-mistakes.html" data-slug="personal-finance/common-investing-mistakes"><span class="mk">16</span><span class="tt">Common investing mistakes</span></a></li></ol></div><div class="grp"><p class="gh"><span>Retirement</span><span class="gc">0 of 4</span></p><ol><li><a href="/lessons/personal-finance/retirement-accounts.html" data-slug="personal-finance/retirement-accounts"><span class="mk">17</span><span class="tt">Retirement accounts</span></a></li><li><a href="/lessons/personal-finance/how-much-you-need-for-retirement.html" data-slug="personal-finance/how-much-you-need-for-retirement"><span class="mk">18</span><span class="tt">How much you need for retirement</span></a></li><li><a href="/lessons/personal-finance/public-pensions.html" data-slug="personal-finance/public-pensions"><span class="mk">19</span><span class="tt">Public pensions</span></a></li><li><a href="/lessons/personal-finance/retirement-income.html" data-slug="personal-finance/retirement-income"><span class="mk">20</span><span class="tt">Retirement income</span></a></li></ol></div><div class="grp"><p class="gh"><span>Protection</span><span class="gc">0 of 3</span></p><ol><li><a href="/lessons/personal-finance/insurance-for-households.html" data-slug="personal-finance/insurance-for-households"><span class="mk">21</span><span class="tt">Insurance for households</span></a></li><li><a href="/lessons/personal-finance/how-much-insurance-you-need.html" data-slug="personal-finance/how-much-insurance-you-need"><span class="mk">22</span><span class="tt">How much insurance you need</span></a></li><li><a href="/lessons/personal-finance/long-term-care.html" data-slug="personal-finance/long-term-care" class="now" aria-current="page"><span class="mk">23</span><span class="tt">Long-term care</span></a></li></ol></div><div class="grp"><p class="gh"><span>Life goals</span><span class="gc">0 of 3</span></p><ol><li><a href="/lessons/personal-finance/funding-education.html" data-slug="personal-finance/funding-education"><span class="mk">24</span><span class="tt">Funding education</span></a></li><li><a href="/lessons/personal-finance/big-life-decisions.html" data-slug="personal-finance/big-life-decisions"><span class="mk">25</span><span class="tt">Big life decisions</span></a></li><li><a href="/lessons/personal-finance/working-with-financial-professionals.html" data-slug="personal-finance/working-with-financial-professionals"><span class="mk">26</span><span class="tt">Working with financial professionals</span></a></li></ol></div><div class="grp"><p class="gh"><span>Estate and giving</span><span class="gc">0 of 2</span></p><ol><li><a href="/lessons/personal-finance/estate-planning.html" data-slug="personal-finance/estate-planning"><span class="mk">27</span><span class="tt">Estate planning</span></a></li><li><a href="/lessons/personal-finance/charitable-giving.html" data-slug="personal-finance/charitable-giving"><span class="mk">28</span><span class="tt">Charitable giving</span></a></li></ol></div><div class="grp"><p class="gh"><span>Money psychology</span><span class="gc">0 of 2</span></p><ol><li><a href="/lessons/personal-finance/your-money-mindset.html" data-slug="personal-finance/your-money-mindset"><span class="mk">29</span><span class="tt">Your money mindset</span></a></li><li><a href="/lessons/personal-finance/changing-money-behavior.html" data-slug="personal-finance/changing-money-behavior"><span class="mk">30</span><span class="tt">Changing money behavior</span></a></li></ol></div></aside><article class="page">
+
+  <header class="banner">
+    <p class="eyebrow">Personal Finance · Protection</p>
+    <h1>Long-term care</h1>
+    <p class="lead">What long-term care is, why health insurance usually does not pay for it, what it costs, who pays in the US, the UK, Taiwan and India, and the ways families plan for it: savings, home equity, insurance and public programs.</p>
+    <div class="meta"><span><b>Protection</b> · Lesson 3 of 3 · 10 minutes</span><span>Before this: <a href="/lessons/personal-finance/how-much-insurance-you-need.html">How much insurance you need</a></span></div>
+  </header>
+
+  <div class="plain">
+    <p class="eyebrow">In plain words</p>
+    <p>Long-term care is help with everyday tasks like washing, dressing and eating when age, illness or dementia make them hard. It can last years and cost a lot, and in many countries ordinary health insurance does not pay for it. Planning means knowing what your public system covers, and deciding how the rest would be paid: savings, your home, insurance or family.</p>
+  </div>
+
+  <section class="sec prose">
+    <p class="hook">Most people will need some care, and the most expensive kind is very expensive:</p>
+    <div class="duo">
+      <div><span class="big">~70%</span><span>chance that an American turning 65 will need some long-term care in their remaining years</span></div>
+      <div class="or">vs</div>
+      <div><span class="big">$129,575</span><span>a year: the US median cost of a private nursing home room in 2025</span></div>
+    </div>
+    <p class="src">Sources: <a href="https://acl.gov/ltc/basic-needs/how-much-care-will-you-need">US Administration for Community Living</a>; <a href="https://www.carescout.com/cost-of-care">CareScout Cost of Care Survey 2025</a>.</p>
+
+    <p><b>Long-term care is mostly personal help, not medical treatment.</b> It usually starts when someone can no longer manage some "activities of daily living" alone: bathing, dressing, eating, using the toilet, moving from bed to chair, and continence. Dementia, stroke, frailty and chronic illness are common causes. Because it is not treatment to cure an illness, health insurance usually excludes it. In the US, for example, Medicare does not cover long-term custodial care when that is the only care someone needs.</p>
+
+    <p><b>Care happens in many places, and costs rise with the level of support.</b> US national medians from 2025 show the range:</p>
+    <div class="four">
+      <div><b>Family at home</b><span>Unpaid, but often costly in lost earnings, pension savings and the carer's own health.</span></div>
+      <div><b>Paid help at home</b><span>$35 an hour for a non-medical caregiver, about $80,080 a year at 44 hours a week.</span></div>
+      <div><b>Assisted living</b><span>$6,200 a month, about $74,400 a year, for housing, meals and personal help.</span></div>
+      <div><b>Nursing home</b><span>$10,798 a month for a private room, with round-the-clock nursing.</span></div>
+    </div>
+    <p class="src">Source: <a href="https://www.carescout.com/cost-of-care">CareScout</a>. Costs vary widely by region and country.</p>
+
+    <p><b>The risk is very uneven, which is what makes it hard to plan for.</b> According to US government figures, one-third of today's 65-year-olds may never need long-term care, but 20 percent will need it for longer than five years. Women need care longer on average (3.7 years) than men (2.2 years), partly because they live longer. Most people will need some help for a while, which savings can handle. A minority will need years of expensive care, which savings often cannot. That long tail is the part worth planning hardest for.</p>
+    <p class="src">Source: <a href="https://acl.gov/ltc/basic-needs/how-much-care-will-you-need">US Administration for Community Living</a>.</p>
+
+    <p><b>Who pays depends heavily on where you live:</b></p>
+    <div class="four">
+      <div><b>United States</b><span>Medicare pays only for short stays of skilled care, such as rehabilitation after a hospital stay. Medicaid pays for long-term care, but only once a person's income and savings are low, often after spending down their assets. Everyone else pays from savings, home equity or private insurance.</span></div>
+      <div><b>United Kingdom</b><span>Care is means-tested by local councils. In England, someone with assets above £23,250 pays the full cost of a care home; below £14,250, capital is ignored. These limits have been frozen since 2010, and a planned lifetime cap on care costs was scrapped. Scotland provides free personal care, and limits differ in Wales and Northern Ireland.</span></div>
+      <div><b>Taiwan</b><span>Taiwan became a super-aged society in 2025, with people 65 and over above 20% of the population. The tax-funded Long-term Care 3.0 plan began in January 2026, expanding public services. Many families also hire live-in caregivers and pay for some care themselves.</span></div>
+      <div><b>India</b><span>Families provide most care at home, and there is almost no formal long-term care system. The share of people aged 60 and over is projected to rise from 10.1% in 2021 to 20.8% by 2050, while smaller households and migration leave fewer family carers available.</span></div>
+    </div>
+    <p class="src">Sources: <a href="https://www.aspe.hhs.gov/sites/default/files/documents/08b8b7825f7bc12d2c79261fd7641c88/ltss-risks-financing-2022.pdf">US HHS ASPE</a>; <a href="https://www.gov.uk/government/publications/social-care-charging-for-local-authorities-2026-to-2027/social-care-charging-for-care-and-support-2026-to-2027-local-authority-circular">GOV.UK</a>; <a href="https://www.which.co.uk/news/article/care-costs-cap-axed-how-can-you-bring-costs-down-aM4bY9E6Chry">Which?</a>; <a href="https://mohw.gov.tw/fp-3779-44499-2.html">Taiwan Ministry of Health and Welfare</a>; <a href="https://news.immigration.gov.tw/NewsSection/Detail/b4f7b775-ddaf-4168-9f85-75bfe798b24b?lang=EN">Taiwan National Immigration Agency</a>; <a href="https://etvbharat.com/english/bharat/young-india-will-rapidly-turn-into-grey-population-in-coming-decades-says-unfpa-report/na20230927174048096096174">ETV Bharat, on UNFPA India Ageing Report 2023</a>; <a href="https://www.outlookindia.com/national/growing-old-before-growing-rich-why-rural-india-is-facing-an-ageing-crisis">Outlook India, on Transform Rural India</a>.</p>
+
+    <p><b>Some countries insure everyone through a dedicated scheme.</b> Japan, Germany and South Korea run public long-term care insurance funded by compulsory contributions; in Japan, everyone aged 40 and over pays in. These schemes pay for assessed care needs, though people still pay part of the cost themselves.</p>
+
+    <div class="guess" id="g">
+      <p class="q">A widow in England moves permanently into a care home. She owns her home, now empty, worth £250,000, and has £15,000 in savings. Will the council pay for her care? (illustrative figures)</p>
+      <div class="opts"><button type="button">Yes, her savings are below £23,250</button><button type="button" data-a>Usually not, because her home counts</button><button type="button">Only if she sells the home first</button></div>
+      <p class="fb" hidden></p>
+    </div>
+
+    <p><b>There are four main ways to pay for the part your public system does not.</b></p>
+    <div class="four">
+      <div><b>Savings and income</b><span>Pensions and investments pay for care as it comes. This works well for shorter needs and is the reason retirement plans often include a buffer for later-life care.</span></div>
+      <div><b>Home equity</b><span>Selling or borrowing against a home can fund care, especially a move into a care home. This often means less to pass on to heirs.</span></div>
+      <div><b>Long-term care insurance</b><span>Pays a daily or monthly amount once you need help with a set number of daily activities. Mainly available in the US and some Asian markets; in the UK, buying an annuity at the point of needing care is more common.</span></div>
+      <div><b>Family care</b><span>Common everywhere and essential in many places, but it has a real cost, often borne by daughters and wives, in lost work, income and pension.</span></div>
+    </div>
+
+    <p><b>Read long-term care insurance closely.</b> The details decide how much it really pays:</p>
+    <div class="three">
+      <div><b>Benefit and limit</b><span>The daily or monthly amount and how long it pays, often two to five years. Compare it with local care costs.</span></div>
+      <div><b>Waiting period</b><span>Often 30 to 90 days of care you pay for yourself before benefits start.</span></div>
+      <div><b>Inflation protection and premium risk</b><span>Without inflation protection, a fixed benefit buys less each year. In the US, many older policies have had large premium increases, so check whether the insurer can raise rates.</span></div>
+    </div>
+
+    <p><b>Estimate how much you might need to fund.</b></p>
+    <div class="box">
+      <div class="calc">
+        <label>Monthly cost of care<input id="mc" type="number" value="6200" min="0" step="100"></label>
+        <label>Years of care<input id="yr" type="number" value="3" min="0" max="20" step="0.5"></label>
+        <label>Monthly income available for care<input id="mi" type="number" value="2500" min="0" step="100"></label>
+        <label>Insurance or public help per month<input id="ph" type="number" value="0" min="0" step="100"></label>
+        <p class="out">Total cost <b id="tc"></b> · Covered by income and help <b id="cv"></b><br>From savings or home equity <b id="sv"></b></p>
+      </div>
+      <p class="note">Illustrative figures in today's money. The default cost is the 2025 US median for assisted living. Costs usually rise faster than general prices, so leave a margin.</p>
+    </div>
+
+    <p><b>Practical steps before care is needed.</b> Most of these cost little and save a great deal of stress later:</p>
+    <div class="four">
+      <div><b>Know your local rules</b><span>What public programs cover, the means-test limits, and how your home is treated.</span></div>
+      <div><b>Talk as a family</b><span>Who would provide care, where the person would like to live, and how costs would be shared.</span></div>
+      <div><b>Set up powers of attorney</b><span>Legal authority for someone you trust to manage your money and care decisions if you cannot. Covered in estate planning.</span></div>
+      <div><b>Keep a care buffer</b><span>Treat later-life care as a likely cost in retirement planning rather than a remote risk.</span></div>
+    </div>
+  </section>
+
+  <section class="sec prose">
+    <div class="pro">
+      <p class="eyebrow">How professionals use it</p>
+      <dl>
+        <dt>Financial planners</dt><dd>Build care costs into retirement plans and decide with clients whether to self-fund, insure, or rely on home equity.</dd>
+        <dt>Care fees advisers</dt><dd>In the UK, specialist advisers help families fund care home fees, including immediate-needs annuities and deferred payment agreements.</dd>
+        <dt>Elder law attorneys</dt><dd>Advise on powers of attorney, means tests and rules on giving away assets before care is needed.</dd>
+        <dt>Policy analysts</dt><dd>Model the cost of ageing populations and design public schemes, such as Japan's and Taiwan's.</dd>
+      </dl>
+    </div>
+    <p class="keep">Know what your public system pays, plan how you would cover a long stretch of care, and put powers of attorney in place before they are needed.</p>
+  </section>
+
+  <section class="prac" aria-label="Section practice">
+    <details class="pwrap">
+      <summary><span><span class="eyebrow">Section practice · optional</span><br><span class="t">Protection</span><br><span class="s">9 mixed problems from lessons 21 to 23 · about 15 minutes</span></span></summary>
+      <div class="pin">
+    <p>The problems aren't labeled with a lesson, so part of the work is choosing the right idea. Work each one on paper, then open the answer. All figures are illustrative unless a country's actual rules are named.</p>
+    <ol>
+      <li><p>Policy A costs $1,000 a year with a $250 deductible. Policy B costs $760 with a $1,500 deductible. You expect a claim in about 15% of years. Which has the lower expected yearly cost, and what is each one's worst year with one claim?</p>
+        <details><summary>Show answer</summary><div class="ans"><span class="tool">Insurance for households</span><span>A: 1,000 + 0.15 × 250 = <b>$1,037.50</b>. B: 760 + 0.15 × 1,500 = <b>$985</b>, about $52 a year cheaper. Worst years: A $1,250, B $2,260. B is the better choice only if you could pay $1,500 from savings comfortably.</span></div></details></li>
+      <li><p>Sort these into "insure" or "usually self-insure": a cracked phone screen, your home burning down, being sued after injuring a cyclist, a broken toaster under extended warranty.</p>
+        <details><summary>Show answer</summary><div class="ans"><span class="tool">Insurance for households</span><span>Insure: <b>the house fire and the lawsuit</b>, both of which could be ruinous. Self-insure: <b>the phone screen and the toaster</b>, which an emergency fund covers more cheaply than insurance premiums.</span></div></details></li>
+      <li><p>In India, an individual health policy had a base premium of ₹25,000. What did you pay with GST before 22 September 2025, and after, if the base premium stays the same? Would a group policy through your employer change?</p>
+        <details><summary>Show answer</summary><div class="ans"><span class="tool">Insurance for households</span><span>Before: 25,000 × 1.18 = <b>₹29,500</b>. After: <b>₹25,000</b>, since individual policies are exempt. Group policies still carry 18% GST.</span></div></details></li>
+      <li><p>A parent's family would need 30,000 a year for 12 years, has a mortgage of 180,000, and wants 40,000 for education. They have 60,000 in savings and employer life cover of twice their 50,000 salary. How much extra life cover would the needs method suggest?</p>
+        <details><summary>Show answer</summary><div class="ans"><span class="tool">How much insurance you need</span><span>Need: 360,000 + 180,000 + 40,000 = 580,000. Existing: 60,000 + 100,000 = 160,000. Extra cover: <b>420,000</b>, ideally on a term that ends when the children are independent.</span></div></details></li>
+      <li><p>A house would cost 400,000 to rebuild but is insured for only 300,000, under a policy with an "average" rule. A storm causes 20,000 of damage. What does the insurer pay?</p>
+        <details><summary>Show answer</summary><div class="ans"><span class="tool">How much insurance you need</span><span>The home is insured for 75% of its rebuild cost, so the insurer pays 75% of the claim: <b>15,000</b>. Being underinsured cuts even small claims.</span></div></details></li>
+      <li><p>In the UK in 2026/27, what is the weekly Statutory Sick Pay for someone earning £400 a week, and for someone earning £120 a week? What is the most anyone receives over the full 28 weeks?</p>
+        <details><summary>Show answer</summary><div class="ans"><span class="tool">How much insurance you need</span><span>£400 × 80% = £320, above the flat rate, so <b>£123.25</b>. £120 × 80% = <b>£96</b>. Maximum over 28 weeks: 123.25 × 28 = <b>£3,451</b>.</span></div></details></li>
+      <li><p>Your employer pays full salary for 3 months of sickness, and your emergency fund covers another 3 months of essential spending. Which waiting period suits an income protection policy: 4 weeks, 26 weeks or 2 years? Why?</p>
+        <details><summary>Show answer</summary><div class="ans"><span class="tool">How much insurance you need</span><span><b>About 26 weeks.</b> Sick pay and savings cover the first six months. A 4-week wait would pay for cover you already have, at a higher premium; a 2-year wait would leave a gap of a year and a half.</span></div></details></li>
+      <li><p>In the US, assisted living costs $6,200 a month. A retiree expects 3 years of care and has $3,000 a month of pension and Social Security income to put toward it. How much must come from savings or home equity?</p>
+        <details><summary>Show answer</summary><div class="ans"><span class="tool">Long-term care</span><span>Cost: 6,200 × 36 = $223,200. Income: 3,000 × 36 = $108,000. From savings: <b>$115,200</b>, before allowing for costs rising.</span></div></details></li>
+      <li><p>In England, a care home resident has £60,000 in savings and no home. Roughly how much of their own savings will they spend before the council starts to contribute?</p>
+        <details><summary>Show answer</summary><div class="ans"><span class="tool">Long-term care</span><span>They pay in full until their assets fall to the upper limit of £23,250: about <b>£36,750</b>. Between £23,250 and £14,250 they share the cost; below £14,250 their capital is ignored, though their income still counts.</span></div></details></li>
+    </ol>
+      </div>
+    </details>
+  </section>
+
+
+  <a class="next" href="/lessons/personal-finance/funding-education.html"><span class="eyebrow">Protection complete · Next</span><span class="t">Funding education</span><span class="arrow">→</span></a>
+
+  <nav class="related">Related: <a href="/lessons/personal-finance/retirement-income.html">Retirement income</a> · <a href="/lessons/personal-finance/public-pensions.html">Public pensions</a> · <a href="/lessons/personal-finance/how-much-insurance-you-need.html">How much insurance you need</a></nav>
+</article></div>
+<script>
+(function(){
+  const g=document.getElementById('g'),fb=g.querySelector('.fb');
+  g.querySelectorAll('.opts button').forEach(b=>b.addEventListener('click',()=>{
+    g.querySelectorAll('.opts button').forEach(x=>{x.disabled=true;if(x.hasAttribute('data-a'))x.classList.add('ans')});
+    if(!b.hasAttribute('data-a'))b.classList.add('pick');
+    fb.hidden=false;
+    fb.innerHTML=(b.hasAttribute('data-a')?'Right. ':'')+'<b>Usually not.</b> Once she moves permanently into a care home and nobody who qualifies, such as a partner, still lives there, her home normally counts as an asset after the first 12 weeks. That puts her far above £23,250. She would not usually have to sell straight away: councils offer deferred payment agreements, which let the fees be repaid from the home later.';
+  }));
+  const $=id=>document.getElementById(id),v=id=>Math.max(0,+$(id).value||0);
+  const f=x=>Math.round(x).toLocaleString('en-US');
+  function u(){
+    const m=v('yr')*12,tc=v('mc')*m,cv=Math.min(tc,(v('mi')+v('ph'))*m);
+    $('tc').textContent=f(tc);$('cv').textContent=f(cv);$('sv').textContent=f(tc-cv);
+  }
+  ['mc','yr','mi','ph'].forEach(id=>$(id).addEventListener('input',u));u();
+})();
+</script>
+<script>
+(function(){
+  var KEY='nbs-lessons-done',done=[];
+  try{done=JSON.parse(localStorage.getItem(KEY)||'[]')||[]}catch(e){}
+  var me=document.body.getAttribute('data-lesson'),total=+document.body.getAttribute('data-total')||0,group=document.body.getAttribute('data-group');
+  function count(){return done.filter(function(s){return s.indexOf(group+'/')===0}).length}
+  function show(){var b=document.getElementById('nbs-bar');if(b&&total)b.style.width=Math.min(100,count()/total*100)+'%'}
+  requestAnimationFrame(function(){requestAnimationFrame(show)});
+  var end=document.querySelector('.next');
+  if(me&&end&&'IntersectionObserver' in window){
+    new IntersectionObserver(function(es,o){es.forEach(function(e){if(e.isIntersecting){
+      if(done.indexOf(me)<0){done.push(me);try{localStorage.setItem(KEY,JSON.stringify(done))}catch(err){}show()}
+      o.disconnect()}})},{threshold:.6}).observe(end);
+  }
+})();
+</script>
+<script>
+(function(){
+  var sh=document.getElementById('shell'),KEY='nbs-side-closed',done=[];
+  try{done=JSON.parse(localStorage.getItem('nbs-lessons-done')||'[]')||[]}catch(e){}
+  function marks(){
+    document.querySelectorAll('.side .grp').forEach(function(g){var n=0,a=g.querySelectorAll('a[data-slug]');
+      a.forEach(function(x){var d=done.indexOf(x.dataset.slug)>=0;x.classList.toggle('done',d&&!x.classList.contains('now'));if(d)n++});
+      var c=g.querySelector('.gc');if(c)c.textContent=n+' of '+a.length;});
+  }
+  marks();
+  window.addEventListener('storage',function(){try{done=JSON.parse(localStorage.getItem('nbs-lessons-done')||'[]')||[]}catch(e){}marks()});
+  var closed=false;try{closed=localStorage.getItem(KEY)==='1'}catch(e){}
+  function setClosed(c){closed=c;sh.classList.toggle('closed',c);document.body.classList.toggle('side-closed',c);try{localStorage.setItem(KEY,c?'1':'0')}catch(e){}}
+  if(closed&&innerWidth>860)setClosed(true);
+  document.getElementById('col').addEventListener('click',function(){if(innerWidth<=860){sh.classList.remove('mopen')}else{setClosed(true)}});
+  document.getElementById('mbtn').addEventListener('click',function(){if(innerWidth<=860){sh.classList.add('mopen')}else{setClosed(false)}});
+  function sh_h(){var st=document.querySelector('.nbs-strip');if(st)document.documentElement.style.setProperty('--sh',st.offsetHeight+'px')}
+  sh_h();addEventListener('resize',sh_h);
+  document.getElementById('scrim').addEventListener('click',function(){sh.classList.remove('mopen')});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')sh.classList.remove('mopen')});
+  var now=document.querySelector('.side a.now');if(now&&now.scrollIntoView&&innerWidth>860){var s=document.getElementById('side');s.scrollTop=Math.max(0,now.offsetTop-s.clientHeight/2)}
+})();
+</script>
+</body></html>

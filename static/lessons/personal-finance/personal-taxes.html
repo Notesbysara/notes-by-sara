@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="icon" href="/img/favicon.png">
+<meta name="description" content="Unemployment: Who counts, how the rate works, and its traps. A short lesson from Notes by Sara.">
+<link rel="canonical" href="https://notesbysara.org/lessons/economics/unemployment.html">
+
+<title>Personal taxes · Notes by Sara</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Forum&family=Poppins:wght@400;500;600&display=swap">
+<style>
+/* Layout: one calm reading column. Three surfaces only: the deep banner, white boxes, and pale green for anything the learner answers. Light only, like the site. */
+:root{
+  color-scheme:light;
+  --ivory:#FFFDF8; --surface:#FFFFFF; --pearl:#F7F2E7; --pale:#EAF4EF;
+  --ink:#1F2A26; --muted:#5A6862; --line:#E6E1D5;
+  --deep:#06352A; --green:#0E7C5A; --green-text:#0B6A4C; --brand:#0B4F3C;
+  --gold:#E3C26F; --gold-text:#8A6A12; --coral:#B4452F; --coral-pale:#FBEDE9;
+  --on-deep:#FFFDF8; --on-deep-muted:#C9D6D0;
+  --display:'Forum',Georgia,'Times New Roman',serif;
+  --body:'Poppins',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --t-body:16px; --t-small:14px; --t-label:12.5px;
+}
+*{box-sizing:border-box}
+body{background:var(--ivory);color:var(--ink);font-family:var(--body);font-size:var(--t-body);line-height:1.75}
+a{color:var(--green-text)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
+.mockbar{background:var(--pearl);color:var(--muted);font-size:var(--t-small);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:8px;text-align:center;border-bottom:1px solid var(--line)}
+.mockbar b{color:var(--gold-text);letter-spacing:.12em;text-transform:uppercase;font-size:var(--t-label);margin-right:6px}
+.page{max-width:720px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px;display:flex;flex-direction:column;gap:40px}
+h1,h2{font-family:var(--display);font-weight:400;line-height:1.15;margin:0;text-wrap:balance}
+h2{font-size:1.7rem;color:var(--brand)}
+p{margin:0}
+.sec{display:flex;flex-direction:column;gap:14px}
+.eyebrow{font-size:var(--t-label);font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--gold-text)}
+.muted{color:var(--muted)}
+.small{font-size:var(--t-small)}
+b{font-weight:600}
+.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* 1. banner */
+.banner{background:var(--deep);color:var(--on-deep);border-radius:18px;padding:26px 26px 22px;display:flex;flex-direction:column;gap:10px}
+.banner .eyebrow{color:var(--gold)}
+.banner h1{font-size:clamp(2rem,6vw,2.6rem)}
+.banner .lead{color:var(--on-deep-muted)}
+.banner .meta{font-size:var(--t-small);color:var(--on-deep-muted);border-top:1px solid rgba(227,194,111,.35);padding-top:10px;display:flex;flex-wrap:wrap;gap:4px 18px}
+.banner .meta b{color:var(--gold);font-weight:600}
+.banner .meta a{color:var(--on-deep)}
+
+/* white box */
+.box{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.svgwrap{overflow-x:auto}
+.svgwrap svg{display:block;width:100%;height:auto;min-width:480px}
+.cap{font-size:var(--t-small);color:var(--muted)}
+
+/* formula */
+.fx{font-family:Georgia,'Times New Roman',serif;font-size:1.8rem;display:flex;align-items:center;justify-content:center;gap:14px}
+.frac{display:inline-flex;flex-direction:column;align-items:center;line-height:1.2}
+.frac span:first-child{border-bottom:2px solid var(--ink);padding:0 8px 2px}
+.frac span:last-child{padding-top:2px}
+.fx i{font-style:italic}
+.fx sup{font-size:.6em}
+.legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:4px 16px;font-size:var(--t-small);color:var(--muted)}
+.legend i{font-family:Georgia,serif;color:var(--ink);font-size:1.05rem;margin-right:6px}
+table{border-collapse:collapse;width:100%}
+td,th{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left}
+th{font-size:var(--t-small);color:var(--muted);font-weight:500}
+td.r,th.r{text-align:right}
+.tw{overflow-x:auto}
+.result{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;border-top:2px solid var(--brand);padding-top:10px}
+.result b{font-family:var(--display);font-weight:400;font-size:1.8rem;color:var(--brand)}
+
+/* pale: anything you answer */
+.ask{background:var(--pale);border-radius:14px;padding:16px 20px;display:flex;flex-direction:column;gap:10px}
+.ask .q{font-weight:500}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opts button{font:inherit;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 14px;cursor:pointer;color:var(--ink);line-height:1.5}
+.opts button:hover{border-color:var(--green)}
+.opts button.right{border-color:var(--green);box-shadow:inset 3px 0 0 var(--green)}
+.opts button.wrong{border-color:var(--coral);box-shadow:inset 3px 0 0 var(--coral)}
+.opts button[disabled]{cursor:default}
+.fb{font-size:var(--t-small);line-height:1.6}
+.fb b{color:var(--green-text)}
+.fb.no b{color:var(--coral)}
+.quiz{display:flex;flex-direction:column;gap:10px}
+.score{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:var(--t-small);color:var(--muted)}
+.score b{color:var(--brand)}
+.btn{font:inherit;font-size:var(--t-small);border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:4px 12px;cursor:pointer;color:var(--ink)}
+
+/* optional extras */
+.extras{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.extras details{border-bottom:1px solid var(--line)}
+.extras summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 4px}
+.extras summary::-webkit-details-marker{display:none}
+.extras summary .t{font-family:var(--display);font-size:1.3rem;color:var(--brand)}
+.extras summary .s{font-size:var(--t-small);color:var(--muted)}
+.extras summary::after{content:"+";font-size:1.4rem;color:var(--gold-text);flex:none;width:20px;text-align:center}
+.extras details[open] summary::after{content:"−"}
+.extras .inner{padding:0 4px 18px;display:flex;flex-direction:column;gap:12px}
+.inputs{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.inputs label{display:flex;flex-direction:column;gap:4px;font-size:var(--t-small);color:var(--muted)}
+.inputs input[type=number]{font:inherit;color:var(--ink);padding:7px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);width:100%}
+.inputs input[type=range]{width:100%;accent-color:var(--green)}
+.calcout{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+.calcout b{font-family:var(--display);font-weight:400;font-size:1.8rem;color:var(--brand)}
+.mist{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px}
+
+/* recap */
+.recap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:center}
+.recap ul{margin:4px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:2px}
+.recap .fx{font-size:1.3rem}
+@media (max-width:560px){.recap{grid-template-columns:1fr}}
+
+/* next */
+.next{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;background:var(--deep);color:var(--on-deep);border-radius:14px;padding:16px 20px;text-decoration:none}
+.next .eyebrow{color:var(--gold)}
+.next .t{font-family:var(--display);font-size:1.35rem}
+.next .arrow{font-size:1.4rem;color:var(--gold)}
+.related{font-size:var(--t-small);color:var(--muted)}
+.related a{margin-right:10px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+
+<style>
+.shell{display:grid;grid-template-columns:290px minmax(0,1fr);align-items:start}
+.shell.closed{grid-template-columns:minmax(0,1fr)}
+.side{position:sticky;top:50px;height:calc(100vh - 50px);overflow:auto;background:#FFFFFF;border-right:1px solid var(--line);padding:14px 14px 28px;display:flex;flex-direction:column;gap:2px;font-size:14px;scrollbar-width:thin}
+.shell.closed .side{display:none}
+.sidehead{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:0 2px 10px;margin-bottom:4px;border-bottom:1px solid var(--line)}
+.tog{font:inherit;font-size:13px;font-weight:600;color:#06352A;background:#E3C26F;border:0;border-radius:999px;padding:5px 13px;cursor:pointer;line-height:1.4}.tog:hover{background:#EBCF86}
+.sw{display:flex;gap:5px;flex-wrap:wrap}.sw a{font-size:12px;border:1px solid var(--line);border-radius:999px;padding:3px 10px;background:#fff;color:var(--ink);text-decoration:none}.sw a:hover{border-color:var(--brand)}.sw a.on{background:var(--deep);color:#fff;border-color:var(--deep)}
+.subj{font-family:var(--display);font-size:1.2rem;color:var(--brand);margin:8px 2px 2px}.subj a{color:inherit;text-decoration:none}.subj a:hover{text-decoration:underline}
+.grp{margin-top:8px}
+.gh{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin:0 2px 4px;font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text)}
+.gc{font-size:11.5px;letter-spacing:0;text-transform:none;font-weight:500;color:var(--muted);white-space:nowrap}
+.grp ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:1px}
+.grp li a{display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;align-items:start;padding:6px 8px;border-radius:8px;text-decoration:none;color:var(--ink);line-height:1.35}
+.grp li a:hover{background:var(--pale)}
+.mk{width:22px;height:22px;border-radius:50%;border:1.5px solid #C5D6CC;display:grid;place-items:center;font-size:11px;font-weight:600;color:var(--muted);background:#fff;margin-top:-1px}
+.grp a.done .mk{background:var(--green);border-color:var(--green);color:#fff}
+.grp a.done .tt{color:var(--muted)}
+.grp a.now{background:#EEF4EF;box-shadow:inset 3px 0 0 var(--gold)}
+.grp a.now .mk{background:var(--deep);border-color:var(--gold);color:#fff}
+.grp a.now .tt{color:var(--brand);font-weight:500}
+.shell .page{max-width:none;margin:0;padding-left:clamp(16px,4vw,56px);padding-right:clamp(16px,4vw,56px)}
+.shell .page>*{max-width:900px;width:100%}
+.shell.closed .page>*{margin-inline:auto}
+.shell.closed .page{padding-left:max(64px,clamp(16px,4vw,56px))}
+.fab{display:none;position:fixed;top:calc(var(--sh,50px) + 12px);left:max(12px,env(safe-area-inset-left,0px));z-index:30;width:38px;height:38px;border:0;border-radius:10px;background:#E3C26F;color:#06352A;font-size:18px;line-height:1;cursor:pointer;box-shadow:0 2px 8px rgba(6,53,42,.18)}
+.fab:hover{background:#EBCF86}
+body.side-closed .fab{display:grid;place-items:center}
+.scrim{display:none}
+@media (max-width:860px){
+ .shell,.shell.closed{grid-template-columns:minmax(0,1fr)}
+ .side,.shell.closed .side{display:flex;position:fixed;top:0;left:0;bottom:0;height:100vh;width:min(300px,86vw);z-index:40;transform:translateX(-105%);transition:transform .25s ease;box-shadow:6px 0 24px rgba(6,53,42,.2)}
+ .shell.mopen .side{transform:none}
+ .fab{display:grid;place-items:center}
+ .shell .page{padding-left:max(64px,env(safe-area-inset-left,0px))}
+ .scrim{position:fixed;inset:0;background:rgba(6,53,42,.35);z-index:35}.shell.mopen .scrim{display:block}
+ .shell .page>*{margin-inline:auto}
+}
+@media (prefers-reduced-motion:reduce){.side{transition:none!important}}
+@media (max-width:480px){.nbs-strip .prog{display:none}}
+</style>
+</head><body data-lesson="personal-finance/personal-taxes" data-group="personal-finance" data-total="30">
+<style>
+body{margin:0}
+.related .rel{margin-right:10px}
+.related a,.related .rel{display:inline-block}
+@media (max-width:480px){b.num{white-space:normal}}
+.nbs-strip{position:sticky;top:0;z-index:20;background:#06352A;color:#FFFDF8;display:flex;align-items:center;justify-content:space-between;gap:12px;
+ padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:10px;font-family:'Poppins',system-ui,sans-serif;flex-wrap:wrap}
+.nbs-strip .l{display:flex;align-items:center;gap:12px;min-width:0}
+.nbs-strip img{width:30px;height:30px;border-radius:6px;display:block}
+.nbs-strip .crumb{font-size:14px;color:#C9D6D0}.nbs-strip .crumb a{color:#C9D6D0;text-decoration:none}.nbs-strip .crumb a:hover{color:#fff;text-decoration:underline}
+.nbs-strip .crumb i{font-style:normal;color:#E3C26F;margin:0 5px}.nbs-strip .crumb b{color:#fff;font-weight:500}
+.nbs-strip .prog{display:flex;align-items:center;gap:10px;font-size:13px;color:#C9D6D0}
+.nbs-strip .bar{width:130px;height:5px;border-radius:9px;background:rgba(255,255,255,.18);overflow:hidden}
+.nbs-strip .bar span{display:block;height:100%;width:0;background:#E3C26F;transition:width 1.2s cubic-bezier(.2,.8,.2,1) .2s}
+@media (max-width:560px){.nbs-strip .bar{display:none}.nbs-strip .crumb .mid{display:none}}
+@media (prefers-reduced-motion:reduce){.nbs-strip .bar span{transition:none}}
+</style>
+<header class="nbs-strip"><div class="l"><a href="https://notesbysara.org/" aria-label="Notes by Sara home"><img src="/img/favicon.png" alt="Notes by Sara"></a><nav class="crumb" aria-label="Breadcrumb"><span><a href="https://notesbysara.org/notes">Learning path</a></span><span class="mid"><i>›</i><a href="/lessons/personal-finance/index.html">Personal Finance</a></span><span><i>›</i><b>Personal taxes</b></span></nav></div><div class="prog"><span>Lesson 6</span><span class="bar" aria-hidden="true"><span id="nbs-bar"></span></span></div></header>
+
+<style>
+.page .plain{background:var(--pale);border-left:4px solid var(--green);border-radius:10px;padding:18px 22px;margin:8px 0 6px}
+.page .plain p{font-size:1.12rem;line-height:1.65;margin:0;max-width:none}
+.page .plain .eyebrow{font-size:var(--t-label);margin:0 0 6px}
+.prose p{max-width:68ch;line-height:1.75}
+.prose{display:flex;flex-direction:column;gap:12px}
+.prose p{margin:0}
+svg .ax{font:13px var(--body);fill:var(--muted)}
+svg .lb{font:600 14px var(--body)}
+.calc{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:end}
+.calc label{display:flex;flex-direction:column;gap:4px;font-size:var(--t-small);color:var(--muted)}
+.calc input{font:inherit;font-size:1rem;width:120px;padding:7px 9px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)}
+.calc .out{font-size:1.05rem}
+.calc .out b{font-size:1.35rem;color:var(--green-text)}
+.pvt td.r,.pvt th.r{text-align:right;white-space:nowrap}
+.pvt tr.tot td{font-weight:600;border-top:2px solid var(--line)}
+.pvsvg svg{min-width:0!important;width:100%}
+@media (max-width:560px){.pvt td,.pvt th{padding-left:6px;padding-right:6px;font-size:12.5px;padding-left:4px;padding-right:4px}.pvt th{white-space:normal}}
+.hook{font-size:1.06rem}
+.src{font-size:var(--t-label);color:var(--muted)}
+.guess{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.guess .q{font-weight:500;margin:0 0 12px}
+.guess .opts{display:flex!important;flex-direction:row!important;flex-wrap:wrap;gap:8px;grid-template-columns:none}
+.guess .opts button{width:auto!important;flex:0 0 auto;min-width:84px;text-align:center}
+.guess .opts button{font:inherit;padding:8px 16px;border-radius:999px;border:1px solid var(--line);background:var(--ivory);color:var(--ink);cursor:pointer}
+.guess .opts button.pick{border-color:var(--green);background:var(--pale)}
+.guess .opts button.ans{border-color:var(--green);background:var(--green);color:#fff}
+.guess .fb{margin:12px 0 0}
+.guess .skip{font-size:var(--t-small);background:none;border:0;color:var(--green-text);text-decoration:underline;cursor:pointer;padding:0;margin-top:10px;font-family:inherit}
+.pro{background:var(--pearl);border-radius:12px;padding:20px 22px}
+.pro .eyebrow{margin:0 0 10px}
+.pro dl{margin:0;display:grid;grid-template-columns:minmax(0,11rem) minmax(0,1fr);gap:10px 18px}
+.pro dt{font-weight:600}
+.pro dd{margin:0;line-height:1.6}
+@media (max-width:560px){.pro dl{grid-template-columns:1fr;gap:2px}.pro dd{margin-bottom:10px}}
+.life{border-left:4px solid var(--gold);padding:4px 0 4px 18px}
+.life .eyebrow{margin:0 0 6px}
+.keep{font-family:var(--display);font-size:1.3rem;line-height:1.4;color:var(--brand);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:14px 0;margin:14px 0 4px;text-align:center}
+.prose p b{font-weight:600;color:var(--ink)}
+.prose p.aside{font-size:var(--t-small);color:var(--muted);border-left:2px solid var(--line);padding-left:12px}
+.duo{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:stretch;margin:4px 0 6px}
+.duo>div:not(.or){background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;display:flex;flex-direction:column;gap:4px}
+.duo .big{font-family:var(--display);font-size:1.9rem;color:var(--brand);line-height:1.1}
+.duo span:not(.big){font-size:var(--t-small);color:var(--muted)}
+.duo .or{align-self:center;font-size:var(--t-small);color:var(--muted)}
+.three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:2px 0 6px}
+.three>div{background:var(--pearl);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.three span{font-size:var(--t-small);color:var(--muted);line-height:1.5}
+@media (max-width:560px){.duo{grid-template-columns:1fr}.duo .or{text-align:center}.three{grid-template-columns:1fr}}
+.note{font-size:var(--t-small);color:var(--muted)}
+.flow text{font-family:var(--body)}
+.flow .bx{fill:var(--surface);stroke:var(--line);stroke-width:1.5}
+.flow .bxd{fill:var(--deep)}
+.flow .t1{font:600 16px var(--body);fill:var(--ink)}
+.flow .t2{font:13.5px var(--body);fill:var(--muted)}
+.flow .w1{font:600 16px var(--body);fill:var(--on-deep)}
+.flow .w2{font:13.5px var(--body);fill:var(--on-deep-muted)}
+.flow .lab{font:600 12.5px var(--body);letter-spacing:.08em;fill:var(--gold-text)}
+.four{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:2px 0 6px}
+.four>div{background:var(--pearl);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.four span{font-size:var(--t-small);color:var(--muted);line-height:1.5}
+.branches{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.branches>div{border-top:3px solid var(--green);background:var(--surface);border-radius:0 0 10px 10px;padding:12px 14px;display:flex;flex-direction:column;gap:4px;box-shadow:0 0 0 1px var(--line) inset}
+.branches span{font-size:var(--t-small);color:var(--muted);line-height:1.5}
+@media (max-width:560px){.four,.branches{grid-template-columns:1fr}}
+.fx>span{display:inline-flex;align-items:center;gap:10px;white-space:nowrap}
+.fx .frac{align-items:stretch;text-align:center}
+@media (max-width:560px){.fx{font-size:1.1rem}.fx>span{gap:6px}}
+.guess .opts button{white-space:normal;max-width:100%}
+</style><style>
+.chsvg svg{min-width:0!important;width:100%}
+svg .ax{font:13px var(--body);fill:var(--muted)}
+.legend2{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:var(--t-small);color:var(--muted);margin-top:6px}
+.legend2 i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.pvt td.r,.pvt th.r{text-align:right;white-space:nowrap}
+.pvt th.r{white-space:normal}
+.fx>span{display:inline-flex;align-items:center;gap:10px;white-space:nowrap}
+.fx .frac{align-items:stretch;text-align:center}
+svg .lb{font:600 13px var(--body)}
+/* section practice */
+.prac{border-top:2px solid var(--gold);border-bottom:1px solid var(--line)}
+.pwrap>summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px 4px}
+.pwrap>summary::-webkit-details-marker{display:none}
+.pwrap>summary .t{font-family:var(--display);font-size:1.6rem;color:var(--brand);line-height:1.3}
+.pwrap>summary .s{font-size:var(--t-small);color:var(--muted)}
+.pwrap>summary::after{content:"+";font-size:1.6rem;color:var(--gold-text);flex:none;width:24px;text-align:center}
+.pwrap[open]>summary::after{content:"−"}
+.pin{padding:0 4px 22px;display:flex;flex-direction:column;gap:14px}
+.prac .intro{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:var(--t-small);color:var(--muted)}
+.prac ol{margin:0;padding:0;list-style:none;counter-reset:p;display:flex;flex-direction:column;gap:12px}
+.prac li{counter-increment:p;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 18px;display:flex;flex-direction:column;gap:8px}
+.prac li>p::before{content:counter(p) ". ";font-weight:600;color:var(--brand)}
+.prac li summary{cursor:pointer;font-size:var(--t-small);color:var(--green-text);font-weight:500;width:max-content}
+.prac .ans{background:var(--pale);border-radius:10px;padding:10px 14px;margin-top:8px;font-size:var(--t-small);line-height:1.65;display:flex;flex-direction:column;gap:4px}
+.prac .tool{font-size:var(--t-label);letter-spacing:.08em;text-transform:uppercase;color:var(--gold-text);font-weight:600}
+
+.prac .eyebrow{margin:0}
+.pair2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.pair2>div{background:var(--pearl);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.pair2 span{font-size:var(--t-small);color:var(--muted);line-height:1.5}
+@media (max-width:560px){.pair2{grid-template-columns:1fr}}
+</style>
+<style>
+.four{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.four>div{background:var(--pearl);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.four span{font-size:var(--t-small);color:var(--muted);line-height:1.5}
+.mkt td,.mkt th{font-size:var(--t-small);vertical-align:top;line-height:1.45}
+.mkt td:first-child{min-width:9rem}
+@media (max-width:560px){.four{grid-template-columns:1fr}
+.mkt thead{display:none}.mkt,.mkt tbody,.mkt tr,.mkt td{display:block;width:100%}
+.mkt tr{border-bottom:1px solid var(--line);padding:10px 0}.mkt td{border:0!important;padding:2px 0!important;min-width:0!important}
+.mkt td[data-l]:not([data-l=""])::before{content:attr(data-l) ": ";color:var(--muted)}
+.mkt td:first-child{font-size:1rem}}
+</style>
+<style>
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:2px 0 4px}
+.steps>div{background:var(--pearl);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.steps .n{width:26px;height:26px;border-radius:50%;background:var(--brand);color:#fff;font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center;margin-bottom:4px}
+.steps span:not(.n){font-size:var(--t-small);color:var(--muted);line-height:1.5}
+.stack{display:flex;height:46px;border-radius:8px;overflow:hidden;gap:2px}
+.stack span{display:flex;align-items:center;padding:0 12px;color:#fff;font-size:var(--t-small);white-space:nowrap;overflow:hidden;min-width:0}
+.stack b{margin-right:6px;color:#fff}
+.slip{display:flex;flex-direction:column;font-size:var(--t-small);margin-bottom:14px}
+.slip .row{display:flex;justify-content:space-between;gap:12px;padding:7px 2px;border-bottom:1px solid var(--line)}
+.slip .row b{font-variant-numeric:tabular-nums;white-space:nowrap}
+.slip .top{font-weight:600}
+.slip .net{border-bottom:0;border-top:2px solid var(--ink);font-weight:600;font-size:var(--t-body)}
+.slip .net b{color:var(--green-text)}
+.calc{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:end}
+.calc label{display:flex;flex-direction:column;gap:4px;font-size:var(--t-small);color:var(--muted);min-width:0;max-width:100%}
+.calc input,.calc select{font:inherit;font-size:1rem;padding:7px 9px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);max-width:100%}
+.calc input{width:120px}
+.calc .out{font-size:1.05rem;flex-basis:100%}
+.calc .out b{font-size:1.35rem;color:var(--green-text)}
+.legend2{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:var(--t-small);color:var(--muted);margin-top:6px}
+.legend2 i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.src{font-size:var(--t-label);color:var(--muted)}
+.note{font-size:var(--t-small);color:var(--muted)}
+.tw table{font-size:var(--t-small)}
+@media (max-width:560px){.steps{grid-template-columns:1fr}}
+</style>
+<style>.calc select{font:inherit;font-size:1rem;padding:7px 9px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);max-width:100%}.calc label{min-width:0;max-width:100%}.box .note{margin-top:10px}</style>
+<div class="shell" id="shell"><div class="scrim" id="scrim"></div><button type="button" class="fab" id="mbtn" aria-label="Show the lesson list">☰</button><aside class="side" id="side" aria-label="Lessons in this subject"><div class="sidehead"><button type="button" class="tog" id="col" aria-label="Hide the lesson list">☰ Hide lessons</button><nav class="sw" aria-label="Sections"><a href="/lessons/personal-finance/index.html" class="on">Personal Finance</a><a href="/lessons/foundations/index.html">Foundations</a><a href="/lessons/index.html">Prerequisites</a></nav></div><p class="subj"><a href="/lessons/personal-finance/index.html">Personal Finance</a></p><div class="grp"><p class="gh"><span>Everyday money</span><span class="gc">0 of 7</span></p><ol><li><a href="/lessons/personal-finance/income-and-paychecks.html" data-slug="personal-finance/income-and-paychecks"><span class="mk">1</span><span class="tt">Income and paychecks</span></a></li><li><a href="/lessons/personal-finance/budgeting.html" data-slug="personal-finance/budgeting"><span class="mk">2</span><span class="tt">Budgeting</span></a></li><li><a href="/lessons/personal-finance/saving-and-goals.html" data-slug="personal-finance/saving-and-goals"><span class="mk">3</span><span class="tt">Saving and goals</span></a></li><li><a href="/lessons/personal-finance/emergency-fund.html" data-slug="personal-finance/emergency-fund"><span class="mk">4</span><span class="tt">Emergency fund</span></a></li><li><a href="/lessons/personal-finance/banking-basics.html" data-slug="personal-finance/banking-basics"><span class="mk">5</span><span class="tt">Banking basics</span></a></li><li><a href="/lessons/personal-finance/personal-taxes.html" data-slug="personal-finance/personal-taxes" class="now" aria-current="page"><span class="mk">6</span><span class="tt">Personal taxes</span></a></li><li><a href="/lessons/personal-finance/personal-financial-statements.html" data-slug="personal-finance/personal-financial-statements"><span class="mk">7</span><span class="tt">Your personal financial statements</span></a></li></ol></div><div class="grp"><p class="gh"><span>Borrowing</span><span class="gc">0 of 4</span></p><ol><li><a href="/lessons/personal-finance/credit-scores.html" data-slug="personal-finance/credit-scores"><span class="mk">8</span><span class="tt">Credit scores</span></a></li><li><a href="/lessons/personal-finance/credit-cards.html" data-slug="personal-finance/credit-cards"><span class="mk">9</span><span class="tt">Credit cards</span></a></li><li><a href="/lessons/personal-finance/loans-and-mortgages.html" data-slug="personal-finance/loans-and-mortgages"><span class="mk">10</span><span class="tt">Loans and mortgages</span></a></li><li><a href="/lessons/personal-finance/paying-off-debt.html" data-slug="personal-finance/paying-off-debt"><span class="mk">11</span><span class="tt">Paying off debt</span></a></li></ol></div><div class="grp"><p class="gh"><span>Investing</span><span class="gc">0 of 5</span></p><ol><li><a href="/lessons/personal-finance/why-invest.html" data-slug="personal-finance/why-invest"><span class="mk">12</span><span class="tt">Why invest</span></a></li><li><a href="/lessons/personal-finance/index-funds-and-etfs.html" data-slug="personal-finance/index-funds-and-etfs"><span class="mk">13</span><span class="tt">Index funds and ETFs</span></a></li><li><a href="/lessons/personal-finance/asset-allocation-by-goal.html" data-slug="personal-finance/asset-allocation-by-goal"><span class="mk">14</span><span class="tt">Asset allocation by goal</span></a></li><li><a href="/lessons/personal-finance/taxes-and-your-investments.html" data-slug="personal-finance/taxes-and-your-investments"><span class="mk">15</span><span class="tt">Taxes and your investments</span></a></li><li><a href="/lessons/personal-finance/common-investing-mistakes.html" data-slug="personal-finance/common-investing-mistakes"><span class="mk">16</span><span class="tt">Common investing mistakes</span></a></li></ol></div><div class="grp"><p class="gh"><span>Retirement</span><span class="gc">0 of 4</span></p><ol><li><a href="/lessons/personal-finance/retirement-accounts.html" data-slug="personal-finance/retirement-accounts"><span class="mk">17</span><span class="tt">Retirement accounts</span></a></li><li><a href="/lessons/personal-finance/how-much-you-need-for-retirement.html" data-slug="personal-finance/how-much-you-need-for-retirement"><span class="mk">18</span><span class="tt">How much you need for retirement</span></a></li><li><a href="/lessons/personal-finance/public-pensions.html" data-slug="personal-finance/public-pensions"><span class="mk">19</span><span class="tt">Public pensions</span></a></li><li><a href="/lessons/personal-finance/retirement-income.html" data-slug="personal-finance/retirement-income"><span class="mk">20</span><span class="tt">Retirement income</span></a></li></ol></div><div class="grp"><p class="gh"><span>Protection</span><span class="gc">0 of 3</span></p><ol><li><a href="/lessons/personal-finance/insurance-for-households.html" data-slug="personal-finance/insurance-for-households"><span class="mk">21</span><span class="tt">Insurance for households</span></a></li><li><a href="/lessons/personal-finance/how-much-insurance-you-need.html" data-slug="personal-finance/how-much-insurance-you-need"><span class="mk">22</span><span class="tt">How much insurance you need</span></a></li><li><a href="/lessons/personal-finance/long-term-care.html" data-slug="personal-finance/long-term-care"><span class="mk">23</span><span class="tt">Long-term care</span></a></li></ol></div><div class="grp"><p class="gh"><span>Life goals</span><span class="gc">0 of 3</span></p><ol><li><a href="/lessons/personal-finance/funding-education.html" data-slug="personal-finance/funding-education"><span class="mk">24</span><span class="tt">Funding education</span></a></li><li><a href="/lessons/personal-finance/big-life-decisions.html" data-slug="personal-finance/big-life-decisions"><span class="mk">25</span><span class="tt">Big life decisions</span></a></li><li><a href="/lessons/personal-finance/working-with-financial-professionals.html" data-slug="personal-finance/working-with-financial-professionals"><span class="mk">26</span><span class="tt">Working with financial professionals</span></a></li></ol></div><div class="grp"><p class="gh"><span>Estate and giving</span><span class="gc">0 of 2</span></p><ol><li><a href="/lessons/personal-finance/estate-planning.html" data-slug="personal-finance/estate-planning"><span class="mk">27</span><span class="tt">Estate planning</span></a></li><li><a href="/lessons/personal-finance/charitable-giving.html" data-slug="personal-finance/charitable-giving"><span class="mk">28</span><span class="tt">Charitable giving</span></a></li></ol></div><div class="grp"><p class="gh"><span>Money psychology</span><span class="gc">0 of 2</span></p><ol><li><a href="/lessons/personal-finance/your-money-mindset.html" data-slug="personal-finance/your-money-mindset"><span class="mk">29</span><span class="tt">Your money mindset</span></a></li><li><a href="/lessons/personal-finance/changing-money-behavior.html" data-slug="personal-finance/changing-money-behavior"><span class="mk">30</span><span class="tt">Changing money behavior</span></a></li></ol></div></aside><article class="page">
+
+  <header class="banner">
+    <p class="eyebrow">Personal Finance · Everyday money</p>
+    <h1>Personal taxes</h1>
+    <p class="lead">How income tax works in most countries: tax brackets, the difference between your marginal and average rate, deductions and credits, how tax is collected and filed, and how savings are taxed, with examples from the US, the UK, India and Taiwan.</p>
+    <div class="meta"><span><b>Everyday money</b> · Lesson 6 of 7 · 9 minutes</span><span>Before this: <a href="/lessons/personal-finance/banking-basics.html">Banking basics</a></span></div>
+  </header>
+
+  <div class="plain">
+    <p class="eyebrow">In plain words</p>
+    <p>Most countries tax income in slices. The first slice is taxed at zero or a low rate, and each higher slice at a higher rate. Earning more only puts the extra money in a higher slice, so a raise never shrinks your pay after income tax. Deductions lower the income that gets taxed. Credits cut the tax bill itself.</p>
+  </div>
+
+  <section class="sec prose">
+    <p class="hook">A common worry: "If my raise pushes me into a higher tax bracket, I could end up with less money." Try it.</p>
+    <div class="guess" id="g">
+      <p class="q">In the US in 2026, a single person's taxable income above $50,400 is taxed at 22%, and the slice below it at 12%. Your taxable income rises from $50,000 to $51,000. How much more federal income tax do you pay?</p>
+      <div class="opts"><button type="button">About $1,200, because all your income is now taxed at 22% instead of 12%</button><button type="button">$220</button><button type="button" data-a>$180</button></div>
+      <p class="fb" hidden></p>
+    </div>
+
+    <p><b>Income tax is charged in slices.</b> Each slice of income has its own rate, and you pay that rate only on the part of your income inside the slice. The US calls the slices brackets, the UK calls them bands, and India calls them slabs. The structure is similar almost everywhere, but the slices and rates differ a lot by country:</p>
+    <div class="four">
+      <div><b>United States, 2026</b><span>After a standard deduction of $16,100 for a single person: 10% on the first $12,400 of taxable income, then 12%, 22%, 24%, 32%, 35%, and 37% above $640,600. This is federal tax; most states add their own income tax.</span></div>
+      <div><b>United Kingdom, 2026/27</b><span>The first £12,570 is a tax-free personal allowance. Then 20% up to £50,270, 40% up to £125,140, and 45% above. Scotland sets its own bands on wages.</span></div>
+      <div><b>India, new regime, 2026-27</b><span>Nil up to ₹4 lakh of taxable income, then 5%, 10%, 15%, 20%, 25%, and 30% above ₹24 lakh, in ₹4 lakh steps. A rebate means no tax at all on taxable income up to ₹12 lakh. A 4% cess is added to the tax.</span></div>
+      <div><b>Taiwan, 2026 income</b><span>5% on net taxable income up to NT$610,000, then 12%, 20%, 30%, and 40% above NT$5.19 million. Net income is what is left after an exemption of NT$101,000, a standard deduction of NT$136,000 and a salary deduction of up to NT$227,000.</span></div>
+    </div>
+    <p class="src">Sources: <a href="https://www.irs.gov/newsroom/irs-releases-tax-inflation-adjustments-for-tax-year-2026-including-amendments-from-the-one-big-beautiful-bill">IRS</a>; <a href="https://www.gov.uk/income-tax-rates">GOV.UK</a>; <a href="https://cleartax.in/s/income-tax-slabs">ClearTax</a>; <a href="https://news.bloomberglaw.com/daily-tax-report-international/taiwan-to-cut-tax-with-higher-2026-income-tax-exemption">Bloomberg Tax</a>; <a href="https://www.ramco.com/blog/payroll/taiwan-payroll-statutory-updates-2026">Ramco, on National Taxation Bureau figures</a>.</p>
+
+    <p><b>Here is how the slices add up</b> for a single person in the US earning a salary of $76,100 in 2026. The standard deduction takes off $16,100, leaving $60,000 of taxable income, which falls into three brackets:</p>
+    <div class="box">
+      <div class="stack" role="img" aria-label="$60,000 of taxable income: $12,400 taxed at 10%, $38,000 at 12%, and $9,600 at 22%.">
+        <span style="flex:12.4;background:var(--green)"><b>10%</b></span>
+        <span style="flex:38;background:var(--gold)"><b>12%</b></span>
+        <span style="flex:9.6;background:var(--coral)"><b>22%</b></span>
+      </div>
+      <div class="legend2"><span><i style="background:var(--green)"></i>$12,400 × 10% = $1,240</span><span><i style="background:var(--gold)"></i>$38,000 × 12% = $4,560</span><span><i style="background:var(--coral)"></i>$9,600 × 22% = $2,112</span></div>
+      <p class="cap">Total federal income tax: $7,912. Based on IRS 2026 brackets for a single filer.</p>
+    </div>
+
+    <p><b>That one person has two tax rates, and they answer different questions.</b> The <b>marginal rate</b> is the rate on the next dollar earned, here 22%. It tells you how much of a raise, a bonus or extra work you keep. The <b>average rate</b>, also called the effective rate, is total tax divided by income, here $7,912 ÷ $76,100, or about 10.4%. It tells you how much of your whole income goes in income tax.</p>
+    <div class="box"><div class="fx"><span style="gap:6px"><span>Average tax rate =&nbsp;</span><span class="frac"><span>total income tax</span><span>total income</span></span></span></div></div>
+
+    <p><b>Try your own salary in each country.</b> The calculator shows income tax only, for a single person whose income is all salary, using the standard allowances described above. It leaves out social security contributions, US state taxes, India's surcharge on very high incomes, and any other deductions you might have, so treat it as a rough guide, not a tax bill.</p>
+    <div class="box">
+      <div class="calc">
+        <label>Country<select id="cty"><option value="us">United States (federal, 2026)</option><option value="uk">United Kingdom (2026/27)</option><option value="in">India (new regime, 2026-27)</option><option value="tw">Taiwan (2026 income)</option></select></label>
+        <label><span id="lab">Yearly salary ($)</span><input id="inc" type="number" value="76100" min="0" step="1000"></label>
+        <p class="out">Income tax <b id="tx"></b><br>Average rate <b id="av"></b> · Marginal rate <b id="mg"></b></p>
+      </div>
+      <p class="note" id="nt"></p>
+    </div>
+
+    <p><b>A few systems do have ranges where the marginal rate is unusually high.</b> In the UK, the £12,570 personal allowance shrinks by £1 for every £2 of income above £100,000 and is gone at £125,140, so in that range each extra £1 costs 60p in income tax. In India, the rebate ends at ₹12 lakh of taxable income, so a rule called marginal relief caps the tax just above that point at the amount of income over ₹12 lakh. That stops the tax from jumping by far more than the raise, but in this narrow range almost all of the extra income goes in tax, and with the 4% cess added it can slightly exceed it, until the normal calculation takes over at about ₹12.7 lakh of taxable income. Losing a benefit or allowance as income rises can have the same effect. These are the real cases behind the worry in the question above.</p>
+    <p class="src">Sources: <a href="https://www.gov.uk/income-tax-rates">GOV.UK</a>; <a href="https://www.hdfcbank.com/personal/resources/learning-centre/union-budget/budget-2025-marginal-relief-tax-savings-guide-for-income-over-12-lakh">HDFC Bank</a>.</p>
+
+    <p><b>Inflation can raise your taxes even when tax rates stay the same.</b> If brackets stay fixed while pay rises with prices, more of each person's income moves into higher slices. This is called bracket creep or fiscal drag. The US adjusts its brackets for inflation every year. The UK has kept its £12,570 allowance and £50,270 higher-rate threshold frozen since April 2021 and plans to keep them there until April 2031, which official forecasters expect to pull millions more people into paying tax or into the higher rate.</p>
+    <p class="src">Sources: <a href="https://www.icaew.com/insights/tax-news/2025/nov-2025/budget-freeze-on-personal-allowance-extended">ICAEW</a>; <a href="https://obr.uk/box/implications-of-personal-tax-threshold-freezes/">Office for Budget Responsibility</a>.</p>
+
+    <p><b>Deductions and credits both lower your tax, but by very different amounts.</b></p>
+    <div class="duo">
+      <div><span class="big">$220</span><span>saved by a $1,000 deduction for someone with a 22% marginal rate. A deduction lowers the income that is taxed, so it is worth your marginal rate times its size.</span></div>
+      <div class="or">vs</div>
+      <div><span class="big">$1,000</span><span>saved by a $1,000 credit. A credit comes off the tax bill itself, so it is worth its full amount to anyone who owes at least that much tax.</span></div>
+    </div>
+    <p>An example of a credit is the US child tax credit, worth up to $2,200 per qualifying child for 2026. Because a deduction is worth more at a higher marginal rate, the same deduction saves a high earner more than a low earner.</p>
+    <p class="src">Source: <a href="https://www.cnbc.com/select/tax-brackets-and-standard-deductions-2026/">CNBC Select</a>.</p>
+
+    <p><b>Most systems let you take a fixed deduction or list your actual ones.</b> In the US and Taiwan, you choose between a standard deduction and itemizing specific costs, such as charitable gifts or certain interest payments, and itemizing only helps if they add up to more. India gives a different choice: the new regime, now the default, has lower rates and few deductions, while the old regime has higher rates (5%, 20% and 30%) but allows many deductions, such as up to ₹1.5 lakh for certain savings and investments and interest on a home loan. People with large deductions sometimes pay less under the old regime, so it is worth comparing both. In the UK, employees have few deductions; the main one is tax relief on pension contributions.</p>
+    <p class="src">Sources: <a href="https://taxsummaries.pwc.com/Taiwan/Individual/Deductions">PwC Worldwide Tax Summaries</a>; <a href="https://www.bajajfinserv.in/about-new-tax-slab">Bajaj Finserv</a>.</p>
+
+    <p><b>For most employees, tax is collected before the pay arrives.</b> Employers withhold an estimate of income tax from each paycheck, as the lesson on income and paychecks showed, and send it to the government. After the year ends, a tax return settles the difference: if too much was withheld you get a refund, and if too little you pay the rest. How much filing you do depends on the country:</p>
+    <div class="four">
+      <div><b>United States</b><span>Most people file a return every year. Returns for 2026 are due by 15 April 2027. The form you give your employer, the W-4, controls how much is withheld.</span></div>
+      <div><b>United Kingdom</b><span>The Pay As You Earn system usually gets employees' tax right through a tax code, so most employees never file. People with self-employment or other untaxed income file a Self Assessment, due online by 31 January after the tax year.</span></div>
+      <div><b>India</b><span>Employers deduct tax at source, and people whose income is above the basic exemption limit generally file an income tax return after the financial year ends on 31 March. India replaced its 1961 income tax law with the Income Tax Act 2025 from 1 April 2026, keeping the same slabs.</span></div>
+      <div><b>Taiwan</b><span>Tax is withheld from salaries, and everyone liable files a return each year between 1 May and 31 May for the previous calendar year, with any balance paid at filing.</span></div>
+    </div>
+    <p class="src">Sources: <a href="https://www.irs.gov/newsroom/irs-releases-tax-inflation-adjustments-for-tax-year-2026-including-amendments-from-the-one-big-beautiful-bill">IRS</a>; <a href="https://www.gov.uk/self-assessment-tax-returns/deadlines">GOV.UK</a>; <a href="https://www.mcu.ac.in/wp-content/uploads/2026/07/Income-Tax-Slabs-FY-20252.pdf">MCU, on the Income Tax Act 2025</a>; <a href="https://taxsummaries.pwc.com/taiwan/individual/tax-administration">PwC Worldwide Tax Summaries</a>.</p>
+    <p>A large refund is not a gift: it is your own money that was held without interest during the year. A large bill usually means too little was withheld, often because of a second job, freelance work or investment income with no tax taken off.</p>
+
+    <p><b>Interest on savings is usually taxed as income, but most countries exempt some of it.</b></p>
+    <div class="four">
+      <div><b>United States</b><span>Bank interest is taxed at your normal income tax rates. Tax-advantaged accounts, covered later in the retirement accounts lesson, shelter savings for retirement.</span></div>
+      <div><b>United Kingdom</b><span>A personal savings allowance makes the first £1,000 of interest tax-free for basic-rate taxpayers, £500 for higher-rate and nothing for additional-rate. Interest in an ISA is tax-free, with up to £20,000 a year paid in. From April 2027, tax on savings interest rises by 2 percentage points and under-65s can put at most £12,000 a year into cash ISAs.</span></div>
+      <div><b>India</b><span>Interest is added to your income and taxed at your slab rate. Banks may deduct tax at source from interest, which you then count against your final tax.</span></div>
+      <div><b>Taiwan</b><span>A special deduction for savings and investment covers up to NT$270,000 a year of bank interest and similar income for a household.</span></div>
+    </div>
+    <p class="src">Sources: <a href="https://www.postoffice.co.uk/savings-accounts/guides/tax-free-allowance">Post Office</a>; <a href="https://www.taxassist.co.uk/resources/questions-and-answers/tax-on-bank-interest">TaxAssist</a>; <a href="https://www.etax.nat.gov.tw/etwmain/en/announcement/alien-individual-income-tax/exemption-deduction-table">Taiwan Ministry of Finance</a>.</p>
+    <p>Dividends and gains from selling investments have their own rules, often with lower rates, and are covered in the lesson on taxes and your investments.</p>
+
+    <p><b>Income tax is not the only tax a household pays.</b> Social security contributions, such as US payroll taxes and UK National Insurance, come out of wages too. Sales taxes are built into prices: Taiwan's standard VAT is 5%, the UK's 20%, and India charges GST at several rates, while US sales taxes are set by states and cities. Property taxes and local taxes add more. A full picture of what you pay includes all of them.</p>
+    <p class="src">Source: <a href="https://taxsummaries.pwc.com/taiwan/individual/other-taxes">PwC Worldwide Tax Summaries</a>.</p>
+
+    <p><b>Good habits make tax season easier wherever you live.</b> Keep payslips, year-end tax statements, receipts for anything you might deduct, and records of savings and investment income for several years. Check that withholding still fits after a new job, a second income or a change in family. And be wary of messages claiming to be from the tax office: tax authorities in many countries warn that scammers use fake refund offers and threats of arrest to get money or personal details.</p>
+  </section>
+
+  <section class="sec prose">
+    <div class="pro">
+      <p class="eyebrow">How professionals use it</p>
+      <dl>
+        <dt>Financial planners</dt><dd>Plan around a client's marginal rate: when to take income, which deductions to use, and which accounts to save in.</dd>
+        <dt>Accountants and tax preparers</dt><dd>Prepare returns, choose between standard and itemized deductions or between India's two regimes, and check withholding.</dd>
+        <dt>Payroll teams</dt><dd>Calculate withholding on every paycheck from each employee's tax details and send it to the tax authority.</dd>
+        <dt>Economists</dt><dd>Compare average and marginal rates across income levels to judge how progressive a tax system is and how it affects work and saving.</dd>
+      </dl>
+    </div>
+    <p class="keep">Your marginal rate decides what you keep from the next unit you earn; your average rate shows what tax takes from all of it.</p>
+  </section>
+
+  <a class="next" href="/lessons/personal-finance/personal-financial-statements.html"><span class="eyebrow">Next</span><span class="t">Your personal financial statements</span><span class="arrow">→</span></a>
+
+  <nav class="related">Related: <a href="/lessons/personal-finance/income-and-paychecks.html">Income and paychecks</a> · <a href="/lessons/economics/inflation.html">Inflation</a> · <a href="/lessons/personal-finance/banking-basics.html">Banking basics</a></nav>
+</article></div>
+<script>
+(function(){
+  const g=document.getElementById('g'),fb=g.querySelector('.fb');
+  g.querySelectorAll('.opts button').forEach(b=>b.addEventListener('click',()=>{
+    g.querySelectorAll('.opts button').forEach(x=>{x.disabled=true;if(x.hasAttribute('data-a'))x.classList.add('ans')});
+    if(!b.hasAttribute('data-a'))b.classList.add('pick');
+    fb.hidden=false;
+    fb.innerHTML=(b.hasAttribute('data-a')?'Right. ':'')+'<b>$180.</b> Only the part above $50,400 is taxed at 22%. Of the extra $1,000, the first $400 is still taxed at 12% ($48) and the remaining $600 at 22% ($132). The tax on the first $50,000 does not change, so you keep $820 of the raise.';
+  }));
+
+  function prog(x,br){let t=0,lo=0;for(const [hi,r] of br){if(x<=lo)break;t+=(Math.min(x,hi)-lo)*r;lo=hi}return t}
+  const C={
+    us:{sym:'$',step:100,def:76100,f:s=>prog(Math.max(0,s-16100),[[12400,.10],[50400,.12],[105700,.22],[201775,.24],[256225,.32],[640600,.35],[Infinity,.37]])},
+    uk:{sym:'£',step:100,def:50000,f:s=>{const pa=Math.max(0,12570-Math.max(0,s-100000)/2);return prog(Math.max(0,s-pa),[[37700,.20],[125140,.40],[Infinity,.45]])}},
+    in:{sym:'₹',step:1000,def:1500000,f:s=>{const ti=Math.max(0,s-75000);let t=prog(ti,[[400000,0],[800000,.05],[1200000,.10],[1600000,.15],[2000000,.20],[2400000,.25],[Infinity,.30]]);if(ti<=1200000)t=0;else t=Math.min(t,ti-1200000);return t*1.04}},
+    tw:{sym:'NT$',step:1000,def:900000,f:s=>prog(Math.max(0,s-101000-136000-Math.min(227000,s)),[[610000,.05],[1380000,.12],[2770000,.20],[5190000,.30],[Infinity,.40]])}
+  };
+  const $=id=>document.getElementById(id),cty=$('cty'),inc=$('inc');
+  const fmt=(c,v)=>c.sym+Math.round(v).toLocaleString(c===C.in?'en-IN':'en-US');
+  function u(){
+    const k=cty.value,c=C[k],s=Math.max(0,+inc.value||0),t=c.f(s);
+    const m=(c.f(s+c.step)-t)/c.step;
+    $('tx').textContent=fmt(c,t);
+    $('av').textContent=(s?t/s*100:0).toFixed(1)+'%';
+    const v=Math.round(m*1000)/10;$('mg').textContent=(v%1?v.toFixed(1):v)+'%';
+    let n='';
+    if(k==='uk'&&s>100000&&s<125140)n='In this range the personal allowance is being withdrawn, which is why the marginal rate is 60%.';
+    else if(k==='in'&&s-75000>1200000&&m>.5)n='Marginal relief applies here: tax is capped at the taxable income above ₹12 lakh, plus 4% cess, so almost every extra rupee goes in tax until about ₹12.7 lakh of taxable income.';
+    else if(k==='in')n='Includes the ₹75,000 standard deduction for salaried people, the rebate up to ₹12 lakh of taxable income and the 4% cess.';
+    else if(k==='tw')n='Uses the NT$101,000 exemption, NT$136,000 standard deduction and salary deduction of up to NT$227,000.';
+    else if(k==='us')n='Uses the $16,100 standard deduction for a single filer.';
+    else n='Uses the bands for England, Wales and Northern Ireland.';
+    $('nt').textContent=n;
+  }
+  cty.addEventListener('change',()=>{const c=C[cty.value];inc.value=c.def;inc.step=c.step*10;$('lab').textContent='Yearly salary ('+c.sym+')';u()});
+  inc.addEventListener('input',u);u();
+})();
+</script>
+<script>
+(function(){
+  var KEY='nbs-lessons-done',done=[];
+  try{done=JSON.parse(localStorage.getItem(KEY)||'[]')||[]}catch(e){}
+  var me=document.body.getAttribute('data-lesson'),total=+document.body.getAttribute('data-total')||0,group=document.body.getAttribute('data-group');
+  function count(){return done.filter(function(s){return s.indexOf(group+'/')===0}).length}
+  function show(){var b=document.getElementById('nbs-bar');if(b&&total)b.style.width=Math.min(100,count()/total*100)+'%'}
+  requestAnimationFrame(function(){requestAnimationFrame(show)});
+  var end=document.querySelector('.next');
+  if(me&&end&&'IntersectionObserver' in window){
+    new IntersectionObserver(function(es,o){es.forEach(function(e){if(e.isIntersecting){
+      if(done.indexOf(me)<0){done.push(me);try{localStorage.setItem(KEY,JSON.stringify(done))}catch(err){}show()}
+      o.disconnect()}})},{threshold:.6}).observe(end);
+  }
+})();
+</script>
+<script>
+(function(){
+  var sh=document.getElementById('shell'),KEY='nbs-side-closed',done=[];
+  try{done=JSON.parse(localStorage.getItem('nbs-lessons-done')||'[]')||[]}catch(e){}
+  function marks(){
+    document.querySelectorAll('.side .grp').forEach(function(g){var n=0,a=g.querySelectorAll('a[data-slug]');
+      a.forEach(function(x){var d=done.indexOf(x.dataset.slug)>=0;x.classList.toggle('done',d&&!x.classList.contains('now'));if(d)n++});
+      var c=g.querySelector('.gc');if(c)c.textContent=n+' of '+a.length;});
+  }
+  marks();
+  window.addEventListener('storage',function(){try{done=JSON.parse(localStorage.getItem('nbs-lessons-done')||'[]')||[]}catch(e){}marks()});
+  var closed=false;try{closed=localStorage.getItem(KEY)==='1'}catch(e){}
+  function setClosed(c){closed=c;sh.classList.toggle('closed',c);document.body.classList.toggle('side-closed',c);try{localStorage.setItem(KEY,c?'1':'0')}catch(e){}}
+  if(closed&&innerWidth>860)setClosed(true);
+  document.getElementById('col').addEventListener('click',function(){if(innerWidth<=860){sh.classList.remove('mopen')}else{setClosed(true)}});
+  document.getElementById('mbtn').addEventListener('click',function(){if(innerWidth<=860){sh.classList.add('mopen')}else{setClosed(false)}});
+  function sh_h(){var st=document.querySelector('.nbs-strip');if(st)document.documentElement.style.setProperty('--sh',st.offsetHeight+'px')}
+  sh_h();addEventListener('resize',sh_h);
+  document.getElementById('scrim').addEventListener('click',function(){sh.classList.remove('mopen')});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')sh.classList.remove('mopen')});
+  var now=document.querySelector('.side a.now');if(now&&now.scrollIntoView&&innerWidth>860){var s=document.getElementById('side');s.scrollTop=Math.max(0,now.offsetTop-s.clientHeight/2)}
+})();
+</script>
+</body></html>

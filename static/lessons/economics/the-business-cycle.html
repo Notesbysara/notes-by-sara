@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="icon" href="/img/favicon.png">
+<meta name="description" content="Unemployment: Who counts, how the rate works, and its traps. A short lesson from Notes by Sara.">
+<link rel="canonical" href="https://notesbysara.org/lessons/economics/unemployment.html">
+
+<title>The business cycle · Notes by Sara</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Forum&family=Poppins:wght@400;500;600&display=swap">
+<style>
+/* Layout: one calm reading column. Three surfaces only: the deep banner, white boxes, and pale green for anything the learner answers. Light only, like the site. */
+:root{
+  color-scheme:light;
+  --ivory:#FFFDF8; --surface:#FFFFFF; --pearl:#F7F2E7; --pale:#EAF4EF;
+  --ink:#1F2A26; --muted:#5A6862; --line:#E6E1D5;
+  --deep:#06352A; --green:#0E7C5A; --green-text:#0B6A4C; --brand:#0B4F3C;
+  --gold:#E3C26F; --gold-text:#8A6A12; --coral:#B4452F; --coral-pale:#FBEDE9;
+  --on-deep:#FFFDF8; --on-deep-muted:#C9D6D0;
+  --display:'Forum',Georgia,'Times New Roman',serif;
+  --body:'Poppins',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --t-body:16px; --t-small:14px; --t-label:12.5px;
+}
+*{box-sizing:border-box}
+body{background:var(--ivory);color:var(--ink);font-family:var(--body);font-size:var(--t-body);line-height:1.75}
+a{color:var(--green-text)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
+.mockbar{background:var(--pearl);color:var(--muted);font-size:var(--t-small);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:8px;text-align:center;border-bottom:1px solid var(--line)}
+.mockbar b{color:var(--gold-text);letter-spacing:.12em;text-transform:uppercase;font-size:var(--t-label);margin-right:6px}
+.page{max-width:720px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px;display:flex;flex-direction:column;gap:40px}
+h1,h2{font-family:var(--display);font-weight:400;line-height:1.15;margin:0;text-wrap:balance}
+h2{font-size:1.7rem;color:var(--brand)}
+p{margin:0}
+.sec{display:flex;flex-direction:column;gap:14px}
+.eyebrow{font-size:var(--t-label);font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--gold-text)}
+.muted{color:var(--muted)}
+.small{font-size:var(--t-small)}
+b{font-weight:600}
+.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* 1. banner */
+.banner{background:var(--deep);color:var(--on-deep);border-radius:18px;padding:26px 26px 22px;display:flex;flex-direction:column;gap:10px}
+.banner .eyebrow{color:var(--gold)}
+.banner h1{font-size:clamp(2rem,6vw,2.6rem)}
+.banner .lead{color:var(--on-deep-muted)}
+.banner .meta{font-size:var(--t-small);color:var(--on-deep-muted);border-top:1px solid rgba(227,194,111,.35);padding-top:10px;display:flex;flex-wrap:wrap;gap:4px 18px}
+.banner .meta b{color:var(--gold);font-weight:600}
+.banner .meta a{color:var(--on-deep)}
+
+/* white box */
+.box{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.svgwrap{overflow-x:auto}
+.svgwrap svg{display:block;width:100%;height:auto;min-width:480px}
+.cap{font-size:var(--t-small);color:var(--muted)}
+
+/* formula */
+.fx{font-family:Georgia,'Times New Roman',serif;font-size:1.8rem;display:flex;align-items:center;justify-content:center;gap:14px}
+.frac{display:inline-flex;flex-direction:column;align-items:center;line-height:1.2}
+.frac span:first-child{border-bottom:2px solid var(--ink);padding:0 8px 2px}
+.frac span:last-child{padding-top:2px}
+.fx i{font-style:italic}
+.fx sup{font-size:.6em}
+.legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:4px 16px;font-size:var(--t-small);color:var(--muted)}
+.legend i{font-family:Georgia,serif;color:var(--ink);font-size:1.05rem;margin-right:6px}
+table{border-collapse:collapse;width:100%}
+td,th{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left}
+th{font-size:var(--t-small);color:var(--muted);font-weight:500}
+td.r,th.r{text-align:right}
+.tw{overflow-x:auto}
+.result{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;border-top:2px solid var(--brand);padding-top:10px}
+.result b{font-family:var(--display);font-weight:400;font-size:1.8rem;color:var(--brand)}
+
+/* pale: anything you answer */
+.ask{background:var(--pale);border-radius:14px;padding:16px 20px;display:flex;flex-direction:column;gap:10px}
+.ask .q{font-weight:500}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opts button{font:inherit;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 14px;cursor:pointer;color:var(--ink);line-height:1.5}
+.opts button:hover{border-color:var(--green)}
+.opts button.right{border-color:var(--green);box-shadow:inset 3px 0 0 var(--green)}
+.opts button.wrong{border-color:var(--coral);box-shadow:inset 3px 0 0 var(--coral)}
+.opts button[disabled]{cursor:default}
+.fb{font-size:var(--t-small);line-height:1.6}
+.fb b{color:var(--green-text)}
+.fb.no b{color:var(--coral)}
+.quiz{display:flex;flex-direction:column;gap:10px}
+.score{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:var(--t-small);color:var(--muted)}
+.score b{color:var(--brand)}
+.btn{font:inherit;font-size:var(--t-small);border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:4px 12px;cursor:pointer;color:var(--ink)}
+
+/* optional extras */
+.extras{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.extras details{border-bottom:1px solid var(--line)}
+.extras summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 4px}
+.extras summary::-webkit-details-marker{display:none}
+.extras summary .t{font-family:var(--display);font-size:1.3rem;color:var(--brand)}
+.extras summary .s{font-size:var(--t-small);color:var(--muted)}
+.extras summary::after{content:"+";font-size:1.4rem;color:var(--gold-text);flex:none;width:20px;text-align:center}
+.extras details[open] summary::after{content:"−"}
+.extras .inner{padding:0 4px 18px;display:flex;flex-direction:column;gap:12px}
+.inputs{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.inputs label{display:flex;flex-direction:column;gap:4px;font-size:var(--t-small);color:var(--muted)}
+.inputs input[type=number]{font:inherit;color:var(--ink);padding:7px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);width:100%}
+.inputs input[type=range]{width:100%;accent-color:var(--green)}
+.calcout{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+.calcout b{font-family:var(--display);font-weight:400;font-size:1.8rem;color:var(--brand)}
+.mist{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px}
+
+/* recap */
+.recap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:center}
+.recap ul{margin:4px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:2px}
+.recap .fx{font-size:1.3rem}
+@media (max-width:560px){.recap{grid-template-columns:1fr}}
+
+/* next */
+.next{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;background:var(--deep);color:var(--on-deep);border-radius:14px;padding:16px 20px;text-decoration:none}
+.next .eyebrow{color:var(--gold)}
+.next .t{font-family:var(--display);font-size:1.35rem}
+.next .arrow{font-size:1.4rem;color:var(--gold)}
+.related{font-size:var(--t-small);color:var(--muted)}
+.related a{margin-right:10px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+
+<style>
+.shell{display:grid;grid-template-columns:290px minmax(0,1fr);align-items:start}
+.shell.closed{grid-template-columns:minmax(0,1fr)}
+.side{position:sticky;top:50px;height:calc(100vh - 50px);overflow:auto;background:#FFFFFF;border-right:1px solid var(--line);padding:14px 14px 28px;display:flex;flex-direction:column;gap:2px;font-size:14px;scrollbar-width:thin}
+.shell.closed .side{display:none}
+.sidehead{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:0 2px 10px;margin-bottom:4px;border-bottom:1px solid var(--line)}
+.tog{font:inherit;font-size:13px;font-weight:600;color:#06352A;background:#E3C26F;border:0;border-radius:999px;padding:5px 13px;cursor:pointer;line-height:1.4}.tog:hover{background:#EBCF86}
+.sw{display:flex;gap:5px;flex-wrap:wrap}.sw a{font-size:12px;border:1px solid var(--line);border-radius:999px;padding:3px 10px;background:#fff;color:var(--ink);text-decoration:none}.sw a:hover{border-color:var(--brand)}.sw a.on{background:var(--deep);color:#fff;border-color:var(--deep)}
+.subj{font-family:var(--display);font-size:1.2rem;color:var(--brand);margin:8px 2px 2px}.subj a{color:inherit;text-decoration:none}.subj a:hover{text-decoration:underline}
+.grp{margin-top:8px}
+.gh{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin:0 2px 4px;font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text)}
+.gc{font-size:11.5px;letter-spacing:0;text-transform:none;font-weight:500;color:var(--muted);white-space:nowrap}
+.grp ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:1px}
+.grp li a{display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;align-items:start;padding:6px 8px;border-radius:8px;text-decoration:none;color:var(--ink);line-height:1.35}
+.grp li a:hover{background:var(--pale)}
+.mk{width:22px;height:22px;border-radius:50%;border:1.5px solid #C5D6CC;display:grid;place-items:center;font-size:11px;font-weight:600;color:var(--muted);background:#fff;margin-top:-1px}
+.grp a.done .mk{background:var(--green);border-color:var(--green);color:#fff}
+.grp a.done .tt{color:var(--muted)}
+.grp a.now{background:#EEF4EF;box-shadow:inset 3px 0 0 var(--gold)}
+.grp a.now .mk{background:var(--deep);border-color:var(--gold);color:#fff}
+.grp a.now .tt{color:var(--brand);font-weight:500}
+.shell .page{max-width:none;margin:0;padding-left:clamp(16px,4vw,56px);padding-right:clamp(16px,4vw,56px)}
+.shell .page>*{max-width:900px;width:100%}
+.shell.closed .page>*{margin-inline:auto}
+.shell.closed .page{padding-left:max(64px,clamp(16px,4vw,56px))}
+.fab{display:none;position:fixed;top:calc(var(--sh,50px) + 12px);left:max(12px,env(safe-area-inset-left,0px));z-index:30;width:38px;height:38px;border:0;border-radius:10px;background:#E3C26F;color:#06352A;font-size:18px;line-height:1;cursor:pointer;box-shadow:0 2px 8px rgba(6,53,42,.18)}
+.fab:hover{background:#EBCF86}
+body.side-closed .fab{display:grid;place-items:center}
+.scrim{display:none}
+@media (max-width:860px){
+ .shell,.shell.closed{grid-template-columns:minmax(0,1fr)}
+ .side,.shell.closed .side{display:flex;position:fixed;top:0;left:0;bottom:0;height:100vh;width:min(300px,86vw);z-index:40;transform:translateX(-105%);transition:transform .25s ease;box-shadow:6px 0 24px rgba(6,53,42,.2)}
+ .shell.mopen .side{transform:none}
+ .fab{display:grid;place-items:center}
+ .shell .page{padding-left:max(64px,env(safe-area-inset-left,0px))}
+ .scrim{position:fixed;inset:0;background:rgba(6,53,42,.35);z-index:35}.shell.mopen .scrim{display:block}
+ .shell .page>*{margin-inline:auto}
+}
+@media (prefers-reduced-motion:reduce){.side{transition:none!important}}
+@media (max-width:480px){.nbs-strip .prog{display:none}}
+</style>
+</head><body data-lesson="economics/the-business-cycle" data-group="economics" data-total="11">
+<style>
+body{margin:0}
+.related .rel{margin-right:10px}
+.related a,.related .rel{display:inline-block}
+@media (max-width:480px){b.num{white-space:normal}}
+.nbs-strip{position:sticky;top:0;z-index:20;background:#06352A;color:#FFFDF8;display:flex;align-items:center;justify-content:space-between;gap:12px;
+ padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:10px;font-family:'Poppins',system-ui,sans-serif;flex-wrap:wrap}
+.nbs-strip .l{display:flex;align-items:center;gap:12px;min-width:0}
+.nbs-strip img{width:30px;height:30px;border-radius:6px;display:block}
+.nbs-strip .crumb{font-size:14px;color:#C9D6D0}.nbs-strip .crumb a{color:#C9D6D0;text-decoration:none}.nbs-strip .crumb a:hover{color:#fff;text-decoration:underline}
+.nbs-strip .crumb i{font-style:normal;color:#E3C26F;margin:0 5px}.nbs-strip .crumb b{color:#fff;font-weight:500}
+.nbs-strip .prog{display:flex;align-items:center;gap:10px;font-size:13px;color:#C9D6D0}
+.nbs-strip .bar{width:130px;height:5px;border-radius:9px;background:rgba(255,255,255,.18);overflow:hidden}
+.nbs-strip .bar span{display:block;height:100%;width:0;background:#E3C26F;transition:width 1.2s cubic-bezier(.2,.8,.2,1) .2s}
+@media (max-width:560px){.nbs-strip .bar{display:none}.nbs-strip .crumb .mid{display:none}}
+@media (prefers-reduced-motion:reduce){.nbs-strip .bar span{transition:none}}
+</style>
+<header class="nbs-strip"><div class="l"><a href="https://notesbysara.org/" aria-label="Notes by Sara home"><img src="/img/favicon.png" alt="Notes by Sara"></a><nav class="crumb" aria-label="Breadcrumb"><span><a href="/lessons/index.html">Prerequisites</a></span><span class="mid"><i>›</i><a href="/lessons/economics/index.html">Economics</a></span><span><i>›</i><b>The business cycle</b></span></nav></div><div class="prog"><span>Lesson 6</span><span class="bar" aria-hidden="true"><span id="nbs-bar"></span></span></div></header>
+
+<style>
+.page .plain{background:var(--pale);border-left:4px solid var(--green);border-radius:10px;padding:18px 22px;margin:8px 0 6px}
+.page .plain p{font-size:1.12rem;line-height:1.65;margin:0;max-width:none}
+.page .plain .eyebrow{font-size:var(--t-label);margin:0 0 6px}
+.prose p{max-width:68ch;line-height:1.75}
+.prose{display:flex;flex-direction:column;gap:12px}
+.prose p{margin:0}
+svg .ax{font:13px var(--body);fill:var(--muted)}
+svg .lb{font:600 14px var(--body)}
+.calc{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:end}
+.calc label{display:flex;flex-direction:column;gap:4px;font-size:var(--t-small);color:var(--muted)}
+.calc input{font:inherit;font-size:1rem;width:120px;padding:7px 9px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)}
+.calc .out{font-size:1.05rem}
+.calc .out b{font-size:1.35rem;color:var(--green-text)}
+.pvt td.r,.pvt th.r{text-align:right;white-space:nowrap}
+.pvt tr.tot td{font-weight:600;border-top:2px solid var(--line)}
+.pvsvg svg{min-width:0!important;width:100%}
+@media (max-width:560px){.pvt td,.pvt th{padding-left:6px;padding-right:6px;font-size:12.5px;padding-left:4px;padding-right:4px}.pvt th{white-space:normal}}
+.hook{font-size:1.06rem}
+.src{font-size:var(--t-label);color:var(--muted)}
+.guess{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.guess .q{font-weight:500;margin:0 0 12px}
+.guess .opts{display:flex!important;flex-direction:row!important;flex-wrap:wrap;gap:8px;grid-template-columns:none}
+.guess .opts button{width:auto!important;flex:0 0 auto;min-width:84px;text-align:center}
+.guess .opts button{font:inherit;padding:8px 16px;border-radius:999px;border:1px solid var(--line);background:var(--ivory);color:var(--ink);cursor:pointer}
+.guess .opts button.pick{border-color:var(--green);background:var(--pale)}
+.guess .opts button.ans{border-color:var(--green);background:var(--green);color:#fff}
+.guess .fb{margin:12px 0 0}
+.guess .skip{font-size:var(--t-small);background:none;border:0;color:var(--green-text);text-decoration:underline;cursor:pointer;padding:0;margin-top:10px;font-family:inherit}
+.pro{background:var(--pearl);border-radius:12px;padding:20px 22px}
+.pro .eyebrow{margin:0 0 10px}
+.pro dl{margin:0;display:grid;grid-template-columns:minmax(0,11rem) minmax(0,1fr);gap:10px 18px}
+.pro dt{font-weight:600}
+.pro dd{margin:0;line-height:1.6}
+@media (max-width:560px){.pro dl{grid-template-columns:1fr;gap:2px}.pro dd{margin-bottom:10px}}
+.life{border-left:4px solid var(--gold);padding:4px 0 4px 18px}
+.life .eyebrow{margin:0 0 6px}
+.keep{font-family:var(--display);font-size:1.3rem;line-height:1.4;color:var(--brand);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:14px 0;margin:14px 0 4px;text-align:center}
+.prose p b{font-weight:600;color:var(--ink)}
+.prose p.aside{font-size:var(--t-small);color:var(--muted);border-left:2px solid var(--line);padding-left:12px}
+.duo{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:stretch;margin:4px 0 6px}
+.duo>div:not(.or){background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;display:flex;flex-direction:column;gap:4px}
+.duo .big{font-family:var(--display);font-size:1.9rem;color:var(--brand);line-height:1.1}
+.duo span:not(.big){font-size:var(--t-small);color:var(--muted)}
+.duo .or{align-self:center;font-size:var(--t-small);color:var(--muted)}
+.three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:2px 0 6px}
+.three>div{background:var(--pearl);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.three span{font-size:var(--t-small);color:var(--muted);line-height:1.5}
+@media (max-width:560px){.duo{grid-template-columns:1fr}.duo .or{text-align:center}.three{grid-template-columns:1fr}}
+.note{font-size:var(--t-small);color:var(--muted)}
+.flow text{font-family:var(--body)}
+.flow .bx{fill:var(--surface);stroke:var(--line);stroke-width:1.5}
+.flow .bxd{fill:var(--deep)}
+.flow .t1{font:600 16px var(--body);fill:var(--ink)}
+.flow .t2{font:13.5px var(--body);fill:var(--muted)}
+.flow .w1{font:600 16px var(--body);fill:var(--on-deep)}
+.flow .w2{font:13.5px var(--body);fill:var(--on-deep-muted)}
+.flow .lab{font:600 12.5px var(--body);letter-spacing:.08em;fill:var(--gold-text)}
+.four{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:2px 0 6px}
+.four>div{background:var(--pearl);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.four span{font-size:var(--t-small);color:var(--muted);line-height:1.5}
+.branches{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.branches>div{border-top:3px solid var(--green);background:var(--surface);border-radius:0 0 10px 10px;padding:12px 14px;display:flex;flex-direction:column;gap:4px;box-shadow:0 0 0 1px var(--line) inset}
+.branches span{font-size:var(--t-small);color:var(--muted);line-height:1.5}
+@media (max-width:560px){.four,.branches{grid-template-columns:1fr}}
+.fx>span{display:inline-flex;align-items:center;gap:10px;white-space:nowrap}
+.fx .frac{align-items:stretch;text-align:center}
+@media (max-width:560px){.fx{font-size:1.1rem}.fx>span{gap:6px}}
+.guess .opts button{white-space:normal;max-width:100%}
+</style><style>
+.chsvg svg{min-width:0!important;width:100%}
+svg .ax{font:13px var(--body);fill:var(--muted)}
+.legend2{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:var(--t-small);color:var(--muted);margin-top:6px}
+.legend2 i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.pvt td.r,.pvt th.r{text-align:right;white-space:nowrap}
+.pvt th.r{white-space:normal}
+.fx>span{display:inline-flex;align-items:center;gap:10px;white-space:nowrap}
+.fx .frac{align-items:stretch;text-align:center}
+svg .lb{font:600 13px var(--body)}
+/* section practice */
+.prac{border-top:2px solid var(--gold);border-bottom:1px solid var(--line)}
+.pwrap>summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px 4px}
+.pwrap>summary::-webkit-details-marker{display:none}
+.pwrap>summary .t{font-family:var(--display);font-size:1.6rem;color:var(--brand);line-height:1.3}
+.pwrap>summary .s{font-size:var(--t-small);color:var(--muted)}
+.pwrap>summary::after{content:"+";font-size:1.6rem;color:var(--gold-text);flex:none;width:24px;text-align:center}
+.pwrap[open]>summary::after{content:"−"}
+.pin{padding:0 4px 22px;display:flex;flex-direction:column;gap:14px}
+.prac .intro{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:var(--t-small);color:var(--muted)}
+.prac ol{margin:0;padding:0;list-style:none;counter-reset:p;display:flex;flex-direction:column;gap:12px}
+.prac li{counter-increment:p;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 18px;display:flex;flex-direction:column;gap:8px}
+.prac li>p::before{content:counter(p) ". ";font-weight:600;color:var(--brand)}
+.prac li summary{cursor:pointer;font-size:var(--t-small);color:var(--green-text);font-weight:500;width:max-content}
+.prac .ans{background:var(--pale);border-radius:10px;padding:10px 14px;margin-top:8px;font-size:var(--t-small);line-height:1.65;display:flex;flex-direction:column;gap:4px}
+.prac .tool{font-size:var(--t-label);letter-spacing:.08em;text-transform:uppercase;color:var(--gold-text);font-weight:600}
+
+.prac .eyebrow{margin:0}
+.pair2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.pair2>div{background:var(--pearl);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.pair2 span{font-size:var(--t-small);color:var(--muted);line-height:1.5}
+@media (max-width:560px){.pair2{grid-template-columns:1fr}}
+</style>
+<style>
+.four{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.four>div{background:var(--pearl);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.four span{font-size:var(--t-small);color:var(--muted);line-height:1.5}
+.mkt td,.mkt th{font-size:var(--t-small);vertical-align:top;line-height:1.45}
+.mkt td:first-child{min-width:9rem}
+@media (max-width:560px){.four{grid-template-columns:1fr}
+.mkt thead{display:none}.mkt,.mkt tbody,.mkt tr,.mkt td{display:block;width:100%}
+.mkt tr{border-bottom:1px solid var(--line);padding:10px 0}.mkt td{border:0!important;padding:2px 0!important;min-width:0!important}
+.mkt td[data-l]:not([data-l=""])::before{content:attr(data-l) ": ";color:var(--muted)}
+.mkt td:first-child{font-size:1rem}}
+</style>
+<style>
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:2px 0 4px}
+.steps>div{background:var(--pearl);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.steps .n{width:26px;height:26px;border-radius:50%;background:var(--brand);color:#fff;font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center;margin-bottom:4px}
+.steps span:not(.n){font-size:var(--t-small);color:var(--muted);line-height:1.5}
+.stack{display:flex;height:46px;border-radius:8px;overflow:hidden;gap:2px}
+.stack span{display:flex;align-items:center;padding:0 12px;color:#fff;font-size:var(--t-small);white-space:nowrap;overflow:hidden;min-width:0}
+.stack b{margin-right:6px;color:#fff}
+.slip{display:flex;flex-direction:column;font-size:var(--t-small);margin-bottom:14px}
+.slip .row{display:flex;justify-content:space-between;gap:12px;padding:7px 2px;border-bottom:1px solid var(--line)}
+.slip .row b{font-variant-numeric:tabular-nums;white-space:nowrap}
+.slip .top{font-weight:600}
+.slip .net{border-bottom:0;border-top:2px solid var(--ink);font-weight:600;font-size:var(--t-body)}
+.slip .net b{color:var(--green-text)}
+.calc{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:end}
+.calc label{display:flex;flex-direction:column;gap:4px;font-size:var(--t-small);color:var(--muted);min-width:0;max-width:100%}
+.calc input,.calc select{font:inherit;font-size:1rem;padding:7px 9px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);max-width:100%}
+.calc input{width:120px}
+.calc .out{font-size:1.05rem;flex-basis:100%}
+.calc .out b{font-size:1.35rem;color:var(--green-text)}
+.legend2{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:var(--t-small);color:var(--muted);margin-top:6px}
+.legend2 i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.src{font-size:var(--t-label);color:var(--muted)}
+.note{font-size:var(--t-small);color:var(--muted)}
+.tw table{font-size:var(--t-small)}
+@media (max-width:560px){.steps{grid-template-columns:1fr}}
+</style>
+<style>
+.chsvg svg{width:100%;height:auto;display:block;max-width:560px;margin:0 auto}
+svg .ax{font:14px var(--body);fill:var(--muted)}
+svg .lb{font:600 15px var(--body)}
+.chsvg .bars{max-width:480px}
+@media (max-width:560px){.chsvg{padding-left:10px;padding-right:10px}.bars .ax{font-size:16px}.bars .lb{font-size:16px}}
+.lights{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin:2px 0 4px}
+.lights>div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 10px;display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center}
+.lights i{width:22px;height:22px;border-radius:50%}
+.lights b{font-size:var(--t-small)}
+.lights span{font-size:var(--t-label);color:var(--muted)}
+@media (max-width:560px){.lights{grid-template-columns:1fr;gap:6px}.lights>div{flex-direction:row;padding:8px 14px;gap:12px;text-align:left}.lights i{width:18px;height:18px;flex:none}.lights span{margin-left:auto}}
+</style>
+<div class="shell" id="shell"><div class="scrim" id="scrim"></div><button type="button" class="fab" id="mbtn" aria-label="Show the lesson list">☰</button><aside class="side" id="side" aria-label="Lessons in this subject"><div class="sidehead"><button type="button" class="tog" id="col" aria-label="Hide the lesson list">☰ Hide lessons</button><nav class="sw" aria-label="Subjects"><a href="/lessons/mathematics/index.html">Math</a><a href="/lessons/statistics/index.html">Stats</a><a href="/lessons/accounting/index.html">Accounting</a><a href="/lessons/economics/index.html" class="on">Economics</a></nav></div><p class="subj"><a href="/lessons/economics/index.html">Economics for Finance</a></p><div class="grp"><p class="gh"><span>Markets and prices</span><span class="gc">0 of 3</span></p><ol><li><a href="/lessons/economics/supply-and-demand.html" data-slug="economics/supply-and-demand"><span class="mk">1</span><span class="tt">Supply and demand</span></a></li><li><a href="/lessons/economics/elasticity.html" data-slug="economics/elasticity"><span class="mk">2</span><span class="tt">Elasticity</span></a></li><li><a href="/lessons/economics/competition-and-market-power.html" data-slug="economics/competition-and-market-power"><span class="mk">3</span><span class="tt">Competition and market power</span></a></li></ol></div><div class="grp"><p class="gh"><span>The economy</span><span class="gc">0 of 3</span></p><ol><li><a href="/lessons/economics/gdp-and-growth.html" data-slug="economics/gdp-and-growth"><span class="mk">4</span><span class="tt">GDP and growth</span></a></li><li><a href="/lessons/economics/unemployment.html" data-slug="economics/unemployment"><span class="mk">5</span><span class="tt">Unemployment</span></a></li><li><a href="/lessons/economics/the-business-cycle.html" data-slug="economics/the-business-cycle" class="now" aria-current="page"><span class="mk">6</span><span class="tt">The business cycle</span></a></li></ol></div><div class="grp"><p class="gh"><span>Money and policy</span><span class="gc">0 of 5</span></p><ol><li><a href="/lessons/economics/what-money-is.html" data-slug="economics/what-money-is"><span class="mk">7</span><span class="tt">What money is</span></a></li><li><a href="/lessons/economics/central-banks-and-interest-rates.html" data-slug="economics/central-banks-and-interest-rates"><span class="mk">8</span><span class="tt">Central banks and interest rates</span></a></li><li><a href="/lessons/economics/inflation.html" data-slug="economics/inflation"><span class="mk">9</span><span class="tt">Inflation</span></a></li><li><a href="/lessons/economics/exchange-rates.html" data-slug="economics/exchange-rates"><span class="mk">10</span><span class="tt">Exchange rates</span></a></li><li><a href="/lessons/economics/financial-crises.html" data-slug="economics/financial-crises"><span class="mk">11</span><span class="tt">Financial crises</span></a></li></ol></div></aside><article class="page">
+
+  <header class="banner">
+    <p class="eyebrow">Economics for Finance</p>
+    <h1>The business cycle</h1>
+    <p class="lead">The pattern of expansions and recessions, who decides when a recession starts, why it is only known afterward, and how forecasters try to see turns coming.</p>
+    <div class="meta"><span><b>The economy</b> · Lesson 3 of 3 · 7 minutes</span><span>Before this: <a href="/lessons/economics/unemployment.html">Unemployment</a></span></div>
+  </header>
+
+  <div class="plain">
+    <p class="eyebrow">In plain words</p>
+    <p>The economy doesn't grow in a straight line. It grows for a while, reaches a high point, shrinks for a while, hits a low point, then grows again. That repeating pattern is the business cycle. The shrinking part is a recession.</p>
+  </div>
+
+  <section class="sec prose">
+    <p class="hook">The last US cycle held two records at once:</p>
+    <div class="duo">
+      <div><span class="big">128 months</span><span>The expansion from June 2009 to February 2020, the longest in US records going back to 1854</span></div>
+      <div class="or">then</div>
+      <div><span class="big">2 months</span><span>The recession that ended it, from February to April 2020, the shortest on record</span></div>
+    </div>
+    <p class="src">Source: <a href="https://www.nber.org/news/business-cycle-dating-committee-announcement-june-8-2020">NBER Business Cycle Dating Committee</a>; <a href="https://www.nber.org/research/data/us-business-cycle-expansions-and-contractions">NBER chronology</a>.</p>
+    <p>Neither length is typical, but together they show the basic shape. <b>Expansions usually last years; recessions usually last months.</b> And the economy does not climb back to the same place: each cycle sits on a long-run trend that rises over time.</p>
+
+    <p><b>Every cycle has four phases.</b> An expansion runs from a low point, the trough, up to a high point, the peak. A contraction, or recession, runs from the peak down to the next trough.</p>
+    <div class="box chsvg"><svg viewBox="0 0 480 250" role="img" aria-label="A wave rising along an upward trend: expansion up to a peak, contraction down to a trough, then expansion again.">
+<rect x="170" y="28" width="130" height="190" fill="var(--coral-pale)"/>
+<text class="lb" x="235.0" y="46" text-anchor="middle" fill="var(--coral)">Contraction</text>
+<text class="ax" x="235.0" y="64" text-anchor="middle">(recession)</text>
+<line x1="20" y1="180.0" x2="460" y2="114.0" stroke="var(--muted)" stroke-dasharray="5 5" stroke-width="1.5"/>
+<text class="ax" x="460" y="142" text-anchor="end">Long-run</text><text class="ax" x="460" y="159" text-anchor="end">trend</text>
+<polyline points="20,217.2 24,218.3 28,219.0 32,219.4 36,219.4 40,219.0 44,218.2 48,217.0 52,215.4 56,213.5 60,211.2 64,208.5 68,205.5 72,202.3 76,198.7 80,194.9 84,190.8 88,186.6 92,182.2 96,177.7 100,173.1 104,168.4 108,163.8 112,159.1 116,154.6 120,150.1 124,145.8 128,141.6 132,137.7 136,134.0 140,130.6 144,127.4 148,124.6 152,122.1 156,120.0 160,118.2 164,116.8 168,115.8 172,115.2 176,115.0 180,115.2 184,115.8 188,116.7 192,118.0 196,119.6 200,121.6 204,123.8 208,126.3 212,129.0 216,132.0 220,135.1 224,138.4 228,141.7 232,145.2 236,148.6 240,152.1 244,155.5 248,158.8 252,162.0 256,165.0 260,167.9 264,170.5 268,172.9 272,174.9 276,176.7 280,178.2 284,179.3 288,180.0 292,180.4 296,180.4 300,180.0 304,179.2 308,178.0 312,176.4 316,174.5 320,172.2 324,169.5 328,166.5 332,163.3 336,159.7 340,155.9 344,151.8 348,147.6 352,143.2 356,138.7 360,134.1 364,129.4 368,124.8 372,120.1 376,115.6 380,111.1 384,106.8 388,102.6 392,98.7 396,95.0 400,91.6 404,88.4 408,85.6 412,83.1 416,81.0 420,79.2 424,77.8 428,76.8 432,76.2 436,76.0 440,76.2 444,76.8 448,77.7 452,79.0 456,80.6 460,82.6" fill="none" stroke="var(--green)" stroke-width="3.5" stroke-linecap="round"/>
+<circle cx="170" cy="115.5" r="6" fill="var(--brand)"/><text class="lb" x="170" y="102" text-anchor="middle" fill="var(--ink)">Peak</text>
+<circle cx="300" cy="180.0" r="6" fill="var(--brand)"/><text class="lb" x="300" y="208" text-anchor="middle" fill="var(--ink)">Trough</text>
+<text class="lb" x="70" y="150" text-anchor="middle" fill="var(--green-text)">Expansion</text>
+<text class="lb" x="395" y="62" text-anchor="middle" fill="var(--green-text)">Expansion</text>
+<line x1="20" y1="222" x2="460" y2="222" stroke="var(--line)" stroke-width="1.5"/>
+<text class="ax" x="460" y="242" text-anchor="end">Time →</text>
+<text class="ax" x="20" y="242">Economic activity ↑</text>
+</svg>
+      <p class="cap">A stylized cycle. Real cycles are irregular: no two expansions or recessions have the same length or depth.</p>
+    </div>
+
+    <p><b>In the US, recessions are dated by a committee, not a formula.</b> The Business Cycle Dating Committee of the National Bureau of Economic Research (NBER), a private research group, keeps the official record of peaks and troughs. Its definition: a recession is a significant decline in economic activity that is spread across the economy and lasts more than a few months. That gives three tests, <b>depth, breadth and length</b>, and a very severe decline on one test can make up for a weaker showing on another. The 2020 recession was extremely short, but the fall was so deep and so widespread that it qualified.</p>
+    <p>The committee looks at many monthly measures rather than one: payroll jobs, real income, real consumer spending, factory output and sales, along with GDP.</p>
+    <p><b>Other economies date their cycles in their own ways.</b> The euro area has had a similar committee since 2003, run by the Centre for Economic Policy Research (CEPR). It dates turning points by quarter rather than by month, because Europe's quarterly data are more reliable. Many countries, Australia among them, simply use the two-quarter rule described below.</p>
+
+    <div class="guess" id="g">
+      <p class="q">A common rule of thumb says a recession means GDP falls for two quarters in a row. When the 2007 to 2009 US recession began, how long did it take for that to happen?</p>
+      <div class="opts"><button type="button">It happened in the first two quarters</button><button type="button" data-a>Most of a year</button><button type="button">It never happened</button></div>
+      <p class="fb" hidden></p>
+    </div>
+
+    <p><b>The rule and a committee can give different answers.</b> In 2012, when official figures showed euro area GDP falling for a second straight quarter, the CEPR committee concluded that the recession had in fact begun earlier, after a peak in the third quarter of 2011. Australia, which does go by the rule, went almost 29 years without a recession, the longest run in the developed world, until GDP fell 0.3% and then 7.0% in the first two quarters of 2020.</p>
+    <p class="src">Sources: <a href="https://bruegel.org/blog-post/blogs-review-dating-european-double-dip">Bruegel, on the CEPR committee</a>; <a href="https://www.bloombergquint.com/global-economics/australia-economy-contracts-as-end-to-recession-free-run-looms">Bloomberg</a>; <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8013290/">Economic Papers, 2021</a>.</p>
+
+    <p><b>A recession is only dated after it has started, often long after.</b> The committee waits until the data are clear enough that it won't need to revise them. The December 2007 peak was announced on December 1, 2008, twelve months later, by which point the recession was already a year old. So people who say "we're not in a recession" are often only saying it hasn't been declared yet.</p>
+
+    <p><b>Over the last six US recessions, the pattern of long expansions and short recessions is clear:</b></p>
+    <div class="box chsvg"><svg class="bars" viewBox="0 0 400 316" role="img" aria-label="Months of expansion before each of the last six US recessions, and the length of each recession. Expansions: 58, 12, 92, 120, 73 and 128 months. Recessions: 6, 16, 8, 8, 18 and 2 months.">
+<text class="lb" x="70" y="32" text-anchor="end" fill="var(--ink)">1980</text>
+<rect x="84" y="12" width="120.5" height="16" rx="3" fill="var(--green)"/><text class="ax" x="210.5" y="25">58</text>
+<rect x="84" y="31" width="12.5" height="16" rx="3" fill="var(--coral)"/><text class="ax" x="102.5" y="44">6</text>
+<text class="lb" x="70" y="78" text-anchor="end" fill="var(--ink)">1981–82</text>
+<rect x="84" y="58" width="24.9" height="16" rx="3" fill="var(--green)"/><text class="ax" x="114.9" y="71">12</text>
+<rect x="84" y="77" width="33.2" height="16" rx="3" fill="var(--coral)"/><text class="ax" x="123.2" y="90">16</text>
+<text class="lb" x="70" y="124" text-anchor="end" fill="var(--ink)">1990–91</text>
+<rect x="84" y="104" width="191.2" height="16" rx="3" fill="var(--green)"/><text class="ax" x="281.2" y="117">92</text>
+<rect x="84" y="123" width="16.6" height="16" rx="3" fill="var(--coral)"/><text class="ax" x="106.6" y="136">8</text>
+<text class="lb" x="70" y="170" text-anchor="end" fill="var(--ink)">2001</text>
+<rect x="84" y="150" width="249.4" height="16" rx="3" fill="var(--green)"/><text class="ax" x="339.4" y="163">120</text>
+<rect x="84" y="169" width="16.6" height="16" rx="3" fill="var(--coral)"/><text class="ax" x="106.6" y="182">8</text>
+<text class="lb" x="70" y="216" text-anchor="end" fill="var(--ink)">2007–09</text>
+<rect x="84" y="196" width="151.7" height="16" rx="3" fill="var(--green)"/><text class="ax" x="241.7" y="209">73</text>
+<rect x="84" y="215" width="37.4" height="16" rx="3" fill="var(--coral)"/><text class="ax" x="127.4" y="228">18</text>
+<text class="lb" x="70" y="262" text-anchor="end" fill="var(--ink)">2020</text>
+<rect x="84" y="242" width="266.0" height="16" rx="3" fill="var(--green)"/><text class="ax" x="356.0" y="255">128</text>
+<rect x="84" y="261" width="4.2" height="16" rx="3" fill="var(--coral)"/><text class="ax" x="94.2" y="274">2</text>
+<line x1="84" y1="6" x2="84" y2="284" stroke="var(--line)" stroke-width="1.5"/>
+<text class="ax" x="84" y="306">Months</text></svg>
+      <div class="legend2"><span><i style="background:var(--green)"></i>Expansion before it (months)</span><span><i style="background:var(--coral)"></i>Recession (months)</span></div>
+      <p class="cap">Since 1945, US recessions have averaged about 10 months and expansions about 64. Source: <a href="https://www.nber.org/research/data/us-business-cycle-expansions-and-contractions">NBER</a>.</p>
+    </div>
+    <p>The NBER has not dated a recession since the trough in April 2020.</p>
+
+    <p><b>Forecasters sort economic data by when it tends to turn</b>, relative to the cycle:</p>
+    <div class="three">
+      <div><b>Leading</b><span>Tend to turn before the economy does. Examples: building permits, new claims for unemployment benefits, the gap between long- and short-term interest rates, stock prices. The Conference Board combines ten of these into its Leading Economic Index.</span></div>
+      <div><b>Coincident</b><span>Move with the economy and show where it is now. Examples: payroll jobs, personal income, manufacturing and trade sales, industrial production.</span></div>
+      <div><b>Lagging</b><span>Turn after the economy does. The unemployment rate is the best known: it often keeps rising after the trough. In 2009, payroll jobs bottomed eight months after the recession ended.</span></div>
+    </div>
+
+    <p><b>Some governments turn the indicators into a single signal.</b> Taiwan's National Development Council scores nine indicators each month, including exports, industrial production, jobs and stock prices, and shows the result as a traffic light:</p>
+    <div class="lights" role="list">
+      <div role="listitem"><i style="background:#2F5DA8"></i><b>Blue</b><span>Recession</span></div>
+      <div role="listitem"><i style="background:#7FA7C9"></i><b>Yellow-blue</b><span>Sluggish</span></div>
+      <div role="listitem"><i style="background:#2E8B57"></i><b>Green</b><span>Steady growth</span></div>
+      <div role="listitem"><i style="background:#E0A526"></i><b>Yellow-red</b><span>Slight boom</span></div>
+      <div role="listitem"><i style="background:#C8412F"></i><b>Red</b><span>Boom</span></div>
+    </div>
+    <p>The signal can swing quickly. It showed blue in October 2023, then red in late 2025 and early 2026, as firms gained from strong demand related to artificial intelligence.</p>
+    <p class="src">Sources: <a href="https://www.ndc.gov.tw/EN/nc_199_37585">NDC, October 2023</a>; <a href="https://www.ndc.gov.tw/EN/nc_199_39711">NDC, December 2025</a>; <a href="https://www.taipeitimes.com/News/biz/archives/2026/03/10/2003853534">Taipei Times</a>.</p>
+
+    <p><b>Leading indicators can still be wrong.</b> In late 2022, with the Leading Economic Index falling and the yield curve inverted, meaning short-term interest rates were above long-term ones, the Conference Board forecast a US recession starting around the end of 2022 and lasting through mid-2023. It did not come: the economy kept growing, and by early 2024 the Conference Board said its index no longer signaled a recession. A Wall Street saying captures the problem: the yield curve has predicted eight of the last five recessions.</p>
+    <p class="src">Sources: <a href="https://conference-board.org/topics/us-leading-indicators/press/us-lei-nov-2022">The Conference Board, November 2022</a>; <a href="https://www.investing.com/analysis/leading-economic-index-misses-again-are-recession-forecasts-broken-200646272">Investing.com, quoting the Conference Board, February 2024</a>; <a href="https://www.marketplace.org/story/2023/08/17/leading-economic-indicators-recession">Marketplace, 2023</a>.</p>
+
+    <p><b>Cycles have several causes, and most downturns involve more than one:</b></p>
+    <div class="three">
+      <div><b>Demand shocks</b><span>Households and firms spend less, because confidence falls, credit tightens or interest rates rise. Output and inflation both tend to fall.</span></div>
+      <div><b>Supply shocks</b><span>Something cuts what the economy can produce, such as an oil price spike, a pandemic or a disaster. Output can fall while prices rise, as in the 1970s.</span></div>
+      <div><b>Credit cycles</b><span>Borrowing grows fast in good times and is cut back sharply in bad ones, deepening both the boom and the bust. The lesson on financial crises covers this.</span></div>
+    </div>
+    <p><b>Governments lean against the cycle with fiscal policy</b>, meaning taxes and spending, alongside the central bank's interest rate. Part of it is automatic. In a downturn, people pay less income tax as their incomes fall and more of them qualify for unemployment benefits, so the government budget cushions the fall without any new law. These are called <b>automatic stabilizers</b>. Governments can also act on purpose, with tax cuts, payments to households or spending programs, as the US did with the CARES Act in 2020. Such measures can be large, but they take time to pass and to reach people, while automatic stabilizers start working at once.</p>
+    <p class="src">Sources: <a href="https://www.gao.gov/products/GAO-24-106056">US Government Accountability Office</a>; <a href="https://econofact.org/the-role-of-automatic-stabilizers-in-fighting-recessions">Econofact</a>; <a href="https://www.frbsf.org/research-and-insights/publications/doctor-econ/phillips-curve-inflation">Federal Reserve Bank of San Francisco, on the 1970s</a>.</p>
+</section>
+
+  <section class="sec prose">
+    <div class="pro">
+      <p class="eyebrow">How professionals use it</p>
+      <dl>
+        <dt>Investors</dt><dd>Shift between cyclical businesses, such as carmakers, airlines and builders, whose profits swing with the cycle, and defensive ones, such as food and utilities, whose sales hold up in a recession.</dd>
+        <dt>Lenders</dt><dd>Test whether a borrower could still pay if revenue fell as it did in a past recession, because defaults cluster in downturns.</dd>
+        <dt>Companies</dt><dd>Plan hiring, inventory and borrowing so that a downturn doesn't leave them with too much stock or too much debt.</dd>
+        <dt>Central banks</dt><dd>Lean against the cycle, cutting interest rates in a downturn and raising them when the economy overheats.</dd>
+      </dl>
+    </div>
+    <p class="keep">You can't time the cycle precisely, but you can plan for it, because a downturn always comes.</p>
+  </section>
+
+  <section class="prac" aria-label="Section practice">
+    <details class="pwrap">
+      <summary><span><span class="eyebrow">Section practice · optional</span><br><span class="t">The economy</span><br><span class="s">8 mixed problems from lessons 4 to 6 · about 12 minutes</span></span></summary>
+      <div class="pin">
+    <p>The problems aren't labeled with a lesson, so part of the work is choosing the right idea. Work each one on paper, then open the answer.</p>
+    <ol>
+      <li><p>Nominal GDP grows 6% in a year while prices rise 4%. Roughly how much did real output grow?</p>
+        <details><summary>Show answer</summary><div class="ans"><span class="tool">GDP and growth</span><span>About <b>2%</b>. Exactly: 1.06 ÷ 1.04 − 1 = <b>1.9%</b>.</span></div></details></li>
+      <li><p>In a country, consumption is $14 trillion, investment $4 trillion, government spending $3.5 trillion, exports $2.5 trillion and imports $3 trillion. What is GDP, and what share of it is consumption? (illustrative figures)</p>
+        <details><summary>Show answer</summary><div class="ans"><span class="tool">GDP and growth</span><span>14 + 4 + 3.5 + 2.5 − 3 = <b>$21 trillion</b>. Consumption: 14 ÷ 21 = <b>67%</b>.</span></div></details></li>
+      <li><p>A miller sells flour to a bakery for $2. The bakery turns it into bread and sells it for $5. How much do the two together add to GDP?</p>
+        <details><summary>Show answer</summary><div class="ans"><span class="tool">GDP and growth</span><span><b>$5</b>, the value of the final product. Counting the flour again would count it twice. Seen as value added: $2 by the miller plus $3 by the bakery.</span></div></details></li>
+      <li><p>GDP per person grows 2% a year. About how long does it take to double?</p>
+        <details><summary>Show answer</summary><div class="ans"><span class="tool">GDP and growth</span><span>ln 2 ÷ ln 1.02 ≈ <b>35 years</b>.</span></div></details></li>
+      <li><p>The labor force is 160 million and 6.4 million people are unemployed. Then 0.8 million of the unemployed find jobs and another 0.4 million stop looking. What is the unemployment rate before and after? (illustrative figures)</p>
+        <details><summary>Show answer</summary><div class="ans"><span class="tool">Unemployment</span><span>Before: 6.4 ÷ 160 = <b>4.0%</b>. After: unemployed 6.4 − 0.8 − 0.4 = 5.2 million; labor force 160 − 0.4 = 159.6 million; 5.2 ÷ 159.6 = <b>3.3%</b>. Part of the drop came from people giving up, not finding work.</span></div></details></li>
+      <li><p>Classify each: a graduate taking two months to choose between job offers; a print worker whose skills are no longer needed as newspapers shrink; a factory worker laid off as orders fall across the economy.</p>
+        <details><summary>Show answer</summary><div class="ans"><span class="tool">Unemployment</span><span><b>Frictional</b>, <b>structural</b> and <b>cyclical</b>, in that order.</span></div></details></li>
+      <li><p>Real GDP dips 0.1% in two quarters in a row, but jobs, income and sales keep rising. Is this likely to be dated a recession?</p>
+        <details><summary>Show answer</summary><div class="ans"><span class="tool">The business cycle</span><span><b>Probably not.</b> The decline is neither deep nor spread across the economy, so it fails the depth and breadth tests even though it meets the two-quarter rule of thumb.</span></div></details></li>
+      <li><p>A recession ends in June. The unemployment rate keeps rising until the following spring. What kind of indicator is it behaving as, and why?</p>
+        <details><summary>Show answer</summary><div class="ans"><span class="tool">The business cycle</span><span><b>A lagging indicator.</b> Firms wait to be sure a recovery will last before they hire again, so jobs recover after output does.</span></div></details></li>
+    </ol>
+      </div>
+    </details>
+  </section>
+
+
+  <a class="next" href="/lessons/economics/what-money-is.html"><span class="eyebrow">Next</span><span class="t">What money is</span><span class="arrow">→</span></a>
+
+  <nav class="related">Related: <a href="/lessons/economics/gdp-and-growth.html">GDP and growth</a> · <a href="/lessons/economics/unemployment.html">Unemployment</a> · <a href="/lessons/foundations/risk-and-return.html">The risk and return trade-off</a></nav>
+</article></div>
+<script>
+(function(){
+  const g=document.getElementById('g'),fb=g.querySelector('.fb');
+  g.querySelectorAll('.opts button').forEach(b=>b.addEventListener('click',()=>{
+    g.querySelectorAll('.opts button').forEach(x=>{x.disabled=true;if(x.hasAttribute('data-a'))x.classList.add('ans')});
+    if(!b.hasAttribute('data-a'))b.classList.add('pick');
+    fb.hidden=false;
+    fb.innerHTML=(b.hasAttribute('data-a')?'Right. ':'')+'<b>Most of a year.</b> The recession began after the December 2007 peak, but real GDP, as now measured, fell in the first quarter of 2008, rose in the second, and only then fell in the third and fourth. Payroll jobs, by contrast, fell every month from December 2007. That is why the NBER does not use the two-quarter rule: it can be late, and it can be triggered by a small dip that is not a real recession.';
+  }));
+})();
+</script>
+<script>
+(function(){
+  var KEY='nbs-lessons-done',done=[];
+  try{done=JSON.parse(localStorage.getItem(KEY)||'[]')||[]}catch(e){}
+  var me=document.body.getAttribute('data-lesson'),total=+document.body.getAttribute('data-total')||0,group=document.body.getAttribute('data-group');
+  function count(){return done.filter(function(s){return s.indexOf(group+'/')===0}).length}
+  function show(){var b=document.getElementById('nbs-bar');if(b&&total)b.style.width=Math.min(100,count()/total*100)+'%'}
+  requestAnimationFrame(function(){requestAnimationFrame(show)});
+  var end=document.querySelector('.next');
+  if(me&&end&&'IntersectionObserver' in window){
+    new IntersectionObserver(function(es,o){es.forEach(function(e){if(e.isIntersecting){
+      if(done.indexOf(me)<0){done.push(me);try{localStorage.setItem(KEY,JSON.stringify(done))}catch(err){}show()}
+      o.disconnect()}})},{threshold:.6}).observe(end);
+  }
+})();
+</script>
+<script>
+(function(){
+  var sh=document.getElementById('shell'),KEY='nbs-side-closed',done=[];
+  try{done=JSON.parse(localStorage.getItem('nbs-lessons-done')||'[]')||[]}catch(e){}
+  function marks(){
+    document.querySelectorAll('.side .grp').forEach(function(g){var n=0,a=g.querySelectorAll('a[data-slug]');
+      a.forEach(function(x){var d=done.indexOf(x.dataset.slug)>=0;x.classList.toggle('done',d&&!x.classList.contains('now'));if(d)n++});
+      var c=g.querySelector('.gc');if(c)c.textContent=n+' of '+a.length;});
+  }
+  marks();
+  window.addEventListener('storage',function(){try{done=JSON.parse(localStorage.getItem('nbs-lessons-done')||'[]')||[]}catch(e){}marks()});
+  var closed=false;try{closed=localStorage.getItem(KEY)==='1'}catch(e){}
+  function setClosed(c){closed=c;sh.classList.toggle('closed',c);document.body.classList.toggle('side-closed',c);try{localStorage.setItem(KEY,c?'1':'0')}catch(e){}}
+  if(closed&&innerWidth>860)setClosed(true);
+  document.getElementById('col').addEventListener('click',function(){if(innerWidth<=860){sh.classList.remove('mopen')}else{setClosed(true)}});
+  document.getElementById('mbtn').addEventListener('click',function(){if(innerWidth<=860){sh.classList.add('mopen')}else{setClosed(false)}});
+  function sh_h(){var st=document.querySelector('.nbs-strip');if(st)document.documentElement.style.setProperty('--sh',st.offsetHeight+'px')}
+  sh_h();addEventListener('resize',sh_h);
+  document.getElementById('scrim').addEventListener('click',function(){sh.classList.remove('mopen')});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')sh.classList.remove('mopen')});
+  var now=document.querySelector('.side a.now');if(now&&now.scrollIntoView&&innerWidth>860){var s=document.getElementById('side');s.scrollTop=Math.max(0,now.offsetTop-s.clientHeight/2)}
+})();
+</script>
+</body></html>

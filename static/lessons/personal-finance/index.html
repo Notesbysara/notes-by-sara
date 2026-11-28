@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="icon" href="/img/favicon.png">
+<title>Personal Finance · Notes by Sara</title>
+<meta name="description" content="Foundations: step 1 of the Notes by Sara learning path. 21 short lessons in 4 sections on the financial system, the time value of money, risk and return, and ethics.">
+<link rel="canonical" href="https://notesbysara.org/lessons/foundations/">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Forum&family=Poppins:wght@400;500;600&display=swap">
+<style>
+/* Layout: one calm reading column. Three surfaces only: the deep banner, white boxes, and pale green for anything the learner answers. Light only, like the site. */
+:root{
+  color-scheme:light;
+  --ivory:#FFFDF8; --surface:#FFFFFF; --pearl:#F7F2E7; --pale:#EAF4EF;
+  --ink:#1F2A26; --muted:#5A6862; --line:#E6E1D5;
+  --deep:#06352A; --green:#0E7C5A; --green-text:#0B6A4C; --brand:#0B4F3C;
+  --gold:#E3C26F; --gold-text:#8A6A12; --coral:#B4452F; --coral-pale:#FBEDE9;
+  --on-deep:#FFFDF8; --on-deep-muted:#C9D6D0;
+  --display:'Forum',Georgia,'Times New Roman',serif;
+  --body:'Poppins',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --t-body:16px; --t-small:14px; --t-label:12.5px;
+}
+*{box-sizing:border-box}
+body{background:var(--ivory);color:var(--ink);font-family:var(--body);font-size:var(--t-body);line-height:1.75}
+a{color:var(--green-text)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
+.mockbar{background:var(--pearl);color:var(--muted);font-size:var(--t-small);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:8px;text-align:center;border-bottom:1px solid var(--line)}
+.mockbar b{color:var(--gold-text);letter-spacing:.12em;text-transform:uppercase;font-size:var(--t-label);margin-right:6px}
+.page{max-width:720px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px;display:flex;flex-direction:column;gap:40px}
+h1,h2{font-family:var(--display);font-weight:400;line-height:1.15;margin:0;text-wrap:balance}
+h2{font-size:1.7rem;color:var(--brand)}
+p{margin:0}
+.sec{display:flex;flex-direction:column;gap:14px}
+.eyebrow{font-size:var(--t-label);font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--gold-text)}
+.muted{color:var(--muted)}
+.small{font-size:var(--t-small)}
+b{font-weight:600}
+.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* 1. banner */
+.banner{background:var(--deep);color:var(--on-deep);border-radius:18px;padding:26px 26px 22px;display:flex;flex-direction:column;gap:10px}
+.banner .eyebrow{color:var(--gold)}
+.banner h1{font-size:clamp(2rem,6vw,2.6rem)}
+.banner .lead{color:var(--on-deep-muted)}
+.banner .meta{font-size:var(--t-small);color:var(--on-deep-muted);border-top:1px solid rgba(227,194,111,.35);padding-top:10px;display:flex;flex-wrap:wrap;gap:4px 18px}
+.banner .meta b{color:var(--gold);font-weight:600}
+.banner .meta a{color:var(--on-deep)}
+
+/* white box */
+.box{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.svgwrap{overflow-x:auto}
+.svgwrap svg{display:block;width:100%;height:auto;min-width:480px}
+.cap{font-size:var(--t-small);color:var(--muted)}
+
+/* formula */
+.fx{font-family:Georgia,'Times New Roman',serif;font-size:1.8rem;display:flex;align-items:center;justify-content:center;gap:14px}
+.frac{display:inline-flex;flex-direction:column;align-items:center;line-height:1.2}
+.frac span:first-child{border-bottom:2px solid var(--ink);padding:0 8px 2px}
+.frac span:last-child{padding-top:2px}
+.fx i{font-style:italic}
+.fx sup{font-size:.6em}
+.legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:4px 16px;font-size:var(--t-small);color:var(--muted)}
+.legend i{font-family:Georgia,serif;color:var(--ink);font-size:1.05rem;margin-right:6px}
+table{border-collapse:collapse;width:100%}
+td,th{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left}
+th{font-size:var(--t-small);color:var(--muted);font-weight:500}
+td.r,th.r{text-align:right}
+.tw{overflow-x:auto}
+.result{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;border-top:2px solid var(--brand);padding-top:10px}
+.result b{font-family:var(--display);font-weight:400;font-size:1.8rem;color:var(--brand)}
+
+/* pale: anything you answer */
+.ask{background:var(--pale);border-radius:14px;padding:16px 20px;display:flex;flex-direction:column;gap:10px}
+.ask .q{font-weight:500}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opts button{font:inherit;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 14px;cursor:pointer;color:var(--ink);line-height:1.5}
+.opts button:hover{border-color:var(--green)}
+.opts button.right{border-color:var(--green);box-shadow:inset 3px 0 0 var(--green)}
+.opts button.wrong{border-color:var(--coral);box-shadow:inset 3px 0 0 var(--coral)}
+.opts button[disabled]{cursor:default}
+.fb{font-size:var(--t-small);line-height:1.6}
+.fb b{color:var(--green-text)}
+.fb.no b{color:var(--coral)}
+.quiz{display:flex;flex-direction:column;gap:10px}
+.score{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:var(--t-small);color:var(--muted)}
+.score b{color:var(--brand)}
+.btn{font:inherit;font-size:var(--t-small);border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:4px 12px;cursor:pointer;color:var(--ink)}
+
+/* optional extras */
+.extras{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.extras details{border-bottom:1px solid var(--line)}
+.extras summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 4px}
+.extras summary::-webkit-details-marker{display:none}
+.extras summary .t{font-family:var(--display);font-size:1.3rem;color:var(--brand)}
+.extras summary .s{font-size:var(--t-small);color:var(--muted)}
+.extras summary::after{content:"+";font-size:1.4rem;color:var(--gold-text);flex:none;width:20px;text-align:center}
+.extras details[open] summary::after{content:"−"}
+.extras .inner{padding:0 4px 18px;display:flex;flex-direction:column;gap:12px}
+.inputs{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.inputs label{display:flex;flex-direction:column;gap:4px;font-size:var(--t-small);color:var(--muted)}
+.inputs input[type=number]{font:inherit;color:var(--ink);padding:7px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);width:100%}
+.inputs input[type=range]{width:100%;accent-color:var(--green)}
+.calcout{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+.calcout b{font-family:var(--display);font-weight:400;font-size:1.8rem;color:var(--brand)}
+.mist{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px}
+
+/* recap */
+.recap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:center}
+.recap ul{margin:4px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:2px}
+.recap .fx{font-size:1.3rem}
+@media (max-width:560px){.recap{grid-template-columns:1fr}}
+
+/* next */
+.next{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;background:var(--deep);color:var(--on-deep);border-radius:14px;padding:16px 20px;text-decoration:none}
+.next .eyebrow{color:var(--gold)}
+.next .t{font-family:var(--display);font-size:1.35rem}
+.next .arrow{font-size:1.4rem;color:var(--gold)}
+.related{font-size:var(--t-small);color:var(--muted)}
+.related a{margin-right:10px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<style>
+[hidden]{display:none!important}
+.page{gap:26px}
+.eb{font-size:var(--t-label);font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--gold-text);margin:0}
+h1.t1{font-family:var(--display);font-weight:400;font-size:clamp(2rem,6vw,2.5rem);margin:0;color:var(--brand);text-wrap:balance}
+.lead2{color:var(--muted);margin:0}
+.cont{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 16px}
+.cont .k{font-size:12.5px;color:var(--muted)}.cont b{font-weight:500;color:var(--brand)}
+.cont .go{margin-left:auto;background:var(--brand);color:#fff;border-radius:999px;padding:6px 16px;font-size:14px;font-weight:500;text-decoration:none}
+.cont .go:hover{background:var(--green)}
+.pcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px}
+.pcard{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:4px;text-decoration:none;color:var(--ink);transition:border-color .2s,transform .2s}
+.pcard:hover{border-color:var(--gold);transform:translateY(-2px)}
+.pcard .k{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-text)}
+.pcard .nm{font-family:var(--display);font-size:1.35rem;color:var(--brand)}
+.pcard .mt{font-size:13px;font-weight:600}.pcard .ds{font-size:13px;color:var(--muted)}
+.pcard .pg{font-size:12.5px;color:var(--muted)}
+.pcard .go{margin-top:6px;align-self:flex-start;background:var(--brand);color:#fff;border-radius:999px;padding:5px 14px;font-size:13px;font-weight:500}
+.pbar{height:6px;border-radius:6px;background:#E5E9E3;overflow:hidden;margin-top:6px}.pbar i{display:block;height:100%;width:0;background:var(--green);transition:width .8s ease}
+.switch{display:flex;gap:6px;flex-wrap:wrap}
+.switch a{font-size:13px;border:1px solid var(--line);border-radius:999px;padding:4px 12px;background:var(--surface);color:var(--ink);text-decoration:none}
+.switch a:hover{border-color:var(--brand)}
+.switch a.on{background:var(--deep);color:#fff;border-color:var(--deep)}
+.subhead{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.scards{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.scard{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.scard .sh{display:flex;justify-content:space-between;gap:8px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-text);margin:0}
+.scard .sh span+span{text-transform:none;letter-spacing:0;color:var(--muted);font-weight:500;white-space:nowrap}
+.scard ol{list-style:none;margin:4px 0 0;padding:0;display:flex;flex-direction:column;gap:1px}
+.scard li a{display:grid;grid-template-columns:22px minmax(0,1fr);gap:8px;align-items:center;font-size:14px;padding:4px 6px;border-radius:7px;color:var(--ink);text-decoration:none;line-height:1.35}
+.scard li a:hover{background:var(--pale)}
+.scard .n{width:22px;height:22px;border-radius:50%;border:1.5px solid #C5D6CC;display:grid;place-items:center;font-size:11px;font-weight:600;color:var(--muted);background:#fff}
+.scard a.done .n{background:var(--green);border-color:var(--green);color:#fff}.scard a.done .tt{color:var(--muted)}
+.scard a.now{background:#EEF4EF;box-shadow:inset 3px 0 0 var(--gold)}.scard a.now .n{background:var(--deep);border-color:var(--gold);color:#fff}.scard a.now .tt{color:var(--brand);font-weight:500}
+.reset{font:inherit;font-size:13px;color:var(--muted);background:none;border:0;text-decoration:underline;cursor:pointer;padding:0;align-self:flex-start}
+</style>
+<style>.prq{font-size:14px;color:var(--brand);text-decoration:none}.prq:hover{text-decoration:underline}</style>
+</head><body>
+<style>
+body{margin:0}
+.related .rel{margin-right:10px}
+.related a,.related .rel{display:inline-block}
+@media (max-width:480px){b.num{white-space:normal}}
+.nbs-strip{position:sticky;top:0;z-index:20;background:#06352A;color:#FFFDF8;display:flex;align-items:center;justify-content:space-between;gap:12px;
+ padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:10px;font-family:'Poppins',system-ui,sans-serif;flex-wrap:wrap}
+.nbs-strip .l{display:flex;align-items:center;gap:12px;min-width:0}
+.nbs-strip img{width:30px;height:30px;border-radius:6px;display:block}
+.nbs-strip .crumb{font-size:14px;color:#C9D6D0}.nbs-strip .crumb a{color:#C9D6D0;text-decoration:none}.nbs-strip .crumb a:hover{color:#fff;text-decoration:underline}
+.nbs-strip .crumb i{font-style:normal;color:#E3C26F;margin:0 5px}.nbs-strip .crumb b{color:#fff;font-weight:500}
+.nbs-strip .prog{display:flex;align-items:center;gap:10px;font-size:13px;color:#C9D6D0}
+.nbs-strip .bar{width:130px;height:5px;border-radius:9px;background:rgba(255,255,255,.18);overflow:hidden}
+.nbs-strip .bar span{display:block;height:100%;width:0;background:#E3C26F;transition:width 1.2s cubic-bezier(.2,.8,.2,1) .2s}
+@media (max-width:560px){.nbs-strip .bar{display:none}.nbs-strip .crumb .mid{display:none}}
+@media (prefers-reduced-motion:reduce){.nbs-strip .bar span{transition:none}}
+</style>
+<header class="nbs-strip"><div class="l"><a href="https://notesbysara.org/" aria-label="Notes by Sara home"><img src="/img/favicon.png" alt="Notes by Sara"></a><nav class="crumb" aria-label="Breadcrumb"><span><a href="https://notesbysara.org/notes">Learning path</a></span><span><i>›</i><b>Personal Finance</b></span></nav></div><div class="prog"><span><span id="donecount">0</span> of 30 done</span><span class="bar" aria-hidden="true"><span id="nbs-bar"></span></span></div></header>
+<main class="page">
+  <section class="sec" style="gap:10px">
+    <div class="subhead"><p class="eb">Learning path · Step 2</p><a class="prq" href="/lessons/foundations/index.html">New to finance? Start with Foundations →</a></div>
+    <h1 class="t1">Personal Finance</h1>
+    <p class="lead2">30 lessons in 8 sections: everyday money, borrowing, investing, retirement, protection, life goals, estate and giving, and money psychology, with examples from the US, the UK, India and Taiwan. The last lesson of each section has optional practice.</p>
+    <div class="cont"><span><span class="k" id="contk">Start here</span><br><b id="contname">1. Income and paychecks</b></span><a href="/lessons/personal-finance/income-and-paychecks.html" class="go" id="contgo">Start →</a></div>
+  </section>
+  <section class="scards"><div class="scard"><p class="sh"><span>Everyday money</span><span class="gc">0 of 7</span></p><div class="pbar"><i></i></div><ol><li><a href="/lessons/personal-finance/income-and-paychecks.html" data-slug="personal-finance/income-and-paychecks"><span class="n">1</span><span class="tt">Income and paychecks</span></a></li><li><a href="/lessons/personal-finance/budgeting.html" data-slug="personal-finance/budgeting"><span class="n">2</span><span class="tt">Budgeting</span></a></li><li><a href="/lessons/personal-finance/saving-and-goals.html" data-slug="personal-finance/saving-and-goals"><span class="n">3</span><span class="tt">Saving and goals</span></a></li><li><a href="/lessons/personal-finance/emergency-fund.html" data-slug="personal-finance/emergency-fund"><span class="n">4</span><span class="tt">Emergency fund</span></a></li><li><a href="/lessons/personal-finance/banking-basics.html" data-slug="personal-finance/banking-basics"><span class="n">5</span><span class="tt">Banking basics</span></a></li><li><a href="/lessons/personal-finance/personal-taxes.html" data-slug="personal-finance/personal-taxes"><span class="n">6</span><span class="tt">Personal taxes</span></a></li><li><a href="/lessons/personal-finance/personal-financial-statements.html" data-slug="personal-finance/personal-financial-statements"><span class="n">7</span><span class="tt">Your personal financial statements</span></a></li></ol></div><div class="scard"><p class="sh"><span>Borrowing</span><span class="gc">0 of 4</span></p><div class="pbar"><i></i></div><ol><li><a href="/lessons/personal-finance/credit-scores.html" data-slug="personal-finance/credit-scores"><span class="n">8</span><span class="tt">Credit scores</span></a></li><li><a href="/lessons/personal-finance/credit-cards.html" data-slug="personal-finance/credit-cards"><span class="n">9</span><span class="tt">Credit cards</span></a></li><li><a href="/lessons/personal-finance/loans-and-mortgages.html" data-slug="personal-finance/loans-and-mortgages"><span class="n">10</span><span class="tt">Loans and mortgages</span></a></li><li><a href="/lessons/personal-finance/paying-off-debt.html" data-slug="personal-finance/paying-off-debt"><span class="n">11</span><span class="tt">Paying off debt</span></a></li></ol></div><div class="scard"><p class="sh"><span>Investing</span><span class="gc">0 of 5</span></p><div class="pbar"><i></i></div><ol><li><a href="/lessons/personal-finance/why-invest.html" data-slug="personal-finance/why-invest"><span class="n">12</span><span class="tt">Why invest</span></a></li><li><a href="/lessons/personal-finance/index-funds-and-etfs.html" data-slug="personal-finance/index-funds-and-etfs"><span class="n">13</span><span class="tt">Index funds and ETFs</span></a></li><li><a href="/lessons/personal-finance/asset-allocation-by-goal.html" data-slug="personal-finance/asset-allocation-by-goal"><span class="n">14</span><span class="tt">Asset allocation by goal</span></a></li><li><a href="/lessons/personal-finance/taxes-and-your-investments.html" data-slug="personal-finance/taxes-and-your-investments"><span class="n">15</span><span class="tt">Taxes and your investments</span></a></li><li><a href="/lessons/personal-finance/common-investing-mistakes.html" data-slug="personal-finance/common-investing-mistakes"><span class="n">16</span><span class="tt">Common investing mistakes</span></a></li></ol></div><div class="scard"><p class="sh"><span>Retirement</span><span class="gc">0 of 4</span></p><div class="pbar"><i></i></div><ol><li><a href="/lessons/personal-finance/retirement-accounts.html" data-slug="personal-finance/retirement-accounts"><span class="n">17</span><span class="tt">Retirement accounts</span></a></li><li><a href="/lessons/personal-finance/how-much-you-need-for-retirement.html" data-slug="personal-finance/how-much-you-need-for-retirement"><span class="n">18</span><span class="tt">How much you need for retirement</span></a></li><li><a href="/lessons/personal-finance/public-pensions.html" data-slug="personal-finance/public-pensions"><span class="n">19</span><span class="tt">Public pensions</span></a></li><li><a href="/lessons/personal-finance/retirement-income.html" data-slug="personal-finance/retirement-income"><span class="n">20</span><span class="tt">Retirement income</span></a></li></ol></div><div class="scard"><p class="sh"><span>Protection</span><span class="gc">0 of 3</span></p><div class="pbar"><i></i></div><ol><li><a href="/lessons/personal-finance/insurance-for-households.html" data-slug="personal-finance/insurance-for-households"><span class="n">21</span><span class="tt">Insurance for households</span></a></li><li><a href="/lessons/personal-finance/how-much-insurance-you-need.html" data-slug="personal-finance/how-much-insurance-you-need"><span class="n">22</span><span class="tt">How much insurance you need</span></a></li><li><a href="/lessons/personal-finance/long-term-care.html" data-slug="personal-finance/long-term-care"><span class="n">23</span><span class="tt">Long-term care</span></a></li></ol></div><div class="scard"><p class="sh"><span>Life goals</span><span class="gc">0 of 3</span></p><div class="pbar"><i></i></div><ol><li><a href="/lessons/personal-finance/funding-education.html" data-slug="personal-finance/funding-education"><span class="n">24</span><span class="tt">Funding education</span></a></li><li><a href="/lessons/personal-finance/big-life-decisions.html" data-slug="personal-finance/big-life-decisions"><span class="n">25</span><span class="tt">Big life decisions</span></a></li><li><a href="/lessons/personal-finance/working-with-financial-professionals.html" data-slug="personal-finance/working-with-financial-professionals"><span class="n">26</span><span class="tt">Working with financial professionals</span></a></li></ol></div><div class="scard"><p class="sh"><span>Estate and giving</span><span class="gc">0 of 2</span></p><div class="pbar"><i></i></div><ol><li><a href="/lessons/personal-finance/estate-planning.html" data-slug="personal-finance/estate-planning"><span class="n">27</span><span class="tt">Estate planning</span></a></li><li><a href="/lessons/personal-finance/charitable-giving.html" data-slug="personal-finance/charitable-giving"><span class="n">28</span><span class="tt">Charitable giving</span></a></li></ol></div><div class="scard"><p class="sh"><span>Money psychology</span><span class="gc">0 of 2</span></p><div class="pbar"><i></i></div><ol><li><a href="/lessons/personal-finance/your-money-mindset.html" data-slug="personal-finance/your-money-mindset"><span class="n">29</span><span class="tt">Your money mindset</span></a></li><li><a href="/lessons/personal-finance/changing-money-behavior.html" data-slug="personal-finance/changing-money-behavior"><span class="n">30</span><span class="tt">Changing money behavior</span></a></li></ol></div></section>
+  <p class="small muted">Your progress is saved only in this browser.</p>
+</main>
+<script>
+(function(){
+  var KEY='nbs-lessons-done',done=[],ALL=[["personal-finance/income-and-paychecks", "Income and paychecks", "Personal Finance"], ["personal-finance/budgeting", "Budgeting", "Personal Finance"], ["personal-finance/saving-and-goals", "Saving and goals", "Personal Finance"], ["personal-finance/emergency-fund", "Emergency fund", "Personal Finance"], ["personal-finance/banking-basics", "Banking basics", "Personal Finance"], ["personal-finance/personal-taxes", "Personal taxes", "Personal Finance"], ["personal-finance/personal-financial-statements", "Your personal financial statements", "Personal Finance"], ["personal-finance/credit-scores", "Credit scores", "Personal Finance"], ["personal-finance/credit-cards", "Credit cards", "Personal Finance"], ["personal-finance/loans-and-mortgages", "Loans and mortgages", "Personal Finance"], ["personal-finance/paying-off-debt", "Paying off debt", "Personal Finance"], ["personal-finance/why-invest", "Why invest", "Personal Finance"], ["personal-finance/index-funds-and-etfs", "Index funds and ETFs", "Personal Finance"], ["personal-finance/asset-allocation-by-goal", "Asset allocation by goal", "Personal Finance"], ["personal-finance/taxes-and-your-investments", "Taxes and your investments", "Personal Finance"], ["personal-finance/common-investing-mistakes", "Common investing mistakes", "Personal Finance"], ["personal-finance/retirement-accounts", "Retirement accounts", "Personal Finance"], ["personal-finance/how-much-you-need-for-retirement", "How much you need for retirement", "Personal Finance"], ["personal-finance/public-pensions", "Public pensions", "Personal Finance"], ["personal-finance/retirement-income", "Retirement income", "Personal Finance"], ["personal-finance/insurance-for-households", "Insurance for households", "Personal Finance"], ["personal-finance/how-much-insurance-you-need", "How much insurance you need", "Personal Finance"], ["personal-finance/long-term-care", "Long-term care", "Personal Finance"], ["personal-finance/funding-education", "Funding education", "Personal Finance"], ["personal-finance/big-life-decisions", "Big life decisions", "Personal Finance"], ["personal-finance/working-with-financial-professionals", "Working with financial professionals", "Personal Finance"], ["personal-finance/estate-planning", "Estate planning", "Personal Finance"], ["personal-finance/charitable-giving", "Charitable giving", "Personal Finance"], ["personal-finance/your-money-mindset", "Your money mindset", "Personal Finance"], ["personal-finance/changing-money-behavior", "Changing money behavior", "Personal Finance"]],SCOPE="personal-finance";
+  try{done=JSON.parse(localStorage.getItem(KEY)||'[]')||[]}catch(e){}
+  function paint(){
+    document.querySelectorAll('[data-subj]').forEach(function(c){var g=c.dataset.subj,its=ALL.filter(function(a){return a[0].indexOf(g+'/')===0}),n=its.filter(function(a){return done.indexOf(a[0])>=0}).length;
+      var b=c.querySelector('.pbar i');if(b)b.style.width=(its.length?n/its.length*100:0)+'%';var p=c.querySelector('.pg');if(p)p.textContent=n?n+' of '+its.length+' done':'Not started';});
+    var cur=null;document.querySelectorAll('.scard a[data-slug]').forEach(function(a){var d=done.indexOf(a.dataset.slug)>=0;a.classList.toggle('done',d);a.classList.remove('now');a.removeAttribute('aria-current');if(!d&&!cur)cur=a});
+    if(cur)cur.classList.add('now');
+    document.querySelectorAll('.scard').forEach(function(c){var a=c.querySelectorAll('a[data-slug]'),n=0;a.forEach(function(x){if(done.indexOf(x.dataset.slug)>=0)n++});var g=c.querySelector('.gc');if(g)g.textContent=n+' of '+a.length;var b=c.querySelector('.pbar i');if(b)b.style.width=n/a.length*100+'%'});
+    var list=ALL.filter(function(a){return !SCOPE||a[0].indexOf(SCOPE+'/')===0}),next=null,k;for(k=0;k<list.length;k++)if(done.indexOf(list[k][0])<0){next=list[k];break}
+    var n=list.filter(function(a){return done.indexOf(a[0])>=0}).length,lab=document.getElementById('contk'),nm=document.getElementById('contname'),go=document.getElementById('contgo');
+    var dc=document.getElementById('donecount');if(dc)dc.textContent=n;var bar=document.getElementById('nbs-bar');if(bar)bar.style.width=(list.length?n/list.length*100:0)+'%';
+    if(!next){lab.textContent='All done here';nm.textContent='Review any lesson below';go.hidden=true;return}
+    var g=next[0].split('/')[0],num=ALL.filter(function(a){return a[0].indexOf(g+'/')===0}).map(function(a){return a[0]}).indexOf(next[0])+1;
+    nm.textContent=(SCOPE?'':next[2]+' · ')+num+'. '+next[1];go.href='/lessons/'+next[0]+'.html';go.hidden=false;
+    lab.textContent=n?'Pick up where you left off':'Start here';go.textContent=n?'Continue →':'Start →';
+  }
+  paint();window.addEventListener('pageshow',function(){try{done=JSON.parse(localStorage.getItem(KEY)||'[]')||[]}catch(e){}paint()});
+  var r=document.getElementById('reset');if(r)r.addEventListener('click',function(){done=[];try{localStorage.removeItem(KEY)}catch(e){}paint()});
+})();
+</script>
+</body></html>
