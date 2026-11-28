@@ -94,7 +94,7 @@ const config = {
         sitemap: {
           changefreq: 'weekly',
           priority: 0.5,
-          ignorePatterns: ['/notes/foundations/time-value-of-money', '/course', '/notes-library', '/free-pdf'],
+          ignorePatterns: ['/notes/foundations/time-value-of-money', '/course', '/notes-library', '/free-pdf', '/login', '/welcome'],
           filename: 'sitemap.xml',
         },
       }),
@@ -138,6 +138,7 @@ const config = {
           {to: '/formula-library',  label: 'Formulas',  position: 'left',},
           {to: '/about', label: 'About', position: 'left'},
           {to: '/contact', label: 'Contact', position: 'right'},
+          {to: '/login', label: 'Sign in', position: 'right'},
         ],
       },
       footer: {

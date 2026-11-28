@@ -69,7 +69,7 @@ const faqs = [
   },
   {
     q: 'Are the notes free?',
-    a: 'Yes. The course, the Financial Dictionary and the formulas are free to use, with no account needed.',
+    a: 'Yes. The course, the Financial Dictionary and the formulas are free to use. Sign in with Google, GitHub or your email, and everything is open to you at no cost.',
   },
   {
     q: 'What else is on the site?',
@@ -226,7 +226,7 @@ function Hero() {
             </Link>
           </div>
           <p className={`${styles.fu} ${styles.heroNote}`} style={{animationDelay: '.12s'}}>
-            Free to read. No account needed.
+            Free to read with your account. Sign in with Google or GitHub.
           </p>
         </div>
         <div className={`${styles.fu} ${styles.heroChart}`} style={{animationDelay: '.06s'}}>
@@ -348,7 +348,7 @@ function LearningPath() {
           <Link to="/courses/financial-data-to-insight" className={styles.courseCard}>
             <span className={styles.courseText}>
               <span className={styles.courseName}>Free course: Financial Data-to-Insight</span>
-              <span className={styles.courseBlurb}>Twelve short lessons and one real-company project. Free, no account needed.</span>
+              <span className={styles.courseBlurb}>Twelve short lessons and one real-company project. Free with your account.</span>
             </span>
             <span className={styles.courseGo}>Open the course →</span>
           </Link>

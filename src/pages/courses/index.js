@@ -9,7 +9,7 @@ export default function Courses() {
   return (
     <Layout
       title="Free Finance Courses: Learn by Doing"
-      description="Hands-on finance courses using real company numbers, with workbooks that check your answers. Start with Financial Data-to-Insight, free, no account needed.">
+      description="Hands-on finance courses using real company numbers, with workbooks that check your answers. Start with Financial Data-to-Insight, free with your account.">
       <div className={styles.page}>
         <main className={styles.inner}>
           <p className={styles.kicker}>Courses</p>
@@ -22,7 +22,7 @@ export default function Courses() {
             {COURSES.map((c) => (
               <article key={c.slug} className={styles.card}>
                 <div className={styles.cardText}>
-                  <span className={styles.badge}>Free · No account needed</span>
+                  <span className={styles.badge}>Free with your account</span>
                   <h2 className={styles.cardTitle}>
                     <Link to={c.to}>{c.name}</Link>
                   </h2>

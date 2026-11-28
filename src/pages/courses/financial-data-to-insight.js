@@ -72,7 +72,7 @@ export default function Course() {
             <nav className={styles.crumb} aria-label="Breadcrumb">
               <Link to="/courses">Courses</Link> <span aria-hidden="true">›</span> <span>Financial Data-to-Insight</span>
             </nav>
-            <p className={styles.kicker}>Free course · No account needed</p>
+            <p className={styles.kicker}>Free course · Free with your account</p>
             <h1 className={styles.title}>Financial Data-to-Insight</h1>
             <p className={styles.sub}>
               Learn to turn a company&rsquo;s numbers into a clear answer someone can act on. Twelve short lessons

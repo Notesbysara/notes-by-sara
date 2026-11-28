@@ -159,3 +159,15 @@ main [class*='sideNote'] a {
 }
 main :is(p, li, td) a:is(:not([class]), [class='']):hover,
 main [class*='sideNote'] a:hover { text-decoration-color: currentColor; }
+
+/* ---- Login wall for course topics (see src/theme/Root.js) ---- */
+.nbs-gated .theme-doc-markdown{max-height:420px;overflow:hidden;-webkit-mask-image:linear-gradient(to bottom,#000 40%,transparent 100%);mask-image:linear-gradient(to bottom,#000 40%,transparent 100%)}
+.nbs-gated .pagination-nav,.nbs-gated .theme-doc-footer,.nbs-gated .theme-doc-toc-desktop{display:none}
+.nbs-course-gate{position:fixed;left:0;right:0;bottom:0;z-index:300;display:flex;justify-content:center;padding:0 16px 24px;pointer-events:none}
+.nbs-course-card{pointer-events:auto;background:#fff;border:1px solid #E6E1D5;border-radius:18px;box-shadow:0 18px 40px rgba(6,53,42,.18);padding:24px 26px;max-width:440px;width:100%;display:flex;flex-direction:column;gap:12px}
+.nbs-course-card h2{font-family:'Forum',Georgia,serif;font-weight:400;font-size:1.6rem;margin:0;color:#0B4F3C}
+.nbs-course-card p{margin:0;color:#5A6862;font-size:14px}
+.nbs-course-free{display:inline-flex;width:max-content;font-size:12.5px;font-weight:600;color:#0B6A4C;background:#EAF4EF;border-radius:999px;padding:5px 11px}
+.nbs-course-btn{display:flex;justify-content:center;font-weight:500;font-size:15px;padding:11px 16px;border-radius:12px;border:1px solid #E6E1D5;background:#fff;color:#1F2A26!important;text-decoration:none!important}
+.nbs-course-gh{background:#1F2328;border-color:#1F2328;color:#fff!important}
+.nbs-course-link{font-size:13px;color:#0B6A4C}
